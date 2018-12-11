@@ -269,19 +269,19 @@ public class DravailableJDBCDAO implements DravailableDAO_interface{
 		DravailableJDBCDAO dao = new DravailableJDBCDAO();
 		
 		
-		//�s�W
-		DravailableVO dvo1 = new DravailableVO();
-		dvo1.setDrno("D0005");
-		dvo1.setDraym(Date.valueOf("2018-12-01"));
-		dvo1.setDrava("010001101111000101001001011000100001011010001101101010100011000000100111101111001110111110110");
-		dao.insert(dvo1);
-		//�ק�
+		//新增
+//		DravailableVO dvo1 = new DravailableVO();
+//		dvo1.setDrno("D0005");
+//		dvo1.setDraym(Date.valueOf("2018-12-01"));
+//		dvo1.setDrava("010001101111000101001001011000100001011010001101101010100011000000100111101111001110111110110");
+//		dao.insert(dvo1);
+		//修改
 //		DravailableVO dvo2 = new DravailableVO();
 //		dvo2.setDrno("D0004");
 //		dvo2.setDraym(Date.valueOf("2018-12-11"));
 //		dvo2.setDrava("000000111111111100000000000101011111110010110101001000100100100111010111010110110110100110111");
 //		dao.update(dvo2);
-//		//�R��
+//		//刪除
 //		dao.delete("D0005");
 		//findByPK
 //		DravailableVO dvo3 = dao.findByPK("20181211-0016");
