@@ -1,11 +1,13 @@
 package com.member.model;
 
-import java.util.List;
+import java.util.*;
+
+import com.member.model.MemberVO;
 
 public interface MemberDAO_interface {
 	public void insert(MemberVO memberVO);
     public void update(MemberVO memberVO);
-    public void delete(MemberVO memberVO);
-    public MemberVO findByPrimaryKey(String memNo);
+    public void delete(String memberno);
+    public MemberVO findByPrimaryKey(String memberno);
     public List<MemberVO> getAll();
 }
