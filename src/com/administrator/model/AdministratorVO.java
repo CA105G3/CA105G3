@@ -1,19 +1,20 @@
 package com.administrator.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class AdministratorVO {
-	private String adminNo;
+public class AdministratorVO implements Serializable{
+
+	private String adminno;
 	private String priority;
 	private String status;
 	private Date reg;
 	
-	
-	public String getAdminNo() {
-		return adminNo;
+	public String getAdminno() {
+		return adminno;
 	}
-	public void setAdminNo(String adminNo) {
-		this.adminNo = adminNo;
+	public void setAdminno(String adminno) {
+		this.adminno = adminno;
 	}
 	public String getPriority() {
 		return priority;
@@ -33,6 +34,7 @@ public class AdministratorVO {
 	public void setReg(Date reg) {
 		this.reg = reg;
 	}
+	
 	
 	
 }
