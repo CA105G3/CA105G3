@@ -337,37 +337,37 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 		
 		AdministratorJDBCDAO dao = new AdministratorJDBCDAO();
 		
-		//·s¼W
+		//æ–°å¢
 //		AdministratorVO administratorVO1 = new AdministratorVO();
-//		administratorVO1.setPriority("¤@¯ëºŞ²z­û");
-//		administratorVO1.setStatus("¥Í®Ä¤¤");
+//		administratorVO1.setPriority("ä¸€èˆ¬ç®¡ç†å“¡");
+//		administratorVO1.setStatus("ç”Ÿæ•ˆä¸­");
 //		administratorVO1.setReg(java.sql.Date.valueOf("2018-12-01"));
 //		dao.insert(administratorVO1);
 
 		
-		//§R°£
+		//åˆªé™¤
 //		dao.delete("A0006");
 		
-		//­×§ïÅv­­&ª¬ºA
+		//ä¿®æ”¹æ¬Šé™èˆ‡ç‹€æ…‹
 //		AdministratorVO administratorVO2 = new AdministratorVO();
-//		administratorVO2.setPriority("¤@¯ëºŞ²z­û");
-//		administratorVO2.setStatus("¤w¥¢®Ä");
+//		administratorVO2.setPriority("ä¸€èˆ¬ç®¡ç†å“¡");
+//		administratorVO2.setStatus("å·²å¤±æ•ˆ");
 //		administratorVO2.setAdminno("A0009");		
 //		dao.update_priority_status(administratorVO2);
 		
-		//­×§ïÅv­­
+		//ä¿®æ”¹æ¬Šé™
 //		AdministratorVO administratorVO3 = new AdministratorVO();
-//		administratorVO3.setPriority("¤@¯ëºŞ²z­û");
+//		administratorVO3.setPriority("ä¸€èˆ¬ç®¡ç†å“¡");
 //		administratorVO3.setAdminno("A0010");		
 //		dao.update_priority(administratorVO3);
 		
-		//­×§ïª¬ºA
+		//ä¿®æ”¹ç‹€æ…‹
 		AdministratorVO administratorVO4 = new AdministratorVO();
-		administratorVO4.setPriority("¤@¯ëºŞ²z­û");
-		administratorVO4.setAdminno("A0010");		
+		administratorVO4.setStatus("å·²å¤±æ•ˆ");
+		administratorVO4.setAdminno("A0004");		
 		dao.update_status(administratorVO4);
 		
-		//¬d¸ß¡G¬d¥ş³¡
+		//æŸ¥è©¢ï¼šæŸ¥å…¨éƒ¨
 //		List<AdministratorVO> list = dao.getAll();
 //		for(AdministratorVO administrator : list) {
 //			System.out.print(administrator.getAdminno() + "," );
