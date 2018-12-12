@@ -1,7 +1,6 @@
-package com.reportact.model;
+package com.impression.model;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.activity.model.ActivityJDBCDAO;
-import com.activity.model.ActivityVO;
+import com.member.model.MemberVO;
 
-public class ReportactJDBCDAO implements ReportactDAO_interface{
+public class ImpressionJDBCDAO implements ImpressionDAO_interface{
 	
 	String dirver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -20,32 +19,37 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 
-		"INSERT INTO Reportact(repano,actno,memno,repastatus)"
-		+ "VALUES('repa'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),?,?,?)";
+		"INSERT INTO impression(impno,actno,memno,impcon,recvideo,recpic,impfield)"
+		+ "VALUES(to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),?,?,?,?,?,?)";
 	private static final String GET_ALL_STMT=
-		"SELECT * FROM Reportact ORDER BY repano";
+		"SELECT * FROM impression ORDER BY impno";
 		
 	private static final String GET_ONE_STMT = 
-		"SELECT * from Reportact WHERE repano=?";
+		"SELECT * from impression WHERE impno=?";
 	
 	private static final String DELETE = 
-		"DELETE FROM Reportact WHERE repano = ?";
+		"DELETE FROM impression WHERE impno = ?";
 	
 	private static final String UPDATE =
-		"UPDATE Reportact SET repastatus =? WHERE repano = ?";
+		"UPDATE impression SET impcon =? WHERE impno = ?";
 	
 	@Override
-	public void insert(ReportactVO reportactVO) {
+	public void insert(ImpressionVO impressionVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		
 		
 		try {
 			Class.forName(dirver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt =con.prepareStatement(INSERT_STMT);
-			pstmt.setString(1,reportactVO.getActNo());
-			pstmt.setString(2,reportactVO.getMemNo());
-			pstmt.setString(3,reportactVO.getRepaStatus());
+			pstmt.setString(1,impressionVO.getActNo());
+			pstmt.setString(2,impressionVO.getMemNo());
+			pstmt.setString(3,impressionVO.getImpCon());
+			pstmt.setBytes(4,impressionVO.getRecVideo());
+			pstmt.setBytes(5,impressionVO.getRecPic());
+			pstmt.setString(6,impressionVO.getImpField());
+			
 			pstmt.executeUpdate();
 			
 		} catch (ClassNotFoundException e) {
@@ -68,21 +72,21 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 				}
 			}
 		}
-		
 	}
 
 	@Override
-	public void update(ReportactVO reportactVO) {
+	public void update(ImpressionVO impressionVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		
 		
 		try {
 			Class.forName(dirver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 			
-			pstmt.setString(1,reportactVO.getRepaStatus());
-			pstmt.setString(2,reportactVO.getRepaNo());
+			pstmt.setBytes(1,impressionVO.getRecPic());
+			pstmt.setString(2,impressionVO.getImpNo());
 		
 			
 			pstmt.executeUpdate();
@@ -111,9 +115,10 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 	}
 
 	@Override
-	public void delete(String repano) {
+	public void delete(String impno) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		
 		
 		try {
 			Class.forName(dirver);
@@ -121,7 +126,7 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 			pstmt = con.prepareStatement(DELETE);
 			
 			
-			pstmt.setString(1,repano);
+			pstmt.setString(1,impno);
 		
 			
 			pstmt.executeUpdate();
@@ -150,8 +155,8 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 	}
 
 	@Override
-	public ReportactVO findByPrimaryKey(String repano) {
-		ReportactVO reportactVO = null;
+	public ImpressionVO findByPrimaryKey(String impno) {
+		ImpressionVO impressionVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -161,17 +166,20 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
-			pstmt.setString(1, repano);
+			pstmt.setString(1, impno);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				reportactVO = new ReportactVO();
+				impressionVO = new ImpressionVO();
 				
-				reportactVO.setRepaNo(rs.getString("REPANO"));
-				reportactVO.setActNo(rs.getString("ACTNO"));
-				reportactVO.setMemNo(rs.getString("MEMNO"));
-				reportactVO.setRepaStatus(rs.getString("REPASTATUS"));
+				impressionVO.setImpNo(rs.getString("IMPNO"));
+				impressionVO.setActNo(rs.getString("ACTNO"));
+				impressionVO.setMemNo(rs.getString("MEMNO"));
+				impressionVO.setImpCon(rs.getString("IMPCON"));
+				impressionVO.setRecVideo(rs.getBytes("RECVIDEO"));
+				impressionVO.setRecPic(rs.getBytes("RECPIC"));
+				impressionVO.setImpField(rs.getString("IMPFIELD"));
 				
 			}
 			
@@ -202,14 +210,14 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 				}
 			}
 		}
-
-		return reportactVO;
+		
+		return impressionVO;
 	}
 
 	@Override
-	public List<ReportactVO> getAll() {
-		List<ReportactVO> list = new ArrayList<ReportactVO>();
-		ReportactVO reportactVO = null;
+	public List<ImpressionVO> getAll() {
+		List<ImpressionVO> list = new ArrayList<ImpressionVO>();
+		ImpressionVO impressionVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -221,13 +229,16 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				reportactVO = new ReportactVO();
+				impressionVO = new ImpressionVO();
 				
-				reportactVO.setRepaNo(rs.getString("REPANO"));
-				reportactVO.setActNo(rs.getString("ACTNO"));
-				reportactVO.setMemNo(rs.getString("MEMNO"));
-				reportactVO.setRepaStatus(rs.getString("REPASTATUS"));
-				list.add(reportactVO);	
+				impressionVO.setImpNo(rs.getString("IMPNO"));
+				impressionVO.setActNo(rs.getString("ACTNO"));
+				impressionVO.setMemNo(rs.getString("MEMNO"));
+				impressionVO.setImpCon(rs.getString("IMPCON"));
+				impressionVO.setRecVideo(rs.getBytes("RECVIDEO"));
+				impressionVO.setRecPic(rs.getBytes("RECPIC"));
+				impressionVO.setImpField(rs.getString("IMPFIELD"));
+				list.add(impressionVO);	
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -259,24 +270,28 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 		}
 		return list;
 	}
-	public static void main(String[] args){
+public static void main(String[] args){
 		
-		ReportactJDBCDAO dao = new ReportactJDBCDAO();
+		ImpressionJDBCDAO dao = new ImpressionJDBCDAO();
 		
 		//穝糤
-//		ReportactVO ReportactVO1 = new ReportactVO();
-//		ReportactVO1.setActNo("ACT0001");
-//		ReportactVO1.setMemNo("M0001");
-//		ReportactVO1.setRepaStatus("ゼ浪琩");
-//		dao.insert(ReportactVO1);
+//		ImpressionVO ImpressionVO1 = new ImpressionVO();
+//		ImpressionVO1.setActNo("ACT0001");
+//		ImpressionVO1.setMemNo("M0001");
+//		ImpressionVO1.setImpCon("");
+//		ImpressionVO1.setRecVideo(null);
+//		ImpressionVO1.setRecPic(null);
+//		ImpressionVO1.setImpField("ゅみ眔");
+//		
+//		dao.insert(ImpressionVO1);
 //		
 //		System.out.println("OK");
 		
 		//э
-//		ReportactVO ReportactVO2 = new ReportactVO();
-//		ReportactVO2.setRepaStatus("浪琩");
-//		ReportactVO2.setRepaNo("repa0026");
-//		dao.update(ReportactVO2);
+//		ImpressionVO impressionVO2 = new ImpressionVO();
+//		impressionVO2.setImpCon("眖и–ぱ常蓟Эぇи–Ωσ刚常σκだ");
+//		impressionVO2.setImpNo("20181212-0003");
+//		dao.update(impressionVO2);
 //		System.out.println("OKOK");
 		
 		//埃
@@ -284,23 +299,27 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 //		System.out.println("no problem");
 		
 		//琩高
-//		ReportactVO ReportactVO3 = dao.findByPrimaryKey("REPA0026");
-//		System.out.println(ReportactVO3.getRepaNo());
-//		System.out.println(ReportactVO3.getActNo());
-//		System.out.println(ReportactVO3.getMemNo());
-//		System.out.println(ReportactVO3.getRepaStatus());
+//		ImpressionVO impressionVO3 = dao.findByPrimaryKey("20181212-0003");
+//		System.out.println(impressionVO3.getImpNo());
+//		System.out.println(impressionVO3.getActNo());
+//		System.out.println(impressionVO3.getMemNo());
+//		System.out.println(impressionVO3.getImpCon());
+//		System.out.println(impressionVO3.getRecVideo());
+//		System.out.println(impressionVO3.getRecPic());
+//		System.out.println(impressionVO3.getImpField());
 //		System.out.println("----------------------------------");
-		
-		//琩高场
-//		List<ReportactVO> list = dao.getAll();
-//		for(ReportactVO rvo:list) {
+		 
+//		List<ImpressionVO> list = dao.getAll();
+//		for(ImpressionVO impvo:list) {
 //			
-//			System.out.print(rvo.getRepaNo()+",");
-//			System.out.print(rvo.getActNo()+",");
-//			System.out.print(rvo.getMemNo()+",");
-//			System.out.print(rvo.getRepaStatus()+"");
+//			System.out.print(impvo.getImpNo()+",");
+//			System.out.print(impvo.getActNo()+",");
+//			System.out.print(impvo.getMemNo()+",");
+//			System.out.print(impvo.getImpCon()+",");
+//			System.out.print(impvo.getRecVideo()+",");
+//			System.out.print(impvo.getRecPic()+",");
+//			System.out.print(impvo.getImpField()+"");
 //			System.out.println();	
 //		}			
 	}
-
 }

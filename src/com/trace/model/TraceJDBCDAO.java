@@ -1,7 +1,6 @@
-package com.reportact.model;
+package com.trace.model;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.activity.model.ActivityJDBCDAO;
-import com.activity.model.ActivityVO;
+import com.joinact.model.JoinactVO;
 
-public class ReportactJDBCDAO implements ReportactDAO_interface{
+public class TraceJDBCDAO implements TraceDAO_interface{
 	
 	String dirver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -20,32 +19,33 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 
-		"INSERT INTO Reportact(repano,actno,memno,repastatus)"
-		+ "VALUES('repa'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),?,?,?)";
+		"INSERT INTO trace(memno,actno)"
+		+ "VALUES(?,?)";
 	private static final String GET_ALL_STMT=
-		"SELECT * FROM Reportact ORDER BY repano";
+		"SELECT * FROM trace ORDER BY actno";
 		
 	private static final String GET_ONE_STMT = 
-		"SELECT * from Reportact WHERE repano=?";
+		"SELECT * from trace WHERE actno=?";
 	
 	private static final String DELETE = 
-		"DELETE FROM Reportact WHERE repano = ?";
+		"DELETE FROM trace WHERE MEMno = ?";
 	
 	private static final String UPDATE =
-		"UPDATE Reportact SET repastatus =? WHERE repano = ?";
+		"UPDATE trace SET actno =? WHERE MEMno = ?";
 	
 	@Override
-	public void insert(ReportactVO reportactVO) {
+	public void insert(TraceVO traceVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		
 		
 		try {
 			Class.forName(dirver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt =con.prepareStatement(INSERT_STMT);
-			pstmt.setString(1,reportactVO.getActNo());
-			pstmt.setString(2,reportactVO.getMemNo());
-			pstmt.setString(3,reportactVO.getRepaStatus());
+			
+			pstmt.setString(1,traceVO.getMemNo());
+			pstmt.setString(2,traceVO.getActNo());
 			pstmt.executeUpdate();
 			
 		} catch (ClassNotFoundException e) {
@@ -67,23 +67,23 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 					e.printStackTrace(System.err);
 				}
 			}
-		}
+		}	
 		
 	}
 
 	@Override
-	public void update(ReportactVO reportactVO) {
+	public void update(TraceVO traceVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		
 		
 		try {
 			Class.forName(dirver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 			
-			pstmt.setString(1,reportactVO.getRepaStatus());
-			pstmt.setString(2,reportactVO.getRepaNo());
-		
+			pstmt.setString(1,traceVO.getActNo());
+			pstmt.setString(2,traceVO.getMemNo());
 			
 			pstmt.executeUpdate();
 			
@@ -111,19 +111,18 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 	}
 
 	@Override
-	public void delete(String repano) {
+	public void delete(String actno) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		
 		
 		try {
 			Class.forName(dirver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
 			
-			
-			pstmt.setString(1,repano);
+			pstmt.setString(1,actno);
 		
-			
 			pstmt.executeUpdate();
 			
 		} catch (ClassNotFoundException e) {
@@ -150,8 +149,8 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 	}
 
 	@Override
-	public ReportactVO findByPrimaryKey(String repano) {
-		ReportactVO reportactVO = null;
+	public TraceVO findByPrimaryKey(String actno) {
+		TraceVO traceVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -161,18 +160,16 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
-			pstmt.setString(1, repano);
+			pstmt.setString(1, actno);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				reportactVO = new ReportactVO();
+				traceVO = new TraceVO();
 				
-				reportactVO.setRepaNo(rs.getString("REPANO"));
-				reportactVO.setActNo(rs.getString("ACTNO"));
-				reportactVO.setMemNo(rs.getString("MEMNO"));
-				reportactVO.setRepaStatus(rs.getString("REPASTATUS"));
-				
+				traceVO.setActNo(rs.getString("actNO"));
+				traceVO.setMemNo(rs.getString("Memno"));
+
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -202,14 +199,13 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 				}
 			}
 		}
-
-		return reportactVO;
+		return traceVO;
 	}
 
 	@Override
-	public List<ReportactVO> getAll() {
-		List<ReportactVO> list = new ArrayList<ReportactVO>();
-		ReportactVO reportactVO = null;
+	public List<TraceVO> getAll() {
+		List<TraceVO> list = new ArrayList<TraceVO>();
+		TraceVO traceVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -221,13 +217,11 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				reportactVO = new ReportactVO();
+				traceVO = new TraceVO();
 				
-				reportactVO.setRepaNo(rs.getString("REPANO"));
-				reportactVO.setActNo(rs.getString("ACTNO"));
-				reportactVO.setMemNo(rs.getString("MEMNO"));
-				reportactVO.setRepaStatus(rs.getString("REPASTATUS"));
-				list.add(reportactVO);	
+				traceVO.setActNo(rs.getString("actNO"));
+				traceVO.setMemNo(rs.getString("Memno"));	
+				list.add(traceVO);	
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -259,24 +253,25 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 		}
 		return list;
 	}
-	public static void main(String[] args){
+public static void main(String[] args){
 		
-		ReportactJDBCDAO dao = new ReportactJDBCDAO();
+		TraceJDBCDAO dao = new TraceJDBCDAO();
 		
 		//新增
-//		ReportactVO ReportactVO1 = new ReportactVO();
-//		ReportactVO1.setActNo("ACT0001");
-//		ReportactVO1.setMemNo("M0001");
-//		ReportactVO1.setRepaStatus("未檢查");
-//		dao.insert(ReportactVO1);
+//		TraceVO TraceVO1 = new TraceVO();
+//		
+//		TraceVO1.setMemNo("M0005");
+//		TraceVO1.setActNo("ACT0001");
+//		dao.insert(TraceVO1);
 //		
 //		System.out.println("OK");
 		
 		//修改
-//		ReportactVO ReportactVO2 = new ReportactVO();
-//		ReportactVO2.setRepaStatus("已檢查");
-//		ReportactVO2.setRepaNo("repa0026");
-//		dao.update(ReportactVO2);
+//		TraceVO TraceVO2 = new TraceVO();
+//		TraceVO2.setActNo("ACT0025");
+//		TraceVO2.setMemNo("M0005");
+//		
+//		dao.update(TraceVO2);
 //		System.out.println("OKOK");
 		
 		//刪除
@@ -284,23 +279,19 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 //		System.out.println("no problem");
 		
 		//查詢一個
-//		ReportactVO ReportactVO3 = dao.findByPrimaryKey("REPA0026");
-//		System.out.println(ReportactVO3.getRepaNo());
-//		System.out.println(ReportactVO3.getActNo());
-//		System.out.println(ReportactVO3.getMemNo());
-//		System.out.println(ReportactVO3.getRepaStatus());
+//		TraceVO traceVO3 = dao.findByPrimaryKey("ACT0001");
+//		System.out.println(traceVO3.getActNo());
+//		System.out.println(traceVO3.getMemNo());
 //		System.out.println("----------------------------------");
 		
 		//查詢全部
-//		List<ReportactVO> list = dao.getAll();
-//		for(ReportactVO rvo:list) {
-//			
-//			System.out.print(rvo.getRepaNo()+",");
-//			System.out.print(rvo.getActNo()+",");
-//			System.out.print(rvo.getMemNo()+",");
-//			System.out.print(rvo.getRepaStatus()+"。");
-//			System.out.println();	
-//		}			
+		List<TraceVO> list = dao.getAll();
+		for(TraceVO tvo:list) {
+			
+			System.out.print(tvo.getActNo()+",");
+			System.out.print(tvo.getMemNo()+"。");
+			System.out.println();	
+		}	
 	}
 
 }

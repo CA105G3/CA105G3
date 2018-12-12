@@ -17,6 +17,4 @@ public class TraceVO {
 	public void setActNo(String actNo) {
 		this.actNo = actNo;
 	}
-	
-	
 }
