@@ -13,7 +13,7 @@ public class FavdrJDBCDAO implements Favdr_interface {
 	String password = "ca105g3";
 
 	private static final String INSERT_STMT = "INSERT INTO favdr (memno,drno) VALUES (?,?)";
-	private static final String GET_ALL_STMT = "SELECT adminno,priority,status,reg FROM Administrator order by adminno";
+	private static final String GET_ALL_STMT = "SELECT * FROM FAVDR";
 	private static final String GET_ONE_STMT = "SELECT MEMNO, DRNO FROM FAVDR WHERE MEMNO = ?";
 	private static final String DELETE = "DELETE FROM favdr where memno = ? and drno = ?";
 
@@ -108,8 +108,7 @@ public class FavdrJDBCDAO implements Favdr_interface {
 	}
 
 	@Override
-	/*追蹤功能是要讓一個會員抓到他所有追蹤的醫生，所以要用List來裝不同列的物件
-	 */
+	//追蹤功能是要讓一個會員抓到他所有追蹤的醫生，所以要用List來裝不同列的物件	 
 	public List<FavdrVO> findByPrimaryKey(String memno) {//List只能裝FavdrVO泛型物件
 
 		List<FavdrVO> list = null; //先宣告一個list
@@ -169,8 +168,58 @@ public class FavdrJDBCDAO implements Favdr_interface {
 
 	@Override
 	public List<FavdrVO> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<FavdrVO> list = new ArrayList<FavdrVO>();
+		FavdrVO favdrVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+						
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			pstmt = con.prepareStatement(GET_ALL_STMT);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				favdrVO = new FavdrVO();
+				favdrVO.setMemno(rs.getString("memno"));
+				favdrVO.setDrno(rs.getString("drno"));
+				list.add(favdrVO);
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. "
+					+ e.getMessage());
+		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return list;
 	}
 
 	public static void main(String[] args) {
@@ -191,12 +240,20 @@ public class FavdrJDBCDAO implements Favdr_interface {
 //		dao.delete(favdrVO2);
 		
 //		查單一會員追蹤
-		List<FavdrVO> list1 = dao.findByPrimaryKey("M0007");
+//		List<FavdrVO> list1 = dao.findByPrimaryKey("M0007");
+//		
+//		for(FavdrVO favdr1 :list1) {
+//			System.out.print(favdr1.getMemno() + ",");
+//			System.out.print(favdr1.getDrno() + "," );
+//			System.out.println();		
+//		}
 		
-		for(FavdrVO favdr1 :list1) {
-			System.out.print(favdr1.getMemno() + ",");
-			System.out.print(favdr1.getDrno() + "," );
-			System.out.println();		
+		//查全表
+		List<FavdrVO> list2 = dao.getAll();
+		for(FavdrVO favdrVO : list2) {
+			System.out.print(favdrVO.getMemno() + "," );
+			System.out.print(favdrVO.getDrno() + ",");
+			System.out.println();
 		}
 		
 	}

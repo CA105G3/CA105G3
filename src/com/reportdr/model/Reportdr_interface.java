@@ -11,4 +11,5 @@ public interface Reportdr_interface {
 	public List<ReportdrVO> getAll();
 	
 	
+	
 }

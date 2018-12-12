@@ -1,6 +1,7 @@
 package com.reportdr.model;
 
 import java.sql.Date;
+import java.util.List;
 
 public class ReportdrVO {
 	
@@ -47,6 +48,7 @@ public class ReportdrVO {
 	public void setRdrstate(String rdrstate) {
 		this.rdrstate = rdrstate;
 	}
+	
 	
 	
 

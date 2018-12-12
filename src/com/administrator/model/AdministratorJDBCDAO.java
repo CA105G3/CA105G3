@@ -323,6 +323,7 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 				administratorVO.setPriority(rs.getString("priority"));
 				administratorVO.setStatus(rs.getString("status"));
 				administratorVO.setReg(rs.getDate("reg"));
+				
 				list.add(administratorVO);
 			}
 		} catch (ClassNotFoundException e) {
@@ -400,14 +401,14 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 //		System.out.print(administratorVO5.getStatus());
 		
 		//查詢：查全部
-//		List<AdministratorVO> list = dao.getAll();
-//		for(AdministratorVO administrator : list) {
-//			System.out.print(administrator.getAdminno() + "," );
-//			System.out.print(administrator.getPriority() + ",");
-//			System.out.print(administrator.getStatus() + ",");
-//			System.out.print(administrator.getReg());
-//			System.out.println();
-//		}
+		List<AdministratorVO> list = dao.getAll();
+		for(AdministratorVO administrator : list) {
+			System.out.print(administrator.getAdminno() + "," );
+			System.out.print(administrator.getPriority() + ",");
+			System.out.print(administrator.getStatus() + ",");
+			System.out.print(administrator.getReg());
+			System.out.println();
+		}
 		
 		
 		
