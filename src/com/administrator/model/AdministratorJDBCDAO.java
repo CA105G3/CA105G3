@@ -192,10 +192,10 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 	
 	@Override
 	public void delete(String adminno) {
-		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+				
 		try {
-			Connection con = null;
-			PreparedStatement pstmt = null;
 			
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, password);
@@ -205,11 +205,36 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 			pstmt.executeUpdate();
 			
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
 		}
 		
 
@@ -272,7 +297,7 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 			}
 		}
 			
-		return null;
+		return administratorVO;
 	}
 
 	@Override
@@ -362,10 +387,17 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 //		dao.update_priority(administratorVO3);
 		
 		//修改狀態
-		AdministratorVO administratorVO4 = new AdministratorVO();
-		administratorVO4.setStatus("已失效");
-		administratorVO4.setAdminno("A0004");		
-		dao.update_status(administratorVO4);
+//		AdministratorVO administratorVO4 = new AdministratorVO();
+//		administratorVO4.setStatus("已失效");
+//		administratorVO4.setAdminno("A0004");		
+//		dao.update_status(administratorVO4);
+		
+		//查詢：查單一
+//		AdministratorVO administratorVO5 = new AdministratorVO();
+//		administratorVO5 = dao.findByPrimaryKey("A0003");
+//		System.out.print(administratorVO5.getAdminno() + ",");
+//		System.out.print(administratorVO5.getPriority() + ",");
+//		System.out.print(administratorVO5.getStatus());
 		
 		//查詢：查全部
 //		List<AdministratorVO> list = dao.getAll();
