@@ -190,14 +190,14 @@ public class FavdrJDBCDAO implements Favdr_interface {
 //		favdrVO2.setDrno("D0004");
 //		dao.delete(favdrVO2);
 		
-		//查單一會員追蹤
-//		List<FavdrVO> list1 = dao.findByPrimaryKey("M0007");
-//		
-//		for(FavdrVO favdr1 :list1) {
-//			System.out.print(favdr1.getMemno() + ",");
-//			System.out.print(favdr1.getDrno() + "," );
-//			System.out.println();		
-//		}
+//		查單一會員追蹤
+		List<FavdrVO> list1 = dao.findByPrimaryKey("M0007");
+		
+		for(FavdrVO favdr1 :list1) {
+			System.out.print(favdr1.getMemno() + ",");
+			System.out.print(favdr1.getDrno() + "," );
+			System.out.println();		
+		}
 		
 	}
 
