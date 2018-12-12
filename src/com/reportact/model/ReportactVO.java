@@ -31,6 +31,4 @@ public class ReportactVO {
 	public void setRepaStatus(String repaStatus) {
 		this.repaStatus = repaStatus;
 	}
-	
-	
 }
