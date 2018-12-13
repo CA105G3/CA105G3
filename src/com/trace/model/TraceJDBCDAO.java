@@ -19,19 +19,19 @@ public class TraceJDBCDAO implements TraceDAO_interface{
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 
-		"INSERT INTO trace(memno,actno)"
+		"INSERT INTO trace(memno,ActNo)"
 		+ "VALUES(?,?)";
 	private static final String GET_ALL_STMT=
-		"SELECT * FROM trace ORDER BY actno";
+		"SELECT * FROM trace ORDER BY ActNo";
 		
 	private static final String GET_ONE_STMT = 
-		"SELECT * from trace WHERE actno=?";
+		"SELECT * from trace WHERE ActNo=?";
 	
 	private static final String DELETE = 
 		"DELETE FROM trace WHERE MEMno = ?";
 	
 	private static final String UPDATE =
-		"UPDATE trace SET actno =? WHERE MEMno = ?";
+		"UPDATE trace SET ActNo =? WHERE MEMno = ?";
 	
 	@Override
 	public void insert(TraceVO traceVO) {
@@ -111,7 +111,7 @@ public class TraceJDBCDAO implements TraceDAO_interface{
 	}
 
 	@Override
-	public void delete(String actno) {
+	public void delete(String ActNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -121,7 +121,7 @@ public class TraceJDBCDAO implements TraceDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
 			
-			pstmt.setString(1,actno);
+			pstmt.setString(1,ActNo);
 		
 			pstmt.executeUpdate();
 			
@@ -149,7 +149,7 @@ public class TraceJDBCDAO implements TraceDAO_interface{
 	}
 
 	@Override
-	public TraceVO findByPrimaryKey(String actno) {
+	public TraceVO findByPrimaryKey(String ActNo) {
 		TraceVO traceVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -160,14 +160,14 @@ public class TraceJDBCDAO implements TraceDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
-			pstmt.setString(1, actno);
+			pstmt.setString(1, ActNo);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				traceVO = new TraceVO();
 				
-				traceVO.setActNo(rs.getString("actNO"));
+				traceVO.setActNo(rs.getString("ActNo"));
 				traceVO.setMemNo(rs.getString("Memno"));
 
 			}
@@ -219,7 +219,7 @@ public class TraceJDBCDAO implements TraceDAO_interface{
 			while(rs.next()) {
 				traceVO = new TraceVO();
 				
-				traceVO.setActNo(rs.getString("actNO"));
+				traceVO.setActNo(rs.getString("ActNo"));
 				traceVO.setMemNo(rs.getString("Memno"));	
 				list.add(traceVO);	
 			}
@@ -257,7 +257,7 @@ public static void main(String[] args){
 		
 		TraceJDBCDAO dao = new TraceJDBCDAO();
 		
-		//·s¼W
+		//æ–°å¢ž
 //		TraceVO TraceVO1 = new TraceVO();
 //		
 //		TraceVO1.setMemNo("M0005");
@@ -266,7 +266,7 @@ public static void main(String[] args){
 //		
 //		System.out.println("OK");
 		
-		//­×§ï
+		//ä¿®æ”¹
 //		TraceVO TraceVO2 = new TraceVO();
 //		TraceVO2.setActNo("ACT0025");
 //		TraceVO2.setMemNo("M0005");
@@ -274,22 +274,22 @@ public static void main(String[] args){
 //		dao.update(TraceVO2);
 //		System.out.println("OKOK");
 		
-		//§R°£
+		//åˆªé™¤
 //		dao.delete("ACT0023");
 //		System.out.println("no problem");
 		
-		//¬d¸ß¤@­Ó
+		//æŸ¥è©¢ä¸€å€‹
 //		TraceVO traceVO3 = dao.findByPrimaryKey("ACT0001");
 //		System.out.println(traceVO3.getActNo());
 //		System.out.println(traceVO3.getMemNo());
 //		System.out.println("----------------------------------");
 		
-		//¬d¸ß¥þ³¡
+		//æŸ¥è©¢å…¨éƒ¨
 		List<TraceVO> list = dao.getAll();
 		for(TraceVO tvo:list) {
 			
 			System.out.print(tvo.getActNo()+",");
-			System.out.print(tvo.getMemNo()+"¡C");
+			System.out.print(tvo.getMemNo()+"ã€‚");
 			System.out.println();	
 		}	
 	}

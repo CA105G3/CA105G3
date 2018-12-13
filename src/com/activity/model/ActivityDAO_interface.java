@@ -7,7 +7,7 @@ import com.member.model.MemberVO;
 public interface ActivityDAO_interface {
 	public void insert(ActivityVO activityVO);
     public void update(ActivityVO activityVO);
-    public void delete(String actno);
-    public ActivityVO findByPrimaryKey(String actno);
+    public void delete(String actNo);
+    public ActivityVO findByPrimaryKey(String actNo);
     public List<ActivityVO> getAll();
 }

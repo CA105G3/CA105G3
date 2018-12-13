@@ -20,19 +20,19 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 
-		"INSERT INTO Reportact(repano,actno,memno,repastatus)"
+		"INSERT INTO Reportact(repaNo,actno,memno,repastatus)"
 		+ "VALUES('repa'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),?,?,?)";
 	private static final String GET_ALL_STMT=
-		"SELECT * FROM Reportact ORDER BY repano";
+		"SELECT * FROM Reportact ORDER BY repaNo";
 		
 	private static final String GET_ONE_STMT = 
-		"SELECT * from Reportact WHERE repano=?";
+		"SELECT * from Reportact WHERE repaNo=?";
 	
 	private static final String DELETE = 
-		"DELETE FROM Reportact WHERE repano = ?";
+		"DELETE FROM Reportact WHERE repaNo = ?";
 	
 	private static final String UPDATE =
-		"UPDATE Reportact SET repastatus =? WHERE repano = ?";
+		"UPDATE Reportact SET repastatus =? WHERE repaNo = ?";
 	
 	@Override
 	public void insert(ReportactVO reportactVO) {
@@ -111,7 +111,7 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 	}
 
 	@Override
-	public void delete(String repano) {
+	public void delete(String repaNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -121,7 +121,7 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 			pstmt = con.prepareStatement(DELETE);
 			
 			
-			pstmt.setString(1,repano);
+			pstmt.setString(1,repaNo);
 		
 			
 			pstmt.executeUpdate();
@@ -150,7 +150,7 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 	}
 
 	@Override
-	public ReportactVO findByPrimaryKey(String repano) {
+	public ReportactVO findByPrimaryKey(String repaNo) {
 		ReportactVO reportactVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -161,14 +161,14 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
-			pstmt.setString(1, repano);
+			pstmt.setString(1, repaNo);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				reportactVO = new ReportactVO();
 				
-				reportactVO.setRepaNo(rs.getString("REPANO"));
+				reportactVO.setRepaNo(rs.getString("repaNo"));
 				reportactVO.setActNo(rs.getString("ACTNO"));
 				reportactVO.setMemNo(rs.getString("MEMNO"));
 				reportactVO.setRepaStatus(rs.getString("REPASTATUS"));
@@ -223,7 +223,7 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 			while(rs.next()) {
 				reportactVO = new ReportactVO();
 				
-				reportactVO.setRepaNo(rs.getString("REPANO"));
+				reportactVO.setRepaNo(rs.getString("repaNo"));
 				reportactVO.setActNo(rs.getString("ACTNO"));
 				reportactVO.setMemNo(rs.getString("MEMNO"));
 				reportactVO.setRepaStatus(rs.getString("REPASTATUS"));
@@ -263,42 +263,42 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 		
 		ReportactJDBCDAO dao = new ReportactJDBCDAO();
 		
-		//·s¼W
+		//æ–°å¢ž
 //		ReportactVO ReportactVO1 = new ReportactVO();
 //		ReportactVO1.setActNo("ACT0001");
 //		ReportactVO1.setMemNo("M0001");
-//		ReportactVO1.setRepaStatus("¥¼ÀË¬d");
+//		ReportactVO1.setRepaStatus("ï¿½ï¿½ï¿½Ë¬d");
 //		dao.insert(ReportactVO1);
 //		
 //		System.out.println("OK");
 		
-		//­×§ï
+		//ä¿®æ”¹
 //		ReportactVO ReportactVO2 = new ReportactVO();
-//		ReportactVO2.setRepaStatus("¤wÀË¬d");
-//		ReportactVO2.setRepaNo("repa0026");
+//		ReportactVO2.setRepaStatus("ï¿½wï¿½Ë¬d");
+//		ReportactVO2.setrepaNo("repa0026");
 //		dao.update(ReportactVO2);
 //		System.out.println("OKOK");
 		
-		//§R°£
+		//åˆªé™¤
 //		dao.delete("ACT0023");
 //		System.out.println("no problem");
 		
-		//¬d¸ß¤@­Ó
+		//æŸ¥è©¢ä¸€å€‹
 //		ReportactVO ReportactVO3 = dao.findByPrimaryKey("REPA0026");
-//		System.out.println(ReportactVO3.getRepaNo());
+//		System.out.println(ReportactVO3.getrepaNo());
 //		System.out.println(ReportactVO3.getActNo());
 //		System.out.println(ReportactVO3.getMemNo());
 //		System.out.println(ReportactVO3.getRepaStatus());
 //		System.out.println("----------------------------------");
 		
-		//¬d¸ß¥þ³¡
+		//æŸ¥è©¢å…¨éƒ¨
 //		List<ReportactVO> list = dao.getAll();
 //		for(ReportactVO rvo:list) {
 //			
-//			System.out.print(rvo.getRepaNo()+",");
+//			System.out.print(rvo.getrepaNo()+",");
 //			System.out.print(rvo.getActNo()+",");
 //			System.out.print(rvo.getMemNo()+",");
-//			System.out.print(rvo.getRepaStatus()+"¡C");
+//			System.out.print(rvo.getRepaStatus()+"ï¿½C");
 //			System.out.println();	
 //		}			
 	}

@@ -7,7 +7,7 @@ import com.activity.model.ActivityVO;
 public interface JoinactDAO_interface {
 	public void insert(JoinactVO joinactVO);
     public void update(JoinactVO joinactVO);
-    public void delete(String actno);
-    public JoinactVO findByPrimaryKey(String actno);
+    public void delete(String actNo);
+    public JoinactVO findByPrimaryKey(String actNo);
     public List<JoinactVO> getAll();
 }

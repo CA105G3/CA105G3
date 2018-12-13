@@ -20,19 +20,19 @@ public class ActivityJDBCDAO implements ActivityDAO_interface{
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 
-		"INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actlimit,timecheck)"
+		"INSERT INTO activity(actNo,memno,actname,actloc,acttime,actstatus,actlimit,timecheck)"
 		+ "VALUES('ACT'||lpad(to_char(MEMBER_seq.NEXTVAL), 4, '0'),?,?,?,?,?,?,?)";
 	private static final String GET_ALL_STMT=
-		"SELECT * FROM ACTIVITY ORDER BY ACTNO";
+		"SELECT * FROM ACTIVITY ORDER BY actNo";
 		
 	private static final String GET_ONE_STMT = 
-		"SELECT * from activity WHERE ACTNO=?";
+		"SELECT * from activity WHERE actNo=?";
 	
 	private static final String DELETE = 
-		"DELETE FROM ACTIVITY WHERE ACTNO = ?";
+		"DELETE FROM ACTIVITY WHERE actNo = ?";
 	
 	private static final String UPDATE =
-		"UPDATE ACTIVITY SET ACTLOC =? WHERE ACTNO = ?";
+		"UPDATE ACTIVITY SET ACTLOC =? WHERE actNo = ?";
 	
 	
 	@Override
@@ -116,7 +116,7 @@ public class ActivityJDBCDAO implements ActivityDAO_interface{
 	}
 
 	@Override
-	public void delete(String actno) {
+	public void delete(String actNo) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -127,7 +127,7 @@ public class ActivityJDBCDAO implements ActivityDAO_interface{
 			pstmt = con.prepareStatement(DELETE);
 			
 			
-			pstmt.setString(1,actno);
+			pstmt.setString(1,actNo);
 		
 			
 			pstmt.executeUpdate();
@@ -155,7 +155,7 @@ public class ActivityJDBCDAO implements ActivityDAO_interface{
 	}
 
 	@Override
-	public ActivityVO findByPrimaryKey(String actno) {
+	public ActivityVO findByPrimaryKey(String actNo) {
 		
 		ActivityVO activityVO = null;
 		Connection con = null;
@@ -167,14 +167,14 @@ public class ActivityJDBCDAO implements ActivityDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
-			pstmt.setString(1, actno);
+			pstmt.setString(1, actNo);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				activityVO = new ActivityVO();
 				
-				activityVO.setActNo(rs.getString("ACTNO"));
+				activityVO.setActNo(rs.getString("actNo"));
 				activityVO.setMemNo(rs.getString("MEMNO"));
 				activityVO.setActName(rs.getString("ACTNAME"));
 				activityVO.setActLoc(rs.getString("ACTLOC"));
@@ -233,7 +233,7 @@ public class ActivityJDBCDAO implements ActivityDAO_interface{
 			while(rs.next()) {
 				activityVO = new ActivityVO();
 				
-				activityVO.setActNo(rs.getString("ACTNO"));
+				activityVO.setActNo(rs.getString("actNo"));
 				activityVO.setMemNo(rs.getString("MEMNO"));
 				activityVO.setActName(rs.getString("ACTNAME"));
 				activityVO.setActLoc(rs.getString("ACTLOC"));
@@ -277,14 +277,14 @@ public class ActivityJDBCDAO implements ActivityDAO_interface{
 		
 		ActivityJDBCDAO dao = new ActivityJDBCDAO();
 		
-		//·s¼W
+		//æ–°å¢ž
 		ActivityVO activityVO1 = new ActivityVO();
 		activityVO1.setMemNo("M0002");
-		activityVO1.setActName("´ÑÆF¤ý¤jÁÉ");;
+		activityVO1.setActName("ï¿½ï¿½ï¿½Fï¿½ï¿½ï¿½jï¿½ï¿½");;
 		Date date = Date.valueOf("2008-11-04");
-		activityVO1.setActLoc("9¤S3/4¤ë¥x");
+		activityVO1.setActLoc("9ï¿½S3/4ï¿½ï¿½x");
 		activityVO1.setActTime(date);
-		activityVO1.setActStatus("¤wµ²§ô");
+		activityVO1.setActStatus("ï¿½wï¿½ï¿½ï¿½ï¿½");
 		activityVO1.setActLimit(2);
 		activityVO1.setTimeCheck(2);
 		
@@ -292,18 +292,18 @@ public class ActivityJDBCDAO implements ActivityDAO_interface{
 		
 		System.out.println("OK");
 		
-		//­×§ï
+		//ä¿®æ”¹
 //		ActivityVO activityVO2 = new ActivityVO();
-//		activityVO2.setActLoc("§J¨½¬P");
-//		activityVO2.setActNo("ACT0023");
+//		activityVO2.setActLoc("ï¿½Jï¿½ï¿½ï¿½P");
+//		activityVO2.setactNo("ACT0023");
 //		dao.update(activityVO2);
 //		System.out.println("OKOK");
 		
-		//§R°£
+		//åˆªé™¤
 //		dao.delete("ACT0023");
 //		System.out.println("no problem");
 		
-		//¬d¸ß¤@­Ó
+		//æŸ¥è©¢ä¸€å€‹
 //		ActivityVO activityVO3 = dao.findByPrimaryKey("ACT0001");
 //		System.out.println(activityVO3.getMemNo());
 //		System.out.println(activityVO3.getActName());
@@ -314,18 +314,18 @@ public class ActivityJDBCDAO implements ActivityDAO_interface{
 //		System.out.println(activityVO3.getTimeCheck());
 //		System.out.println("----------------------------------");
 		
-		//¬d¸ß¥þ³¡
+		//æŸ¥è©¢å…¨éƒ¨
 //		List<ActivityVO> list = dao.getAll();
 //		for(ActivityVO avo:list) {
 //			
-//			System.out.print(avo.getActNo()+",");
+//			System.out.print(avo.getactNo()+",");
 //			System.out.print(avo.getMemNo()+",");
 //			System.out.print(avo.getActName()+",");
 //			System.out.print(avo.getActLoc()+",");
 //			System.out.print(avo.getActTime()+",");
 //			System.out.print(avo.getActStatus()+",");
-//			System.out.print("³Ì¤Ö¤H¼Æ¬°"+avo.getActLimit()+"¤H,");
-//			System.out.print(avo.getTimeCheck()+"¤Ñ«áµ²§ô²Î­p¡C");
+//			System.out.print("ï¿½Ì¤Ö¤Hï¿½Æ¬ï¿½"+avo.getActLimit()+"ï¿½H,");
+//			System.out.print(avo.getTimeCheck()+"ï¿½Ñ«áµ²ï¿½ï¿½ï¿½Î­pï¿½C");
 //			System.out.println();	
 //		}			
 	}
