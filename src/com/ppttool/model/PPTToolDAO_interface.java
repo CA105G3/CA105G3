@@ -10,4 +10,5 @@ public interface PPTToolDAO_interface {
 	public void delete(String pptno);
 	public PPTToolVO findByPK(String Pptno);   
 	public List<PPTToolVO> getAll();
+	  
 }

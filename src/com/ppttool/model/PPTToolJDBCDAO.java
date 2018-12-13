@@ -56,7 +56,7 @@ public class PPTToolJDBCDAO implements PPTToolDAO_interface {
 				throw new RuntimeException("Couldn't load database driver." +e.getMessage());
 			}finally{
 				if(pstmt!=null) {
-					try {
+					try {   
 						pstmt.close();
 					} catch (SQLException se) {
 						se.printStackTrace(System.err);
