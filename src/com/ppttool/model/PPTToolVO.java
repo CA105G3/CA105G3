@@ -8,7 +8,7 @@ public class PPTToolVO {
 	private Blob ppt;
 	public String getPptno() {
 		return pptno;
-	}  
+	}
 	public void setPptno(String pptno) {
 		this.pptno = pptno;
 	}
