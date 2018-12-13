@@ -52,6 +52,4 @@ public class ImpressionVO {
 	public void setImpField(String impField) {
 		this.impField = impField;
 	}
-	
-	
 }

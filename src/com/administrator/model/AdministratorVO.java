@@ -5,16 +5,16 @@ import java.sql.Date;
 
 public class AdministratorVO implements Serializable{
 
-	private String adminno;
+	private String adminNo;
 	private String priority;
 	private String status;
 	private Date reg;
 	
-	public String getAdminno() {
-		return adminno;
+	public String getAdminNo() {
+		return adminNo;
 	}
-	public void setAdminno(String adminno) {
-		this.adminno = adminno;
+	public void setAdminNo(String adminNo) {
+		this.adminNo = adminNo;
 	}
 	public String getPriority() {
 		return priority;
