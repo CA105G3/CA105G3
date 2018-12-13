@@ -12,10 +12,10 @@ public class FavdrJDBCDAO implements Favdr_interface {
 	String user = "ca105g3";
 	String password = "ca105g3";
 
-	private static final String INSERT_STMT = "INSERT INTO favdr (memno,drno) VALUES (?,?)";
+	private static final String INSERT_STMT = "INSERT INTO favdr (memNo,drNo) VALUES (?,?)";
 	private static final String GET_ALL_STMT = "SELECT * FROM FAVDR";
-	private static final String GET_ONE_STMT = "SELECT MEMNO, DRNO FROM FAVDR WHERE MEMNO = ?";
-	private static final String DELETE = "DELETE FROM favdr where memno = ? and drno = ?";
+	private static final String GET_ONE_STMT = "SELECT MemNo, DrNo FROM FAVDR WHERE MemNo = ?";
+	private static final String DELETE = "DELETE FROM favdr where memNo = ? and drNo = ?";
 
 	@Override
 	public void insert(FavdrVO favdrVO) {
@@ -27,8 +27,8 @@ public class FavdrJDBCDAO implements Favdr_interface {
 			con = DriverManager.getConnection(url, user, password);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, favdrVO.getMemno());
-			pstmt.setString(2, favdrVO.getDrno());
+			pstmt.setString(1, favdrVO.getMemNo());
+			pstmt.setString(2, favdrVO.getDrNo());
 
 			pstmt.executeUpdate();
 
@@ -74,8 +74,8 @@ public class FavdrJDBCDAO implements Favdr_interface {
 			con = DriverManager.getConnection(url, user, password);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setString(1, favdrVO.memno);
-			pstmt.setString(2, favdrVO.drno);
+			pstmt.setString(1, favdrVO.memNo);
+			pstmt.setString(2, favdrVO.drNo);
 			pstmt.executeUpdate();
 
 		} catch (ClassNotFoundException e) {
@@ -109,7 +109,7 @@ public class FavdrJDBCDAO implements Favdr_interface {
 
 	@Override
 	//追蹤功能是要讓一個會員抓到他所有追蹤的醫生，所以要用List來裝不同列的物件	 
-	public List<FavdrVO> findByPrimaryKey(String memno) {//List只能裝FavdrVO泛型物件
+	public List<FavdrVO> findByPrimaryKey(String memNo) {//List只能裝FavdrVO泛型物件
 
 		List<FavdrVO> list = null; //先宣告一個list
 		Connection con = null;
@@ -123,14 +123,14 @@ public class FavdrJDBCDAO implements Favdr_interface {
 			
 			list = new ArrayList();	//這個List是ArrayList類別
 			
-			pstmt.setString(1, memno);
+			pstmt.setString(1, memNo);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				FavdrVO favdrVO = new FavdrVO();
-				favdrVO.setMemno(rs.getString("memno"));
-				favdrVO.setDrno(rs.getString("drno"));
+				favdrVO.setMemNo(rs.getString("memNo"));
+				favdrVO.setDrNo(rs.getString("drNo"));
 				
 				list.add(favdrVO);
 			}
@@ -185,8 +185,8 @@ public class FavdrJDBCDAO implements Favdr_interface {
 			
 			while(rs.next()) {
 				favdrVO = new FavdrVO();
-				favdrVO.setMemno(rs.getString("memno"));
-				favdrVO.setDrno(rs.getString("drno"));
+				favdrVO.setMemNo(rs.getString("memNo"));
+				favdrVO.setDrNo(rs.getString("drNo"));
 				list.add(favdrVO);
 			}
 		} catch (ClassNotFoundException e) {
@@ -228,31 +228,31 @@ public class FavdrJDBCDAO implements Favdr_interface {
 
 		// 新增
 //		FavdrVO favdrVO1 = new FavdrVO();
-//		favdrVO1.setMemno("M0001");
-//		favdrVO1.setDrno("D0004");
+//		favdrVO1.setMemNo("M0001");
+//		favdrVO1.setDrNo("D0004");
 //		dao.insert(favdrVO1);
-//		System.out.println(favdrVO1.getDrno());
+//		System.out.println(favdrVO1.getDrNo());
 
 		// 刪除
 //		FavdrVO favdrVO2 = new FavdrVO();
-//		favdrVO2.setMemno("M0003");
-//		favdrVO2.setDrno("D0004");
+//		favdrVO2.setMemNo("M0003");
+//		favdrVO2.setDrNo("D0004");
 //		dao.delete(favdrVO2);
 		
 //		查單一會員追蹤
 //		List<FavdrVO> list1 = dao.findByPrimaryKey("M0007");
 //		
 //		for(FavdrVO favdr1 :list1) {
-//			System.out.print(favdr1.getMemno() + ",");
-//			System.out.print(favdr1.getDrno() + "," );
+//			System.out.print(favdr1.getMemNo() + ",");
+//			System.out.print(favdr1.getDrNo() + "," );
 //			System.out.println();		
 //		}
 		
 		//查全表
 		List<FavdrVO> list2 = dao.getAll();
 		for(FavdrVO favdrVO : list2) {
-			System.out.print(favdrVO.getMemno() + "," );
-			System.out.print(favdrVO.getDrno() + ",");
+			System.out.print(favdrVO.getMemNo() + "," );
+			System.out.print(favdrVO.getDrNo() + ",");
 			System.out.println();
 		}
 		

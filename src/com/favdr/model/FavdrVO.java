@@ -4,19 +4,19 @@ import java.io.Serializable;
 
 public class FavdrVO implements Serializable{
 
-	String memno;
-	String drno;
-	public String getMemno() {
-		return memno;
+	String memNo;
+	String drNo;
+	public String getMemNo() {
+		return memNo;
 	}
-	public void setMemno(String memno) {
-		this.memno = memno;
+	public void setMemNo(String memNo) {
+		this.memNo = memNo;
 	}
-	public String getDrno() {
-		return drno;
+	public String getDrNo() {
+		return drNo;
 	}
-	public void setDrno(String drno) {
-		this.drno = drno;
+	public void setDrNo(String drNo) {
+		this.drNo = drNo;
 	}
 	
 	

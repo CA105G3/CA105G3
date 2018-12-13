@@ -5,68 +5,69 @@ import java.sql.Date;
 
 public class MedicalorderVO implements Serializable{
 
-	private String mono;
-	private String memno;
-	private String drno;
-	private String mostatus;
-	private Integer mocost;
-	private Date motime;
-	private String motext;
-	private byte[] movideo;
-	private String mointro;
-	public String getMono() {
-		return mono;
+	private String moNo;
+	private String memNo;
+	private String drNo;
+	private String moStatus;
+	private Integer moCost;
+	private Date moTime;
+	private String moText;
+	private byte[] moVideo;
+	private String moIntro;
+	
+	public String getMoNo() {
+		return moNo;
 	}
-	public void setMono(String mono) {
-		this.mono = mono;
+	public void setMoNo(String moNo) {
+		this.moNo = moNo;
 	}
-	public String getMemno() {
-		return memno;
+	public String getMemNo() {
+		return memNo;
 	}
-	public void setMemno(String memno) {
-		this.memno = memno;
+	public void setMemNo(String memNo) {
+		this.memNo = memNo;
 	}
-	public String getDrno() {
-		return drno;
+	public String getDrNo() {
+		return drNo;
 	}
-	public void setDrno(String drno) {
-		this.drno = drno;
+	public void setDrNo(String drNo) {
+		this.drNo = drNo;
 	}
-	public String getMostatus() {
-		return mostatus;
+	public String getMoStatus() {
+		return moStatus;
 	}
-	public void setMostatus(String mostatus) {
-		this.mostatus = mostatus;
+	public void setMoStatus(String moStatus) {
+		this.moStatus = moStatus;
 	}
-	public Integer getMocost() {
-		return mocost;
+	public Integer getMoCost() {
+		return moCost;
 	}
-	public void setMocost(Integer mocost) {
-		this.mocost = mocost;
+	public void setMoCost(Integer moCost) {
+		this.moCost = moCost;
 	}
-	public Date getMotime() {
-		return motime;
+	public Date getMoTime() {
+		return moTime;
 	}
-	public void setMotime(Date motime) {
-		this.motime = motime;
+	public void setMoTime(Date moTime) {
+		this.moTime = moTime;
 	}
-	public String getMotext() {
-		return motext;
+	public String getMoText() {
+		return moText;
 	}
-	public void setMotext(String motext) {
-		this.motext = motext;
+	public void setMoText(String moText) {
+		this.moText = moText;
 	}
-	public byte[] getMovideo() {
-		return movideo;
+	public byte[] getMoVideo() {
+		return moVideo;
 	}
-	public void setMovideo(byte[] movideo) {
-		this.movideo = movideo;
+	public void setMoVideo(byte[] moVideo) {
+		this.moVideo = moVideo;
 	}
-	public String getMointro() {
-		return mointro;
+	public String getMoIntro() {
+		return moIntro;
 	}
-	public void setMointro(String mointro) {
-		this.mointro = mointro;
+	public void setMoIntro(String moIntro) {
+		this.moIntro = moIntro;
 	}
 	
 }

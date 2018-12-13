@@ -22,9 +22,9 @@ public class ReportdrJDBCDAO implements Reportdr_interface{
 //	private static final String INSERT_STMT = 
 //			"INSERT INTO Administrator (adminno,priority,status,reg) VALUES ('A'||lpad(to_char(administrator_seq.NEXTVAL), 4, '0'), ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-			"SELECT RDRNO, MEMNO, DRNO, RDRREASON, RDRTIME, RDRSTATE FROM REPORTDR";
+			"SELECT RDrNo, MEmNo, DrNo, RDRReason, RDRTime, RDRState FROM REPORTDR";
 	private static final String GET_ONE_STMT = 
-			"SELECT RDRNO, MEMNO, DRNO, RDRREASON, RDRTIME, RDRSTATE FROM REPORTDR WHERE RDRNO = ?";
+			"SELECT RDrNo, MEmNo, DrNo, RDRReason, RDRTime, RDRState FROM REPORTDR WHERE RDrNo = ?";
 //	private static final String DELETE = 
 //			"DELETE FROM Administrator where adminno = ? ";
 //	private static final String UPDATE_PRIORITY_STATUS = 
@@ -54,7 +54,7 @@ public class ReportdrJDBCDAO implements Reportdr_interface{
 	}
 
 	@Override
-	public ReportdrVO findByPrimaryKey(String rdrno) {
+	public ReportdrVO findByPrimaryKey(String rdrNo) {
 		ReportdrVO reportdrVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -65,18 +65,18 @@ public class ReportdrJDBCDAO implements Reportdr_interface{
 			con = DriverManager.getConnection(url, user, password);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
-			pstmt.setString(1, rdrno);
+			pstmt.setString(1, rdrNo);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				reportdrVO = new ReportdrVO();
-				reportdrVO.setRdrno(rs.getString("rdrno"));
-				reportdrVO.setMemno(rs.getString("memno"));
-				reportdrVO.setDrno(rs.getString("drno"));
-				reportdrVO.setRdrreason(rs.getString("rdrreason"));
-				reportdrVO.setRdrtime(rs.getDate("rdrtime"));
-				reportdrVO.setRdrstate(rs.getString("rdrstate"));
+				reportdrVO.setRdrNo(rs.getString("rdrNo"));
+				reportdrVO.setMemNo(rs.getString("memNo"));
+				reportdrVO.setDrNo(rs.getString("drNo"));
+				reportdrVO.setRdrReason(rs.getString("rdrReason"));
+				reportdrVO.setRdrTime(rs.getDate("rdrTime"));
+				reportdrVO.setRdrState(rs.getString("rdrState"));
 			}
 							
 			
@@ -132,12 +132,12 @@ public class ReportdrJDBCDAO implements Reportdr_interface{
 			
 			while(rs.next()) {
 				reportdrVO = new ReportdrVO();
-				reportdrVO.setRdrno(rs.getString("rdrno"));
-				reportdrVO.setMemno(rs.getString("memno"));
-				reportdrVO.setDrno(rs.getString("drno"));
-				reportdrVO.setRdrreason(rs.getString("rdrreason"));
-				reportdrVO.setRdrtime(rs.getDate("rdrtime"));
-				reportdrVO.setRdrstate(rs.getString("rdrstate"));
+				reportdrVO.setRdrNo(rs.getString("rdrNo"));
+				reportdrVO.setMemNo(rs.getString("memNo"));
+				reportdrVO.setDrNo(rs.getString("drNo"));
+				reportdrVO.setRdrReason(rs.getString("rdrReason"));
+				reportdrVO.setRdrTime(rs.getDate("rdrTime"));
+				reportdrVO.setRdrState(rs.getString("rdrState"));
 				
 				list.add(reportdrVO);
 			}
@@ -181,23 +181,23 @@ public class ReportdrJDBCDAO implements Reportdr_interface{
 		//查單筆
 		ReportdrVO reportdrVO1 = new ReportdrVO();
 		reportdrVO1 = dao.findByPrimaryKey("RDR0002");
-		System.out.print(reportdrVO1.getRdrno() + ",");
-		System.out.print(reportdrVO1.getMemno() + ",");
-		System.out.print(reportdrVO1.getDrno() + ",");
-		System.out.print(reportdrVO1.getRdrreason() + ",");
-		System.out.print(reportdrVO1.getRdrtime() + ",");
-		System.out.print(reportdrVO1.getRdrstate());
+		System.out.print(reportdrVO1.getRdrNo() + ",");
+		System.out.print(reportdrVO1.getMemNo() + ",");
+		System.out.print(reportdrVO1.getDrNo() + ",");
+		System.out.print(reportdrVO1.getRdrReason() + ",");
+		System.out.print(reportdrVO1.getRdrTime() + ",");
+		System.out.print(reportdrVO1.getRdrState());
 
 		
 		//查全部
 //		List<ReportdrVO> list2 = dao.getAll();
 //		for(ReportdrVO reportdrVO : list2) {
-//			System.out.print(reportdrVO.getRdrno() + "," );
-//			System.out.print(reportdrVO.getMemno() + "," );
-//			System.out.print(reportdrVO.getDrno() + ",");
-//			System.out.print(reportdrVO.getRdrreason() + ",");
-//			System.out.print(reportdrVO.getRdrtime() + ",");
-//			System.out.print(reportdrVO.getRdrstate());
+//			System.out.print(reportdrVO.getRdrNo() + "," );
+//			System.out.print(reportdrVO.getMemNo() + "," );
+//			System.out.print(reportdrVO.getDrNo() + ",");
+//			System.out.print(reportdrVO.getRdrReason() + ",");
+//			System.out.print(reportdrVO.getRdrTime() + ",");
+//			System.out.print(reportdrVO.getRdrState());
 //			System.out.println();
 //		}
 		
