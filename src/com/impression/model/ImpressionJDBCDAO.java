@@ -19,19 +19,19 @@ public class ImpressionJDBCDAO implements ImpressionDAO_interface{
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 
-		"INSERT INTO impression(impno,actno,memno,impcon,recvideo,recpic,impfield)"
+		"INSERT INTO impression(impNo,actno,memno,impcon,recvideo,recpic,impfield)"
 		+ "VALUES(to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),?,?,?,?,?,?)";
 	private static final String GET_ALL_STMT=
-		"SELECT * FROM impression ORDER BY impno";
+		"SELECT * FROM impression ORDER BY impNo";
 		
 	private static final String GET_ONE_STMT = 
-		"SELECT * from impression WHERE impno=?";
+		"SELECT * from impression WHERE impNo=?";
 	
 	private static final String DELETE = 
-		"DELETE FROM impression WHERE impno = ?";
+		"DELETE FROM impression WHERE impNo = ?";
 	
 	private static final String UPDATE =
-		"UPDATE impression SET impcon =? WHERE impno = ?";
+		"UPDATE impression SET impcon =? WHERE impNo = ?";
 	
 	@Override
 	public void insert(ImpressionVO impressionVO) {
@@ -115,7 +115,7 @@ public class ImpressionJDBCDAO implements ImpressionDAO_interface{
 	}
 
 	@Override
-	public void delete(String impno) {
+	public void delete(String impNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -126,7 +126,7 @@ public class ImpressionJDBCDAO implements ImpressionDAO_interface{
 			pstmt = con.prepareStatement(DELETE);
 			
 			
-			pstmt.setString(1,impno);
+			pstmt.setString(1,impNo);
 		
 			
 			pstmt.executeUpdate();
@@ -155,7 +155,7 @@ public class ImpressionJDBCDAO implements ImpressionDAO_interface{
 	}
 
 	@Override
-	public ImpressionVO findByPrimaryKey(String impno) {
+	public ImpressionVO findByPrimaryKey(String impNo) {
 		ImpressionVO impressionVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -166,14 +166,14 @@ public class ImpressionJDBCDAO implements ImpressionDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
-			pstmt.setString(1, impno);
+			pstmt.setString(1, impNo);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				impressionVO = new ImpressionVO();
 				
-				impressionVO.setImpNo(rs.getString("IMPNO"));
+				impressionVO.setImpNo(rs.getString("impNo"));
 				impressionVO.setActNo(rs.getString("ACTNO"));
 				impressionVO.setMemNo(rs.getString("MEMNO"));
 				impressionVO.setImpCon(rs.getString("IMPCON"));
@@ -231,7 +231,7 @@ public class ImpressionJDBCDAO implements ImpressionDAO_interface{
 			while(rs.next()) {
 				impressionVO = new ImpressionVO();
 				
-				impressionVO.setImpNo(rs.getString("IMPNO"));
+				impressionVO.setImpNo(rs.getString("impNo"));
 				impressionVO.setActNo(rs.getString("ACTNO"));
 				impressionVO.setMemNo(rs.getString("MEMNO"));
 				impressionVO.setImpCon(rs.getString("IMPCON"));
@@ -274,33 +274,33 @@ public static void main(String[] args){
 		
 		ImpressionJDBCDAO dao = new ImpressionJDBCDAO();
 		
-		//·s¼W
+		//æ–°å¢ž
 //		ImpressionVO ImpressionVO1 = new ImpressionVO();
 //		ImpressionVO1.setActNo("ACT0001");
 //		ImpressionVO1.setMemNo("M0001");
-//		ImpressionVO1.setImpCon("«Ü¦n");
+//		ImpressionVO1.setImpCon("ï¿½Ü¦n");
 //		ImpressionVO1.setRecVideo(null);
 //		ImpressionVO1.setRecPic(null);
-//		ImpressionVO1.setImpField("¤å¦r¤ß±o");
+//		ImpressionVO1.setImpField("ï¿½ï¿½rï¿½ß±o");
 //		
 //		dao.insert(ImpressionVO1);
 //		
 //		System.out.println("OK");
 		
-		//­×§ï
+		//ä¿®æ”¹
 //		ImpressionVO impressionVO2 = new ImpressionVO();
-//		impressionVO2.setImpCon("¦Û±q§Ú¨C¤Ñ³£¦Y¤F¼»§¿¤û¤Y¤§«á¡A§Ú¨C¦¸¦Ò¸Õ³£¦Ò¤@¦Ê¤À");
-//		impressionVO2.setImpNo("20181212-0003");
+//		impressionVO2.setImpCon("ï¿½Û±qï¿½Ú¨Cï¿½Ñ³ï¿½ï¿½Yï¿½Fï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Yï¿½ï¿½ï¿½ï¿½Aï¿½Ú¨Cï¿½ï¿½ï¿½Ò¸Õ³ï¿½ï¿½Ò¤@ï¿½Ê¤ï¿½");
+//		impressionVO2.setimpNo("20181212-0003");
 //		dao.update(impressionVO2);
 //		System.out.println("OKOK");
 		
-		//§R°£
+		//åˆªé™¤
 //		dao.delete("ACT0023");
 //		System.out.println("no problem");
 		
-		//¬d¸ß¤@­Ó
+		//æŸ¥è©¢ä¸€å€‹
 //		ImpressionVO impressionVO3 = dao.findByPrimaryKey("20181212-0003");
-//		System.out.println(impressionVO3.getImpNo());
+//		System.out.println(impressionVO3.getimpNo());
 //		System.out.println(impressionVO3.getActNo());
 //		System.out.println(impressionVO3.getMemNo());
 //		System.out.println(impressionVO3.getImpCon());
@@ -309,16 +309,17 @@ public static void main(String[] args){
 //		System.out.println(impressionVO3.getImpField());
 //		System.out.println("----------------------------------");
 		 
+		//æŸ¥è©¢å…¨éƒ¨
 //		List<ImpressionVO> list = dao.getAll();
 //		for(ImpressionVO impvo:list) {
 //			
-//			System.out.print(impvo.getImpNo()+",");
+//			System.out.print(impvo.getimpNo()+",");
 //			System.out.print(impvo.getActNo()+",");
 //			System.out.print(impvo.getMemNo()+",");
 //			System.out.print(impvo.getImpCon()+",");
 //			System.out.print(impvo.getRecVideo()+",");
 //			System.out.print(impvo.getRecPic()+",");
-//			System.out.print(impvo.getImpField()+"¡C");
+//			System.out.print(impvo.getImpField()+"ï¿½C");
 //			System.out.println();	
 //		}			
 	}

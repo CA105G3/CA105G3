@@ -19,19 +19,19 @@ public class JoinactJDBCDAO implements JoinactDAO_interface{
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 
-		"INSERT INTO joinact(actno,memno)"
+		"INSERT INTO joinact(actNo,memno)"
 		+ "VALUES(?,?)";
 	private static final String GET_ALL_STMT=
-		"SELECT * FROM joinact ORDER BY actno";
+		"SELECT * FROM joinact ORDER BY actNo";
 		
 	private static final String GET_ONE_STMT = 
-		"SELECT * from joinact WHERE actno=?";
+		"SELECT * from joinact WHERE actNo=?";
 	
 	private static final String DELETE = 
 		"DELETE FROM joinact WHERE MEMno = ?";
 	
 	private static final String UPDATE =
-		"UPDATE joinact SET actno =? WHERE MEMno = ?";
+		"UPDATE joinact SET actNo =? WHERE MEMno = ?";
 	
 	@Override
 	public void insert(JoinactVO joinactVO) {
@@ -110,7 +110,7 @@ public class JoinactJDBCDAO implements JoinactDAO_interface{
 	}
 
 	@Override
-	public void delete(String actno) {
+	public void delete(String actNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -120,7 +120,7 @@ public class JoinactJDBCDAO implements JoinactDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
 			
-			pstmt.setString(1,actno);
+			pstmt.setString(1,actNo);
 		
 			pstmt.executeUpdate();
 			
@@ -148,7 +148,7 @@ public class JoinactJDBCDAO implements JoinactDAO_interface{
 	}
 
 	@Override
-	public JoinactVO findByPrimaryKey(String actno) {
+	public JoinactVO findByPrimaryKey(String actNo) {
 		JoinactVO joinactVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -159,14 +159,14 @@ public class JoinactJDBCDAO implements JoinactDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
-			pstmt.setString(1, actno);
+			pstmt.setString(1, actNo);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				joinactVO = new JoinactVO();
 				
-				joinactVO.setActNo(rs.getString("actNO"));
+				joinactVO.setActNo(rs.getString("actNo"));
 				joinactVO.setMemNo(rs.getString("Memno"));
 
 			}
@@ -218,7 +218,7 @@ public class JoinactJDBCDAO implements JoinactDAO_interface{
 			while(rs.next()) {
 				joinactVO = new JoinactVO();
 				
-				joinactVO.setActNo(rs.getString("actNO"));
+				joinactVO.setActNo(rs.getString("actNo"));
 				joinactVO.setMemNo(rs.getString("Memno"));	
 				list.add(joinactVO);	
 			}
@@ -256,37 +256,37 @@ public static void main(String[] args){
 		
 		JoinactJDBCDAO dao = new JoinactJDBCDAO();
 		
-		//·s¼W
+		//æ–°å¢ž
 //		JoinactVO joinactVO1 = new JoinactVO();
-//		joinactVO1.setActNo("ACT0001");
+//		joinactVO1.setactNo("ACT0001");
 //		joinactVO1.setMemNo("M0002");
 //		dao.insert(joinactVO1);
 //		
 //		System.out.println("OK");
 		
-		//­×§ï
+		//ä¿®æ”¹
 //		JoinactVO joinactVO2 = new JoinactVO();
-//		joinactVO2.setActNo("ACT0025");
+//		joinactVO2.setactNo("ACT0025");
 //		joinactVO2.setMemNo("M0002");
 //		dao.update(joinactVO2);
 //		System.out.println("OKOK");
 		
-		//§R°£
+		//åˆªé™¤
 //		dao.delete("ACT0023");
 //		System.out.println("no problem");
 		
-		//¬d¸ß¤@­Ó
+		//æŸ¥è©¢ä¸€å€‹
 //		JoinactVO joinactVO3 = dao.findByPrimaryKey("ACT0001");
-//		System.out.println(joinactVO3.getActNo());
+//		System.out.println(joinactVO3.getactNo());
 //		System.out.println(joinactVO3.getMemNo());
 //		System.out.println("----------------------------------");
 		
-		//¬d¸ß¥þ³¡
+		//æŸ¥è©¢å…¨éƒ¨
 //		List<JoinactVO> list = dao.getAll();
 //		for(JoinactVO jvo:list) {
 //			
-//			System.out.print(jvo.getActNo()+",");
-//			System.out.print(jvo.getMemNo()+"¡C");
+//			System.out.print(jvo.getactNo()+",");
+//			System.out.print(jvo.getMemNo()+"ï¿½C");
 //			System.out.println();	
 //		}			
 	}

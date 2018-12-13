@@ -8,7 +8,7 @@ public class MenuVO {
 	private byte[] menuPic;
 	private String deliverTime;
 	
-	
+	  
 	public String getMenuBo() {
 		return menuBo;
 	}

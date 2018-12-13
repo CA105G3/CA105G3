@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.administrator.model.AdministratorVO;
-import com.favdr.model.FavdrJDBCDAO;
-import com.favdr.model.FavdrVO;
+import com.favdr.model.FavDrJDBCDAO;
+import com.favdr.model.FavDrVO;
 
-public class ReportdrJDBCDAO implements Reportdr_interface{
+public class ReportDrJDBCDAO implements ReportDr_interface{
 	
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -22,9 +22,9 @@ public class ReportdrJDBCDAO implements Reportdr_interface{
 //	private static final String INSERT_STMT = 
 //			"INSERT INTO Administrator (adminno,priority,status,reg) VALUES ('A'||lpad(to_char(administrator_seq.NEXTVAL), 4, '0'), ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-			"SELECT RDRNO, MEMNO, DRNO, RDRREASON, RDRTIME, RDRSTATE FROM REPORTDR";
+			"SELECT RDrNo, MEmNo, DrNo, RDRReason, RDRTime, RDRState FROM REPORTDR";
 	private static final String GET_ONE_STMT = 
-			"SELECT RDRNO, MEMNO, DRNO, RDRREASON, RDRTIME, RDRSTATE FROM REPORTDR WHERE RDRNO = ?";
+			"SELECT RDrNo, MEmNo, DrNo, RDRReason, RDRTime, RDRState FROM REPORTDR WHERE RDrNo = ?";
 //	private static final String DELETE = 
 //			"DELETE FROM Administrator where adminno = ? ";
 //	private static final String UPDATE_PRIORITY_STATUS = 
@@ -36,26 +36,26 @@ public class ReportdrJDBCDAO implements Reportdr_interface{
 	
 	
 	@Override
-	public void insert(ReportdrVO reportdrVO) {
+	public void insert(ReportDrVO reportDrVO) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void update(ReportdrVO reportdrVO) {
+	public void update(ReportDrVO reportDrVO) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(ReportdrVO reportdrVO) {
+	public void delete(ReportDrVO reportDrVO) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public ReportdrVO findByPrimaryKey(String rdrno) {
-		ReportdrVO reportdrVO = null;
+	public ReportDrVO findByPrimaryKey(String rdrNo) {
+		ReportDrVO reportDrVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -65,18 +65,18 @@ public class ReportdrJDBCDAO implements Reportdr_interface{
 			con = DriverManager.getConnection(url, user, password);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
-			pstmt.setString(1, rdrno);
+			pstmt.setString(1, rdrNo);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				reportdrVO = new ReportdrVO();
-				reportdrVO.setRdrno(rs.getString("rdrno"));
-				reportdrVO.setMemno(rs.getString("memno"));
-				reportdrVO.setDrno(rs.getString("drno"));
-				reportdrVO.setRdrreason(rs.getString("rdrreason"));
-				reportdrVO.setRdrtime(rs.getDate("rdrtime"));
-				reportdrVO.setRdrstate(rs.getString("rdrstate"));
+				reportDrVO = new ReportDrVO();
+				reportDrVO.setRdrNo(rs.getString("rdrNo"));
+				reportDrVO.setMemNo(rs.getString("memNo"));
+				reportDrVO.setDrNo(rs.getString("drNo"));
+				reportDrVO.setRdrReason(rs.getString("rdrReason"));
+				reportDrVO.setRdrTime(rs.getDate("rdrTime"));
+				reportDrVO.setRdrState(rs.getString("rdrState"));
 			}
 							
 			
@@ -110,14 +110,14 @@ public class ReportdrJDBCDAO implements Reportdr_interface{
 			}
 		}
 			
-		return reportdrVO;
+		return reportDrVO;
 	}
 
 	@Override
-	public List<ReportdrVO> getAll() {
+	public List<ReportDrVO> getAll() {
 		
-		List<ReportdrVO> list = new ArrayList<ReportdrVO>();
-		ReportdrVO reportdrVO = null;
+		List<ReportDrVO> list = new ArrayList<ReportDrVO>();
+		ReportDrVO reportDrVO = null;
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -131,15 +131,15 @@ public class ReportdrJDBCDAO implements Reportdr_interface{
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				reportdrVO = new ReportdrVO();
-				reportdrVO.setRdrno(rs.getString("rdrno"));
-				reportdrVO.setMemno(rs.getString("memno"));
-				reportdrVO.setDrno(rs.getString("drno"));
-				reportdrVO.setRdrreason(rs.getString("rdrreason"));
-				reportdrVO.setRdrtime(rs.getDate("rdrtime"));
-				reportdrVO.setRdrstate(rs.getString("rdrstate"));
+				reportDrVO = new ReportDrVO();
+				reportDrVO.setRdrNo(rs.getString("rdrNo"));
+				reportDrVO.setMemNo(rs.getString("memNo"));
+				reportDrVO.setDrNo(rs.getString("drNo"));
+				reportDrVO.setRdrReason(rs.getString("rdrReason"));
+				reportDrVO.setRdrTime(rs.getDate("rdrTime"));
+				reportDrVO.setRdrState(rs.getString("rdrState"));
 				
-				list.add(reportdrVO);
+				list.add(reportDrVO);
 			}
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
@@ -176,28 +176,28 @@ public class ReportdrJDBCDAO implements Reportdr_interface{
 
 	public static void main(String[] arg) {
 	
-		ReportdrJDBCDAO dao = new ReportdrJDBCDAO();
+		ReportDrJDBCDAO dao = new ReportDrJDBCDAO();
 
 		//查單筆
-		ReportdrVO reportdrVO1 = new ReportdrVO();
-		reportdrVO1 = dao.findByPrimaryKey("RDR0002");
-		System.out.print(reportdrVO1.getRdrno() + ",");
-		System.out.print(reportdrVO1.getMemno() + ",");
-		System.out.print(reportdrVO1.getDrno() + ",");
-		System.out.print(reportdrVO1.getRdrreason() + ",");
-		System.out.print(reportdrVO1.getRdrtime() + ",");
-		System.out.print(reportdrVO1.getRdrstate());
+		ReportDrVO reportDrVO1 = new ReportDrVO();
+		reportDrVO1 = dao.findByPrimaryKey("RDR0002");
+		System.out.print(reportDrVO1.getRdrNo() + ",");
+		System.out.print(reportDrVO1.getMemNo() + ",");
+		System.out.print(reportDrVO1.getDrNo() + ",");
+		System.out.print(reportDrVO1.getRdrReason() + ",");
+		System.out.print(reportDrVO1.getRdrTime() + ",");
+		System.out.print(reportDrVO1.getRdrState());
 
 		
 		//查全部
-//		List<ReportdrVO> list2 = dao.getAll();
-//		for(ReportdrVO reportdrVO : list2) {
-//			System.out.print(reportdrVO.getRdrno() + "," );
-//			System.out.print(reportdrVO.getMemno() + "," );
-//			System.out.print(reportdrVO.getDrno() + ",");
-//			System.out.print(reportdrVO.getRdrreason() + ",");
-//			System.out.print(reportdrVO.getRdrtime() + ",");
-//			System.out.print(reportdrVO.getRdrstate());
+//		List<ReportDrVO> list2 = dao.getAll();
+//		for(ReportDrVO reportDrVO : list2) {
+//			System.out.print(reportDrVO.getRdrNo() + "," );
+//			System.out.print(reportDrVO.getMemNo() + "," );
+//			System.out.print(reportDrVO.getDrNo() + ",");
+//			System.out.print(reportDrVO.getRdrReason() + ",");
+//			System.out.print(reportDrVO.getRdrTime() + ",");
+//			System.out.print(reportDrVO.getRdrState());
 //			System.out.println();
 //		}
 		

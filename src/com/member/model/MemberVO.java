@@ -7,22 +7,22 @@ public class MemberVO implements java.io.Serializable{
 	private String addr;
 	private String allergy;
 	private Date birth;
-	private String bloodtype;
+	private String bloodType;
 	private String email;
-	private String famhistory;
+	private String famHistory;
 	private String gender;
 	private String ident;
-	private Integer locno;
-	private String medhistory;
-	private String memid;
-	private String memname;
-	private String memno;
-	private String memstatus;
+	private Integer locNo;
+	private String medHistory;
+	private String memId;
+	private String memName;
+	private String memNo;
+	private String memStatus;
 	private String phone;
 	private String pwd;
-	private Date regdate;
+	private Date regDate;
 	private String smoking;
-	private Timestamp staytime;
+	private Timestamp stayTime;
 	
 	public String getAddr() {
 		return addr;
@@ -42,11 +42,11 @@ public class MemberVO implements java.io.Serializable{
 	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
-	public String getBloodtype() {
-		return bloodtype;
+	public String getBloodType() {
+		return bloodType;
 	}
-	public void setBloodtype(String bloodtype) {
-		this.bloodtype = bloodtype;
+	public void setBloodType(String bloodType) {
+		this.bloodType = bloodType;
 	}
 	public String getEmail() {
 		return email;
@@ -54,11 +54,11 @@ public class MemberVO implements java.io.Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getFamhistory() {
-		return famhistory;
+	public String getFamHistory() {
+		return famHistory;
 	}
-	public void setFamhistory(String famhistory) {
-		this.famhistory = famhistory;
+	public void setFamHistory(String famHistory) {
+		this.famHistory = famHistory;
 	}
 	public String getGender() {
 		return gender;
@@ -72,41 +72,41 @@ public class MemberVO implements java.io.Serializable{
 	public void setIdent(String ident) {
 		this.ident = ident;
 	}
-	public Integer getLocno() {
-		return locno;
+	public Integer getLocNo() {
+		return locNo;
 	}
-	public void setLocno(Integer locno) {
-		this.locno = locno;
+	public void setLocNo(Integer locNo) {
+		this.locNo = locNo;
 	}
-	public String getMedhistory() {
-		return medhistory;
+	public String getMedHistory() {
+		return medHistory;
 	}
-	public void setMedhistory(String medhistory) {
-		this.medhistory = medhistory;
+	public void setMedHistory(String medHistory) {
+		this.medHistory = medHistory;
 	}
-	public String getMemid() {
-		return memid;
+	public String getMemId() {
+		return memId;
 	}
-	public void setMemid(String memid) {
-		this.memid = memid;
+	public void setMemId(String memId) {
+		this.memId = memId;
 	}
-	public String getMemname() {
-		return memname;
+	public String getMemName() {
+		return memName;
 	}
-	public void setMemname(String memname) {
-		this.memname = memname;
+	public void setMemName(String memName) {
+		this.memName = memName;
 	}
-	public String getMemno() {
-		return memno;
+	public String getMemNo() {
+		return memNo;
 	}
-	public void setMemno(String memno) {
-		this.memno = memno;
+	public void setMemNo(String memNo) {
+		this.memNo = memNo;
 	}
-	public String getMemstatus() {
-		return memstatus;
+	public String getMemStatus() {
+		return memStatus;
 	}
-	public void setMemstatus(String memstatus) {
-		this.memstatus = memstatus;
+	public void setMemStatus(String memStatus) {
+		this.memStatus = memStatus;
 	}
 	public String getPhone() {
 		return phone;
@@ -120,11 +120,11 @@ public class MemberVO implements java.io.Serializable{
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
-	public Date getRegdate() {
-		return regdate;
+	public Date getRegDate() {
+		return regDate;
 	}
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
 	}
 	public String getSmoking() {
 		return smoking;
@@ -132,11 +132,11 @@ public class MemberVO implements java.io.Serializable{
 	public void setSmoking(String smoking) {
 		this.smoking = smoking;
 	}
-	public Timestamp getStaytime() {
-		return staytime;
+	public Timestamp getStayTime() {
+		return stayTime;
 	}
-	public void setStaytime(Timestamp staytime) {
-		this.staytime = staytime;
+	public void setStayTime(Timestamp stayTime) {
+		this.stayTime = stayTime;
 	}
 	
 }
