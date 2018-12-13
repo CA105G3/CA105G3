@@ -3,7 +3,7 @@ package com.reportdr.model;
 import java.sql.Date;
 import java.util.List;
 
-public class ReportdrVO {
+public class ReportDrVO {
 	
 	private String rdrNo;
 	private String memNo;

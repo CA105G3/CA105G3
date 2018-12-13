@@ -3,7 +3,7 @@ package com.medicalorder.model;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class MedicalorderVO implements Serializable{
+public class MedicalOrderVO implements Serializable{
 
 	private String moNo;
 	private String memNo;

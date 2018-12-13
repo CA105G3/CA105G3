@@ -2,7 +2,7 @@ package com.favdr.model;
 
 import java.io.Serializable;
 
-public class FavdrVO implements Serializable{
+public class FavDrVO implements Serializable{
 
 	String memNo;
 	String drNo;
