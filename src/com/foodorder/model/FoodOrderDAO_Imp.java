@@ -8,7 +8,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.mysql.jdbc.Connection;
 
 public class FoodOrderDAO_Imp implements FoodOrderDAO_Interface {
 	private static DataSource ds = null;
@@ -35,7 +34,7 @@ public class FoodOrderDAO_Imp implements FoodOrderDAO_Interface {
 		PreparedStatement pstmt = null;
 		
 		try {
-			con = (Connection) ds.getConnection();
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, foodOrderVO.getMemno());
@@ -74,7 +73,7 @@ public class FoodOrderDAO_Imp implements FoodOrderDAO_Interface {
 
 		try {
 
-			con = (Connection) ds.getConnection();
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, orderno);
@@ -111,7 +110,7 @@ public class FoodOrderDAO_Imp implements FoodOrderDAO_Interface {
 		ResultSet rs = null;
 		
 		try {
-			con = (Connection) ds.getConnection();
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
 			pstmt.setString(1, orderno);
@@ -163,7 +162,7 @@ public class FoodOrderDAO_Imp implements FoodOrderDAO_Interface {
 		ResultSet rs = null;
 		
 		try {
-			con = (Connection) ds.getConnection();
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 			
