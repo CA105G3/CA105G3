@@ -6,8 +6,8 @@ public interface MedicalOrder_interface {
 
 	public void insert(MedicalOrderVO medicalOrderVO);
 	public void update(MedicalOrderVO medicalOrderVO);
-	public void delete(MedicalOrderVO medicalOrderVO);
-	public MedicalOrderVO findByPrimaryKey(String moNo);
+	public void delete(String moNo);
+	public List<MedicalOrderVO> findByPrimaryKey(String memNo);
 	public List<MedicalOrderVO> getAll();
 	
 }
