@@ -28,7 +28,7 @@ public class DoctorJDBCDAO implements DoctorDAO_interface{
 	private static final String DELETE_STMT = "DELETE FROM DOCTOR WHERE DRNO = ?";
 	private static final String FIND_BY_PK = "SELECT * FROM DOCTOR WHERE DRNO = ?";
 	private static final String GET_ALL = "SELECT * FROM DOCTOR";
- 
+
 	@Override
 	public void insert(DoctorVO doctorVO) {
 		Connection con = null;

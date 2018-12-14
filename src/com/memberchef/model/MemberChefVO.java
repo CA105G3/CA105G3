@@ -1,15 +1,16 @@
 package com.memberchef.model;
 
-public class MemberChefVO {
+public class MemberChefVO implements java.io.Serializable{
+	private static final long serialVersionUID = 1L;
+		
 	private String chefNo;
 	private String memNo;
 	private byte[] chefPic;
-	private String chefDescription;
-	private String chefEnable;
-	private String chePhone;
-	private String cheAddr;
-	private String cheRep;
-	
+	private String chefDescrip;
+	private String chefStatus;
+	private String chefPhone;
+	private String chefAddr;
+	private String chefRep;
 	
 	public String getChefNo() {
 		return chefNo;
@@ -29,35 +30,37 @@ public class MemberChefVO {
 	public void setChefPic(byte[] chefPic) {
 		this.chefPic = chefPic;
 	}
-	public String getChefDescription() {
-		return chefDescription;
+	public String getChefDescrip() {
+		return chefDescrip;
 	}
-	public void setChefDescription(String chefDescription) {
-		this.chefDescription = chefDescription;
+	public void setChefDescrip(String chefDescrip) {
+		this.chefDescrip = chefDescrip;
 	}
-	public String getChefEnable() {
-		return chefEnable;
+	public String getChefStatus() {
+		return chefStatus;
 	}
-	public void setChefEnable(String chefEnable) {
-		this.chefEnable = chefEnable;
+	public void setChefStatus(String chefStatus) {
+		this.chefStatus = chefStatus;
 	}
-	public String getChePhone() {
-		return chePhone;
+	public String getChefPhone() {
+		return chefPhone;
 	}
-	public void setChePhone(String chePhone) {
-		this.chePhone = chePhone;
+	public void setChefPhone(String chefPhone) {
+		this.chefPhone = chefPhone;
 	}
-	public String getCheAddr() {
-		return cheAddr;
+	public String getChefAddr() {
+		return chefAddr;
 	}
-	public void setCheAddr(String cheAddr) {
-		this.cheAddr = cheAddr;
+	public void setChefAddr(String chefAddr) {
+		this.chefAddr = chefAddr;
 	}
-	public String getCheRep() {
-		return cheRep;
+	public String getChefRep() {
+		return chefRep;
 	}
-	public void setCheRep(String cheRep) {
-		this.cheRep = cheRep;
+	public void setChefRep(String chefRep) {
+		this.chefRep = chefRep;
 	}
 	
+	
+
 }

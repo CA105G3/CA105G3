@@ -27,11 +27,15 @@ public class ReportDrJDBCDAO implements ReportDr_interface{
 			"SELECT RDrNo, MEmNo, DrNo, RDRReason, RDRTime, RDRState FROM REPORTDR WHERE RDrNo = ?";
 	private static final String DELETE = 
 			"DELETE FROM REPORTDR where RDRNO = ? ";
-	private static final String UPDATE = 
-			"UPDATE Administrator set priority = ?, status = ? where adminno = ?";
+	private static final String UPDATE_RDRREASON_RDRSTATE = 
+			"UPDATE REPORTDR SET RDRREASON = ?, RDRSTATE = ? WHERE RDRNO = ?";
+	private static final String UPDATE_RDRREASON = 
+			"UPDATE REPORTDR SET RDRREASON = ? WHERE RDRNO = ? ";
+	private static final String UPDATE_RDRSTATE = 
+			"UPDATE REPORTDR SET RDRSTATE = ? WHERE RDRNO = ? ";
 	
 	@Override
-	public void insert(ReportDrVO reportDrVO) {
+ 	public void insert(ReportDrVO reportDrVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -39,18 +43,16 @@ public class ReportDrJDBCDAO implements ReportDr_interface{
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, password);
 			pstmt = con.prepareStatement(INSERT_STMT);
-//			pstmt.setString(1, reportDrVO.getRdrNo());
 			pstmt.setString(1, reportDrVO.getMemNo());
 			pstmt.setString(2, reportDrVO.getDrNo());
 			pstmt.setString(3, reportDrVO.getRdrReason());
-//			pstmt.setDate(5, reportDrVO.getRdrTime());
 			pstmt.setString(4, reportDrVO.getRdrState());
 			
 			pstmt.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver" + e.getMessage());
 		} catch (SQLException e) {
-			throw new RuntimeException("Couldn't load database driver." + e.getMessage());
+			throw new RuntimeException("A database err occured." + e.getMessage());
 		} finally {
 			if(pstmt!=null) {
 				try {
@@ -72,10 +74,126 @@ public class ReportDrJDBCDAO implements ReportDr_interface{
 	}
 
 	@Override
-	public void update(ReportDrVO reportDrVO) {
-		// TODO Auto-generated method stub
+	public void update_rdrReason_rdrState(ReportDrVO reportDrVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			pstmt = con.prepareStatement(UPDATE_RDRREASON_RDRSTATE);
+			
+			pstmt.setString(1, reportDrVO.getRdrReason());
+			pstmt.setString(2, reportDrVO.getRdrState());
+			pstmt.setString(3, reportDrVO.getRdrNo());
+			
+			pstmt.executeUpdate();
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Cloudn't load database driver" + e.getMessage());
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured." + e.getMessage());
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 		
 	}
+	
+	@Override
+	public void update_rdrReason(ReportDrVO reportDrVO) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			pstmt = con.prepareStatement(UPDATE_RDRSTATE);
+			
+			pstmt.setString(1, reportDrVO.getRdrState());
+			pstmt.setString(2, reportDrVO.getRdrNo());
+			
+			pstmt.executeUpdate();
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver" + e.getMessage());
+		} catch (SQLException e) {
+			throw new RuntimeException("A database err occured." + e.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		
+	}
+		
+
+	@Override
+	public void update_rdrState(ReportDrVO reportDrVO) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			pstmt = con.prepareStatement(UPDATE_RDRSTATE);
+			
+			pstmt.setString(1, reportDrVO.getRdrState());
+			pstmt.setString(2, reportDrVO.getRdrNo());
+			
+			pstmt.executeUpdate();
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't loda database driver" + e.getMessage());
+		} catch (SQLException e) {
+			throw new RuntimeException("A database err occurd." + e.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(con!=null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		
+	}
+			
 
 	@Override
 	public void delete(String rdrNo) {
@@ -238,6 +356,25 @@ public class ReportDrJDBCDAO implements ReportDr_interface{
 	
 		ReportDrJDBCDAO dao = new ReportDrJDBCDAO();
 
+		//修改rdrState 
+//		ReportDrVO reportDrVO5 = new ReportDrVO();
+//		reportDrVO5.setRdrState("已處理");
+//		reportDrVO5.setRdrNo("RDR0004");
+//		dao.update_rdrReason(reportDrVO5);
+		
+		//修改rdrReason
+//		ReportDrVO reportDrVO4 = new ReportDrVO();
+//		reportDrVO4.setRdrReason("語焉不詳");
+//		reportDrVO4.setRdrNo("RDR0003");
+//		dao.update_rdrReason(reportDrVO4);
+		
+		//修改rdrReason&rdrState
+//		ReportDrVO reportDrVO3 = new ReportDrVO();
+//		reportDrVO3.setRdrReason("隨便寫寫");
+//		reportDrVO3.setRdrState("未處理");
+//		reportDrVO3.setRdrNo("RDR0004");
+//		dao.update_rdrReason_rdrState(reportDrVO3);
+		
 		//新增
 //		ReportDrVO reportDrVO2 = new ReportDrVO();
 //		reportDrVO2.setMemNo("M0005");

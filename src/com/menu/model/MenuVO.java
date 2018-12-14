@@ -1,19 +1,20 @@
 package com.menu.model;
 
-public class MenuVO {
-	private String menuBo;
+public class MenuVO implements java.io.Serializable{
+	private static final long serialVersionUID = 1L;
+	
+	private String menuNo;
 	private String chefNo;
 	private Integer unitPrice;
 	private String mainCourse;
 	private byte[] menuPic;
-	private String deliverTime;
+	private String deliverable;
 	
-	  
-	public String getMenuBo() {
-		return menuBo;
+	public String getMenuNo() {
+		return menuNo;
 	}
-	public void setMenuBo(String menuBo) {
-		this.menuBo = menuBo;
+	public void setMenuNo(String menuNo) {
+		this.menuNo = menuNo;
 	}
 	public String getChefNo() {
 		return chefNo;
@@ -39,12 +40,10 @@ public class MenuVO {
 	public void setMenuPic(byte[] menuPic) {
 		this.menuPic = menuPic;
 	}
-	public String getDeliverTime() {
-		return deliverTime;
+	public String getDeliverable() {
+		return deliverable;
 	}
-	public void setDeliverTime(String deliverTime) {
-		this.deliverTime = deliverTime;
+	public void setDeliverable(String deliverable) {
+		this.deliverable = deliverable;
 	}
-	
-	
 }

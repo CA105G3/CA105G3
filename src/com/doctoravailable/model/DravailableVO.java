@@ -1,12 +1,15 @@
 package com.doctoravailable.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class DravailableVO {
+public class DravailableVO implements Serializable {
 	private String dravano;
 	private String drno;
 	private Date draym;
 	private String drava;
+	
+	public DravailableVO() {};
 	
 	public String getDravano() {
 		return dravano;

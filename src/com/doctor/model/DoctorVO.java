@@ -1,6 +1,8 @@
 package com.doctor.model;
 
-public class DoctorVO {
+import java.io.Serializable;
+
+public class DoctorVO implements Serializable{
 	private String drno;
 	private String memno;
 	private String resume;
@@ -9,6 +11,8 @@ public class DoctorVO {
 	private String major;
 	private Integer fee;
 	private byte[] photo;
+	
+	public DoctorVO() {};
 	
 	public String getDrno() {
 		return drno;

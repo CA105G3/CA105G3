@@ -11,11 +11,11 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 	String password = "ca105g3";
 
 	private static final String INSERT_STMT = 
-			"INSERT INTO Administrator (adminNo,priority,status,reg) VALUES ('A'||lpad(to_char(administrator_seq.NEXTVAL), 4, '0'), ?, ?, ?)";
+			"INSERT INTO Administrator (adminNo,adminid,adminPsw,priority,status,reg) VALUES ('A'||lpad(to_char(administrator_seq.NEXTVAL), 4, '0'),?,?,?,?,?)";
 	private static final String GET_ALL_STMT = 
-			"SELECT adminNo,priority,status,reg FROM Administrator order by adminNo";
+			"SELECT adminNo,adminId,adminPsw,priority,status,reg FROM Administrator order by adminNo";
 	private static final String GET_ONE_STMT = 
-			"SELECT adminNo,priority,status,reg FROM Administrator where adminNo = ?";
+			"SELECT adminNo,adminId,adminPsw,priority,status,reg FROM Administrator where adminNo = ?";
 	private static final String DELETE = 
 			"DELETE FROM Administrator where adminNo = ? ";
 	private static final String UPDATE_PRIORITY_STATUS = 
@@ -35,9 +35,11 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 			con = DriverManager.getConnection(url, user, password);
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
-			pstmt.setString(1, administratorVO.getPriority());
-			pstmt.setString(2, administratorVO.getStatus());
-			pstmt.setDate(3, administratorVO.getReg());
+			pstmt.setString(1, administratorVO.getAdminId());
+			pstmt.setString(2, administratorVO.getAdminPsw());
+			pstmt.setString(3, administratorVO.getPriority());
+			pstmt.setString(4, administratorVO.getStatus());
+			pstmt.setDate(5, administratorVO.getReg());
 			
 			pstmt.executeUpdate();
 			
@@ -259,6 +261,8 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 			
 			while(rs.next()) {
 				administratorVO = new AdministratorVO();
+				administratorVO.setAdminId(rs.getString("adminId"));
+				administratorVO.setAdminPsw(rs.getString("adminPsw"));
 				administratorVO.setAdminNo(rs.getString("adminNo"));
 				administratorVO.setPriority(rs.getString("priority"));
 				administratorVO.setStatus(rs.getString("status"));
@@ -319,6 +323,8 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 			
 			while(rs.next()) {
 				administratorVO = new AdministratorVO();
+				administratorVO.setAdminId(rs.getString("adminId"));
+				administratorVO.setAdminPsw(rs.getString("adminPsw"));
 				administratorVO.setAdminNo(rs.getString("adminNo"));
 				administratorVO.setPriority(rs.getString("priority"));
 				administratorVO.setStatus(rs.getString("status"));
@@ -365,6 +371,8 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 		
 		//新增
 //		AdministratorVO administratorVO1 = new AdministratorVO();
+//		administratorVO1.setAdminId("HOWHOW");
+//		administratorVO1.setAdminPsw("123456");
 //		administratorVO1.setPriority("一般管理員");
 //		administratorVO1.setStatus("生效中");
 //		administratorVO1.setReg(java.sql.Date.valueOf("2018-12-01"));
@@ -395,20 +403,24 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 		
 		//查詢：查單一
 //		AdministratorVO administratorVO5 = new AdministratorVO();
-//		administratorVO5 = dao.findByPrimaryKey("A0003");
+//		administratorVO5 = dao.findByPrimaryKey("A0006");
+//		System.out.print(administratorVO5.getAdminId() + ",");
+//		System.out.print(administratorVO5.getAdminPsw() + ",");
 //		System.out.print(administratorVO5.getAdminNo() + ",");
 //		System.out.print(administratorVO5.getPriority() + ",");
 //		System.out.print(administratorVO5.getStatus());
 		
 		//查詢：查全部
-		List<AdministratorVO> list = dao.getAll();
-		for(AdministratorVO administrator : list) {
-			System.out.print(administrator.getAdminNo() + "," );
-			System.out.print(administrator.getPriority() + ",");
-			System.out.print(administrator.getStatus() + ",");
-			System.out.print(administrator.getReg());
-			System.out.println();
-		}
+//		List<AdministratorVO> list = dao.getAll();
+//		for(AdministratorVO administrator : list) {
+//			System.out.print(administrator.getAdminId() + ",");
+//			System.out.print(administrator.getAdminPsw() + ",");
+//			System.out.print(administrator.getAdminNo() + "," );
+//			System.out.print(administrator.getPriority() + ",");
+//			System.out.print(administrator.getStatus() + ",");
+//			System.out.print(administrator.getReg());
+//			System.out.println();
+//		}
 		
 		
 		
