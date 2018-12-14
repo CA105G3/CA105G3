@@ -1,4 +1,29 @@
 --------------------------------------------------------
+--  insert into member
+--------------------------------------------------------
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'David','David123456','David','09123456789',TO_DATE('1981-01-01','YYYY-MM-DD'),TO_DATE('2018-4-07 13:23:44','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-11-07 13:23:44','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','男','david001@gmail.com',22244,'中央大學中央路255號','AB','有','此為文字串','此為文字串','此為文字串');
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'Mary','Mary123456','Mary','09213456789',TO_DATE('1982-02-02','YYYY-MM-DD'),TO_DATE('2018-6-25 11:25:51','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-25 11:25:51','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','女','mary001@gmail.com',22244,'中央大學中央路256號','O','沒有','此為文字串','此為文字串','此為文字串');
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'Jim','Jim123457','Jim','09883456789',TO_DATE('1983-03-03','YYYY-MM-DD'),TO_DATE('2018-5-25 15:36:11','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-25 15:36:11','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','男','jim001@gmail.com',22244,'中央大學中央路257號','O','沒有','此為文字串','此為文字串','此為文字串');
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'Harry','Harry123457','Harry','09833456789',TO_DATE('1984-04-04','YYYY-MM-DD'),TO_DATE('2018-4-25 16:54:54','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-25 16:54:54','yyyy-mm-dd hh24:mi:ss'),'停用','一般會員','男','harry001@gmail.com',22244,'中央大學中央路258號','A','有','此為文字串','此為文字串','此為文字串');
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'Jay','Jay123457','Jay','09343456789',TO_DATE('1985-05-05','YYYY-MM-DD'),TO_DATE('2018-8-04 16:25:15','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-04 16:25:15','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','男','Jay001@gmail.com',22244,'中央大學中央路259號','B','沒有','此為文字串','此為文字串','此為文字串');
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'Kim','Kim123457','Kim','09423456789',TO_DATE('1986-06-06','YYYY-MM-DD'),TO_DATE('2018-9-05 18:57:52','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-05 18:57:52','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','男','Kim001@gmail.com',22244,'中央大學中央路260號','A','沒有','此為文字串','此為文字串','此為文字串');
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'Adele','Adele123457','Adele','09733555555',TO_DATE('1987-07-07','YYYY-MM-DD'),TO_DATE('2018-9-05 15:25:35','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-05 15:25:35','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','女','Adele001@gmail.com',22244,'中央大學中央路261號','AB','有','此為文字串','此為文字串','此為文字串');
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'Trista','Trista123457','Trista','0943334589',TO_DATE('1988-08-08','YYYY-MM-DD'),TO_DATE('2018-9-06 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-06 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','女','Trista@gmail.com',22244,'中央大學中央路262號','O','沒有',null,null,null);
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'Chief_Alan','Alan123457','Alan','0943334659',TO_DATE('1988-08-09','YYYY-MM-DD'),TO_DATE('2018-9-07 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-07 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','餐飲業者','男','Alan@gmail.com',22244,'中央大學中央路263號','AB','沒有',null,null,null);
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'Chief_Blake','Blake123457','Blake','0943323469',TO_DATE('1988-08-10','YYYY-MM-DD'),TO_DATE('2018-9-08 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-08 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','餐飲業者','男','Blake@gmail.com',22244,'中央大學中央路264號','A','沒有',null,null,null);
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'Chief_Venus','Venus123457','Venus','0943352859',TO_DATE('1988-08-11','YYYY-MM-DD'),TO_DATE('2018-9-09 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-09 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','餐飲業者','女','Venus@gmail.com',22244,'中央大學中央路265號','O','沒有',null,null,null);
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'Chief_Yuri','Yuri123457','Yuri','0943754239',TO_DATE('1988-08-12','YYYY-MM-DD'),TO_DATE('2018-9-10 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-10 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','餐飲業者','女','Yuri@gmail.com',22244,'中央大學中央路266號','B','沒有',null,null,null);
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'Chief_Zoe','Zoe123457','Zoe','0948797889',TO_DATE('1988-08-13','YYYY-MM-DD'),TO_DATE('2018-9-11 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-11 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','餐飲業者','女','Zoe@gmail.com',22244,'中央大學中央路267號','A','沒有',null,null,null);
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'Chief_Duke','Duke123457','Duke','0943787589',TO_DATE('1988-08-14','YYYY-MM-DD'),TO_DATE('2018-9-12 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-12 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','餐飲業者','男','Duke@gmail.com',22244,'中央大學中央路268號','AB','沒有',null,null,null);
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'Doctor_Astor','Astor123457','Astor','0943975335',TO_DATE('1988-08-15','YYYY-MM-DD'),TO_DATE('2018-9-13 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-13 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','男','Astor@gmail.com',22244,'中央大學中央路269號','O','沒有',null,null,null);
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'Doctor_Bob','Bob123457','Bob','0943367431',TO_DATE('1988-08-16','YYYY-MM-DD'),TO_DATE('2018-9-4 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-14 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','男','Bob@gmail.com',22244,'中央大學中央路270號','A','沒有',null,null,null);
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'Doctor_Sylvia','Sylvia123457','Sylvia','0989743489',TO_DATE('1988-08-17','YYYY-MM-DD'),TO_DATE('2018-9-15 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-15 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','女','Sylvia@gmail.com',22244,'中央大學中央路271號','O','沒有',null,null,null);
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'Doctor_Tess','Tess123457','Tess','0940675369',TO_DATE('1988-08-18','YYYY-MM-DD'),TO_DATE('2018-9-16 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-16 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','女','Tess@gmail.com',22244,'中央大學中央路272號','AB','沒有',null,null,null);
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'Doctor_Kobe','Kobe123457','Kobe','0943324362',TO_DATE('1988-08-19','YYYY-MM-DD'),TO_DATE('2018-9-17 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-17 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','男','Kobe@gmail.com',22244,'中央大學中央路273號','A','沒有',null,null,null);
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'Doctor_Queen','Queen123457','Queen','0942343245',TO_DATE('1988-08-20','YYYY-MM-DD'),TO_DATE('2018-9-18 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-18 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','女','Queen@gmail.com',22244,'中央大學中央路274號','B','沒有',null,null,null);
+
+
+--------------------------------------------------------
 --  insert into doctor
 --------------------------------------------------------
 --------------------------------------------------------
@@ -102,6 +127,16 @@ INSERT INTO favdr (memno,drno) VALUES ('M0003','D0004');
 INSERT INTO reportdr VALUES ('RDR'||lpad(to_char(reportdr_seq.NEXTVAL), 4, '0'),'M0004','D0001','病歷表亂寫',current_timestamp,'已處理');
 INSERT INTO reportdr VALUES ('RDR'||lpad(to_char(reportdr_seq.NEXTVAL), 4, '0'),'M0005','D0001','看病很隨便',current_timestamp,'未處理');
 
+-----------------------------------------------
+-- insert into foodorder
+-----------------------------------------------
+INSERT INTO foodorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(foodorder_seq.NEXTVAL), 4, '0'),'M0001','中央大學','CHEF0001','接受',current_timestamp);
+
+-----------------------------------------------
+-- insert into orderdetail
+-----------------------------------------------
+
+INSERT INTO orderdetail VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(orderdetail_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(foodorder_seq.CURRVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.CURRVAL), 4, '0'),'1','60');
 
 
 
