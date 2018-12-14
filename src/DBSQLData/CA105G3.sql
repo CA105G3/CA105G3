@@ -216,7 +216,7 @@ INSERT INTO impression VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_c
 -----------------------------------------------
 CREATE TABLE reportact（
     repano      VARCHAR2(8 BYTE) NOT NULL ,
-    actno       VARCHAR2(7 BYTE) NOT NULL ,
+    actno       VARCHAR2(7 BYTE) NOT NULL , 
     memno       VARCHAR2(5 BYTE) NOT NULL ,
     repastatus  VARCHAR2(9 BYTE) NOT NULL ,
     CONSTRAINT reportact_pk PRIMARY KEY (repano),
