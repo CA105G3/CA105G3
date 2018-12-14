@@ -6,6 +6,8 @@ import java.sql.Date;
 public class AdministratorVO implements Serializable{
 
 	private String adminNo;
+	private String adminId;
+	private String adminPsw;
 	private String priority;
 	private String status;
 	private Date reg;
@@ -15,6 +17,18 @@ public class AdministratorVO implements Serializable{
 	}
 	public void setAdminNo(String adminNo) {
 		this.adminNo = adminNo;
+	}
+	public String getAdminId() {
+		return adminId;
+	}
+	public void setAdminId(String adminId) {
+		this.adminId = adminId;
+	}
+	public String getAdminPsw() {
+		return adminPsw;
+	}
+	public void setAdminPsw(String adminPsw) {
+		this.adminPsw = adminPsw;
 	}
 	public String getPriority() {
 		return priority;
