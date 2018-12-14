@@ -1,4 +1,4 @@
-package com.reportact.model;
+package com.activity.model;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -9,10 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.activity.model.ActivityJDBCDAO;
-import com.activity.model.ActivityVO;
+import com.member.model.MemberJDBCDAO;
+import com.member.model.MemberVO;
 
-public class ReportactJDBCDAO implements ReportactDAO_interface{
+public class ActivityJDBCDAO implements ActivityDAO_interface{
 	
 	String dirver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -20,22 +20,24 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 
-		"INSERT INTO Reportact(repaNo,actno,memno,repastatus)"
-		+ "VALUES('repa'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),?,?,?)";
+		"INSERT INTO activity(actNo,memno,actname,actloc,acttime,actstatus,actlimit,timecheck)"
+		+ "VALUES('ACT'||lpad(to_char(MEMBER_seq.NEXTVAL), 4, '0'),?,?,?,?,?,?,?)";
 	private static final String GET_ALL_STMT=
-		"SELECT * FROM Reportact ORDER BY repaNo";
+		"SELECT * FROM ACTIVITY ORDER BY actNo";
 		
 	private static final String GET_ONE_STMT = 
-		"SELECT * from Reportact WHERE repaNo=?";
+		"SELECT * from activity WHERE actNo=?";
 	
 	private static final String DELETE = 
-		"DELETE FROM Reportact WHERE repaNo = ?";
+		"DELETE FROM ACTIVITY WHERE actNo = ?";
 	
 	private static final String UPDATE =
-		"UPDATE Reportact SET repastatus =? WHERE repaNo = ?";
+		"UPDATE ACTIVITY SET ACTLOC =? WHERE actNo = ?";
+	
 	
 	@Override
-	public void insert(ReportactVO reportactVO) {
+	public void insert(ActivityVO activityVO) {
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -43,9 +45,14 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 			Class.forName(dirver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt =con.prepareStatement(INSERT_STMT);
-			pstmt.setString(1,reportactVO.getActNo());
-			pstmt.setString(2,reportactVO.getMemNo());
-			pstmt.setString(3,reportactVO.getRepaStatus());
+			pstmt.setString(1,activityVO.getMemNo());
+			pstmt.setString(2,activityVO.getActName());
+			pstmt.setString(3,activityVO.getActLoc());
+			pstmt.setDate(4,activityVO.getActTime());
+			pstmt.setString(5,activityVO.getActStatus());
+			pstmt.setInt(6,activityVO.getActLimit());
+			pstmt.setInt(7,activityVO.getTimeCheck());
+			
 			pstmt.executeUpdate();
 			
 		} catch (ClassNotFoundException e) {
@@ -68,11 +75,10 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 				}
 			}
 		}
-		
 	}
 
 	@Override
-	public void update(ReportactVO reportactVO) {
+	public void update(ActivityVO activityVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -81,8 +87,8 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 			
-			pstmt.setString(1,reportactVO.getRepaStatus());
-			pstmt.setString(2,reportactVO.getRepaNo());
+			pstmt.setString(1,activityVO.getActLoc());
+			pstmt.setString(2,activityVO.getActNo());
 		
 			
 			pstmt.executeUpdate();
@@ -107,11 +113,11 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 				}
 			}
 		}
-		
 	}
 
 	@Override
-	public void delete(String repaNo) {
+	public void delete(String actNo) {
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -121,7 +127,7 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 			pstmt = con.prepareStatement(DELETE);
 			
 			
-			pstmt.setString(1,repaNo);
+			pstmt.setString(1,actNo);
 		
 			
 			pstmt.executeUpdate();
@@ -146,12 +152,12 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 				}
 			}
 		}
-		
 	}
 
 	@Override
-	public ReportactVO findByPrimaryKey(String repaNo) {
-		ReportactVO reportactVO = null;
+	public ActivityVO findByPrimaryKey(String actNo) {
+		
+		ActivityVO activityVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -161,17 +167,21 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
-			pstmt.setString(1, repaNo);
+			pstmt.setString(1, actNo);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				reportactVO = new ReportactVO();
+				activityVO = new ActivityVO();
 				
-				reportactVO.setRepaNo(rs.getString("repaNo"));
-				reportactVO.setActNo(rs.getString("ACTNO"));
-				reportactVO.setMemNo(rs.getString("MEMNO"));
-				reportactVO.setRepaStatus(rs.getString("REPASTATUS"));
+				activityVO.setActNo(rs.getString("actNo"));
+				activityVO.setMemNo(rs.getString("MEMNO"));
+				activityVO.setActName(rs.getString("ACTNAME"));
+				activityVO.setActLoc(rs.getString("ACTLOC"));
+				activityVO.setActTime(rs.getDate("ACTTIME"));
+				activityVO.setActStatus(rs.getString("ACTSTATUS"));
+				activityVO.setActLimit(rs.getInt("ACTLIMIT"));
+				activityVO.setTimeCheck(rs.getInt("TIMECHECK"));
 				
 			}
 			
@@ -203,13 +213,13 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 			}
 		}
 
-		return reportactVO;
+		return activityVO;
 	}
 
 	@Override
-	public List<ReportactVO> getAll() {
-		List<ReportactVO> list = new ArrayList<ReportactVO>();
-		ReportactVO reportactVO = null;
+	public List<ActivityVO> getAll() {
+		List<ActivityVO> list = new ArrayList<ActivityVO>();
+		ActivityVO activityVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -221,13 +231,17 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				reportactVO = new ReportactVO();
+				activityVO = new ActivityVO();
 				
-				reportactVO.setRepaNo(rs.getString("repaNo"));
-				reportactVO.setActNo(rs.getString("ACTNO"));
-				reportactVO.setMemNo(rs.getString("MEMNO"));
-				reportactVO.setRepaStatus(rs.getString("REPASTATUS"));
-				list.add(reportactVO);	
+				activityVO.setActNo(rs.getString("actNo"));
+				activityVO.setMemNo(rs.getString("MEMNO"));
+				activityVO.setActName(rs.getString("ACTNAME"));
+				activityVO.setActLoc(rs.getString("ACTLOC"));
+				activityVO.setActTime(rs.getDate("ACTTIME"));
+				activityVO.setActStatus(rs.getString("ACTSTATUS"));
+				activityVO.setActLimit(rs.getInt("ACTLIMIT"));
+				activityVO.setTimeCheck(rs.getInt("TIMECHECK"));
+				list.add(activityVO);	
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -261,22 +275,28 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 	}
 	public static void main(String[] args){
 		
-		ReportactJDBCDAO dao = new ReportactJDBCDAO();
+		ActivityJDBCDAO dao = new ActivityJDBCDAO();
 		
 		//新增
-//		ReportactVO ReportactVO1 = new ReportactVO();
-//		ReportactVO1.setActNo("ACT0001");
-//		ReportactVO1.setMemNo("M0001");
-//		ReportactVO1.setRepaStatus("���ˬd");
-//		dao.insert(ReportactVO1);
-//		
-//		System.out.println("OK");
+		ActivityVO activityVO1 = new ActivityVO();
+		activityVO1.setMemNo("M0002");
+		activityVO1.setActName("���F���j��");;
+		Date date = Date.valueOf("2008-11-04");
+		activityVO1.setActLoc("9�S3/4��x");
+		activityVO1.setActTime(date);
+		activityVO1.setActStatus("�w����");
+		activityVO1.setActLimit(2);
+		activityVO1.setTimeCheck(2);
+		
+		dao.insert(activityVO1);
+		
+		System.out.println("OK");
 		
 		//修改
-//		ReportactVO ReportactVO2 = new ReportactVO();
-//		ReportactVO2.setRepaStatus("�w�ˬd");
-//		ReportactVO2.setrepaNo("repa0026");
-//		dao.update(ReportactVO2);
+//		ActivityVO activityVO2 = new ActivityVO();
+//		activityVO2.setActLoc("�J���P");
+//		activityVO2.setactNo("ACT0023");
+//		dao.update(activityVO2);
 //		System.out.println("OKOK");
 		
 		//刪除
@@ -284,23 +304,29 @@ public class ReportactJDBCDAO implements ReportactDAO_interface{
 //		System.out.println("no problem");
 		
 		//查詢一個
-//		ReportactVO ReportactVO3 = dao.findByPrimaryKey("REPA0026");
-//		System.out.println(ReportactVO3.getrepaNo());
-//		System.out.println(ReportactVO3.getActNo());
-//		System.out.println(ReportactVO3.getMemNo());
-//		System.out.println(ReportactVO3.getRepaStatus());
+//		ActivityVO activityVO3 = dao.findByPrimaryKey("ACT0001");
+//		System.out.println(activityVO3.getMemNo());
+//		System.out.println(activityVO3.getActName());
+//		System.out.println(activityVO3.getActLoc());
+//		System.out.println(activityVO3.getActTime());
+//		System.out.println(activityVO3.getActStatus());
+//		System.out.println(activityVO3.getActLimit());
+//		System.out.println(activityVO3.getTimeCheck());
 //		System.out.println("----------------------------------");
 		
 		//查詢全部
-//		List<ReportactVO> list = dao.getAll();
-//		for(ReportactVO rvo:list) {
+//		List<ActivityVO> list = dao.getAll();
+//		for(ActivityVO avo:list) {
 //			
-//			System.out.print(rvo.getrepaNo()+",");
-//			System.out.print(rvo.getActNo()+",");
-//			System.out.print(rvo.getMemNo()+",");
-//			System.out.print(rvo.getRepaStatus()+"�C");
+//			System.out.print(avo.getactNo()+",");
+//			System.out.print(avo.getMemNo()+",");
+//			System.out.print(avo.getActName()+",");
+//			System.out.print(avo.getActLoc()+",");
+//			System.out.print(avo.getActTime()+",");
+//			System.out.print(avo.getActStatus()+",");
+//			System.out.print("�̤֤H�Ƭ�"+avo.getActLimit()+"�H,");
+//			System.out.print(avo.getTimeCheck()+"�ѫᵲ���έp�C");
 //			System.out.println();	
 //		}			
 	}
-
 }

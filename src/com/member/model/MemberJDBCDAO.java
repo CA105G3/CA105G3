@@ -11,10 +11,10 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 
-		"INSERT INTO Member(memno,memid,pwd,memname,phone,birth,regdate,staytime,memstatus,ident,gender,email,locno,addr,bloodtype,smoking,allergy,medhistory,famhistory)"
+		"INSERT INTO Member(memno,MemId,pwd,memname,phone,birth,regdate,staytime,memstatus,ident,gender,email,locno,addr,bloodtype,smoking,allergy,medhistory,famhistory)"
 		+ "VALUES('M'||lpad(to_char(MEMBER_seq.NEXTVAL), 4, '0'),?,?,?,?,?,?,TO_DATE(SYSDATE),?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String GET_ALL_STMT=
-		"SELECT memno,memid,pwd,memname,phone,birth,regdate,staytime,memstatus,ident,gender,email,locno,addr,bloodtype,smoking,allergy,medhistory,famhistory FROM MEMBER ORDER BY memno";
+		"SELECT memno,MemId,pwd,memname,phone,birth,regdate,staytime,memstatus,ident,gender,email,locno,addr,bloodtype,smoking,allergy,medhistory,famhistory FROM MEMBER ORDER BY memno";
 		
 	private static final String GET_ONE_STMT = 
 		"SELECT * from MEMBER WHERE memno=?";
@@ -23,7 +23,7 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		"DELETE FROM MEMBER WHERE MEMno = ?";
 	
 	private static final String UPDATE =
-		"UPDATE MEMBER SET memid =? WHERE MEMno = ?";
+		"UPDATE MEMBER SET MemId =? WHERE MEMno = ?";
 	
 	@Override
 	public void insert(MemberVO memberVO) {
@@ -35,23 +35,23 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			Class.forName(dirver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt =con.prepareStatement(INSERT_STMT);
-			pstmt.setString(1,memberVO.getMemid());
+			pstmt.setString(1,memberVO.getMemId());
 			pstmt.setString(2,memberVO.getPwd());
-			pstmt.setString(3,memberVO.getMemname());
+			pstmt.setString(3,memberVO.getMemName());
 			pstmt.setString(4,memberVO.getPhone());
 			pstmt.setDate(5,memberVO.getBirth());
-			pstmt.setDate(6,memberVO.getRegdate());
-			pstmt.setString(7,memberVO.getMemstatus());
+			pstmt.setDate(6,memberVO.getRegDate());
+			pstmt.setString(7,memberVO.getMemStatus());
 			pstmt.setString(8,memberVO.getIdent());
 			pstmt.setString(9,memberVO.getGender());
 			pstmt.setString(10,memberVO.getEmail());
-			pstmt.setLong(11,memberVO.getLocno());
+			pstmt.setLong(11,memberVO.getLocNo());
 			pstmt.setString(12,memberVO.getAddr());
-			pstmt.setString(13,memberVO.getBloodtype());
+			pstmt.setString(13,memberVO.getBloodType());
 			pstmt.setString(14,memberVO.getSmoking());
 			pstmt.setString(15,memberVO.getAllergy());
-			pstmt.setString(16,memberVO.getMedhistory());
-			pstmt.setString(17,memberVO.getFamhistory());
+			pstmt.setString(16,memberVO.getBloodType());
+			pstmt.setString(17,memberVO.getFamHistory());
 		
 			
 			pstmt.executeUpdate();
@@ -90,8 +90,8 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 			
-			pstmt.setString(1,memberVO.getMemid());
-			pstmt.setString(2,memberVO.getMemno());
+			pstmt.setString(1,memberVO.getMemId());
+			pstmt.setString(2,memberVO.getMemNo());
 		
 			
 			pstmt.executeUpdate();
@@ -178,23 +178,23 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			while(rs.next()) {
 				memberVO = new MemberVO();
 				
-				memberVO.setMemno(rs.getString("MEMNO"));
-				memberVO.setMemid(rs.getString("MEMID"));
-				memberVO.setMemname(rs.getString("MEMNAME"));
-				memberVO.setMemstatus(rs.getString("MEMSTATUS"));
+				memberVO.setMemNo(rs.getString("MEMNO"));
+				memberVO.setMemId(rs.getString("MemId"));
+				memberVO.setMemName(rs.getString("MEMNAME"));
+				memberVO.setMemStatus(rs.getString("MEMSTATUS"));
 				memberVO.setAddr(rs.getString("ADDR"));
 				memberVO.setAllergy(rs.getString("ALLERGY"));
 				memberVO.setBirth(rs.getDate("BIRTH"));
-				memberVO.setRegdate(rs.getDate("REGDATE"));
-				memberVO.setBloodtype(rs.getString("BLOODTYPE"));
+				memberVO.setRegDate(rs.getDate("REGDATE"));
+				memberVO.setBloodType(rs.getString("BLOODTYPE"));
 				memberVO.setEmail(rs.getString("EMAIL"));
-				memberVO.setFamhistory(rs.getString("FAMHISTORY"));
+				memberVO.setFamHistory(rs.getString("FAMHISTORY"));
 				memberVO.setGender(rs.getString("GENDER"));
 				memberVO.setIdent(rs.getString("IDENT"));
-				memberVO.setLocno(rs.getInt("LOCNO"));
-				memberVO.setMedhistory(rs.getString("MEDHISTORY"));
+				memberVO.setLocNo(rs.getInt("LOCNO"));
+				memberVO.setMedHistory(rs.getString("MEDHISTORY"));
 				memberVO.setSmoking(rs.getString("SMOKING"));
-				memberVO.setStaytime(rs.getTimestamp("STAYTIME"));
+				memberVO.setStayTime(rs.getTimestamp("STAYTIME"));
 				memberVO.setPhone(rs.getString("PHONE"));
 				memberVO.setPwd(rs.getString("PWD"));
 				
@@ -251,23 +251,23 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			while(rs.next()) {
 				memberVO = new MemberVO();
 				
-				memberVO.setMemno(rs.getString("MEMNO"));
-				memberVO.setMemid(rs.getString("MEMID"));
-				memberVO.setMemname(rs.getString("MEMNAME"));
-				memberVO.setMemstatus(rs.getString("MEMSTATUS"));
+				memberVO.setMemNo(rs.getString("MEMNO"));
+				memberVO.setMemId(rs.getString("MemId"));
+				memberVO.setMemName(rs.getString("MEMNAME"));
+				memberVO.setMemStatus(rs.getString("MEMSTATUS"));
 				memberVO.setAddr(rs.getString("ADDR"));
 				memberVO.setAllergy(rs.getString("ALLERGY"));
 				memberVO.setBirth(rs.getDate("BIRTH"));
-				memberVO.setRegdate(rs.getDate("REGDATE"));
-				memberVO.setBloodtype(rs.getString("BLOODTYPE"));
+				memberVO.setRegDate(rs.getDate("REGDATE"));
+				memberVO.setBloodType(rs.getString("BLOODTYPE"));
 				memberVO.setEmail(rs.getString("EMAIL"));
-				memberVO.setFamhistory(rs.getString("FAMHISTORY"));
+				memberVO.setFamHistory(rs.getString("FAMHISTORY"));
 				memberVO.setGender(rs.getString("GENDER"));
 				memberVO.setIdent(rs.getString("IDENT"));
-				memberVO.setLocno(rs.getInt("LOCNO"));
-				memberVO.setMedhistory(rs.getString("MEDHISTORY"));
+				memberVO.setLocNo(rs.getInt("LOCNO"));
+				memberVO.setMedHistory(rs.getString("MEDHISTORY"));
 				memberVO.setSmoking(rs.getString("SMOKING"));
-				memberVO.setStaytime(rs.getTimestamp("STAYTIME"));
+				memberVO.setStayTime(rs.getTimestamp("STAYTIME"));
 				memberVO.setPhone(rs.getString("PHONE"));
 				memberVO.setPwd(rs.getString("PWD"));
 				list.add(memberVO);	
@@ -306,91 +306,91 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 	public static void main(String[] args){
 		MemberJDBCDAO dao = new MemberJDBCDAO();
 		
-		//·s¼W
+		//æ–°å¢ž
 //		MemberVO memberVO1 = new MemberVO();
-//		memberVO1.setAddr("°ª¶¯¿¤");
-//		memberVO1.setAllergy("¹ï®üÂA¹L±Ó");
+//		memberVO1.setAddr("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+//		memberVO1.setAllergy("ï¿½ï¿½ï¿½ï¿½Aï¿½Lï¿½ï¿½");
 //		Date date = Date.valueOf("1999-06-04");
 //		memberVO1.setBirth(date);
-//		memberVO1.setBloodtype("AB");
+//		memberVO1.setBloodType("AB");
 //		memberVO1.setEmail("33455678@hello.com");
-//		memberVO1.setFamhistory("«Ó¹LÀY¯f¥v");
-//		memberVO1.setGender("¨k");
-//		memberVO1.setIdent("¤@¯ë·|­û");
-//		memberVO1.setLocno(33406);
-//		memberVO1.setMedhistory("§Ú¬O¾i²´ªºÃÄÃÄ");
-//		memberVO1.setMemid("handsome");
-//		memberVO1.setMemname("hanry Handsome");
-//		memberVO1.setMemstatus("¥¿±`");
+//		memberVO1.setFamHistory("ï¿½Ó¹Lï¿½Yï¿½fï¿½v");
+//		memberVO1.setGender("ï¿½k");
+//		memberVO1.setIdent("ï¿½@ï¿½ï¿½|ï¿½ï¿½");
+//		memberVO1.setLocNo(33406);
+//		memberVO1.setMedHistory("ï¿½Ú¬Oï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+//		memberVO1.setMemId("handsome");
+//		memberVO1.setMemName("hanry Handsome");
+//		memberVO1.setMemStatus("ï¿½ï¿½ï¿½`");
 //		memberVO1.setPhone("123456789");
 //		memberVO1.setPwd("qqqw11");
 //		Date date2 = Date.valueOf("2018-11-14");
-//		memberVO1.setRegdate(date2);
-//		memberVO1.setSmoking("¨S¦³");
+//		memberVO1.setRegDate(date2);
+//		memberVO1.setSmoking("ï¿½Sï¿½ï¿½");
 //		Timestamp timestamp = Timestamp.valueOf("2018-12-11 19:18:22");
-//		memberVO1.setStaytime(timestamp);
+//		memberVO1.setStaytTime(timestamp);
 //		
 //		dao.insert(memberVO1);
 //		
 //		System.out.println("OK");
 		
-		//­×§ï
+		//ä¿®æ”¹
 //		MemberVO memberVO2 = new MemberVO();
-//		memberVO2.setMemno("M0021");
-//		memberVO2.setMemid("super handsome");
+//		memberVO2.setMemNo("M0021");
+//		memberVO2.setMemId("super handsome");
 //		dao.update(memberVO2);
 //		System.out.println("OKOK");
 		
-		//§R°£
+		//åˆªé™¤
 //		dao.delete("M0021");
 //		System.out.println("no problem");
 		
-		//¬d¸ß¤@­Ó
+		//æŸ¥è©¢ä¸€å€‹
 //		MemberVO memberVO3 = dao.findByPrimaryKey("M0019");
-//		System.out.println(memberVO3.getMemno());
-//		System.out.println(memberVO3.getMemid());
+//		System.out.println(memberVO3.getMemNo());
+//		System.out.println(memberVO3.getMemId());
 //		System.out.println(memberVO3.getPwd());
-//		System.out.println(memberVO3.getMemname());
+//		System.out.println(memberVO3.getMemName());
 //		System.out.println(memberVO3.getPhone());
 //		System.out.println(memberVO3.getBirth());
-//		System.out.println(memberVO3.getRegdate());
-//		System.out.println(memberVO3.getStaytime());
-//		System.out.println(memberVO3.getMemstatus());
+//		System.out.println(memberVO3.getRegDate());
+//		System.out.println(memberVO3.getStayTime());
+//		System.out.println(memberVO3.getMemStatus());
 //		System.out.println(memberVO3.getIdent());
 //		System.out.println(memberVO3.getGender());
 //		System.out.println(memberVO3.getEmail());
-//		System.out.println(memberVO3.getLocno());
+//		System.out.println(memberVO3.getLocNo());
 //		System.out.println(memberVO3.getAddr());
-//		System.out.println(memberVO3.getBloodtype());
+//		System.out.println(memberVO3.getBloodType());
 //		System.out.println(memberVO3.getSmoking());
 //		System.out.println(memberVO3.getAllergy());
-//		System.out.println(memberVO3.getMedhistory());
-//		System.out.println(memberVO3.getFamhistory());
+//		System.out.println(memberVO3.getBloodType());
+//		System.out.println(memberVO3.getFamHistory());
 //		System.out.println("----------------------------------");
 		
-		//¬d¸ß¥þ³¡
+		//æŸ¥è©¢å…¨éƒ¨
 		List<MemberVO> list = dao.getAll();
 		for(MemberVO amem:list) {
 			
-			System.out.print(amem.getMemno()+",");
-			System.out.print(amem.getMemid()+",");
+			System.out.print(amem.getMemNo()+",");
+			System.out.print(amem.getMemId()+",");
 			System.out.print(amem.getPwd()+",");
-			System.out.print(amem.getMemname()+",");
+			System.out.print(amem.getMemName()+",");
 			System.out.print(amem.getPhone()+",");
 			System.out.print(amem.getBirth()+",");
-			System.out.print(amem.getRegdate()+",");
-			System.out.print(amem.getStaytime()+",");
-			System.out.print(amem.getMemstatus()+",");
+			System.out.print(amem.getRegDate()+",");
+			System.out.print(amem.getStayTime()+",");
+			System.out.print(amem.getMemStatus()+",");
 			System.out.print(amem.getIdent()+",");
 			System.out.print(amem.getGender()+",");
 			System.out.print(amem.getEmail()+",");
-			System.out.print(amem.getLocno()+",");
+			System.out.print(amem.getLocNo()+",");
 			System.out.print(amem.getAddr()+",");
-			System.out.print(amem.getBloodtype()+",");
+			System.out.print(amem.getBloodType()+",");
 			System.out.print(amem.getSmoking()+",");
 			System.out.print(amem.getAllergy()+",");
-			System.out.print(amem.getMedhistory()+",");
-			System.out.print(amem.getFamhistory()+",");
+			System.out.print(amem.getBloodType()+",");
+			System.out.print(amem.getFamHistory()+",");
 			System.out.println();	
 		}	
 		

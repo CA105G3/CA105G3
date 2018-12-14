@@ -9,3 +9,4 @@ public interface DoctorDAO_interface {
 	public DoctorVO findByPK(String drno);   
 	public List<DoctorVO> getAll();
 }
+

@@ -11,19 +11,19 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 	String password = "ca105g3";
 
 	private static final String INSERT_STMT = 
-			"INSERT INTO Administrator (adminno,priority,status,reg) VALUES ('A'||lpad(to_char(administrator_seq.NEXTVAL), 4, '0'), ?, ?, ?)";
+			"INSERT INTO Administrator (adminNo,priority,status,reg) VALUES ('A'||lpad(to_char(administrator_seq.NEXTVAL), 4, '0'), ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-			"SELECT adminno,priority,status,reg FROM Administrator order by adminno";
+			"SELECT adminNo,priority,status,reg FROM Administrator order by adminNo";
 	private static final String GET_ONE_STMT = 
-			"SELECT adminno,priority,status,reg FROM Administrator where adminno = ?";
+			"SELECT adminNo,priority,status,reg FROM Administrator where adminNo = ?";
 	private static final String DELETE = 
-			"DELETE FROM Administrator where adminno = ? ";
+			"DELETE FROM Administrator where adminNo = ? ";
 	private static final String UPDATE_PRIORITY_STATUS = 
-			"UPDATE Administrator set priority = ?, status = ? where adminno = ?";
+			"UPDATE Administrator set priority = ?, status = ? where adminNo = ?";
 	private static final String UPDATE_PRIORITY =
-			"UPDATE Administrator set priority = ? where adminno = ?";
+			"UPDATE Administrator set priority = ? where adminNo = ?";
 	private static final String UPDATE_STATUS =
-			"UPDATE Administrator set status = ? where adminno = ?";
+			"UPDATE Administrator set status = ? where adminNo = ?";
 	
 	@Override
 	public void insert(AdministratorVO administratorVO) {
@@ -81,7 +81,7 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 				
 			pstmt.setString(1, administratorVO.getPriority());
 			pstmt.setString(2, administratorVO.getStatus());
-			pstmt.setString(3, administratorVO.getAdminno());
+			pstmt.setString(3, administratorVO.getAdminNo());
 			
 			pstmt.executeUpdate();
 			
@@ -122,7 +122,7 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 			pstmt = con.prepareStatement(UPDATE_PRIORITY);
 				
 			pstmt.setString(1, administratorVO.getPriority());
-			pstmt.setString(2, administratorVO.getAdminno());
+			pstmt.setString(2, administratorVO.getAdminNo());
 			
 			pstmt.executeUpdate();
 			
@@ -161,7 +161,7 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 			pstmt = con.prepareStatement(UPDATE_STATUS);
 				
 			pstmt.setString(1, administratorVO.getStatus());
-			pstmt.setString(2, administratorVO.getAdminno());
+			pstmt.setString(2, administratorVO.getAdminNo());
 			
 			pstmt.executeUpdate();
 			
@@ -191,32 +191,57 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 	}
 	
 	@Override
-	public void delete(String adminno) {
-		
+	public void delete(String adminNo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+				
 		try {
-			Connection con = null;
-			PreparedStatement pstmt = null;
 			
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, password);
 			pstmt = con.prepareStatement(DELETE);
 			
-			pstmt.setString(1, adminno);
+			pstmt.setString(1, adminNo);
 			pstmt.executeUpdate();
 			
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
 		}
 		
 
 	}
 
 	@Override
-	public AdministratorVO findByPrimaryKey(String adminno) {
+	public AdministratorVO findByPrimaryKey(String adminNo) {
 
 		AdministratorVO administratorVO = null;
 		Connection con = null;
@@ -228,13 +253,13 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 			con = DriverManager.getConnection(url, user, password);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
-			pstmt.setString(1, adminno);
+			pstmt.setString(1, adminNo);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				administratorVO = new AdministratorVO();
-				administratorVO.setAdminno(rs.getString("adminno"));
+				administratorVO.setAdminNo(rs.getString("adminNo"));
 				administratorVO.setPriority(rs.getString("priority"));
 				administratorVO.setStatus(rs.getString("status"));
 				administratorVO.setReg(rs.getDate("reg"));
@@ -272,7 +297,7 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 			}
 		}
 			
-		return null;
+		return administratorVO;
 	}
 
 	@Override
@@ -294,10 +319,11 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 			
 			while(rs.next()) {
 				administratorVO = new AdministratorVO();
-				administratorVO.setAdminno(rs.getString("adminno"));
+				administratorVO.setAdminNo(rs.getString("adminNo"));
 				administratorVO.setPriority(rs.getString("priority"));
 				administratorVO.setStatus(rs.getString("status"));
 				administratorVO.setReg(rs.getDate("reg"));
+				
 				list.add(administratorVO);
 			}
 		} catch (ClassNotFoundException e) {
@@ -352,30 +378,37 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 //		AdministratorVO administratorVO2 = new AdministratorVO();
 //		administratorVO2.setPriority("一般管理員");
 //		administratorVO2.setStatus("已失效");
-//		administratorVO2.setAdminno("A0009");		
+//		administratorVO2.setAdminNo("A0009");		
 //		dao.update_priority_status(administratorVO2);
 		
 		//修改權限
 //		AdministratorVO administratorVO3 = new AdministratorVO();
 //		administratorVO3.setPriority("一般管理員");
-//		administratorVO3.setAdminno("A0010");		
+//		administratorVO3.setAdminNo("A0010");		
 //		dao.update_priority(administratorVO3);
 		
 		//修改狀態
-		AdministratorVO administratorVO4 = new AdministratorVO();
-		administratorVO4.setStatus("已失效");
-		administratorVO4.setAdminno("A0004");		
-		dao.update_status(administratorVO4);
+//		AdministratorVO administratorVO4 = new AdministratorVO();
+//		administratorVO4.setStatus("已失效");
+//		administratorVO4.setAdminNo("A0004");		
+//		dao.update_status(administratorVO4);
+		
+		//查詢：查單一
+//		AdministratorVO administratorVO5 = new AdministratorVO();
+//		administratorVO5 = dao.findByPrimaryKey("A0003");
+//		System.out.print(administratorVO5.getAdminNo() + ",");
+//		System.out.print(administratorVO5.getPriority() + ",");
+//		System.out.print(administratorVO5.getStatus());
 		
 		//查詢：查全部
-//		List<AdministratorVO> list = dao.getAll();
-//		for(AdministratorVO administrator : list) {
-//			System.out.print(administrator.getAdminno() + "," );
-//			System.out.print(administrator.getPriority() + ",");
-//			System.out.print(administrator.getStatus() + ",");
-//			System.out.print(administrator.getReg());
-//			System.out.println();
-//		}
+		List<AdministratorVO> list = dao.getAll();
+		for(AdministratorVO administrator : list) {
+			System.out.print(administrator.getAdminNo() + "," );
+			System.out.print(administrator.getPriority() + ",");
+			System.out.print(administrator.getStatus() + ",");
+			System.out.print(administrator.getReg());
+			System.out.println();
+		}
 		
 		
 		

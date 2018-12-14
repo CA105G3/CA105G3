@@ -17,6 +17,4 @@ public class JoinactVO {
 	public void setMemNo(String memNo) {
 		this.memNo = memNo;
 	}
-	
-	
 }
