@@ -356,7 +356,7 @@ public class ReportDrJDBCDAO implements ReportDr_interface{
 	
 		ReportDrJDBCDAO dao = new ReportDrJDBCDAO();
 
-		//修改rdrState
+		//修改rdrState 
 //		ReportDrVO reportDrVO5 = new ReportDrVO();
 //		reportDrVO5.setRdrState("已處理");
 //		reportDrVO5.setRdrNo("RDR0004");
