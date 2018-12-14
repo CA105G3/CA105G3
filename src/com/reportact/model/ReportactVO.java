@@ -1,6 +1,6 @@
 package com.reportact.model;
 
-public class ReportactVO {
+public class ReportactVO implements java.io.Serializable{
 	private String repaNo;
 	private String actNo;
 	private String memNo;

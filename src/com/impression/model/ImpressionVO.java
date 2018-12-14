@@ -1,6 +1,6 @@
 package com.impression.model;
 
-public class ImpressionVO {
+public class ImpressionVO implements java.io.Serializable{
 	private String impNo;
 	private String actNo;
 	private String memNo;

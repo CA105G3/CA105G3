@@ -2,7 +2,7 @@ package com.activity.model;
 
 import java.sql.Date;
 
-public class ActivityVO {
+public class ActivityVO implements java.io.Serializable{
 	private String actNo;
 	private String memNo;
 	private String actName;

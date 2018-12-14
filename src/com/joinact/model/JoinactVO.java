@@ -1,6 +1,6 @@
 package com.joinact.model;
 
-public class JoinactVO {
+public class JoinactVO implements java.io.Serializable{
 	private String actNo;
 	private String memNo;
 	

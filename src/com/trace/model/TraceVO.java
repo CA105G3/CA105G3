@@ -1,6 +1,6 @@
 package com.trace.model;
 
-public class TraceVO {
+public class TraceVO implements java.io.Serializable{
 	private String memNo;
 	private String actNo;
 	
