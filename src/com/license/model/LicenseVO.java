@@ -5,7 +5,7 @@ import java.sql.Date;
 public class LicenseVO {
 	private String licNo;
 	private String memNo;
-	private byte[] licDate;
+	private byte[] licData;
 	private String licStatus;
 	private String licDesc;
 	private Date licDue;
@@ -23,11 +23,11 @@ public class LicenseVO {
 	public void setMemNo(String memNo) {
 		this.memNo = memNo;
 	}
-	public byte[] getLicDate() {
-		return licDate;
+	public byte[] getLicData() {
+		return licData;
 	}
-	public void setLicDate(byte[] licDate) {
-		this.licDate = licDate;
+	public void setLicData(byte[] licData) {
+		this.licData = licData;
 	}
 	public String getLicStatus() {
 		return licStatus;
@@ -47,4 +47,5 @@ public class LicenseVO {
 	public void setLicDue(Date licDue) {
 		this.licDue = licDue;
 	}
+	
 }
