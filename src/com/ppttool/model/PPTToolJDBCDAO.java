@@ -3,7 +3,11 @@ package com.ppttool.model;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -46,13 +50,10 @@ public class PPTToolJDBCDAO implements PPTToolDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt =con.prepareStatement(INSERT_STMT);
 			
-			File file = new File("D:/111.png");
-			InputStream is = new FileInputStream(file);
-			
 			pstmt.setString(1,ppttoolvo.getDrno());
-			pstmt.setBinaryStream(2,is,file.length());
+			pstmt.setBytes(2,ppttoolvo.getPpt());
 			pstmt.executeUpdate();	
-			}catch(SQLException | ClassNotFoundException | FileNotFoundException e) {
+			}catch(SQLException | ClassNotFoundException e) {
 				throw new RuntimeException("Couldn't load database driver." +e.getMessage());
 			}finally{
 				if(pstmt!=null) {
@@ -80,7 +81,7 @@ public class PPTToolJDBCDAO implements PPTToolDAO_interface {
 			Class.forName(dirver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt =con.prepareStatement(UPDATE);
-			pstmt.setBlob(1, ppttoolvo.getPpt());
+			pstmt.setBytes(1, ppttoolvo.getPpt());
 			pstmt.executeUpdate();	
 			}catch(SQLException | ClassNotFoundException e) {
 				throw new RuntimeException("Couldn't load database driver." +e.getMessage());
@@ -140,6 +141,11 @@ public class PPTToolJDBCDAO implements PPTToolDAO_interface {
 		PreparedStatement pstmt = null;
 		PPTToolVO ppttoolvo=null;
 		ResultSet rs=null;
+		// test
+		File file =new File("D:/222.png");
+		byte[] d;
+		Blob blob;
+		
 		try {
 			Class.forName(dirver);
 			con = DriverManager.getConnection(url, userid, passwd);
@@ -149,13 +155,19 @@ public class PPTToolJDBCDAO implements PPTToolDAO_interface {
 			
 			rs=pstmt.executeQuery();
 			
+			FileOutputStream fos = new FileOutputStream(file);
+			
 			while(rs.next()) {
 				ppttoolvo=new PPTToolVO();
 				ppttoolvo.setPptno(rs.getString("pptno"));
 				ppttoolvo.setDrno(rs.getString("drno"));
-				ppttoolvo.setPpt(rs.getBlob("ppt"));
+				//ppttoolvo.setPpt(rs.getBytes("ppt"));
+				blob=rs.getBlob("ppt");
+				d=blob.getBytes(1, (int)blob.length());
+				fos.write(d);
+				fos.close();
 			}
-			}catch(SQLException | ClassNotFoundException e) {
+			}catch(SQLException | ClassNotFoundException | IOException e) {
 				throw new RuntimeException("Couldn't load database driver." +e.getMessage());
 			}finally{
 				if(pstmt!=null) {
@@ -183,7 +195,11 @@ public class PPTToolJDBCDAO implements PPTToolDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+		// test
+		File file;
+		byte[] d;
+		Blob blob;
+		int i=0;
 		
 		try {
 			Class.forName(dirver);
@@ -194,10 +210,18 @@ public class PPTToolJDBCDAO implements PPTToolDAO_interface {
 				ppttoolvo = new PPTToolVO();
 				ppttoolvo.setPptno(rs.getString("pptno"));
 				ppttoolvo.setDrno(rs.getString("drno"));
-				ppttoolvo.setPpt(rs.getBlob("ppt"));
+				ppttoolvo.setPpt(rs.getBytes("ppt"));
+				//test
+				file=new File("D:\\"+i+".png");
+				FileOutputStream fos = new FileOutputStream(file);
+				blob=rs.getBlob("ppt");
+				d=blob.getBytes(1, (int)blob.length());
+				fos.write(d);
+				fos.close();
 				list.add(ppttoolvo);
+				i++;
 				}
-		} catch(SQLException | ClassNotFoundException e) {
+		} catch(SQLException | ClassNotFoundException | IOException e) {
 			throw new RuntimeException("Couldn't load database driver." +e.getMessage());
 		}finally{
 			if(pstmt!=null) {
@@ -222,17 +246,16 @@ public class PPTToolJDBCDAO implements PPTToolDAO_interface {
 		PPTToolVO pv = new PPTToolVO();
 		List<PPTToolVO> list = new ArrayList<PPTToolVO>();
 	    
-		pv.setDrno("D0001");
-		dao.insert(pv);
-		System.out.println("新增測試成功!");
 		/*
 		 //insert
 		try {
 			pv.setDrno("D0001");
-			pv.setPpt(BLOB.empty_lob());
+			byte[] ppt =Files.readAllBytes(new File("D:/111.png").toPath());
+			pv.setPpt(ppt);
 			dao.insert(pv);
-			System.out.println("新增測試成功!");	
-		} catch (SQLException e) {
+			System.out.println("新增測試成功!");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		*/
@@ -245,14 +268,13 @@ public class PPTToolJDBCDAO implements PPTToolDAO_interface {
 		
 		/*
 		//SELECT ONE
-		 pv=dao.findByPK("P0002");
+		 pv=dao.findByPK("P0006");
 		 System.out.println(pv.getPptno());
 		 System.out.println(pv.getDrno());
 		 System.out.println(pv.getPpt());
 		 System.out.println("查詢單一筆資料測試成功!");
-		 */
+		*/
 		
-		/*
 		 //SELECT ALL
 		list=dao.getAll();
 		for(PPTToolVO pv2 : list) {
@@ -262,7 +284,7 @@ public class PPTToolJDBCDAO implements PPTToolDAO_interface {
 			System.out.println("================");
 		}
 		System.out.println("查詢多筆資料測試成功!");
-		*/
+		
 		 
 	}
 }

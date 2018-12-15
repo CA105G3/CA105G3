@@ -5,7 +5,7 @@ import java.sql.Blob;
 public class PPTToolVO {
 	private String pptno;
 	private String drno;
-	private Blob ppt;
+	private byte[] ppt;
 	public String getPptno() {
 		return pptno;
 	}
@@ -18,10 +18,10 @@ public class PPTToolVO {
 	public void setDrno(String drno) {
 		this.drno = drno;
 	}
-	public Blob getPpt() {
+	public byte[] getPpt() {
 		return ppt;
 	}
-	public void setPpt(Blob ppt) {
+	public void setPpt(byte[] ppt) {
 		this.ppt = ppt;
 	}
 	
