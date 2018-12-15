@@ -7,11 +7,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class LicenseJDBCDAO implements LicenseDAO_interface{
 	
-	String url = "jdbc:oracle;thin:@localhost:1521:XE";
+	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String user ="CA105G3";
 	String password ="123456";
 	
@@ -234,5 +235,27 @@ public class LicenseJDBCDAO implements LicenseDAO_interface{
 	}
 	
 	
-	
+	public static void main(String[] args) {
+		LicenseVO vo= new LicenseVO();
+		LicenseJDBCDAO dao = new LicenseJDBCDAO();
+		//測試list
+		List<LicenseVO> list = dao.getAll();
+		Iterator<LicenseVO> it = list.iterator();
+		if(it.hasNext()) {
+			LicenseVO lvo = it.next();
+			System.out.println(lvo.getLicNo());
+			System.out.println(lvo.getMemNo());
+			System.out.println(lvo.getLicStatus());
+			System.out.println(lvo.getLicDesc());
+			System.out.println(lvo.getLicData());
+			System.out.println(lvo.getLicDue());
+		}
+		
+		//測試INSERT
+		
+		
+		
+		
+		
+	}
 }
