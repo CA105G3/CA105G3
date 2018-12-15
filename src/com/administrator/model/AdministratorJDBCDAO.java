@@ -7,8 +7,8 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String user = "ca105g3";
-	String password = "ca105g3";
+	String user = "CA105G3";
+	String password = "123456";
 
 	private static final String INSERT_STMT = 
 			"INSERT INTO Administrator (adminNo,adminid,adminPsw,priority,status,reg) VALUES ('A'||lpad(to_char(administrator_seq.NEXTVAL), 4, '0'),?,?,?,?,?)";

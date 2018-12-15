@@ -11,7 +11,7 @@ public class MemberChefJDBCDAO implements MemberChefDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "CA105G3";
-	String passwd = "ca105g3";
+	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 
 		"INSERT INTO memberchef VALUES ('CHEF'||lpad(to_char(memberchef_seq.NEXTVAL), 4, '0'),'M0002', ?, ?, ?, ?, ?, ?)";

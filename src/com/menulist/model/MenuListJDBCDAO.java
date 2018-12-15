@@ -7,7 +7,7 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "CA105G3";
-	String passwd = "ca105g3";
+	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 
 		"INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'), ?, ?, ?)";

@@ -7,8 +7,8 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String user = "ca105g3";
-	String password = "ca105g3";
+	String user = "CA105G3";
+	String password = "123456";
 	
 	private static final String INSERT_STMT = 
 			"INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),?,?,?,?,?,?,?,?)";
