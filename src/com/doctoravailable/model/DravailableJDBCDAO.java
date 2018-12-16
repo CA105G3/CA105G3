@@ -11,7 +11,7 @@ public class DravailableJDBCDAO implements DravailableDAO_interface{
 	final String password = "123456";
 	
 	private static final String INSERT_STMT = "INSERT INTO DOCTORAVAILABLE VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),?,?,?)";
-	private static final String UPDATE_STMT = "UPDATE DOCTORAVAILABLE SET DRAYM = ?, DRAVA = ? WHERE DRNO = ?";  //��ڭק�w���ɶ���,where�᭱�|�[�������?
+	private static final String UPDATE_STMT = "UPDATE DOCTORAVAILABLE SET DRAYM = ?, DRAVA = ? WHERE DRNO = ?";  //實際修改預約時間時，where後面用什麼欄位?
 	private static final String DELETE_STMT = "DELETE FROM DOCTORAVAILABLE WHERE DRNO = ?";
 	private static final String FIND_BY_PK = "SELECT * FROM DOCTORAVAILABLE WHERE DRAVANO = ?";
 	private static final String FIND_BY_DRNO = "SELECT * FROM DOCTORAVAILABLE WHERE DRNO = ?";
