@@ -1,5 +1,6 @@
 package com.orderdetail.model;
 
+
 import java.sql.Date;
 
 public class OrderDetailVO {
