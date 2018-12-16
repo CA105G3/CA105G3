@@ -34,7 +34,7 @@ public class BLOB_Oracle {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ResultSetMetaData rsmd = null;
-		PreparedStatement pstmtForUpdate = null;
+		PreparedStatement pstmtForUpdate = null;  
 		
 		File dir = new File(picDirPath);
 		File[] files = dir.listFiles();		
