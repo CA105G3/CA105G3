@@ -3,10 +3,11 @@ package insert_blob;
 		1.在WebContent底下創建oracle_imgs資料夾
 		2.在oracle_imgs裡創建需要匯入BLOB的Table同名資料夾的
 		3.CA105G3目前是Doctor、Impression、License、MedicalOrder、MemberChef、Menu有Blob欄位，故創建以上Table的同名資料夾
-		4.將Doctor Table需要用的圖檔丟入Doctor資料夾，名稱不限，數量需超過或等同要匯入的資料筆數 
+		4.將Doctor表格需要用的圖檔丟入Doctor資料夾，名稱不限，數量需超過或等同要匯入的資料筆數 
 		5.圖片將按照資料夾內的排序被匯入資料庫
 		6.會蓋掉原檔案
 		7.Table欄位未記錄副檔名
+		8.只適用第一欄位為非空且唯一之表格
 */
 import java.io.ByteArrayOutputStream;
 import java.io.File;
