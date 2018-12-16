@@ -2,6 +2,7 @@ package com.license.model;
 
 import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,11 +25,11 @@ public class LicenseJDBCDAO implements LicenseDAO_interface{
 		}
 	}
 	
-	private static final String INSERT_STMT ="INSERT INTO License(licNo,memNo,licDate,licStatus,licDesc,licDue) VALUES 'L'||lpad(to_char(license_seq.NEXTVAL), 4, '0'),?,?,?,?,?";
+	private static final String INSERT_STMT ="INSERT INTO License(licNo,memNo,licData,licStatus,licDesc,licDue) VALUES ('L'||lpad(to_char(license_seq.NEXTVAL), 4, '0'),?,?,?,?,?)";
 	private static final String GET_ALL_STMT ="SELECT * FROM License order by licNo";
 	private static final String GET_ONE_STMT = "SELECT * FROM License where licNo = ?";
 	private static final String DELETE = "DELETE FROM License where licNo =　?";
-	private static final String UPDATE = " UPDATE　License set memNo =?,licDate=?,licStatus=?,licDesc=?,licDue=? where licNo=?";
+	private static final String UPDATE = " UPDATE　License set memNo =?,licData=?,licStatus=?,licDesc=?,licDue=? where licNo=?";
 	
 	
 	@Override
@@ -149,11 +150,12 @@ public class LicenseJDBCDAO implements LicenseDAO_interface{
 			
 			while(rs.next()) {
 				licenseVO = new LicenseVO();
-				licenseVO.setMemNo(rs.getString(1));
-				licenseVO.setLicData(rs.getBytes(2));
-				licenseVO.setLicStatus(rs.getString(3));
-				licenseVO.setLicDesc(rs.getString(4));
-				licenseVO.setLicDue(rs.getDate(5));
+				licenseVO.setLicNo(rs.getString(1));
+				licenseVO.setMemNo(rs.getString(2));
+				licenseVO.setLicData(rs.getBytes(3));
+				licenseVO.setLicStatus(rs.getString(4));
+				licenseVO.setLicDesc(rs.getString(5));
+				licenseVO.setLicDue(rs.getDate(6));
 			}
 			
 		} catch (SQLException se) {
@@ -238,21 +240,50 @@ public class LicenseJDBCDAO implements LicenseDAO_interface{
 	public static void main(String[] args) {
 		LicenseVO vo= new LicenseVO();
 		LicenseJDBCDAO dao = new LicenseJDBCDAO();
+		
+//		測試INSERT
+//		vo.setMemNo("M0002");
+//		vo.setLicStatus("生效中");
+//		vo.setLicDesc("撿來的");
+//		vo.setLicData(null);
+//		Date date = Date.valueOf("2020-10-22");
+//		vo.setLicDue(date);
+//		dao.insert(vo);
+		
+		//測試update
+//		vo.setMemNo("M0007");
+//		vo.setLicStatus("已失效");
+//		Date date = Date.valueOf("2020-10-30");
+//		vo.setLicDue(date);
+//		vo.setLicDesc("不知道說甚麼");
+//		vo.setLicNo("L0001");
+//		dao.update(vo);
+		
+		//測試delete
+//		dao.delete("L0001");
+		
+		//測試findByPrimaryKey
+//		vo = dao.findByPrimaryKey("L0010");
+//		System.out.println(vo.getLicNo());
+//		System.out.println(vo.getMemNo());
+//		System.out.println(vo.getLicStatus());
+//		System.out.println(vo.getLicDesc());
+//		System.out.println(vo.getLicData());
+//		System.out.println(vo.getLicDue());
+		
+		
 		//測試list
-		List<LicenseVO> list = dao.getAll();
-		Iterator<LicenseVO> it = list.iterator();
-		if(it.hasNext()) {
-			LicenseVO lvo = it.next();
-			System.out.println(lvo.getLicNo());
-			System.out.println(lvo.getMemNo());
-			System.out.println(lvo.getLicStatus());
-			System.out.println(lvo.getLicDesc());
-			System.out.println(lvo.getLicData());
-			System.out.println(lvo.getLicDue());
-		}
-		
-		//測試INSERT
-		
+//		List<LicenseVO> list = dao.getAll();
+//		Iterator<LicenseVO> it = list.iterator();
+//		if(it.hasNext()) {
+//			LicenseVO lvo = it.next();
+//			System.out.println(lvo.getLicNo());
+//			System.out.println(lvo.getMemNo());
+//			System.out.println(lvo.getLicStatus());
+//			System.out.println(lvo.getLicDesc());
+//			System.out.println(lvo.getLicData());
+//			System.out.println(lvo.getLicDue());
+//		}
 		
 		
 		
