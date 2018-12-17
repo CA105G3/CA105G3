@@ -424,9 +424,9 @@ CREATE TABLE medicalorder(
     mostatus    VARCHAR2(12 BYTE) NOT NULL ,
     mocost      NUMBER ,
     motime      DATE ,
-    motext      VARCHAR2(2000 BYTE) NOT NULL ,
+    mointro     CLOB NOT NULL ,
     movideo     BLOB ,
-    mointro     CLOB ,
+    motext      VARCHAR2(2000 BYTE) ,
     CONSTRAINT medicalorder_pk PRIMARY KEY (mono),
     CONSTRAINT medicalorder_fk1 FOREIGN KEY (memno) REFERENCES member (memno),
     CONSTRAINT medicalorder_fk2 FOREIGN KEY (drno) REFERENCES doctor (drno),
@@ -440,7 +440,7 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0002','D0001','等待問診','870',to_date('20181223','YYYYMMDD'),'還沒看',null,null);
+INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0002','D0001','等待問診','870',to_date('20181223','YYYYMMDD'),'生理痛不舒服',null,null);
 
 -----------------------------------------------
 -- create favdr

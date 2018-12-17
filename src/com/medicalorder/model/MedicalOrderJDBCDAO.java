@@ -17,11 +17,11 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 	private static final String DELETE = 
 			"DELETE FROM MEDICALORDER WHERE MONO = ?";
 	private static final String GET_ONE_STMT =
-			"SELECT MEMNO, DRNO, MOSTATUS, MOCOST, MOTIME, MOTEXT, MOVIDEO, MOINTRO FROM MEDICALORDER WHERE MEMNO = ?";
+			"SELECT * FROM MEDICALORDER WHERE MONO = ?";
 	private static final String GET_ALL_STMT =
 			"SELECT * FROM MEDICALORDER";
 	private static final String UPDATE = 
-			"UPDATE MEDICALORDER SET MEMNO=? ,DRNO=? ,MOSTATUS=? ,MOCOST=?, MOTIME=?, MOTEXT=? ,MOINTRO=? WHERE MONO=? ;";
+			"UPDATE MEDICALORDER SET MEMNO=? ,DRNO= ? ,MOSTATUS=? ,MOCOST=? , MOTIME=? , MOTEXT=? ,MOVIDEO=? ,MOINTRO=? WHERE MONO=? ;";
 	
 	@Override
 	public void insert(MedicalOrderVO medicalOrderVO) {
@@ -38,9 +38,9 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 			pstmt.setString(3, medicalOrderVO.getMoStatus());
 			pstmt.setInt(4, medicalOrderVO.getMoCost());
 			pstmt.setDate(5, medicalOrderVO.getMoTime());
-			pstmt.setString(6, medicalOrderVO.getMoText());
+			pstmt.setString(6, medicalOrderVO.getMoIntro());
 			pstmt.setBytes(7, medicalOrderVO.getMoVideo());
-			pstmt.setString(8, medicalOrderVO.getMoIntro());
+			pstmt.setString(8, medicalOrderVO.getMoText());
 			
 			pstmt.executeUpdate();
 			
@@ -122,8 +122,9 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 			pstmt.setInt(4, medicalOrderVO.getMoCost());
 			pstmt.setDate(5, medicalOrderVO.getMoTime());
 			pstmt.setString(6, medicalOrderVO.getMoText());
-			pstmt.setString(7, medicalOrderVO.getMoIntro());
-			pstmt.setString(8, medicalOrderVO.getMoNo());
+			pstmt.setBytes(7, medicalOrderVO.getMoVideo());
+			pstmt.setString(8, medicalOrderVO.getMoIntro());
+			pstmt.setString(9, medicalOrderVO.getMoNo());
 			
 			pstmt.executeUpdate();
 			
@@ -151,9 +152,9 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 	}
 
 	@Override
-	public List<MedicalOrderVO> findByPrimaryKey(String memNo) {
+	public MedicalOrderVO findByPrimaryKey(String moNo) {
 		
-		List<MedicalOrderVO> list = null;
+		MedicalOrderVO medicalOrderVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -163,12 +164,12 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 			con = DriverManager.getConnection(url, user, password);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
-			list = new ArrayList();		
-			pstmt.setString(1, memNo);
+			pstmt.setString(1, moNo);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				MedicalOrderVO medicalOrderVO = new MedicalOrderVO();
+				medicalOrderVO = new MedicalOrderVO();
+				medicalOrderVO.setMoNo(rs.getString("moNo"));
 				medicalOrderVO.setMemNo(rs.getString("memNo"));
 				medicalOrderVO.setDrNo(rs.getString("drNo"));
 				medicalOrderVO.setMoStatus(rs.getString("moStatus"));
@@ -178,7 +179,6 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 				medicalOrderVO.setMoVideo(rs.getBytes("moVideo"));
 				medicalOrderVO.setMoIntro(rs.getString("moIntro"));
 				
-				list.add(medicalOrderVO);
 			}
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver" +e.getMessage());
@@ -208,7 +208,7 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 			}
 		}
 		
-		return list;
+		return medicalOrderVO;
 	}
 
 	@Override
@@ -235,9 +235,9 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 				medicalOrderVO.setMoStatus(rs.getString("moStatus"));
 				medicalOrderVO.setMoCost(rs.getInt("moCost"));
 				medicalOrderVO.setMoTime(rs.getDate("moTime"));
-				medicalOrderVO.setMoText(rs.getString("moText"));
+				medicalOrderVO.setMoIntro(rs.getString("moIntro"));				
 				medicalOrderVO.setMoVideo(rs.getBytes("moVideo"));
-				medicalOrderVO.setMoIntro(rs.getString("moIntro"));
+				medicalOrderVO.setMoText(rs.getString("moText"));
 				list.add(medicalOrderVO);
 			}
 		} catch (ClassNotFoundException e) {
@@ -277,37 +277,37 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 		MedicalOrderJDBCDAO dao = new MedicalOrderJDBCDAO();
 
 		//查全部
-//		List<MedicalOrderVO> list2 = dao.getAll();
-//		for(MedicalOrderVO medicalOrderVO1 : list2) {
+//		List<MedicalOrderVO> list1 = dao.getAll();
+//		for(MedicalOrderVO medicalOrderVO1 : list1) {
 //			System.out.print(medicalOrderVO1.getMoNo() +",");
 //			System.out.print(medicalOrderVO1.getMemNo() +",");
 //			System.out.print(medicalOrderVO1.getDrNo() +",");
 //			System.out.print(medicalOrderVO1.getMoStatus() +",");
 //			System.out.print(medicalOrderVO1.getMoCost() +",");
 //			System.out.print(medicalOrderVO1.getMoTime() +",");
-//			System.out.print(medicalOrderVO1.getMoText() +",");
-//			System.out.print(medicalOrderVO1.getMoVideo() +",");
 //			System.out.print(medicalOrderVO1.getMoIntro() +",");
+//			System.out.print(medicalOrderVO1.getMoVideo() +",");
+//			System.out.print(medicalOrderVO1.getMoText() +",");
 //			System.out.println();
 //		}		
 		
 		//查單筆
-//		List<MedicalOrderVO> list1 = dao.findByPrimaryKey("M0002");
-//		for(MedicalOrderVO medicalOrderVO1 : list1) {
-//			System.out.print(medicalOrderVO1.getMemNo() +",");
-//			System.out.print(medicalOrderVO1.getDrNo() +",");
-//			System.out.print(medicalOrderVO1.getMoStatus() +",");
-//			System.out.print(medicalOrderVO1.getMoCost() +",");
-//			System.out.print(medicalOrderVO1.getMoTime() +",");
-//			System.out.print(medicalOrderVO1.getMoText() +",");
-//			System.out.print(medicalOrderVO1.getMoVideo() +",");
-//			System.out.print(medicalOrderVO1.getMoIntro() +",");
-//			System.out.println();
-//		}
+		MedicalOrderVO medicalOrderVO2 = dao.findByPrimaryKey("20181217-0009");
+			System.out.print(medicalOrderVO2.getMoNo() +",");
+			System.out.print(medicalOrderVO2.getMemNo() +",");
+			System.out.print(medicalOrderVO2.getDrNo() +",");
+			System.out.print(medicalOrderVO2.getMoStatus() +",");
+			System.out.print(medicalOrderVO2.getMoCost() +",");
+			System.out.print(medicalOrderVO2.getMoTime() +",");
+			System.out.print(medicalOrderVO2.getMoIntro() +",");			
+			System.out.print(medicalOrderVO2.getMoVideo() +",");
+			System.out.print(medicalOrderVO2.getMoText() +",");
+			System.out.println();
+		
 		
 				
 		//刪除
-//		dao.delete("20181214-0009");
+//		dao.delete("20181217-0009");
 				
 		//新增
 //		MedicalOrderVO medicalOrderVO1 = new MedicalOrderVO();
@@ -316,10 +316,23 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 //		medicalOrderVO1.setMoStatus("等待問診");
 //		medicalOrderVO1.setMoCost(9487);
 //		medicalOrderVO1.setMoTime(java.sql.Date.valueOf("2018-10-09"));
-//		medicalOrderVO1.setMoText("蚊蟲咬傷");
+//		medicalOrderVO1.setMoIntro("蚊蟲咬傷");
 //		medicalOrderVO1.setMoVideo(null);
-//		medicalOrderVO1.setMoIntro(null);
+//		medicalOrderVO1.setMoText(null);
 //		dao.insert(medicalOrderVO1);
+		
+		//修改
+//		MedicalOrderVO medicalOrderVO2 = new MedicalOrderVO();
+//		medicalOrderVO2.setMemNo("M0002");
+//		medicalOrderVO2.setDrNo("D0003");
+//		medicalOrderVO2.setMoStatus("問診完成");
+//		medicalOrderVO2.setMoCost(9999);
+//		medicalOrderVO2.setMoTime(java.sql.Date.valueOf("2018-10-20"));
+//		medicalOrderVO2.setMoText("開藥給你吃");
+//		medicalOrderVO2.setMoVideo(null);
+//		medicalOrderVO2.setMoIntro("頭痛不止");
+//		dao.update(medicalOrderVO2);
+		
 				
 		
 	}

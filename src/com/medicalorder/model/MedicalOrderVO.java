@@ -11,9 +11,9 @@ public class MedicalOrderVO implements Serializable{
 	private String moStatus;
 	private Integer moCost;
 	private Date moTime;
-	private String moText;
-	private byte[] moVideo;
 	private String moIntro;
+	private byte[] moVideo;
+	private String moText;
 	
 	public String getMoNo() {
 		return moNo;
@@ -51,11 +51,11 @@ public class MedicalOrderVO implements Serializable{
 	public void setMoTime(Date moTime) {
 		this.moTime = moTime;
 	}
-	public String getMoText() {
-		return moText;
+	public String getMoIntro() {
+		return moIntro;
 	}
-	public void setMoText(String moText) {
-		this.moText = moText;
+	public void setMoIntro(String moIntro) {
+		this.moIntro = moIntro;
 	}
 	public byte[] getMoVideo() {
 		return moVideo;
@@ -63,11 +63,11 @@ public class MedicalOrderVO implements Serializable{
 	public void setMoVideo(byte[] moVideo) {
 		this.moVideo = moVideo;
 	}
-	public String getMoIntro() {
-		return moIntro;
+	public String getMoText() {
+		return moText;
 	}
-	public void setMoIntro(String moIntro) {
-		this.moIntro = moIntro;
+	public void setMoText(String moText) {
+		this.moText = moText;
 	}
 	
 }
