@@ -28,4 +28,13 @@
   <url-pattern>/orderdetail/orderdetail.do</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+		<servlet-name>PPTToolServlet</servlet-name>
+		<servlet-class>com.ppttool.controller.PPTServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PPTToolServlet</servlet-name>
+		<url-pattern>/ppt/ppt.do</url-pattern>
+	</servlet-mapping>
+  
 </web-app>
