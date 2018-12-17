@@ -411,8 +411,5 @@ public class ReportDrJDBCDAO implements ReportDr_interface{
 //		}
 		
 	}
-	
-	
-	
 
 }

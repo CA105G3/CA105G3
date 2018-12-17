@@ -3,6 +3,8 @@ package com.medicalorder.model;
 import java.sql.*;
 import java.util.*;
 
+import javax.management.RuntimeErrorException;
+
 public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
@@ -18,6 +20,8 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 			"SELECT MEMNO, DRNO, MOSTATUS, MOCOST, MOTIME, MOTEXT, MOVIDEO, MOINTRO FROM MEDICALORDER WHERE MEMNO = ?";
 	private static final String GET_ALL_STMT =
 			"SELECT * FROM MEDICALORDER";
+	private static final String UPDATE = 
+			"UPDATE MEDICALORDER SET MEMNO=? ,DRNO=? ,MOSTATUS=? ,MOCOST=?, MOTIME=?, MOTEXT=? ,MOINTRO=? WHERE MONO=? ;";
 	
 	@Override
 	public void insert(MedicalOrderVO medicalOrderVO) {
@@ -102,7 +106,47 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 	
 	@Override
 	public void update(MedicalOrderVO medicalOrderVO) {
-		// TODO Auto-generated method stub
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			
+			pstmt = con.prepareStatement(UPDATE);
+			
+			pstmt.setString(1, medicalOrderVO.getMemNo());
+			pstmt.setString(2, medicalOrderVO.getDrNo());
+			pstmt.setString(3, medicalOrderVO.getMoStatus());
+			pstmt.setInt(4, medicalOrderVO.getMoCost());
+			pstmt.setDate(5, medicalOrderVO.getMoTime());
+			pstmt.setString(6, medicalOrderVO.getMoText());
+			pstmt.setString(7, medicalOrderVO.getMoIntro());
+			pstmt.setString(8, medicalOrderVO.getMoNo());
+			
+			pstmt.executeUpdate();
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver" + e.getMessage());
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured." + e.getMessage());
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 		
 	}
 
@@ -276,10 +320,7 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 //		medicalOrderVO1.setMoVideo(null);
 //		medicalOrderVO1.setMoIntro(null);
 //		dao.insert(medicalOrderVO1);
-		
-		
-		
-		
+				
 		
 	}
 

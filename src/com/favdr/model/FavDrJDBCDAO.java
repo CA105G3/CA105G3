@@ -16,6 +16,7 @@ public class FavDrJDBCDAO implements FavDr_interface {
 	private static final String GET_ALL_STMT = "SELECT * FROM FAVDR";
 	private static final String GET_ONE_STMT = "SELECT MemNo, DrNo FROM FAVDR WHERE MemNo = ?";
 	private static final String DELETE = "DELETE FROM favdr where memNo = ? and drNo = ?";
+	private static final String UP_DRNO = "UPDATE FAVDR SET DRNO = ? WHERE MEMNO = ? AND DRNO = ?";
 
 	@Override
 	public void insert(FavDrVO favDrVO) {
@@ -56,11 +57,43 @@ public class FavDrJDBCDAO implements FavDr_interface {
 
 	}
 
-	@Override
-	public void update(FavDrVO favDrVO) {
-		// TODO Auto-generated method stub
-
-	}
+//	@Override
+//	public void update(FavDrVO favDrVO) {
+//		
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		
+//		try {
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, user, password);
+//			pstmt = con.prepareStatement(UP_DRNO);
+//			
+//			pstmt.setString(1, favDrVO.getDrNo());
+//			pstmt.setString(2, favDrVO.getMemNo());
+//			pstmt.setString(3, favDrVO.getDrNo());
+//			
+//			pstmt.executeUpdate();
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load databast driver" +e.getMessage());
+//		} catch (SQLException e) {
+//			throw new RuntimeException("A database error occured" + e.getMessage());
+//		} finally {
+//			if(pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//			if(con != null) {
+//				try {
+//					con.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//	}
 
 	@Override
 	public void delete(FavDrVO favDrVO) {
@@ -225,6 +258,7 @@ public class FavDrJDBCDAO implements FavDr_interface {
 	public static void main(String[] args) {
 
 		FavDrJDBCDAO dao = new FavDrJDBCDAO();
+		
 
 		// 新增
 //		FavDrVO favDrVO1 = new FavDrVO();
@@ -249,12 +283,12 @@ public class FavDrJDBCDAO implements FavDr_interface {
 //		}
 		
 		//查全表
-		List<FavDrVO> list2 = dao.getAll();
-		for(FavDrVO favDrVO : list2) {
-			System.out.print(favDrVO.getMemNo() + "," );
-			System.out.print(favDrVO.getDrNo() + ",");
-			System.out.println();
-		}
+//		List<FavDrVO> list2 = dao.getAll();
+//		for(FavDrVO favDrVO : list2) {
+//			System.out.print(favDrVO.getMemNo() + "," );
+//			System.out.print(favDrVO.getDrNo() + ",");
+//			System.out.println();
+//		}
 		
 	}
 

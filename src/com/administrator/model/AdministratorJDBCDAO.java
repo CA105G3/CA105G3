@@ -422,13 +422,6 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 //			System.out.println();
 //		}
 		
-		
-		
-		
-	}
-
-
-	
-	
+	}	
 
 }
