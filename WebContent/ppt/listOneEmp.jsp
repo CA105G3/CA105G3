@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ page import="com.ppttool.model.*"%>
-<%@page import="java.io.OutputStream" %>>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
@@ -51,7 +50,7 @@
 <h4>此頁暫練習採用 Script 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>員工資料 - ListOneEmp.jsp</h3>
+		 <h3>PPT資料 - ListOneEmp.jsp</h3>
 		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -65,7 +64,7 @@
 	<tr>
 		<td><%=pptVO.getPptno()%></td>
 		<td><%=pptVO.getDrno()%></td>
-		<td><img src="<%=request.getContextPath()%>/ppt/pptImg.do?pptno=${pptVO.pptno} " /></td>
+		<td><img src="<%=request.getContextPath()%>/ppt/pptImg.do?pptno=${pptVO.pptno} " width=50% height=50% /></td>
 	</tr>
 </table>
 

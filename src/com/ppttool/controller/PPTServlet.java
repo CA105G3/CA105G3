@@ -91,6 +91,29 @@ public class PPTServlet extends HttpServlet {
 						.getRequestDispatcher("/ppt/select_page.jsp");
 				failureView.forward(req, res);
 			}
+		}//End-point getOne_For_Display
+		
+		if("delete".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				String pptno = new String(req.getParameter("pptno"));
+				
+				PPTToolService pptSvc = new PPTToolService();
+				pptSvc.deletePPT(pptno);
+				
+				String url="/ppt/ListAllPPT.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+				
+			}catch(Exception e) {
+				errorMsgs.add("刪除資料失敗"+e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/emp/ListAllPPT.jsp");
+				failureView.forward(req, res);
+			}	
 		}
 	}
 }

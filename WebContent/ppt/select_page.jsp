@@ -42,12 +42,25 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="ppt.do" >
+	<li><a href='ListAllPPT.jsp'>List</a> all PPTs.<br><br></li>
+	
+	<FORM METHOD="post" ACTION="ppt.do" >
         <b>輸入PPT編號 (如P0001):</b>
         <input type="text" name="pptno">
         <input type="hidden" name="action" value="getOne_For_Display">
         <input type="submit" value="送出">
-</FORM>
+	</FORM>
+<jsp:useBean id="pptSvc" scope="page" class="com.ppttool.model.PPTToolService" />
+	<FORM METHOD="post" ACTION="ppt.do" >
+       <b>選擇員工編號:</b>
+       <select size="1" name="pptno">
+         <c:forEach var="pptVO" items="${pptSvc.all}" > 
+          <option value="${pptVO.pptno}">${pptVO.pptno}
+         </c:forEach>   
+       </select>
+       <input type="hidden" name="action" value="getOne_For_Display">
+       <input type="submit" value="送出">
+    </FORM>
 
 </body>
 </html>
