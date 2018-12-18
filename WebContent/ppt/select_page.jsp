@@ -61,6 +61,10 @@
        <input type="hidden" name="action" value="getOne_For_Display">
        <input type="submit" value="送出">
     </FORM>
-
+    
+   <h3>新增PPT</h3>
+   <ul>
+    <li><a href='addPTT.jsp'>add a new PPT</a></li>
+   </ul>
 </body>
 </html>
