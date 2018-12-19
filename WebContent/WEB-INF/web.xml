@@ -49,5 +49,9 @@
 		<url-pattern>/ppt/pptImg.do</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>PPTToolService</servlet-name>
+		<servlet-class>com.ppttool.model.PPTToolService</servlet-class>
+	</servlet>
 
 </web-app>

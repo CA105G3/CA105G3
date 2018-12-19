@@ -3,7 +3,7 @@
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-  PPTToolVO pptVO = (PPTToolVO) request.getAttribute("empVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
+  PPTToolVO pptVO = (PPTToolVO) request.getAttribute("pptVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
 	pageContext.setAttribute("pptVO", pptVO);
 %>
 

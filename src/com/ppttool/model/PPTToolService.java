@@ -17,10 +17,11 @@ public class PPTToolService {
 		return pvo;
 	}
 	
-	public PPTToolVO update(String drno,byte[] ppt) {
+	public PPTToolVO update(String pptno,byte[] ppt,String drno) {
 		PPTToolVO pvo = new PPTToolVO();
-		pvo.setDrno(drno);
+		pvo.setPptno(pptno);
 		pvo.setPpt(ppt);
+		pvo.setDrno(drno);
 		dao.update(pvo);
 		return pvo;
 	}

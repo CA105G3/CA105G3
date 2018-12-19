@@ -25,6 +25,4 @@ public class PPTImgServlet extends HttpServlet {
 		out.write(pic);
 		out.close();
 	}
-	
-	
 }

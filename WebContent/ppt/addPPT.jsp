@@ -11,7 +11,6 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>PPT資料新增 - addPPT.jsp</title>
-
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -75,13 +74,29 @@
 	</tr>
 	<tr>
 		<td>PPT檔:</td>
-		<td><input type="file" name="ppt" size="45"
-			 value="<%= (pptVO==null)? "MANAGER" : pptVO.getPpt()%>" /></td>
+		
+		<td><input type="file" name="ppt" size="45" onchange="loadFile(event)"
+			 value="<%= (pptVO==null)? request.getContextPath()+"/oracle_imgs/Doctor/03.jpg" : pptVO.getPpt()%>" /></td>
+	 	
+	</tr>
+	<tr>
+		<td></td>
+		<td><img src="<%=request.getContextPath()%>/oracle_imgs/Doctor/03.jpg" id="output" width=50% height=50%/></td>
 	</tr>
 	</table>
 	<br>
 	<input type="hidden" name="action" value="insert">
 	<input type="submit" value="送出新增">
 </FORM>
+<script>
+  var loadFile = function(event) {
+    var reader = new FileReader();
+    reader.onload = function(){
+      var output = document.getElementById('output');
+      output.src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  };
+</script>
 </body>
 </html>

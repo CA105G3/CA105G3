@@ -76,6 +76,7 @@ public class PPTToolDAO implements PPTToolDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 			pstmt.setBytes(1, ppttoolvo.getPpt());
+			pstmt.setString(2, ppttoolvo.getPptno());
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "

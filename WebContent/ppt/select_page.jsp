@@ -64,7 +64,7 @@
     
    <h3>新增PPT</h3>
    <ul>
-    <li><a href='addPTT.jsp'>add a new PPT</a></li>
+    <li><a href='addPPT.jsp'>add a new PPT</a></li>
    </ul>
 </body>
 </html>
