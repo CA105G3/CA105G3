@@ -52,7 +52,7 @@
   
   
   <li>
-    <FORM METHOD="post" ACTION="medicalOrderServlet.do" >
+    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/medicalorder/medicalOrderServlet.do" >
         <b>輸入會員編號 (如M0001):</b>
         <input type="text" name="moNo">
         <input type="hidden" name="action" value="getOne_For_Display">
@@ -63,7 +63,7 @@
   <jsp:useBean id="medicalOrderSvc" scope="page" class="com.medicalorder.model.MedicalOrderService" />
    
   <li>
-     <FORM METHOD="post" ACTION="medicalOrderServlet.do" >
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/medicalorder/medicalOrderServlet.do" >
        <b>選擇病例編號:</b>
        <select size="1" name="moNo">
          <c:forEach var="MedicalOrderVO" items="${medicalOrderSvc.all}" > 

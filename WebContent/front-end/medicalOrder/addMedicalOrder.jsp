@@ -64,8 +64,8 @@
 		</c:forEach>
 	</ul>
 </c:if>
-
-<FORM METHOD="post" ACTION="medicalOrderServlet.do" name="form1">
+							<!-- <%=request.getContextPath()%>/medicalorder/medicalOrderServlet.do" -->"
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/medicalorder/medicalOrderServlet.do" name="form1">
 <table>
 	<tr>
 		<td>會員編號：</td>
@@ -80,8 +80,14 @@
 	<tr>
 		<tr>
 		<td>診療狀態：</td>
-		<td><input type="TEXT" name="moStatus" size="45"
-			 value="<%= (medicalOrderVO==null)? "等待看診" : medicalOrderVO.getMoStatus()%>" />（等待審核、等待問診、問診完成、取消問診）</td>
+		<td>
+			<select size="1" name="moStatus">				
+ 				<option value="等待問診">等待問診</option>
+ 				<option value="問診完成">問診完成</option>
+ 				<option value="等待審核">等待審核</option>
+ 				<option value="取消問診">取消問診</option>
+			</select>
+		</td>
 	</tr>
 	<tr>
 		<tr>
