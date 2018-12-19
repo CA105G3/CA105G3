@@ -53,7 +53,7 @@
 		<servlet-class>com.ppttool.model.PPTToolService</servlet-class>
 	</servlet>
 	
-  <servlet>
+  	<servlet>
 		<servlet-name>MedicalOrderServlet</servlet-name>
 		<servlet-class>com.medicalorder.controller.MedicalOrderServlet</servlet-class>
 	</servlet>
@@ -61,4 +61,18 @@
 		<servlet-name>MedicalOrderServlet</servlet-name>
 		<url-pattern>/medicalOrder/medicalOrderServlet.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>MedicalOrderImgServlet</servlet-name>
+		<servlet-class>com.medicalorder.controller.MedicalOrderImgServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MedicalOrderImgServlet</servlet-name>
+		<url-pattern>/medicalOrder/medicalOrderServletImg.do</url-pattern>
+	</servlet-mapping>
+		<servlet>
+		<servlet-name>MedicalOrderService</servlet-name>
+		<servlet-class>com.medicalorder.model.MedicalOrderImgService</servlet-class>
+	</servlet>
+	
 </web-app>

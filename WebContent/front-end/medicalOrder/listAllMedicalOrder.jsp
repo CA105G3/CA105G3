@@ -94,7 +94,7 @@
 			<td>${MedicalOrderVO.moCost}</td>
 			<td>${MedicalOrderVO.moTime}</td> 
 			<td>${MedicalOrderVO.moIntro}</td>
-			<td>${MedicalOrderVO.moVideo}</td> 
+			<td><img src="<%=request.getContextPath()%>/medicalorder/medicalOrderServletImg.do?moNO=${MedicalOrderVO.moVideo} " width=50% height=50% /></td> 
 			<td>${MedicalOrderVO.moText}</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/medicalOrderServlet/medicalOrderServlet.do" style="margin-bottom: 0px;">
@@ -103,7 +103,7 @@
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/medicalOrderServlet/medicalOrderServlet.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/medicalOrder/medicalOrderServletImg.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="刪除">
 			     <input type="hidden" name="moNo"  value="${MedicalOrderVO.moNo}">
 			     <input type="hidden" name="action" value="delete"></FORM>

@@ -65,7 +65,7 @@
 	</ul>
 </c:if>
 							<!-- <%=request.getContextPath()%>/medicalorder/medicalOrderServlet.do" -->"
-<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/medicalorder/medicalOrderServlet.do" name="form1">
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/medicalorder/medicalOrderServlet.do" name="form1" enctype="multipart/form-data">
 <table>
 	<tr>
 		<td>會員編號：</td>
@@ -106,8 +106,8 @@
 	</tr>
 	<tr>
 		<td>問診影音紀錄：</td>
-		<td><input type="TEXT" name="comm" size="45"
-			 value="<%= (medicalOrderVO==null)? "100" : medicalOrderVO.getMoVideo()%>" /></td>
+		<td>		<td><input type="file" name="moVideo" size="45" onchange="loadFile(event)"
+			 value="<%= (medicalOrderVO == null)? request.getContextPath()+"/oracle_imgs/Doctor/03.jpg" : medicalOrderVO.getMoVideo() %>" /></td></td>
 	</tr><!-- 改成影音上傳 -->
 	<tr>
 		<td>問診文字紀錄：</td>
@@ -145,7 +145,16 @@
            height: 151px;   /* height:  151px; */
   }
 </style>
-
+<script>
+  var loadFile = function(event) {
+    var reader = new FileReader();
+    reader.onload = function(){
+      var output = document.getElementById('output');
+      output.src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  };
+</script>
 <script>
         $.datetimepicker.setLocale('zh');
         $('#f_date1').datetimepicker({
