@@ -53,5 +53,12 @@
 		<servlet-name>PPTToolService</servlet-name>
 		<servlet-class>com.ppttool.model.PPTToolService</servlet-class>
 	</servlet>
-
+  <servlet>
+		<servlet-name>MedicalOrderServlet</servlet-name>
+		<servlet-class>com.medicalorder.controller.MedicalOrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MedicalOrderServlet</servlet-name>
+		<url-pattern>/medicalorder/medicalOrderServlet.do</url-pattern>
+	</servlet-mapping>
 </web-app>
