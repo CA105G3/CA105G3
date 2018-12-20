@@ -94,7 +94,7 @@
 			<td>${MedicalOrderVO.moCost}</td>
 			<td>${MedicalOrderVO.moTime}</td> 
 			<td>${MedicalOrderVO.moIntro}</td>
-			<td><img src="<%=request.getContextPath()%>/medicalorder/medicalOrderServletImg.do?moNO=${MedicalOrderVO.moVideo} " width=50% height=50% /></td> 
+			<td><img src="<%=request.getContextPath()%>/medicalorder/medicalOrderServletImg.do?moNO=${MedicalOrderVO.moVideo}" width=50% height=50% /></td> 
 			<td>${MedicalOrderVO.moText}</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/medicalOrderServlet/medicalOrderServlet.do" style="margin-bottom: 0px;">

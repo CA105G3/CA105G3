@@ -59,7 +59,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MedicalOrderServlet</servlet-name>
-		<url-pattern>/medicalOrder/medicalOrderServlet.do</url-pattern>
+		<url-pattern>/front-end/medicalOrder/medicalOrderServlet.do</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -68,11 +68,12 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MedicalOrderImgServlet</servlet-name>
-		<url-pattern>/medicalOrder/medicalOrderServletImg.do</url-pattern>
+		<url-pattern>/front-end/medicalOrder/medicalOrderServletImg.do</url-pattern>
 	</servlet-mapping>
 		<servlet>
 		<servlet-name>MedicalOrderService</servlet-name>
 		<servlet-class>com.medicalorder.model.MedicalOrderImgService</servlet-class>
 	</servlet>
+
 	
 </web-app>

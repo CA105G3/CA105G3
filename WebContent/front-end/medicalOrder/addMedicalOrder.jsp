@@ -56,16 +56,16 @@
 <h3>資料新增:</h3>
 
 <%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
+<c:if test="${not empty errMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
+		<c:forEach var="message" items="${errMsgs}">
 			<li style="color:red">${message}</li>
 		</c:forEach>
 	</ul>
 </c:if>
-							<!-- <%=request.getContextPath()%>/medicalorder/medicalOrderServlet.do" -->"
-<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/medicalorder/medicalOrderServlet.do" name="form1" enctype="multipart/form-data">
+							<!-- <%=request.getContextPath()%>/medicalorder/medicalOrderServlet.do" -->
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do" name="form1" >
 <table>
 	<tr>
 		<td>會員編號：</td>
@@ -107,11 +107,11 @@
 	<tr>
 		<td>問診影音紀錄：</td>
 		<td>		<td><input type="file" name="moVideo" size="45" onchange="loadFile(event)"
-			 value="<%= (medicalOrderVO == null)? request.getContextPath()+"/oracle_imgs/Doctor/03.jpg" : medicalOrderVO.getMoVideo() %>" /></td></td>
+			 value="<%= (medicalOrderVO == null)? request.getContextPath()+"/Imgs/Doctor/03.jpg" : medicalOrderVO.getMoVideo() %>" /></td></td>
 	</tr><!-- 改成影音上傳 -->
 	<tr>
 		<td>問診文字紀錄：</td>
-		<td><input type="TEXT" name="comm" size="45"
+		<td><input type="TEXT" name="moText" size="45"
 			 value="<%= (medicalOrderVO==null)? "100" : medicalOrderVO.getMoText()%>" /></td>
 	</tr>
 
@@ -133,9 +133,9 @@
 	  moTime = new java.sql.Date(System.currentTimeMillis());
    }
 %>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/medicalOrder/datetimepicker/jquery.datetimepicker.css" />
+<script src="<%=request.getContextPath()%>/front-end/medicalOrder/datetimepicker/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/front-end/medicalOrder/datetimepicker/jquery.datetimepicker.full.js"></script>
 
 <style>
   .xdsoft_datetimepicker .xdsoft_datepicker {

@@ -10,15 +10,16 @@ public class MedicalOrderService {
 		dao = new MedicalOrderDAO();
 	}
 	
-	public MedicalOrderVO addMedicalOrder(String moNo, String memNo, String drNo, String moStatus,
+	public MedicalOrderVO addMedicalOrder(String memNo, String drNo, String moStatus,
 			 Integer moCost, java.sql.Date moTime, String moIntro, byte[] moVideo, String moText) {
 		
 		MedicalOrderVO medicalOrderVO = new MedicalOrderVO();
 		
-		medicalOrderVO.setMoNo(moNo);
+//		medicalOrderVO.setMoNo(moNo);
 		medicalOrderVO.setMemNo(memNo);
 		medicalOrderVO.setDrNo(drNo);
 		medicalOrderVO.setMoStatus(moStatus);
+		medicalOrderVO.setMoCost(moCost);
 		medicalOrderVO.setMoTime(moTime);
 		medicalOrderVO.setMoIntro(moIntro);
 		medicalOrderVO.setMoVideo(moVideo);
@@ -38,6 +39,7 @@ public class MedicalOrderService {
 		medicalOrderVO.setMemNo(memNo);
 		medicalOrderVO.setDrNo(drNo);
 		medicalOrderVO.setMoStatus(moStatus);
+		medicalOrderVO.setMoCost(moCost);
 		medicalOrderVO.setMoTime(moTime);
 		medicalOrderVO.setMoIntro(moIntro);
 		medicalOrderVO.setMoVideo(moVideo);
