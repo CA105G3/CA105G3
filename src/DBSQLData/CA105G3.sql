@@ -256,12 +256,12 @@ CREATE TABLE memberchef(
     chefpic     BLOB ,
     chefdescrip VARCHAR2(120 BYTE) ,
     chefstatus  VARCHAR2(9 BYTE) NOT NULL ,
-    chephone    NUMBER ,
-    cheaddr     VARCHAR2(60 BYTE) ,
-    cherep      VARCHAR2(15 BYTE) ,
+    chefphone   NUMBER ,
+    chefaddr    VARCHAR2(60 BYTE) ,
+    chefrep     VARCHAR2(15 BYTE) ,
     CONSTRAINT memberchef_pk PRIMARY KEY (chefno),
     CONSTRAINT memberchef_fk FOREIGN KEY (memno) REFERENCES MEMBER (memno),
-    CONSTRAINT CHK_chefenable CHECK (chefstatus in('停用','啓用','審核中')));
+    CONSTRAINT CHK_chefstatus CHECK (chefstatus in('停用','啓用','審核中')));
     
 CREATE SEQUENCE memberchef_seq
 INCREMENT BY 1
@@ -281,10 +281,10 @@ CREATE TABLE menu(
     unitprice   NUMBER ,
     maincourse  VARCHAR2(24 BYTE) NOT NULL ,
     menupic     BLOB ,
-    delivertime VARCHAR2(12 BYTE) ,
+    deliverable VARCHAR2(12 BYTE) ,
     CONSTRAINT menu_pk PRIMARY KEY (menuno),
     CONSTRAINT menu_fk FOREIGN KEY (chefno) REFERENCES memberchef (chefno),
-    CONSTRAINT CHK_delivertime CHECK (delivertime in('可送餐','不可送餐'))
+    CONSTRAINT CHK_deliverable CHECK (deliverable in('可送餐','不可送餐'))
 );
     
 CREATE SEQUENCE menu_seq
