@@ -3,6 +3,7 @@ package com.ppttool.controller;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -190,17 +191,37 @@ public class PPTServlet extends HttpServlet {
 				String pptno = new String(req.getParameter("pptno"));
 				String drno=new String(req.getParameter("drno"));
 				String drnoReg = "^[(a-zA-Z0-9)]{5}$";
+				byte[] data=null;
 				if (drno == null || drno.trim().length() == 0) {
 					errorMsgs.add("醫師編號: 請勿空白");
 				} else if(!drno.trim().matches(drnoReg)) { //以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("醫師編號: 只能是英文字母、數字 , 且長度必需為5");
 	            }
 				
+				
 				Part filePart = req.getPart("ppt");
-				if(filePart.getSubmittedFileName().equals(null)||filePart.getSubmittedFileName().trim().length()==0)
-					errorMsgs.add("請上傳PPT");
-				InputStream fileContent = filePart.getInputStream();
-				byte[] data=readFully(fileContent);
+
+				if(filePart.getSubmittedFileName().equals(null)||filePart.getSubmittedFileName().trim().length()==0) {
+					//引導回修改前頁面的三種方法
+//	1.---------------------------------------
+//					String path = req.getScheme()+"://"+req.getServerName()+":"+req.getServerPort()+req.getContextPath()+"/ppt/pptImg.do?pptno="+pptno;
+//					InputStream in = new URL(path).openStream();
+//					data=readFully(in);
+//	2.---------------------------------------					
+//					RequestDispatcher failureView =req.getRequestDispatcher("ppt/listOneEmp.jsp");
+//					failureView.forward(req, res);
+//	3.----------------------------------------  
+					PPTToolService PPTService = new PPTToolService();
+					data=PPTService.getOnePPT(pptno).getPpt();
+				}else {
+					InputStream fileContent = filePart.getInputStream();
+					data=readFully(fileContent);
+				}
+//					errorMsgs.add("請上傳PPT");
+//				InputStream fileContent = filePart.getInputStream();
+//				byte[] data=readFully(fileContent);
+				
+				
 				
 				PPTToolVO pptVO = new PPTToolVO();
 				pptVO.setPptno(pptno);
@@ -259,7 +280,7 @@ public class PPTServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/emp/listAllEmp.jsp");
+						.getRequestDispatcher("/ppt/listAllEmp.jsp");
 				failureView.forward(req, res);
 			}
 		}

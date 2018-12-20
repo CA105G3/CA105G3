@@ -72,7 +72,7 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 	}
 
 	@Override
-	public void update_priority_status(AdministratorVO administratorVO) {
+	public void update(AdministratorVO administratorVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -112,7 +112,7 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 		}
 		
 	}
-
+/*
 	@Override
 	public void update_priority(AdministratorVO administratorVO) {
 		Connection con = null;
@@ -191,7 +191,7 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 		}		
 		
 	}
-	
+	*/
 	@Override
 	public void delete(String adminNo) {
 		Connection con = null;

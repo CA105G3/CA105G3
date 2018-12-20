@@ -9,7 +9,7 @@
 	List<PPTToolVO> list = pptSvc.getAll();
 	pageContext.setAttribute("list",list);
 	
-	PPTToolVO pptVO = (PPTToolVO) request.getAttribute("empVO");
+	PPTToolVO pptVO = (PPTToolVO) request.getAttribute("pptVO");
 	pageContext.setAttribute("pptVO", pptVO);
 %>
 <!DOCTYPE html>

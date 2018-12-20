@@ -30,7 +30,7 @@
 </head>
 <body bgcolor='white'>
 
-<h3>資料查詢:</h3>
+<h3>PPT資料查詢:</h3>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
