@@ -36,7 +36,7 @@ public class MedicalOrderDAO implements MedicalOrder_interface{
 	private static final String GET_ALL_STMT =
 			"SELECT * FROM MEDICALORDER";
 	private static final String UPDATE = 
-			"UPDATE MEDICALORDER SET MEMNO=? ,DRNO= ? ,MOSTATUS=? ,MOCOST=? , MOTIME=? , MOTEXT=? ,MOVIDEO=? ,MOINTRO=? WHERE MONO=? ;";
+			"UPDATE MEDICALORDER SET MEMNO=? ,DRNO=? ,MOSTATUS=? ,MOCOST=? , MOTIME=? , MOTEXT=? ,MOVIDEO=? ,MOINTRO=? WHERE MONO=? ";
 	
 	@Override
 	public void insert(MedicalOrderVO medicalOrderVO) {
@@ -174,7 +174,7 @@ public class MedicalOrderDAO implements MedicalOrder_interface{
 			
 			while(rs.next()) {
 				medicalOrderVO = new MedicalOrderVO();
-				medicalOrderVO.setMoNo(rs.getString("mono"));
+				medicalOrderVO.setMoNo(rs.getString("moNo"));
 				medicalOrderVO.setMemNo(rs.getString("memNo"));
 				medicalOrderVO.setDrNo(rs.getString("drNo"));
 				medicalOrderVO.setMoStatus(rs.getString("moStatus"));

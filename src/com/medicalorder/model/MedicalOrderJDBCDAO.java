@@ -292,7 +292,7 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 //		}		
 		
 		//查單筆
-//		MedicalOrderVO medicalOrderVO2 = dao.findByPrimaryKey("20181217-0009");
+//		MedicalOrderVO medicalOrderVO2 = dao.findByPrimaryKey("20181220-0012");
 //			System.out.print(medicalOrderVO2.getMoNo() +",");
 //			System.out.print(medicalOrderVO2.getMemNo() +",");
 //			System.out.print(medicalOrderVO2.getDrNo() +",");

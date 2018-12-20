@@ -56,10 +56,10 @@
 <h3>資料新增:</h3>
 
 <%-- 錯誤表列 --%>
-<c:if test="${not empty errMsgs}">
+<c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
-		<c:forEach var="message" items="${errMsgs}">
+		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
 		</c:forEach>
 	</ul>
@@ -102,7 +102,7 @@
 	<tr>
 		<td>病況說明：</td>
 		<td><textarea  name="moIntro" rows="10" cols="50"
-			 value="<%= (medicalOrderVO==null)? "10000" : medicalOrderVO.getMoIntro()%>" \></textarea></td>
+			 value="<%= (medicalOrderVO==null)? "10000" : medicalOrderVO.getMoIntro()%>" ></textarea></td>
 	</tr>
 	<tr>
 		<td>問診影音紀錄：</td>

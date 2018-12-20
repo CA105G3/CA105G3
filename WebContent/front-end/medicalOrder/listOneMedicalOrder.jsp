@@ -1,14 +1,15 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
-<%@ page import="com.emp.model.*"%>
-<%-- ¦¹­¶¼È½m²ß±Ä¥Î Script ªº¼gªk¨ú­È --%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.medicalorder.model.*"%>
+				 
+<%-- æ­¤é æš«ç·´ç¿’æ¡ç”¨ Script çš„å¯«æ³•å–å€¼ --%>
 
 <%
-  EmpVO empVO = (EmpVO) request.getAttribute("empVO"); //EmpServlet.java(Concroller), ¦s¤JreqªºempVOª«¥ó
+	MedicalOrderVO medicalOrderVO = (MedicalOrderVO) request.getAttribute("medicalOrderVO"); //EmpServlet.java(Concroller), å­˜å…¥reqçš„empVOç‰©ä»¶
 %>
 
 <html>
 <head>
-<title>­û¤u¸ê®Æ - listOneEmp.jsp</title>
+<title>å–®ç­†ç—…æ­·è³‡æ–™ - listOneMedicalOrder.jsp</title>
 
 <style>
   table#table-1 {
@@ -46,32 +47,36 @@
 </head>
 <body bgcolor='white'>
 
-<h4>¦¹­¶¼È½m²ß±Ä¥Î Script ªº¼gªk¨ú­È:</h4>
+<h4>æ­¤é æš«ç·´ç¿’æ¡ç”¨ Script çš„å¯«æ³•å–å€¼:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>­û¤u¸ê®Æ - ListOneEmp.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">¦^­º­¶</a></h4>
+		 <h3>ç—…æ­·è³‡æ–™ - ListOneMedicalOrder.jsp</h3>
+		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">å›é¦–é </a></h4>
 	</td></tr>
 </table>
 
 <table>
 	<tr>
-		<th>­û¤u½s¸¹</th>
-		<th>­û¤u©m¦W</th>
-		<th>Â¾¦ì</th>
-		<th>¶±¥Î¤é´Á</th>
-		<th>Á~¤ô</th>
-		<th>¼úª÷</th>
-		<th>³¡ªù</th>
+		<th>çœ‹è¨ºå–®ç·¨è™Ÿ</th>
+		<th>æœƒå“¡ç·¨è™Ÿ</th>
+		<th>é†«ç™‚äººå“¡ç·¨è™Ÿ</th>
+		<th>è¨ºç™‚ç‹€æ…‹</th>
+		<th>è¨ºç™‚è²»ç”¨</th>
+		<th>ç´„è¨ºæ™‚é–“</th>
+		<th>ç—…æ³èªªæ˜</th>
+		<th>å•è¨ºå½±éŸ³ç´€éŒ„</th>
+		<th>å•è¨ºæ–‡å­—ç´€éŒ„</th>
 	</tr>
 	<tr>
-		<td><%=empVO.getEmpno()%></td>
-		<td><%=empVO.getEname()%></td>
-		<td><%=empVO.getJob()%></td>
-		<td><%=empVO.getHiredate()%></td>
-		<td><%=empVO.getSal()%></td>
-		<td><%=empVO.getComm()%></td>
-		<td><%=empVO.getDeptno()%></td>
+		<td><%=medicalOrderVO.getMoNo()%></td>
+		<td><%=medicalOrderVO.getMemNo()%></td>
+		<td><%=medicalOrderVO.getDrNo()%></td>
+		<td><%=medicalOrderVO.getMoStatus()%></td>
+		<td><%=medicalOrderVO.getMoCost()%></td>
+		<td><%=medicalOrderVO.getMoTime()%></td>
+		<td><%=medicalOrderVO.getMoIntro()%></td>
+		<td><%=medicalOrderVO.getMoVideo()%></td>
+		<td><%=medicalOrderVO.getMoText()%></td>
 	</tr>
 </table>
 

@@ -50,20 +50,10 @@
 <ul>
   <li><a href='listAllMedicalOrder.jsp'>所有病歷資料查詢</a><br><br></li>
   
-  
-  <li>
-    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/medicalorder/medicalOrderServlet.do" >
-        <b>輸入會員編號 (如M0001):</b>
-        <input type="text" name="moNo">
-        <input type="hidden" name="action" value="getOne_For_Display">
-        <input type="submit" value="查詢">
-    </FORM>
-  </li>
-
   <jsp:useBean id="medicalOrderSvc" scope="page" class="com.medicalorder.model.MedicalOrderService" />
    
   <li>
-     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/medicalorder/medicalOrderServlet.do" >
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do" >
        <b>選擇病例編號:</b>
        <select size="1" name="moNo">
          <c:forEach var="MedicalOrderVO" items="${medicalOrderSvc.all}" > 

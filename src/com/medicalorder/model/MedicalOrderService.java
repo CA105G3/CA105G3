@@ -34,7 +34,7 @@ public class MedicalOrderService {
 			 Integer moCost, java.sql.Date moTime, String moIntro, byte[] moVideo, String moText) {
 		
 		MedicalOrderVO medicalOrderVO = new MedicalOrderVO();
-		
+
 		medicalOrderVO.setMoNo(moNo);
 		medicalOrderVO.setMemNo(memNo);
 		medicalOrderVO.setDrNo(drNo);
