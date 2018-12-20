@@ -1,15 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
-<%@ page import="com.ppttool.model.*"%>
+<%@ page import="com.emp.model.*"%>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-  PPTToolVO pptVO = (PPTToolVO) request.getAttribute("pptVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
-	pageContext.setAttribute("pptVO", pptVO);
+  EmpVO empVO = (EmpVO) request.getAttribute("empVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
 %>
 
 <html>
 <head>
-<title>PPT資料 - listOneEmp.jsp</title>
+<title>員工資料 - listOneEmp.jsp</title>
 
 <style>
   table#table-1 {
@@ -50,21 +49,29 @@
 <h4>此頁暫練習採用 Script 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>PPT資料 - ListOneEmp.jsp</h3>
+		 <h3>員工資料 - ListOneEmp.jsp</h3>
 		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
 
 <table>
 	<tr>
-		<th>PPT編號</th>
-		<th>醫師編號</th>
-		<th>PPT</th>
+		<th>員工編號</th>
+		<th>員工姓名</th>
+		<th>職位</th>
+		<th>雇用日期</th>
+		<th>薪水</th>
+		<th>獎金</th>
+		<th>部門</th>
 	</tr>
 	<tr>
-		<td><%=pptVO.getPptno()%></td>
-		<td><%=pptVO.getDrno()%></td>
-		<td><img src="<%=request.getContextPath()%>/ppt/pptImg.do?pptno=${pptVO.pptno} " width=50% height=50% /></td>
+		<td><%=empVO.getEmpno()%></td>
+		<td><%=empVO.getEname()%></td>
+		<td><%=empVO.getJob()%></td>
+		<td><%=empVO.getHiredate()%></td>
+		<td><%=empVO.getSal()%></td>
+		<td><%=empVO.getComm()%></td>
+		<td><%=empVO.getDeptno()%></td>
 	</tr>
 </table>
 

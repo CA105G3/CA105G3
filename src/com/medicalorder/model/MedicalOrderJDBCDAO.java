@@ -292,17 +292,17 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 //		}		
 		
 		//查單筆
-		MedicalOrderVO medicalOrderVO2 = dao.findByPrimaryKey("20181217-0009");
-			System.out.print(medicalOrderVO2.getMoNo() +",");
-			System.out.print(medicalOrderVO2.getMemNo() +",");
-			System.out.print(medicalOrderVO2.getDrNo() +",");
-			System.out.print(medicalOrderVO2.getMoStatus() +",");
-			System.out.print(medicalOrderVO2.getMoCost() +",");
-			System.out.print(medicalOrderVO2.getMoTime() +",");
-			System.out.print(medicalOrderVO2.getMoIntro() +",");			
-			System.out.print(medicalOrderVO2.getMoVideo() +",");
-			System.out.print(medicalOrderVO2.getMoText() +",");
-			System.out.println();
+//		MedicalOrderVO medicalOrderVO2 = dao.findByPrimaryKey("20181217-0009");
+//			System.out.print(medicalOrderVO2.getMoNo() +",");
+//			System.out.print(medicalOrderVO2.getMemNo() +",");
+//			System.out.print(medicalOrderVO2.getDrNo() +",");
+//			System.out.print(medicalOrderVO2.getMoStatus() +",");
+//			System.out.print(medicalOrderVO2.getMoCost() +",");
+//			System.out.print(medicalOrderVO2.getMoTime() +",");
+//			System.out.print(medicalOrderVO2.getMoIntro() +",");			
+//			System.out.print(medicalOrderVO2.getMoVideo() +",");
+//			System.out.print(medicalOrderVO2.getMoText() +",");
+//			System.out.println();
 		
 		
 				

@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<title>管理員資料管理</title>
 <style>
   table#table-1 {
 	width: 450px;
@@ -26,11 +26,10 @@
     display: inline;
   }
 </style>
-<title>Select PPT</title>
 </head>
 <body bgcolor='white'>
 
-<h3>資料查詢:</h3>
+<h3>管理員資料查詢:</h3>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -42,29 +41,30 @@
 	</ul>
 </c:if>
 
-	<li><a href='ListAllPPT.jsp'>List</a> all PPTs.<br><br></li>
-	
-	<FORM METHOD="post" ACTION="ppt.do" >
-        <b>輸入PPT編號 (如P0001):</b>
-        <input type="text" name="pptno">
+<li><a href='ListAllAdmin.jsp'>List</a> 所有管理員列表<br><br></li>
+
+<FORM METHOD="post" ACTION="admin.do" >
+        <b>輸入管理員編號 (如A0001):</b>
+        <input type="text" name="adminno">
         <input type="hidden" name="action" value="getOne_For_Display">
         <input type="submit" value="送出">
 	</FORM>
-<jsp:useBean id="pptSvc" scope="page" class="com.ppttool.model.PPTToolService" />
-	<FORM METHOD="post" ACTION="ppt.do" >
-       <b>選擇員工編號:</b>
-       <select size="1" name="pptno">
-         <c:forEach var="pptVO" items="${pptSvc.all}" > 
-          <option value="${pptVO.pptno}">${pptVO.pptno}
+	
+<jsp:useBean id="adminSvc" scope="page" class="com.administrator.model.AdministratorService" />
+	<FORM METHOD="post" ACTION="admin.do" >
+       <b>選擇管理員:</b>
+       <select size="1" name="adminno">
+         <c:forEach var="adminVO" items="${adminSvc.all}" > 
+          <option value="${adminVO.adminNo}">${adminVO.adminId}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
        <input type="submit" value="送出">
     </FORM>
+    <h3>新增PPT</h3>
+   	<ul>
+    	<li><a href='addAdmin.jsp'>新增管理員</a></li>
+   	</ul>
     
-   <h3>新增PPT</h3>
-   <ul>
-    <li><a href='addPPT.jsp'>add a new PPT</a></li>
-   </ul>
 </body>
 </html>

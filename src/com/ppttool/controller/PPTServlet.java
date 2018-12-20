@@ -1,15 +1,20 @@
 package com.ppttool.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.ppttool.model.PPTToolService;
 import com.ppttool.model.PPTToolVO;
@@ -18,6 +23,7 @@ import com.ppttool.model.PPTToolVO;
  * Servlet implementation class PPTServlet
  */
 @WebServlet("/PPTServlet")
+@MultipartConfig
 public class PPTServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -79,7 +85,7 @@ public class PPTServlet extends HttpServlet {
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("empVO", pptVO); // 資料庫取出的empVO物件,存入req
+				req.setAttribute("pptVO", pptVO); // 資料庫取出的empVO物件,存入req
 				String url = "/ppt/listOneEmp.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
@@ -91,6 +97,183 @@ public class PPTServlet extends HttpServlet {
 						.getRequestDispatcher("/ppt/select_page.jsp");
 				failureView.forward(req, res);
 			}
+		}//End-point getOne_For_Display
+		
+		
+		
+		if("delete".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				String pptno = new String(req.getParameter("pptno"));
+				
+				PPTToolService pptSvc = new PPTToolService();
+				pptSvc.deletePPT(pptno);
+				
+				String url="/ppt/ListAllPPT.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+				
+			}catch(Exception e) {
+				errorMsgs.add("刪除資料失敗"+e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/emp/ListAllPPT.jsp");
+				failureView.forward(req, res);
+			}
+		}//End-point delete	
+		
+		if ("insert".equals(action)) {
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				String drno=req.getParameter("drno");
+				String drnoReg = "^[(a-zA-Z0-9)]{5}$";
+				if (drno == null || drno.trim().length() == 0) {
+					errorMsgs.add("醫師編號: 請勿空白");
+				} else if(!drno.trim().matches(drnoReg)) { //以下練習正則(規)表示式(regular-expression)
+					errorMsgs.add("醫師編號: 只能是英文字母、數字 , 且長度必需為5");
+	            }
+				
+				
+				Part filePart = req.getPart("ppt");
+				if(filePart.getSubmittedFileName().equals(null)||filePart.getSubmittedFileName().trim().length()==0)
+					errorMsgs.add("請上傳PPT");
+				InputStream fileContent = filePart.getInputStream();
+				byte[] data=readFully(fileContent);
+				
+				PPTToolVO pptVO = new PPTToolVO();
+				pptVO.setDrno(drno);
+				pptVO.setPpt(data);
+				
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("pptVO", pptVO); // 含有輸入格式錯誤的empVO物件,也存入req
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/ppt/addPPT.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
+				/***************************2.開始新增資料***************************************/
+				PPTToolService pptSvc = new PPTToolService();
+				pptVO = pptSvc.addPPT(drno,data);
+
+				/***************************3.新增完成,準備轉交(Send the Success view)***********/
+				String url = "/ppt/ListAllPPT.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+				successView.forward(req, res);				
+				
+				/***************************其他可能的錯誤處理**********************************/
+				
+			}catch(Exception e) {
+				errorMsgs.add("新增資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/ppt/addPPT.jsp");
+				failureView.forward(req, res);
+			}
+		}//End-point insert
+		
+		
+		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				String pptno = new String(req.getParameter("pptno"));
+				String drno=new String(req.getParameter("drno"));
+				String drnoReg = "^[(a-zA-Z0-9)]{5}$";
+				if (drno == null || drno.trim().length() == 0) {
+					errorMsgs.add("醫師編號: 請勿空白");
+				} else if(!drno.trim().matches(drnoReg)) { //以下練習正則(規)表示式(regular-expression)
+					errorMsgs.add("醫師編號: 只能是英文字母、數字 , 且長度必需為5");
+	            }
+				
+				Part filePart = req.getPart("ppt");
+				if(filePart.getSubmittedFileName().equals(null)||filePart.getSubmittedFileName().trim().length()==0)
+					errorMsgs.add("請上傳PPT");
+				InputStream fileContent = filePart.getInputStream();
+				byte[] data=readFully(fileContent);
+				
+				PPTToolVO pptVO = new PPTToolVO();
+				pptVO.setPptno(pptno);
+				pptVO.setDrno(drno);
+				pptVO.setPpt(data);
+				
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("pptVO", pptVO); // 含有輸入格式錯誤的empVO物件,也存入req
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/ppt/update_ppt_input.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				/***************************2.開始修改資料*****************************************/
+				PPTToolService pptSvc = new PPTToolService();
+				pptVO = pptSvc.update(pptno,data,drno);
+				
+				/***************************3.修改完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("pptVO", pptVO); // 資料庫update成功後,正確的的empVO物件,存入req
+				String url = "/ppt/listOneEmp.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+				successView.forward(req, res);
+
+				/***************************其他可能的錯誤處理*************************************/
+			}catch(Exception e) {
+				errorMsgs.add("修改資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/ppt/update_ppt_input.jsp");
+				failureView.forward(req, res);
+			}
+		}//End-point update
+		
+		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/***************************1.接收請求參數****************************************/
+				String pptno = new String(req.getParameter("pptno"));
+				
+				/***************************2.開始查詢資料****************************************/
+				PPTToolService pptSvc = new PPTToolService();
+				PPTToolVO pptVO = pptSvc.getOnePPT(pptno);
+								
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				req.setAttribute("pptVO", pptVO);         // 資料庫取出的empVO物件,存入req
+				String url = "/ppt/update_ppt_input.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+				successView.forward(req, res);
+
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/emp/listAllEmp.jsp");
+				failureView.forward(req, res);
+			}
 		}
+	}
+	
+	public static byte[] readFully(InputStream input) throws IOException
+	{
+	    byte[] buffer = new byte[8192];
+	    int bytesRead;
+	    ByteArrayOutputStream output = new ByteArrayOutputStream();
+	    while ((bytesRead = input.read(buffer)) != -1)
+	    {
+	        output.write(buffer, 0, bytesRead);
+	    }
+	    return output.toByteArray();
 	}
 }
