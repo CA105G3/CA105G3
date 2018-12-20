@@ -74,6 +74,13 @@
 		<servlet-name>MedicalOrderService</servlet-name>
 		<servlet-class>com.medicalorder.model.MedicalOrderImgService</servlet-class>
 	</servlet>
-
+	<servlet>
+    	<servlet-name>AdminServlet</servlet-name>
+    	<servlet-class>com.administrator.controller.AdminServlet</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+    	<servlet-name>AdminServlet</servlet-name>
+    	<url-pattern>/admin/admin.do</url-pattern>
+  	</servlet-mapping>
 	
 </web-app>
