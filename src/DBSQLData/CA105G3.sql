@@ -463,11 +463,11 @@ CREATE TABLE reportdr(
     drno        VARCHAR2(5 BYTE) NOT NULL ,
     rdrreason   VARCHAR2(50 BYTE) NOT NULL ,
     rdrtime     TIMESTAMP NOT NULL ,
-    rdrstate    VARCHAR2(9 BYTE) NOT NULL ,
+    rdrstate    VARCHAR2(15 BYTE) NOT NULL ,
     CONSTRAINT reportdr_pk PRIMARY KEY (rdrno),
     CONSTRAINT reportdr_fk1 FOREIGN KEY (drno) REFERENCES doctor (drno),
     CONSTRAINT reportdr_fk2 FOREIGN KEY (memno) REFERENCES MEMBER (memno),
-    CONSTRAINT CHK_rdrstate CHECK (rdrstate in('未處理','已處理'))
+    CONSTRAINT CHK_rdrstate CHECK (rdrstate in('未處理','審核未通過','審核已通過'))
 );
     
 CREATE SEQUENCE reportdr_seq
