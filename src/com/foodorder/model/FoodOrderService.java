@@ -1,6 +1,6 @@
 package com.foodorder.model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -12,11 +12,11 @@ public class FoodOrderService {
 	private FoodOrderDAO_Interface dao;
 	
 	public FoodOrderService() {
-		dao = new FoodOrderDAO();
+		dao = new FoodOrderJDBCDAO();
 	}
 	
-	public FoodOrderVO addOrder(String memno, String deliverAddr, 
-			String chefno, String orderStatus, Timestamp ordTime) {
+	public FoodOrderVO addFoodOrder(String memno, String deliverAddr, 
+			String chefno, String orderStatus, Date ordTime) {
 		
 		FoodOrderVO foodOrderVO = new FoodOrderVO();
 		
@@ -30,21 +30,21 @@ public class FoodOrderService {
 		return foodOrderVO;
 	}
 	
-	public void addOrder(FoodOrderVO foodOrderVO) {
-		dao.insert(foodOrderVO);
-	}
 	
-	public void deleteOrder(String orderno) {
-		dao.delete(orderno);
-		
-	}
-	
-	public FoodOrderVO getOneOrder(String orderno) {
+	public FoodOrderVO getOneFoodOrder(String orderno) {
 		return dao.findByPrimaryKey(orderno);
 	}
 	
 	public List<FoodOrderVO> getAll(){
 		return dao.getAll();
+	}
+	
+	public List<String> getAllOrderMemno(){
+		return dao.getAllOrderMemno();
+	}
+	
+	public List<FoodOrderVO> findByMemno(String memno){
+		return dao.findByMemno(memno);
 	}
 	
 	public Set<OrderDetailVO> getOrderDetailsByFoodOrder(String orderno){

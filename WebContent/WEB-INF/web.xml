@@ -12,7 +12,16 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-
+	
+	<servlet>
+		<servlet-name>MemberServlet</servlet-name>
+		<servlet-class>com.member.controller.MemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemberServlet</servlet-name>
+		<url-pattern>/member/member.do</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>FoodOrderServlet</servlet-name>
 		<servlet-class>com.foodorder.controller.FoodOrderServlet</servlet-class>

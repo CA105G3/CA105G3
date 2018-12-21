@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 public class FoodOrderVO {
 	private String orderno, memno, deliverAddr, chefno, orderStatus;
-	private Timestamp ordTime;
+	private Date ordTime;
 	public String getOrderno() {
 		return orderno;
 	}
@@ -36,11 +36,12 @@ public class FoodOrderVO {
 	public void setOrderStatus(String orderStatus) {
 		this.orderStatus = orderStatus;
 	}
-	public Timestamp getOrdTime() {
+	public Date getOrdTime() {
 		return ordTime;
 	}
-	public void setOrdTime(Timestamp ordTime) {
+	public void setOrdTime(Date ordTime) {
 		this.ordTime = ordTime;
 	}
+	
 
 }
