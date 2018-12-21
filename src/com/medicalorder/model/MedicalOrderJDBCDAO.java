@@ -21,7 +21,7 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 	private static final String GET_ALL_STMT =
 			"SELECT * FROM MEDICALORDER";
 	private static final String UPDATE = 
-			"UPDATE MEDICALORDER SET MEMNO=? ,DRNO= ? ,MOSTATUS=? ,MOCOST=? , MOTIME=? , MOTEXT=? ,MOVIDEO=? ,MOINTRO=? WHERE MONO=? ;";
+			"UPDATE MEDICALORDER SET MEMNO=? ,DRNO= ? ,MOSTATUS=? ,MOCOST=? , MOTIME=? , MOTEXT=? ,MOVIDEO=? ,MOINTRO=? WHERE MONO=? ";
 	
 	@Override
 	public void insert(MedicalOrderVO medicalOrderVO) {
