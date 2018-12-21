@@ -1,0 +1,1 @@
+INSERT INTO orderdetail VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(orderdetail_seq.NEXTVAL), 4, '0'),'20181220-0001',to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.CURRVAL), 4, '0'),'2','150');

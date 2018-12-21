@@ -327,12 +327,11 @@ CREATE TABLE foodorder(
     deliveraddr VARCHAR2(60 BYTE) ,
     chefno      VARCHAR2(8 BYTE) NOT NULL ,
     orderstatus VARCHAR2(9 BYTE) NOT NULL ,
-    ordtime     TIMESTAMP ,
+    ordtime     DATE NOT NULL,
     CONSTRAINT foodorder_pk PRIMARY KEY (orderno),
     CONSTRAINT foodorder_fk1 FOREIGN KEY (memno) REFERENCES MEMBER (memno),
     CONSTRAINT foodorder_fk2 FOREIGN KEY (chefno) REFERENCES memberchef (chefno),
-    CONSTRAINT CHK_orderstatus CHECK (orderstatus in('不接受','接受','審核中'))
-）;
+    CONSTRAINT CHK_orderstatus CHECK (orderstatus in('不接受','接受','審核中','已取消')));
 
 CREATE SEQUENCE foodorder_seq
 INCREMENT BY 1
@@ -341,7 +340,7 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO foodorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(foodorder_seq.NEXTVAL), 4, '0'),'M0001','中央大學','CHEF0001','接受',current_timestamp);
+INSERT INTO foodorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(foodorder_seq.NEXTVAL), 4, '0'),'M0001','中央大學','CHEF0001','接受',to_date('2019-02-02','yyyy-MM-dd'));
 
 -----------------------------------------------
 -- create orderdetail
@@ -351,7 +350,7 @@ CREATE TABLE orderdetail(
     orderno     VARCHAR2(13 BYTE),
     menulistno  VARCHAR2(13 BYTE) NOT NULL ,
     amount      NUMBER NOT NULL ,
-    unitprice   NUMBER NOT NULL ,
+    unitprice   NUMBER NOT NULL,
     CONSTRAINT orderdetail_pk PRIMARY KEY (odno),
     CONSTRAINT orderdetail_fk1 FOREIGN KEY (orderno) REFERENCES foodorder (orderno),
     CONSTRAINT orderdetail_fk2 FOREIGN KEY (menulistno) REFERENCES menulist (menulistno)
@@ -364,7 +363,7 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO orderdetail VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(orderdetail_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(foodorder_seq.CURRVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.CURRVAL), 4, '0'),'99','60');
+INSERT INTO orderdetail VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(orderdetail_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(foodorder_seq.CURRVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.CURRVAL), 4, '0'),'1','60');
 
 -----------------------------------------------
 -- create doctor
