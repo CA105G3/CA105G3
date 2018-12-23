@@ -75,13 +75,12 @@
 	<tr>
 		<td>PPT檔:</td>
 		
-		<td><input type="file" name="ppt" size="45" onchange="loadFile(event)"
-			 value="<%= (pptVO==null)? request.getContextPath()+"/oracle_imgs/Doctor/03.jpg" : pptVO.getPpt()%>" /></td>
+		<td><input type="file" name="ppt" size="45" onchange="loadFile(event)"/></td>
 	 	
 	</tr>
 	<tr>
 		<td></td>
-		<td><img src="<%=request.getContextPath()%>/oracle_imgs/Doctor/03.jpg" id="output" width=50% height=50%/></td>
+		<td><img src="<%=request.getContextPath()%>/Imgs/Doctor/03.jpg" id="output" width=50% height=50%/></td>
 	</tr>
 	</table>
 	<br>

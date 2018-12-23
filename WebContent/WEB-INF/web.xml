@@ -46,7 +46,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>PPTToolServlet</servlet-name>
-		<url-pattern>/ppt/ppt.do</url-pattern>
+		<url-pattern>/front-end/ppt/ppt.do</url-pattern>
 	</servlet-mapping>
 
 	<servlet>

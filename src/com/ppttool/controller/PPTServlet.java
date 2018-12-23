@@ -52,7 +52,7 @@ public class PPTServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/ppt/select_page.jsp");
+							.getRequestDispatcher("/front-end/ppt/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -66,7 +66,7 @@ public class PPTServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/ppt/select_page.jsp");
+							.getRequestDispatcher("/front-end/ppt/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -80,14 +80,14 @@ public class PPTServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/ppt/select_page.jsp");
+							.getRequestDispatcher("/front-end/ppt/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("pptVO", pptVO); // 資料庫取出的empVO物件,存入req
-				String url = "/ppt/listOneEmp.jsp";
+				String url = "/front-end/ppt/listOneEmp.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
 
@@ -95,7 +95,7 @@ public class PPTServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/ppt/select_page.jsp");
+						.getRequestDispatcher("/front-end/ppt/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}//End-point getOne_For_Display
@@ -114,13 +114,13 @@ public class PPTServlet extends HttpServlet {
 				PPTToolService pptSvc = new PPTToolService();
 				pptSvc.deletePPT(pptno);
 				
-				String url="/ppt/ListAllPPT.jsp";
+				String url="/front-end/ppt/ListAllPPT.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				
 			}catch(Exception e) {
 				errorMsgs.add("刪除資料失敗"+e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/emp/ListAllPPT.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/ppt/ListAllPPT.jsp");
 				failureView.forward(req, res);
 			}
 		}//End-point delete	
@@ -156,7 +156,7 @@ public class PPTServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("pptVO", pptVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/ppt/addPPT.jsp");
+							.getRequestDispatcher("/front-end/ppt/addPPT.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -166,7 +166,7 @@ public class PPTServlet extends HttpServlet {
 				pptVO = pptSvc.addPPT(drno,data);
 
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/ppt/ListAllPPT.jsp";
+				String url = "/front-end/ppt/ListAllPPT.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				
@@ -175,7 +175,7 @@ public class PPTServlet extends HttpServlet {
 			}catch(Exception e) {
 				errorMsgs.add("新增資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/ppt/addPPT.jsp");
+						.getRequestDispatcher("/front-end/ppt/addPPT.jsp");
 				failureView.forward(req, res);
 			}
 		}//End-point insert
@@ -232,7 +232,7 @@ public class PPTServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("pptVO", pptVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/ppt/update_ppt_input.jsp");
+							.getRequestDispatcher("/front-end/ppt/update_ppt_input.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -242,7 +242,7 @@ public class PPTServlet extends HttpServlet {
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("pptVO", pptVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				String url = "/ppt/listOneEmp.jsp";
+				String url = "/front-end/ppt/listOneEmp.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 
@@ -250,7 +250,7 @@ public class PPTServlet extends HttpServlet {
 			}catch(Exception e) {
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/ppt/update_ppt_input.jsp");
+						.getRequestDispatcher("/front-end/ppt/update_ppt_input.jsp");
 				failureView.forward(req, res);
 			}
 		}//End-point update
@@ -272,7 +272,7 @@ public class PPTServlet extends HttpServlet {
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("pptVO", pptVO);         // 資料庫取出的empVO物件,存入req
-				String url = "/ppt/update_ppt_input.jsp";
+				String url = "/front-end/ppt/update_ppt_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);
 
@@ -280,7 +280,7 @@ public class PPTServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/ppt/listAllEmp.jsp");
+						.getRequestDispatcher("/front-end/ppt/listAllEmp.jsp");
 				failureView.forward(req, res);
 			}
 		}

@@ -83,13 +83,13 @@
 		<td>${pptVO.drno}</td>
 		<td><img src="<%=request.getContextPath()%>/ppt/pptImg.do?pptno=${pptVO.pptno} " width=50% height=50% /></td>
 		<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ppt/ppt.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/ppt/ppt.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
 			     <input type="hidden" name="pptno"  value="${pptVO.pptno}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ppt/ppt.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/ppt/ppt.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="刪除">
 			     <input type="hidden" name="pptno"  value="${pptVO.pptno}">
 			     <input type="hidden" name="action" value="delete"></FORM>
