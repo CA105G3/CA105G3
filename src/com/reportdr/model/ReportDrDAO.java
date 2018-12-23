@@ -40,6 +40,10 @@ public class ReportDrDAO implements ReportDr_interface{
 			"UPDATE REPORTDR SET RDRREASON = ? WHERE RDRNO = ? ";
 	private static final String UPDATE_RDRSTATE = 
 			"UPDATE REPORTDR SET RDRSTATE = ? WHERE RDRNO = ? ";
+	private static final String GET_NEED_UPDATE = //撈出實際會使用到需要修改狀態的指令與方法：後台管理員處理檢舉
+			"SELECT RDrNo, MEmNo, DrNo, RDRReason, RDRTime, RDRState  FROM REPORTDR WHERE RDRSTATE = '未處理'";
+
+	
 	
 	@Override
  	public void insert(ReportDrVO reportDrVO) {
@@ -330,4 +334,62 @@ public class ReportDrDAO implements ReportDr_interface{
 		
 		return list;
 	}
+
+	public List<ReportDrVO> getNeedUpdate(){
+		
+		List<ReportDrVO> list2 = new ArrayList<ReportDrVO>();
+		ReportDrVO reportDrVO2 = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {						
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_NEED_UPDATE);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				reportDrVO2 = new ReportDrVO();
+				reportDrVO2.setRdrNo(rs.getString("rdrNo"));
+				reportDrVO2.setMemNo(rs.getString("memNo"));
+				reportDrVO2.setDrNo(rs.getString("drNo"));
+				reportDrVO2.setRdrReason(rs.getString("rdrReason"));
+				reportDrVO2.setRdrTime(rs.getDate("rdrTime"));
+				reportDrVO2.setRdrState(rs.getString("rdrState"));
+				
+				list2.add(reportDrVO2);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. "
+					+ e.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return list2;
+	}
+
+
+
 }

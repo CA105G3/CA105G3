@@ -56,8 +56,8 @@
      <FORM METHOD="post" ACTION="<%=request.getContextPath() %>/front-end/reportDr/reportDrServlet.do" >
        <b>選擇檢舉單編號:</b>
        <select size="1" name="rdrNo">
-         <c:forEach var="ReportDrVO" items="${rdrSvc.all}" > 
-          <option value="${ReportDrVO.rdrNo}">${ReportDrVO.rdrNo}
+         <c:forEach var="reportDrVO" items="${rdSvc.allReportDr}" > 
+          <option value="${reportDrVO.rdrNo}">${reportDrVO.rdrNo}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
@@ -69,6 +69,9 @@
 
 <ul>
   <li><a href='addReportDr.jsp'>新增一筆檢舉單</a></li>
+</ul>
+<ul>
+  	<li><a href='getNeedUpdate.jsp'>查詢所有未處理檢舉</a></li>
 </ul>
 
 </body>

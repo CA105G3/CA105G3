@@ -1,15 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.emp.model.*"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="com.reportdr.model.*"%>
 
 <%
-  EmpVO empVO = (EmpVO) request.getAttribute("empVO"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
+  ReportDrVO reportDrVO = (ReportDrVO) request.getAttribute("reportDrVO"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
 %>
 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>員工資料修改 - update_emp_input.jsp</title>
+<title>後台審核檢舉醫療人員 - update_report_input.jsp</title>
 
 <style>
   table#table-1 {
@@ -48,7 +49,7 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>員工資料修改 - update_emp_input.jsp</h3>
+		 <h3>後台審核檢舉醫療人員 - update_report_input.jsp</h3>
 		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -65,47 +66,43 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="emp.do" name="form1">
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/reportDr/reportDrServlet.do" name="form1">
 <table>
 	<tr>
-		<td>員工編號:<font color=red><b>*</b></font></td>
-		<td><%=empVO.getEmpno()%></td>
+		<td>檢舉編號：</td>
+		<td><%=reportDrVO.getRdrNo()%></td>
 	</tr>
 	<tr>
-		<td>員工姓名:</td>
-		<td><input type="TEXT" name="ename" size="45" value="<%=empVO.getEname()%>" /></td>
+		<td>檢舉者會員編號：</td>
+		<td><%=reportDrVO.getMemNo() %></td>
 	</tr>
 	<tr>
-		<td>職位:</td>
-		<td><input type="TEXT" name="job" size="45"	value="<%=empVO.getJob()%>" /></td>
+		<td>被檢舉之醫療人員編號：</td>
+		<td><%=reportDrVO.getDrNo() %></td>
 	</tr>
 	<tr>
-		<td>雇用日期:</td>
-		<td><input name="hiredate" id="f_date1" type="text" ></td>
+		<td>檢舉理由：</td>
+		<td><%=reportDrVO.getRdrReason() %></td>
 	</tr>
 	<tr>
-		<td>薪水:</td>
-		<td><input type="TEXT" name="sal" size="45"	value="<%=empVO.getSal()%>" /></td>
+		<td>檢舉時間</td>
+		<td><fmt:formatDate value="${reportDrVO.rdrTime}" pattern="yyyy-MM-dd"/></td>
 	</tr>
 	<tr>
-		<td>獎金:</td>
-		<td><input type="TEXT" name="comm" size="45" value="<%=empVO.getComm()%>" /></td>
-	</tr>
-
-	<jsp:useBean id="deptSvc" scope="page" class="com.dept.model.DeptService" />
-	<tr>
-		<td>部門:<font color=red><b>*</b></font></td>
-		<td><select size="1" name="deptno">
-			<c:forEach var="deptVO" items="${deptSvc.all}">
-				<option value="${deptVO.deptno}" ${(empVO.deptno==deptVO.deptno)?'selected':'' } >${deptVO.dname}
-			</c:forEach>
-		</select></td>
+		<td>處理狀態</td>
+		<td>
+			<select size="1" name="rdrState">
+				<option value="未處理">未處理</option>
+ 				<option value="審核已通過">審核已通過</option>
+  				<option value="審核未通過">審核未通過</option>				
+			</select>		
+		</td>
 	</tr>
 
 </table>
 <br>
 <input type="hidden" name="action" value="update">
-<input type="hidden" name="empno" value="<%=empVO.getEmpno()%>">
+<input type="hidden" name="rdrNo" value="<%=reportDrVO.getRdrNo()%>">
 <input type="submit" value="送出修改"></FORM>
 </body>
 
@@ -127,21 +124,7 @@
 </style>
 
 <script>
-        $.datetimepicker.setLocale('zh');
-        $('#f_date1').datetimepicker({
-           theme: '',              //theme: 'dark',
- 	       timepicker:false,       //timepicker:true,
- 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
- 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
- 		   value: '<%=empVO.getHiredate()%>', // value:   new Date(),
-           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-           //startDate:	            '2017/07/10',  // 起始日
-           //minDate:               '-1970-01-01', // 去除今日(不含)之前
-           //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
-        });
-        
-        
-   
+  
         // ----------------------------------------------------------以下用來排定無法選擇的日期-----------------------------------------------------------
 
         //      1.以下為某一天之前的日期無法選擇

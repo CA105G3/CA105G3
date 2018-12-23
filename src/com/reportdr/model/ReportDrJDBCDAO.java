@@ -33,7 +33,7 @@ public class ReportDrJDBCDAO implements ReportDr_interface{
 			"UPDATE REPORTDR SET RDRREASON = ? WHERE RDRNO = ? ";
 	private static final String UPDATE_RDRSTATE =
 			"UPDATE REPORTDR SET RDRSTATE = ? WHERE RDRNO = ? ";
-	private static final String GET_NEED_UPDATE = //撈出實際會使用到需要修改狀態的指令與方法
+	private static final String GET_NEED_UPDATE = //撈出實際會使用到需要修改狀態的指令與方法：後台管理員處理檢舉
 			"SELECT RDrNo, MEmNo, DrNo, RDRReason, RDRTime, RDRState  FROM REPORTDR WHERE RDRSTATE = '未處理'";
 	
 	
@@ -451,14 +451,14 @@ public class ReportDrJDBCDAO implements ReportDr_interface{
 		
 		
 		//查單筆
-//		ReportDrVO reportDrVO1 = new ReportDrVO();
-//		reportDrVO1 = dao.findByPrimaryKey("RDR0002");
-//		System.out.print(reportDrVO1.getRdrNo() + ",");
-//		System.out.print(reportDrVO1.getMemNo() + ",");
-//		System.out.print(reportDrVO1.getDrNo() + ",");
-//		System.out.print(reportDrVO1.getRdrReason() + ",");
-//		System.out.print(reportDrVO1.getRdrTime() + ",");
-//		System.out.print(reportDrVO1.getRdrState());
+		ReportDrVO reportDrVO1 = new ReportDrVO();
+		reportDrVO1 = dao.findByPrimaryKey("RDR0003");
+		System.out.print(reportDrVO1.getRdrNo() + ",");
+		System.out.print(reportDrVO1.getMemNo() + ",");
+		System.out.print(reportDrVO1.getDrNo() + ",");
+		System.out.print(reportDrVO1.getRdrReason() + ",");
+		System.out.print(reportDrVO1.getRdrTime() + ",");
+		System.out.print(reportDrVO1.getRdrState());
 
 		
 		//查全部
@@ -474,16 +474,16 @@ public class ReportDrJDBCDAO implements ReportDr_interface{
 //		}
 
 		//查需要修改的實際會使用到需要修改狀態
-		List<ReportDrVO> list3 = dao.getNeedUpdate();
-		for(ReportDrVO reportDrVO : list3) {
-			System.out.print(reportDrVO.getRdrNo() + "," );
-			System.out.print(reportDrVO.getMemNo() + "," );
-			System.out.print(reportDrVO.getDrNo() + ",");
-			System.out.print(reportDrVO.getRdrReason() + ",");
-			System.out.print(reportDrVO.getRdrTime() + ",");
-			System.out.print(reportDrVO.getRdrState());
-			System.out.println();
-		}
+//		List<ReportDrVO> list3 = dao.getNeedUpdate();
+//		for(ReportDrVO reportDrVO : list3) {
+//			System.out.print(reportDrVO.getRdrNo() + "," );
+//			System.out.print(reportDrVO.getMemNo() + "," );
+//			System.out.print(reportDrVO.getDrNo() + ",");
+//			System.out.print(reportDrVO.getRdrReason() + ",");
+//			System.out.print(reportDrVO.getRdrTime() + ",");
+//			System.out.print(reportDrVO.getRdrState());
+//			System.out.println();
+//		}
 		
 	}
 

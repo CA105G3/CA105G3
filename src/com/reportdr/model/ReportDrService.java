@@ -49,12 +49,12 @@ public class ReportDrService {
 		return reportDrVO;		
 	}
 	
-	public ReportDrVO update_rdrStateReportDr(String rdrState, String drNo) {
+	public ReportDrVO update_rdrStateReportDr(String rdrState, String rdrNo) {
 		
 		ReportDrVO reportDrVO = new ReportDrVO();
 		
 		reportDrVO.setRdrState(rdrState);
-		reportDrVO.setDrNo(drNo);
+		reportDrVO.setRdrNo(rdrNo);
 		dao.update_rdrState(reportDrVO);
 		
 		return reportDrVO;
@@ -70,6 +70,10 @@ public class ReportDrService {
 	
 	public List<ReportDrVO> getAllReportDr(){
 		return dao.getAll();
+	}
+	
+	public List<ReportDrVO> getNeedUpdate(){//撈出實際會使用到需要修改狀態的指令與方法：後台管理員處理檢舉
+		return dao.getNeedUpdate();
 	}
 	
 	

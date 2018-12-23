@@ -92,4 +92,14 @@
     	<url-pattern>/admin/admin.do</url-pattern>
   	</servlet-mapping>
 	
+	<servlet>
+    	<servlet-name>FavDrServlet</servlet-name>
+    	<servlet-class>com.favdr.controller.FavDrServlet</servlet-class>
+ 	</servlet>
+  	<servlet-mapping>
+    	<servlet-name>FavDrServlet</servlet-name>
+    	<url-pattern>/front-end/favDr/favDrServlet.do</url-pattern>
+ 	</servlet-mapping>
+	
+	
 </web-app>
