@@ -126,13 +126,14 @@ CREATE TABLE administrator
 (
     adminNo     VARCHAR2(5 BYTE) NOT NULL ,
     adminID     VARCHAR2(10 BYTE) NOT NULL ,
-    adminPSW     VARCHAR2(10 BYTE) NOT NULL ,
+    adminPSW    VARCHAR2(10 BYTE) NOT NULL ,
+    adminName   VARCHAR2(15 BYTE) NOT NULL ,
     PRIORITY    VARCHAR2(18 BYTE) NOT NULL ,
     status      VARCHAR2(9 BYTE) NOT NULL ,
     reg         DATE ,
     CONSTRAINT administrator_pk PRIMARY KEY (adminno),
     CONSTRAINT adminID_unique UNIQUE (adminID),
-    CONSTRAINT CHK_PRIORITY CHECK (PRIORITY in('一般管理員','可新增管理員')),
+    CONSTRAINT CHK_PRIORITY CHECK (PRIORITY in('一般管理員','總理管理員')),
     CONSTRAINT CHK_status CHECK (status in('生效中','已失效'))
 );
 
@@ -143,7 +144,13 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO administrator VALUES('A'||lpad(to_char(administrator_seq.NEXTVAL), 4, '0'),'Jack','123456','一般管理員','生效中',TO_DATE('2018-12-01','YYYY-MM-DD'));
+INSERT INTO administrator VALUES('A'||lpad(to_char(administrator_seq.NEXTVAL), 4, '0'),'Peter','123456','吳永志','總理管理員','生效中',TO_DATE('2018-12-01','YYYY-MM-DD'));
+INSERT INTO administrator VALUES('A'||lpad(to_char(administrator_seq.NEXTVAL), 4, '0'),'David','123456','吳冠宏','總理管理員','生效中',TO_DATE('2018-12-01','YYYY-MM-DD'));
+INSERT INTO administrator VALUES('A'||lpad(to_char(administrator_seq.NEXTVAL), 4, '0'),'Scarlett','123456','史嘉蕾','一般管理員','生效中',TO_DATE('2018-12-01','YYYY-MM-DD'));
+INSERT INTO administrator VALUES('A'||lpad(to_char(administrator_seq.NEXTVAL), 4, '0'),'Amin','123456','阿民','一般管理員','生效中',TO_DATE('2018-12-01','YYYY-MM-DD'));
+INSERT INTO administrator VALUES('A'||lpad(to_char(administrator_seq.NEXTVAL), 4, '0'),'Gakki','123456','結衣','一般管理員','生效中',TO_DATE('2018-12-01','YYYY-MM-DD'));
+INSERT INTO administrator VALUES('A'||lpad(to_char(administrator_seq.NEXTVAL), 4, '0'),'GuanGuan','123456','關關','一般管理員','生效中',TO_DATE('2018-12-01','YYYY-MM-DD'));
+
 
 -----------------------------------------------
 -- create activity
@@ -256,12 +263,12 @@ CREATE TABLE memberchef(
     chefpic     BLOB ,
     chefdescrip VARCHAR2(120 BYTE) ,
     chefstatus  VARCHAR2(9 BYTE) NOT NULL ,
-    chefphone   NUMBER ,
-    chefaddr    VARCHAR2(60 BYTE) ,
-    chefrep     VARCHAR2(15 BYTE) ,
+    chephone    NUMBER ,
+    cheaddr     VARCHAR2(60 BYTE) ,
+    cherep      VARCHAR2(15 BYTE) ,
     CONSTRAINT memberchef_pk PRIMARY KEY (chefno),
     CONSTRAINT memberchef_fk FOREIGN KEY (memno) REFERENCES MEMBER (memno),
-    CONSTRAINT CHK_chefstatus CHECK (chefstatus in('停用','啓用','審核中')));
+    CONSTRAINT CHK_chefenable CHECK (chefstatus in('停用','啓用','審核中')));
     
 CREATE SEQUENCE memberchef_seq
 INCREMENT BY 1
@@ -281,10 +288,10 @@ CREATE TABLE menu(
     unitprice   NUMBER ,
     maincourse  VARCHAR2(24 BYTE) NOT NULL ,
     menupic     BLOB ,
-    deliverable VARCHAR2(12 BYTE) ,
+    delivertime VARCHAR2(12 BYTE) ,
     CONSTRAINT menu_pk PRIMARY KEY (menuno),
     CONSTRAINT menu_fk FOREIGN KEY (chefno) REFERENCES memberchef (chefno),
-    CONSTRAINT CHK_deliverable CHECK (deliverable in('可送餐','不可送餐'))
+    CONSTRAINT CHK_delivertime CHECK (delivertime in('可送餐','不可送餐'))
 );
     
 CREATE SEQUENCE menu_seq
@@ -327,11 +334,12 @@ CREATE TABLE foodorder(
     deliveraddr VARCHAR2(60 BYTE) ,
     chefno      VARCHAR2(8 BYTE) NOT NULL ,
     orderstatus VARCHAR2(9 BYTE) NOT NULL ,
-    ordtime     DATE NOT NULL,
+    ordtime     TIMESTAMP ,
     CONSTRAINT foodorder_pk PRIMARY KEY (orderno),
     CONSTRAINT foodorder_fk1 FOREIGN KEY (memno) REFERENCES MEMBER (memno),
     CONSTRAINT foodorder_fk2 FOREIGN KEY (chefno) REFERENCES memberchef (chefno),
-    CONSTRAINT CHK_orderstatus CHECK (orderstatus in('不接受','接受','審核中','已取消')));
+    CONSTRAINT CHK_orderstatus CHECK (orderstatus in('不接受','接受','審核中'))
+）;
 
 CREATE SEQUENCE foodorder_seq
 INCREMENT BY 1
@@ -340,7 +348,7 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO foodorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(foodorder_seq.NEXTVAL), 4, '0'),'M0001','中央大學','CHEF0001','接受',to_date('2019-02-02','yyyy-MM-dd'));
+INSERT INTO foodorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(foodorder_seq.NEXTVAL), 4, '0'),'M0001','中央大學','CHEF0001','接受',current_timestamp);
 
 -----------------------------------------------
 -- create orderdetail
@@ -350,7 +358,7 @@ CREATE TABLE orderdetail(
     orderno     VARCHAR2(13 BYTE),
     menulistno  VARCHAR2(13 BYTE) NOT NULL ,
     amount      NUMBER NOT NULL ,
-    unitprice   NUMBER NOT NULL,
+    unitprice   NUMBER NOT NULL ,
     CONSTRAINT orderdetail_pk PRIMARY KEY (odno),
     CONSTRAINT orderdetail_fk1 FOREIGN KEY (orderno) REFERENCES foodorder (orderno),
     CONSTRAINT orderdetail_fk2 FOREIGN KEY (menulistno) REFERENCES menulist (menulistno)
@@ -363,7 +371,7 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO orderdetail VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(orderdetail_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(foodorder_seq.CURRVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.CURRVAL), 4, '0'),'1','60');
+INSERT INTO orderdetail VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(orderdetail_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(foodorder_seq.CURRVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.CURRVAL), 4, '0'),'99','60');
 
 -----------------------------------------------
 -- create doctor
@@ -417,15 +425,16 @@ INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad
 -- create medicalorder
 -----------------------------------------------
 CREATE TABLE medicalorder(
-    mono        VARCHAR2(13 BYTE) NOT NULL ,
-    memno       VARCHAR2(5 BYTE) NOT NULL ,
-    drno        VARCHAR2(5 BYTE) NOT NULL ,
-    mostatus    VARCHAR2(12 BYTE) NOT NULL ,
-    mocost      NUMBER ,
-    motime      DATE ,
-    mointro     CLOB NOT NULL ,
-    movideo     BLOB ,
-    motext      VARCHAR2(2000 BYTE) ,
+    mono            VARCHAR2(13 BYTE) NOT NULL ,
+    memno           VARCHAR2(5 BYTE) NOT NULL ,
+    drno            VARCHAR2(5 BYTE) NOT NULL ,
+    mostatus        VARCHAR2(12 BYTE) NOT NULL ,
+    mocost          NUMBER ,
+    motime          DATE ,
+    mointro         CLOB NOT NULL ,
+    moCancelReason  VARCHAR2(150 BYTE),    
+    movideo         BLOB ,
+    motext          VARCHAR2(2000 BYTE) ,
     CONSTRAINT medicalorder_pk PRIMARY KEY (mono),
     CONSTRAINT medicalorder_fk1 FOREIGN KEY (memno) REFERENCES member (memno),
     CONSTRAINT medicalorder_fk2 FOREIGN KEY (drno) REFERENCES doctor (drno),
@@ -439,7 +448,7 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0002','D0001','等待問診','870',to_date('20181223','YYYYMMDD'),'生理痛不舒服',null,null);
+INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0002','D0001','等待問診','870',to_date('20181223','YYYYMMDD'),'生理痛不舒服',null,null,null);
 
 -----------------------------------------------
 -- create favdr

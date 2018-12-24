@@ -11,11 +11,11 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 	String password = "123456";
 
 	private static final String INSERT_STMT = 
-			"INSERT INTO Administrator (adminNo,adminid,adminPsw,priority,status,reg) VALUES ('A'||lpad(to_char(administrator_seq.NEXTVAL), 4, '0'),?,?,?,?,?)";
+			"INSERT INTO Administrator (adminNo,adminid,adminPsw,adminName,priority,status,reg) VALUES ('A'||lpad(to_char(administrator_seq.NEXTVAL), 4, '0'),?,?,?,?,?,?)";
 	private static final String GET_ALL_STMT = 
-			"SELECT adminNo,adminId,adminPsw,priority,status,reg FROM Administrator order by adminNo";
+			"SELECT adminNo,adminId,adminName,adminPsw,priority,status,reg FROM Administrator order by adminNo";
 	private static final String GET_ONE_STMT = 
-			"SELECT adminNo,adminId,adminPsw,priority,status,reg FROM Administrator where adminNo = ?";
+			"SELECT adminNo,adminId,adminName,adminPsw,priority,status,reg FROM Administrator where adminNo = ?";
 	private static final String DELETE = 
 			"DELETE FROM Administrator where adminNo = ? ";
 	private static final String UPDATE_PRIORITY_STATUS = 
@@ -37,9 +37,10 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 			
 			pstmt.setString(1, administratorVO.getAdminId());
 			pstmt.setString(2, administratorVO.getAdminPsw());
-			pstmt.setString(3, administratorVO.getPriority());
-			pstmt.setString(4, administratorVO.getStatus());
-			pstmt.setDate(5, administratorVO.getReg());
+			pstmt.setString(3, administratorVO.getAdminName());
+			pstmt.setString(4, administratorVO.getPriority());
+			pstmt.setString(5, administratorVO.getStatus());
+			pstmt.setDate(6, administratorVO.getReg());
 			
 			pstmt.executeUpdate();
 			
@@ -264,6 +265,7 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 				administratorVO.setAdminId(rs.getString("adminId"));
 				administratorVO.setAdminPsw(rs.getString("adminPsw"));
 				administratorVO.setAdminNo(rs.getString("adminNo"));
+				administratorVO.setAdminName(rs.getString("adminName"));
 				administratorVO.setPriority(rs.getString("priority"));
 				administratorVO.setStatus(rs.getString("status"));
 				administratorVO.setReg(rs.getDate("reg"));
@@ -326,6 +328,7 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 				administratorVO.setAdminId(rs.getString("adminId"));
 				administratorVO.setAdminPsw(rs.getString("adminPsw"));
 				administratorVO.setAdminNo(rs.getString("adminNo"));
+				administratorVO.setAdminName(rs.getString("adminName"));
 				administratorVO.setPriority(rs.getString("priority"));
 				administratorVO.setStatus(rs.getString("status"));
 				administratorVO.setReg(rs.getDate("reg"));

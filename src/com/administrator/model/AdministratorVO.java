@@ -8,6 +8,7 @@ public class AdministratorVO implements Serializable{
 	private String adminNo;
 	private String adminId;
 	private String adminPsw;
+	private String adminName;
 	private String priority;
 	private String status;
 	private Date reg;
@@ -47,6 +48,12 @@ public class AdministratorVO implements Serializable{
 	}
 	public void setReg(Date reg) {
 		this.reg = reg;
+	}
+	public String getAdminName() {
+		return adminName;
+	}
+	public void setAdminName(String adminName) {
+		this.adminName = adminName;
 	}
 	
 	

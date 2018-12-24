@@ -1,9 +1,10 @@
+<%@page import="com.favdr.model.FavDrService"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
 <head>
-<title>病歷資料查詢</title>
+<title>追蹤醫生資料查詢</title>
 
 <style>
   table#table-1 {
@@ -30,7 +31,7 @@
 <body bgcolor='white'>
 
 <table id="table-1">
-   <tr><td><h3>病歷資料查詢首頁</h3></td></tr>
+   <tr><td><h3>追蹤醫生查詢首頁</h3></td></tr>
 </table>
 
 
@@ -48,16 +49,16 @@
 </c:if>
 
 <ul>
-  <li><a href='listAllFavDr.jsp'>所有病歷資料查詢</a><br><br></li>
+  <li><a href='listAllFavDr.jsp'>所有追蹤醫生資料查詢</a><br><br></li>
   
-  <jsp:useBean id="fdrSvc" scope="page" class="com.favdr.model.FavDrService" />
+  <jsp:useBean id="fdSvc" scope="page" class="com.favdr.model.FavDrService" />
    
   <li>
-     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do" >
-       <b>選擇病例編號:</b>
-       <select size="1" name="moNo">
-         <c:forEach var="MedicalOrderVO" items="${medicalOrderSvc.all}" > 
-          <option value="${MedicalOrderVO.moNo}">${MedicalOrderVO.moNo}
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/favDr/favDrServlet.do" >
+       <b>選擇會員編號:</b>
+       <select size="1" name="memNo">
+         <c:forEach var="fdVO" items="${fdSvc.oneFavDr}" > 
+          <option value="${fdVO.memNo}">${fdVO.memNo}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">

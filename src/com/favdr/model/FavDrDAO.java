@@ -26,16 +26,11 @@ public class FavDrDAO implements FavDr_interface{
 		}		
 	}
 	
-	private static final String INSERT_STMT = 
-			"INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),?,?,?,?,?,?,?,?)";
-	private static final String DELETE = 
-			"DELETE FROM MEDICALORDER WHERE MONO = ?";
-	private static final String GET_ONE_STMT =
-			"SELECT * FROM MEDICALORDER WHERE MONO = ?";
-	private static final String GET_ALL_STMT =
-			"SELECT * FROM MEDICALORDER";
-	private static final String UPDATE = 
-			"UPDATE MEDICALORDER SET MEMNO=? ,DRNO=? ,MOSTATUS=? ,MOCOST=? , MOTIME=? , MOTEXT=? ,MOVIDEO=? ,MOINTRO=? WHERE MONO=? ";
+	private static final String INSERT_STMT = "INSERT INTO favdr (memNo,drNo) VALUES (?,?)";
+	private static final String GET_ALL_STMT = "SELECT * FROM FAVDR";
+	private static final String GET_ONE_STMT = "SELECT MemNo, DrNo FROM FAVDR WHERE MemNo = ?";
+	private static final String DELETE = "DELETE FROM favdr where memNo = ? and drNo = ?";
+	private static final String UP_DRNO = "UPDATE FAVDR SET DRNO = ? WHERE MEMNO = ? AND DRNO = ?";
 	
 
 	@Override
