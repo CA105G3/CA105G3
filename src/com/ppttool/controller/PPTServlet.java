@@ -143,7 +143,7 @@ public class PPTServlet extends HttpServlet {
 				
 				
 				Part filePart = req.getPart("ppt");
-				if(filePart.getSubmittedFileName().equals(null)||filePart.getSubmittedFileName().trim().length()==0)
+				if(filePart.getSubmittedFileName().equals("")||filePart.getSubmittedFileName().trim().length()==0)
 					errorMsgs.add("請上傳PPT");
 				InputStream fileContent = filePart.getInputStream();
 				byte[] data=readFully(fileContent);
@@ -201,7 +201,7 @@ public class PPTServlet extends HttpServlet {
 				
 				Part filePart = req.getPart("ppt");
 
-				if(filePart.getSubmittedFileName().equals(null)||filePart.getSubmittedFileName().trim().length()==0) {
+				if(filePart.getSubmittedFileName().equals("")||filePart.getSubmittedFileName().trim().length()==0) {
 					//引導回修改前頁面的三種方法
 //	1.---------------------------------------
 //					String path = req.getScheme()+"://"+req.getServerName()+":"+req.getServerPort()+req.getContextPath()+"/ppt/pptImg.do?pptno="+pptno;
