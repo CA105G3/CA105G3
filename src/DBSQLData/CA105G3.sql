@@ -359,9 +359,11 @@ CREATE TABLE orderdetail(
     menulistno  VARCHAR2(13 BYTE) NOT NULL ,
     amount      NUMBER NOT NULL ,
     unitprice   NUMBER NOT NULL ,
+    odStatus	VARCHAR2(6 BYTE),
     CONSTRAINT orderdetail_pk PRIMARY KEY (odno),
     CONSTRAINT orderdetail_fk1 FOREIGN KEY (orderno) REFERENCES foodorder (orderno),
-    CONSTRAINT orderdetail_fk2 FOREIGN KEY (menulistno) REFERENCES menulist (menulistno)
+    CONSTRAINT orderdetail_fk2 FOREIGN KEY (menulistno) REFERENCES menulist (menulistno),
+    CONSTRAINT CHK_odStatus CHECK (odStatus in('取消',null))
 );
 
 CREATE SEQUENCE orderdetail_seq
@@ -371,7 +373,7 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO orderdetail VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(orderdetail_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(foodorder_seq.CURRVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.CURRVAL), 4, '0'),'99','60');
+INSERT INTO orderdetail VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(orderdetail_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(foodorder_seq.CURRVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.CURRVAL), 4, '0'),'99','60',null);
 
 -----------------------------------------------
 -- create doctor
