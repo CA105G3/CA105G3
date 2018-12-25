@@ -192,7 +192,7 @@ public class MemberDAO implements MemberDAO_interface{
 				memberVO.setMemName(rs.getString("memname"));
 				memberVO.setAddr(rs.getString("addr"));
 				memberVO.setAllergy(rs.getString("allergy"));
-				memberVO.setBirth(rs.getDate("date"));
+				memberVO.setBirth(rs.getDate("birth"));
 				memberVO.setBloodType(rs.getString("bloodtype"));
 				memberVO.setEmail(rs.getString("email"));
 				memberVO.setFamHistory(rs.getString("famhistory"));
@@ -200,7 +200,7 @@ public class MemberDAO implements MemberDAO_interface{
 				memberVO.setIdent(rs.getString("ident"));
 				memberVO.setLocNo(rs.getInt("locno"));
 				memberVO.setMedHistory(rs.getString("medhistory"));
-				memberVO.setMemStatus(rs.getString("status"));
+				memberVO.setMemStatus(rs.getString("memstatus"));
 				memberVO.setPhone(rs.getString("phone"));
 				memberVO.setRegDate(rs.getDate("regdate"));
 				memberVO.setSmoking(rs.getString("smoking"));
@@ -258,7 +258,7 @@ public class MemberDAO implements MemberDAO_interface{
 				memberVO.setMemName(rs.getString("memname"));
 				memberVO.setAddr(rs.getString("addr"));
 				memberVO.setAllergy(rs.getString("allergy"));
-				memberVO.setBirth(rs.getDate("date"));
+				memberVO.setBirth(rs.getDate("birth"));
 				memberVO.setBloodType(rs.getString("bloodtype"));
 				memberVO.setEmail(rs.getString("email"));
 				memberVO.setFamHistory(rs.getString("famhistory"));
@@ -266,7 +266,7 @@ public class MemberDAO implements MemberDAO_interface{
 				memberVO.setIdent(rs.getString("ident"));
 				memberVO.setLocNo(rs.getInt("locno"));
 				memberVO.setMedHistory(rs.getString("medhistory"));
-				memberVO.setMemStatus(rs.getString("status"));
+				memberVO.setMemStatus(rs.getString("memstatus"));
 				memberVO.setPhone(rs.getString("phone"));
 				memberVO.setRegDate(rs.getDate("regdate"));
 				memberVO.setSmoking(rs.getString("smoking"));

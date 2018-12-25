@@ -11,7 +11,7 @@ private MemberDAO_interface dao;
 		dao=new MemberDAO();
 	}
 	
-	public MemberVO addAdmin(String memId,String memName,String pwd,String email,String gender,java.sql.Date birth,String addr,String allergy,String bloodType,String phone,String famHistory,String ident,String medHistory,String memStatus,String smoking,Integer locNo,java.sql.Date regDate,java.sql.Timestamp stayTime ) {
+	public MemberVO addMember(String memId,String memName,String pwd,String email,String gender,java.sql.Date birth,String addr,String allergy,String bloodType,String phone,String famHistory,String ident,String medHistory,String memStatus,String smoking,Integer locNo,java.sql.Date regDate,java.sql.Timestamp stayTime ) {
 		MemberVO memberVO = new MemberVO();
 		
 		memberVO.setAddr(addr);
@@ -36,7 +36,7 @@ private MemberDAO_interface dao;
 		return memberVO;
 	}
 	
-	public MemberVO updateAdmin(String memId,String memName,String pwd,String email,String gender,java.sql.Date birth,String addr,String allergy,String bloodType,String phone,String famHistory,String ident,String medHistory,String memStatus,String smoking,Integer locNo,java.sql.Date regDate,java.sql.Timestamp stayTime,String memNo) {
+	public MemberVO updateMember(String memId,String memName,String pwd,String email,String gender,java.sql.Date birth,String addr,String allergy,String bloodType,String phone,String famHistory,String ident,String medHistory,String memStatus,String smoking,Integer locNo,java.sql.Date regDate,java.sql.Timestamp stayTime,String memNo) {
 		MemberVO memberVO = new MemberVO();
 		
 		memberVO.setAddr(addr);
@@ -61,10 +61,10 @@ private MemberDAO_interface dao;
 		dao.update(memberVO);
 		return memberVO;
 	}
-	public void deleteAdmin(String memno) {
+	public void deleteMember(String memno) {
 		dao.delete(memno);
 	}
-	public MemberVO getOneAdmin(String memno) {
+	public MemberVO getOneMember(String memno) {
 		return dao.findByPrimaryKey(memno);
 	}
 	public List<MemberVO> getAll(){
