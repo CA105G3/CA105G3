@@ -421,7 +421,7 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0001',TO_DATE('20181201','YYYYMMDD'),'1100110');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0001',TO_DATE('20181201','YYYYMMDD'),'110011100101000110000010111111001001111101111110110010011010100011110001001101011000101010110');
 
 -----------------------------------------------
 -- create medicalorder
