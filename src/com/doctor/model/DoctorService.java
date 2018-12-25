@@ -48,7 +48,14 @@ public class DoctorService {
 		return dao.findByPK(drno);
 	} 
 	
+	public List<DoctorVO> getByMajor(String major){
+		return dao.findByMajor(major);
+	}
 	public List<DoctorVO> getAll(){
 		return dao.getAll();
+	}
+	
+	public List<DoctorVO> getMajor(){
+		return dao.getMajor();
 	}
 }

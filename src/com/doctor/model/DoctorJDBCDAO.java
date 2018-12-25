@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import com.doctoravailable.model.DravailableVO;
@@ -26,8 +27,10 @@ public class DoctorJDBCDAO implements DoctorDAO_interface{
 	private static final String UPDATE_STMT = "UPDATE DOCTOR SET "
 			+ "MEMNO = ?, RESUME = ?, ISONLINE = ?, STATUS = ?, MAJOR = ?, FEE = ?, PHOTO = ? WHERE DRNO = ?";  
 	private static final String DELETE_STMT = "DELETE FROM DOCTOR WHERE DRNO = ?";
-	private static final String FIND_BY_PK = "SELECT * FROM DOCTOR WHERE DRNO = ?";
-	private static final String GET_ALL = "SELECT * FROM DOCTOR";
+	private static final String FIND_BY_PK = "SELECT * FROM DOCTOR WHERE DRNO = ?";	
+	private static final String FIND_BY_MAJOR = "SELECT * FROM DOCTOR WHERE MAJOR = ?";
+	private static final String GET_ALL = "SELECT * FROM DOCTOR ORDER BY DRNO";
+	private static final String GET_MAJOR = "SELECT DISTINCT MAJOR FROM DOCTOR";
 
 	@Override
 	public void insert(DoctorVO doctorVO) {
@@ -199,6 +202,59 @@ public class DoctorJDBCDAO implements DoctorDAO_interface{
 		return dvo;
 	}
 
+	public List<DoctorVO> findByMajor(String major) {
+		List<DoctorVO> list = new ArrayList<DoctorVO>();
+		DoctorVO dvo = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			pstmt = con.prepareStatement(FIND_BY_MAJOR);
+			pstmt.setString(1, major);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				dvo = new DoctorVO();
+				dvo.setDrno(rs.getString(1));
+				dvo.setMemno(rs.getString(2));
+				dvo.setResume(rs.getString(3));
+				dvo.setIsonline(rs.getString(4));
+				dvo.setStatus(rs.getString(5));
+				dvo.setMajor(rs.getString(6));
+				dvo.setFee(rs.getInt(7));
+				dvo.setPhoto(rs.getBytes(8));
+				list.add(dvo);
+			}
+		} catch(ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
+	
+	
 	@Override
 	public List<DoctorVO> getAll() {
 		List<DoctorVO> list = new ArrayList<DoctorVO>();
@@ -222,6 +278,51 @@ public class DoctorJDBCDAO implements DoctorDAO_interface{
 				dvo.setMajor(rs.getString(6));
 				dvo.setFee(rs.getInt(7));
 				dvo.setPhoto(rs.getBytes(8));
+				list.add(dvo);
+			}
+		} catch(ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
+	
+	public List<DoctorVO> getMajor(){
+		List<DoctorVO> list = new ArrayList<DoctorVO>();
+		DoctorVO dvo = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			pstmt = con.prepareStatement(GET_MAJOR);
+			rs = pstmt.executeQuery();
+			pstmt.clearParameters();
+			while(rs.next()) {
+				dvo = new DoctorVO();
+				dvo.setMajor(rs.getString("MAJOR"));
 				list.add(dvo);
 			}
 		} catch(ClassNotFoundException | SQLException e) {
@@ -323,7 +424,7 @@ public class DoctorJDBCDAO implements DoctorDAO_interface{
 		//刪除
 //		dao.delete("D0001");
 		//findByPK
-//		DoctorVO dvo3 = dao.findByPK("D0008");
+//		DoctorVO dvo3 = dao.findByPK("D0007");
 //		System.out.println(dvo3.getDrno());
 //		System.out.println(dvo3.getMemno());
 //		System.out.println(dvo3.getResume());
@@ -333,9 +434,10 @@ public class DoctorJDBCDAO implements DoctorDAO_interface{
 //		System.out.println(dvo3.getFee());
 //		readPicture(dvo3.getPhoto(), "images/" + dvo3.getDrno() + ".jpg");
 
-		//findAll
-//		List<DoctorVO> list = dao.getAll();
-//		for(DoctorVO dvo : list) {
+		//finByMajor
+	
+//		List<DoctorVO> list0 = dao.findByMajor("外科");
+//		for(DoctorVO dvo : list0) {
 //			System.out.println(dvo.getDrno());
 //			System.out.println(dvo.getMemno());
 //			System.out.println(dvo.getResume());
@@ -346,5 +448,25 @@ public class DoctorJDBCDAO implements DoctorDAO_interface{
 //			readPicture(dvo.getPhoto(), "images/" + dvo.getDrno() + ".jpg");
 //			System.out.println("--------------------------------------------");
 //		}
+		
+		//findAll
+		List<DoctorVO> list = dao.getAll();
+		for(DoctorVO dvo : list) {
+			System.out.println(dvo.getDrno());
+			System.out.println(dvo.getMemno());
+			System.out.println(dvo.getResume());
+			System.out.println(dvo.getIsonline());
+			System.out.println(dvo.getStatus());
+			System.out.println(dvo.getMajor());
+			System.out.println(dvo.getFee());
+			readPicture(dvo.getPhoto(), "images/" + dvo.getDrno() + ".jpg");
+			System.out.println("--------------------------------------------");
+		}
+		//getMajor
+//		List<DoctorVO> list = dao.getMajor();
+//		for(DoctorVO dvo : list) {
+//			System.out.println(dvo.getMajor());
+//		}
 	}
+	
 }
