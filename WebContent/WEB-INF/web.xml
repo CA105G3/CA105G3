@@ -100,6 +100,30 @@
     	<servlet-name>FavDrServlet</servlet-name>
     	<url-pattern>/front-end/favDr/favDrServlet.do</url-pattern>
  	</servlet-mapping>
+ 		<servlet>
+		<servlet-name>DoctorServlet</servlet-name>
+		<servlet-class>com.doctor.controller.DoctorServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DoctorServlet</servlet-name>
+		<url-pattern>/doctor/doctor.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>DoctorImgServlet</servlet-name>
+		<servlet-class>com.doctor.controller.DoctorImgServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DoctorImgServlet</servlet-name>
+		<url-pattern>/doctor/doctorImg.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>DravailableServlet</servlet-name>
+		<servlet-class>com.doctoravailable.controller.DravailableServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DravailableServlet</servlet-name>
+		<url-pattern>/doctoravailable/dravailable.do</url-pattern>
+	</servlet-mapping>
 	
 	
 </web-app>
