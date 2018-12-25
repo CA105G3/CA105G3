@@ -89,7 +89,7 @@
   	</servlet>
   	<servlet-mapping>
     	<servlet-name>AdminServlet</servlet-name>
-    	<url-pattern>/admin/admin.do</url-pattern>
+    	<url-pattern>/back-end/admin/admin.do</url-pattern>
   	</servlet-mapping>
 	
 	<servlet>

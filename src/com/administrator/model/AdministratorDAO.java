@@ -28,7 +28,7 @@ public class AdministratorDAO implements Administrator_interface {
 	}
 	
 	private static final String INSERT_STMT = 
-			"INSERT INTO administrator(adminno,adminid,adminpsw,priority,status,reg) VALUES('A'||lpad(to_char(administrator_seq.NEXTVAL), 4, '0'),?,?,?,?,?)";
+			"INSERT INTO Administrator (adminNo,adminid,adminPsw,adminName,priority,status,reg) VALUES ('A'||lpad(to_char(administrator_seq.NEXTVAL), 4, '0'),?,?,?,?,?,?)";	
 	private static final String GET_ALL_STMT = 
 			"SELECT * FROM administrator ORDER BY adminno";
 	private static final String GET_ONE_STMT = 
@@ -36,7 +36,10 @@ public class AdministratorDAO implements Administrator_interface {
 	private static final String DELETE = 
 			"DELETE FROM administrator WHERE adminno = ?";
 	private static final String UPDATE = 
-			"UPDATE administrator SET adminid=?,adminpsw=?,priority=?,status=? WHERE adminno=?";
+			"UPDATE administrator SET adminid=?,adminpsw=?,adminname=?,priority=?,status=? WHERE adminno=?";
+	private static final String FIND_ID_PSW =
+			"SELECT * FROM ADMINISTRATOR WHERE ADMINID = ?";	
+
 	@Override
 	public void insert(AdministratorVO administratorVO) {
 		Connection con=null;
@@ -46,11 +49,13 @@ public class AdministratorDAO implements Administrator_interface {
 			con=ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1,administratorVO.getAdminId());
-			pstmt.setString(2,administratorVO.getAdminPsw());
-			pstmt.setString(3,administratorVO.getPriority());
-			pstmt.setString(4,administratorVO.getStatus());
-			pstmt.setDate(5,administratorVO.getReg());
+			pstmt.setString(1, administratorVO.getAdminId());
+			pstmt.setString(2, administratorVO.getAdminPsw());
+			pstmt.setString(3, administratorVO.getAdminName());
+			pstmt.setString(4, administratorVO.getPriority());
+			pstmt.setString(5, administratorVO.getStatus());
+			pstmt.setDate(6, administratorVO.getReg());
+			
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -84,9 +89,11 @@ public class AdministratorDAO implements Administrator_interface {
 
 			pstmt.setString(1,administratorVO.getAdminId());
 			pstmt.setString(2,administratorVO.getAdminPsw());
-			pstmt.setString(3,administratorVO.getPriority());
-			pstmt.setString(4,administratorVO.getStatus());
-			pstmt.setString(5,administratorVO.getAdminNo());
+			pstmt.setString(3,administratorVO.getAdminName());
+			pstmt.setString(4,administratorVO.getPriority());
+			pstmt.setString(5,administratorVO.getStatus());
+			pstmt.setString(6,administratorVO.getAdminNo());
+
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -156,10 +163,11 @@ public class AdministratorDAO implements Administrator_interface {
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()) {
-				adminVO=new AdministratorVO();
-				adminVO.setAdminNo(rs.getString("adminno"));
-				adminVO.setAdminId(rs.getString("adminid"));
-				adminVO.setAdminPsw(rs.getString("adminpsw"));
+				adminVO = new AdministratorVO();
+				adminVO.setAdminId(rs.getString("adminId"));
+				adminVO.setAdminPsw(rs.getString("adminPsw"));
+				adminVO.setAdminNo(rs.getString("adminNo"));
+				adminVO.setAdminName(rs.getString("adminName"));
 				adminVO.setPriority(rs.getString("priority"));
 				adminVO.setStatus(rs.getString("status"));
 				adminVO.setReg(rs.getDate("reg"));
@@ -196,12 +204,63 @@ public class AdministratorDAO implements Administrator_interface {
 	}
 
 	@Override
+	public AdministratorVO findByIdPsw(String adminId) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		AdministratorVO adminVO = null;
+		
+		try {
+			con=ds.getConnection();
+			pstmt=con.prepareStatement(FIND_ID_PSW);
+			pstmt.setString(1,adminId);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				adminVO = new AdministratorVO();
+				adminVO.setAdminId(rs.getString("adminId"));
+				adminVO.setAdminPsw(rs.getString("adminPsw"));
+				adminVO.setAdminName(rs.getString("adminName"));
+			}
+			// Handle any driver errors
+		}catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return adminVO;
+	}
+	
+	
+	@Override
 	public List<AdministratorVO> getAll() {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs = null;
 		AdministratorVO adminVO=null;
-		List<AdministratorVO> list =new ArrayList<AdministratorVO>();;
+		List<AdministratorVO> list =new ArrayList<AdministratorVO>();
 		
 		try {
 			con = ds.getConnection();
@@ -209,10 +268,11 @@ public class AdministratorDAO implements Administrator_interface {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				adminVO=new AdministratorVO();
-				adminVO.setAdminNo(rs.getString("adminno"));
-				adminVO.setAdminId(rs.getString("adminid"));
-				adminVO.setAdminPsw(rs.getString("adminpsw"));
+				adminVO = new AdministratorVO();
+				adminVO.setAdminNo(rs.getString("adminNo"));
+				adminVO.setAdminId(rs.getString("adminId"));
+				adminVO.setAdminPsw(rs.getString("adminPsw"));
+				adminVO.setAdminName(rs.getString("adminName"));
 				adminVO.setPriority(rs.getString("priority"));
 				adminVO.setStatus(rs.getString("status"));
 				adminVO.setReg(rs.getDate("reg"));

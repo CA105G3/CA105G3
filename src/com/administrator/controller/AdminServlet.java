@@ -2,6 +2,8 @@ package com.administrator.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.administrator.model.*;
@@ -26,6 +29,34 @@ public class AdminServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	protected boolean allowUser(String adminId, String adminPsw) {
+		
+		AdministratorService adminSvc = new AdministratorService();
+		AdministratorVO adminVO = adminSvc.findByIdPsw(adminId);
+		
+		if(adminVO == null) {
+			return false;
+		} else if(adminId.equals(adminVO.getAdminId())&&adminPsw.equals(adminVO.getAdminPsw())) {
+			return true;
+		}else {
+			return false;
+		}
+		
+//		int i=0;		//Jim的版本
+//		List<AdministratorVO> list =adminSvc.getAll();
+//		for(AdministratorVO adminVO : list) {
+//			if(adminId.equals(adminVO.getAdminId())&&adminPsw.equals(adminVO.getAdminPsw())) {
+//				i=i+1;
+//			}
+//		}
+//		if(i!=0) {
+//			return true;
+//		}else {
+//			return false;
+//		}
+		
+	}	
+	
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req,res);
 	}
@@ -34,6 +65,63 @@ public class AdminServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		
+	
+		if("adminLogin".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				String adminId = req.getParameter("adminId").trim();
+				if (adminId == null || (adminId.trim()).length() == 0) {
+					errorMsgs.add("請輸入帳號");
+				}
+				String adminPsw = req.getParameter("adminPsw").trim();
+				if (adminPsw == null || (adminPsw.trim()).length() == 0) {
+					errorMsgs.add("請輸入密碼");
+				}
+			
+				AdministratorVO adminVO = new AdministratorVO();
+				adminVO.setAdminId(adminId);
+				adminVO.setAdminPsw(adminPsw);
+				
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back-end/admin/adminLogin.jsp");					
+					failureView.forward(req, res);					
+					return;//程式中斷
+				}
+				
+				/***************************2.檢查帳號密碼是否有效**********************/
+				
+				if(!allowUser(adminId, adminPsw)) {
+					errorMsgs.add("密碼錯誤");
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back-end/admin/adminLogin.jsp");					
+					failureView.forward(req, res);					
+					return;//程式中斷
+				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+				}else {
+					AdministratorService adminSvc = new AdministratorService();
+					AdministratorVO adminVO1 = adminSvc.findByIdPsw(adminId);
+					HttpSession session = req.getSession();					
+					session.setAttribute("adminVO", adminVO1);
+
+					String url = "/back-end/admin/adminLoginSuccess.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url); //成功後轉交給"/back-end/admin/adminLoginSuccess.jsp"
+					successView.forward(req, res);				
+				}
+			
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-end/admin/adminLoginSuccess.jsp");
+				failureView.forward(req, res);
+			}
+			
+		}
+		
 		
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
@@ -121,7 +209,7 @@ public class AdminServlet extends HttpServlet {
 				} else if(!adminpsw.trim().matches(adminpswReg)) { //以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("管理員密碼:只能是英文字母、數字 , 且長度必需為10");
 	            }
-				
+				String adminName = req.getParameter("adminName");
 				String priority=req.getParameter("priority").trim();
 				
 				String status=req.getParameter("status").trim();
@@ -155,7 +243,7 @@ public class AdminServlet extends HttpServlet {
 				
 				/***************************2.開始新增資料***************************************/
 				AdministratorService adminSvc = new AdministratorService();
-				adminVO = adminSvc.addAdmin(adminid, adminpsw, priority, status, reg);
+				adminVO = adminSvc.addAdmin(adminid, adminpsw, adminName, priority, status, reg);
 
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/admin/ListAllAdmin.jsp";
@@ -202,7 +290,7 @@ public class AdminServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
-				String adminno = new String(req.getParameter("adminno"));
+				String adminno = new String(req.getParameter("admino"));
 				
 				String adminid=req.getParameter("adminid");
 				String adminidReg = "^[(a-zA-Z0-9)]{1,10}$";
@@ -232,6 +320,8 @@ public class AdminServlet extends HttpServlet {
 					errorMsgs.add("請輸入日期!");
 				}
 				
+				String adminName = req.getParameter("adminName");
+				
 				System.out.println(adminno);
 				System.out.println(adminid);
 				System.out.println(adminpsw);
@@ -243,6 +333,7 @@ public class AdminServlet extends HttpServlet {
 				AdministratorVO adminVO = new AdministratorVO();
 				adminVO.setAdminNo(adminno);
 				adminVO.setAdminId(adminid);
+				adminVO.setAdminName(adminName);
 				adminVO.setAdminPsw(adminpsw);
 				adminVO.setPriority(priority);
 				adminVO.setStatus(status);
@@ -258,7 +349,7 @@ public class AdminServlet extends HttpServlet {
 				}
 				/***************************2.開始修改資料*****************************************/
 				AdministratorService adminSvc = new AdministratorService();
-				adminVO = adminSvc.updateAdmin(adminno,adminid,adminpsw,priority,status,reg);
+				adminVO = adminSvc.updateAdmin(adminno,adminid,adminpsw,adminName,priority,status,reg);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("adminVO", adminVO); // 資料庫update成功後,正確的的empVO物件,存入req

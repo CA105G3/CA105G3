@@ -24,6 +24,10 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 			"UPDATE Administrator set priority = ? where adminNo = ?";
 	private static final String UPDATE_STATUS =
 			"UPDATE Administrator set status = ? where adminNo = ?";
+	private static final String FIND_ID_PSW =
+			"SELECT ADMINID, ADMINPSW, ADMINNAME FROM ADMINISTRATOR WHERE ADMINID = ?";	
+
+	
 	
 	@Override
 	public void insert(AdministratorVO administratorVO) {
@@ -368,14 +372,75 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 		return list;
 	}
 		
+
+
+	@Override
+	public AdministratorVO findByIdPsw(String adminId) {
+
+		AdministratorVO administratorVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			pstmt = con.prepareStatement(FIND_ID_PSW);
+			
+			pstmt.setString(1, adminId);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				administratorVO = new AdministratorVO();
+				administratorVO.setAdminId(rs.getString("adminId"));
+				administratorVO.setAdminPsw(rs.getString("adminPsw"));
+				administratorVO.setAdminName(rs.getString("adminName"));
+
+			}			
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. "
+					+ e.getMessage());
+		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+			
+		return administratorVO;
+	}
+	
 	public static void main(String[] args) {
 		
 		AdministratorJDBCDAO dao = new AdministratorJDBCDAO();
 		
 		//新增
 //		AdministratorVO administratorVO1 = new AdministratorVO();
-//		administratorVO1.setAdminId("HOWHOW");
+//		administratorVO1.setAdminId("GaGa");
 //		administratorVO1.setAdminPsw("123456");
+//		administratorVO1.setAdminName("嘎嘎");
 //		administratorVO1.setPriority("一般管理員");
 //		administratorVO1.setStatus("生效中");
 //		administratorVO1.setReg(java.sql.Date.valueOf("2018-12-01"));
@@ -407,24 +472,35 @@ public class AdministratorJDBCDAO implements Administrator_interface {
 		//查詢：查單一
 //		AdministratorVO administratorVO5 = new AdministratorVO();
 //		administratorVO5 = dao.findByPrimaryKey("A0006");
+//		System.out.print(administratorVO5.getAdminNo() + ",");
 //		System.out.print(administratorVO5.getAdminId() + ",");
 //		System.out.print(administratorVO5.getAdminPsw() + ",");
-//		System.out.print(administratorVO5.getAdminNo() + ",");
+//		System.out.print(administratorVO5.getAdminName()+ ",");
 //		System.out.print(administratorVO5.getPriority() + ",");
 //		System.out.print(administratorVO5.getStatus());
+		
+		//查詢：查登入
+//		AdministratorVO administratorVO6 = new AdministratorVO();
+//		administratorVO6 = dao.findByIdPsw("Amin");
+//		System.out.print(administratorVO6.getAdminId() + ",");
+//		System.out.print(administratorVO6.getAdminPsw() + ",");
+//		System.out.print(administratorVO6.getAdminName()+ ",");
+
 		
 		//查詢：查全部
 //		List<AdministratorVO> list = dao.getAll();
 //		for(AdministratorVO administrator : list) {
+//			System.out.print(administrator.getAdminNo() + "," );
 //			System.out.print(administrator.getAdminId() + ",");
 //			System.out.print(administrator.getAdminPsw() + ",");
-//			System.out.print(administrator.getAdminNo() + "," );
+//			System.out.print(administrator.getAdminName()+ ",");
 //			System.out.print(administrator.getPriority() + ",");
 //			System.out.print(administrator.getStatus() + ",");
 //			System.out.print(administrator.getReg());
 //			System.out.println();
 //		}
 		
-	}	
+	}
+	
 
 }

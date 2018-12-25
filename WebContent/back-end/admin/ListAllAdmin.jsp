@@ -72,8 +72,9 @@
 <table>
 	<tr>
 		<th>管理員編號</th>
-		<th>管理員名稱</th>
+		<th>管理員帳號</th>
 		<th>管理員密碼</th>
+		<th>管理員姓名</th>
 		<th>管理員權限</th>
 		<th>管理員是否生效</th>
 		<th>管理員註冊日期</th>
@@ -86,6 +87,7 @@
 		<td>${adminVO.adminNo}</td>
 		<td>${adminVO.adminId}</td>
 		<td>${adminVO.adminPsw}</td>
+		<td>${adminVO.adminName}</td>
 		<td>${adminVO.priority}</td>
 		<td>${adminVO.status}</td>
 		<td>${adminVO.reg}</td>
