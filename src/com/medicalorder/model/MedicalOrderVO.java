@@ -14,6 +14,7 @@ public class MedicalOrderVO implements Serializable{
 	private String moIntro;
 	private byte[] moVideo;
 	private String moText;
+	private String moCancelReason;
 	
 	public String getMoNo() {
 		return moNo;
@@ -68,6 +69,12 @@ public class MedicalOrderVO implements Serializable{
 	}
 	public void setMoText(String moText) {
 		this.moText = moText;
+	}
+	public String getMoCancelReason() {
+		return moCancelReason;
+	}
+	public void setMoCancelReason(String moCancelReason) {
+		this.moCancelReason = moCancelReason;
 	}
 	
 }

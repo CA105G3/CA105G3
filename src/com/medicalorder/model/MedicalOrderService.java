@@ -11,7 +11,7 @@ public class MedicalOrderService {
 	}
 	
 	public MedicalOrderVO addMedicalOrder(String memNo, String drNo, String moStatus,
-			 Integer moCost, java.sql.Date moTime, String moIntro, byte[] moVideo, String moText) {
+			 Integer moCost, java.sql.Date moTime, String moIntro, String moCancelReason ,byte[] moVideo, String moText) {
 		
 		MedicalOrderVO medicalOrderVO = new MedicalOrderVO();
 		
@@ -22,6 +22,7 @@ public class MedicalOrderService {
 		medicalOrderVO.setMoCost(moCost);
 		medicalOrderVO.setMoTime(moTime);
 		medicalOrderVO.setMoIntro(moIntro);
+		medicalOrderVO.setMoCancelReason(moCancelReason);
 		medicalOrderVO.setMoVideo(moVideo);
 		medicalOrderVO.setMoText(moText);
 		dao.insert(medicalOrderVO);
@@ -31,7 +32,7 @@ public class MedicalOrderService {
 	}
 
 	public MedicalOrderVO updateMedicalOrder(String moNo, String memNo, String drNo, String moStatus,
-			 Integer moCost, java.sql.Date moTime, String moIntro, byte[] moVideo, String moText) {
+			 Integer moCost, java.sql.Date moTime, String moIntro, String moCancelReason ,byte[] moVideo, String moText) {
 		
 		MedicalOrderVO medicalOrderVO = new MedicalOrderVO();
 
@@ -42,6 +43,7 @@ public class MedicalOrderService {
 		medicalOrderVO.setMoCost(moCost);
 		medicalOrderVO.setMoTime(moTime);
 		medicalOrderVO.setMoIntro(moIntro);
+		medicalOrderVO.setMoCancelReason(moCancelReason);
 		medicalOrderVO.setMoVideo(moVideo);
 		medicalOrderVO.setMoText(moText);
 		dao.update(medicalOrderVO);

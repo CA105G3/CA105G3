@@ -84,6 +84,9 @@ public class MedicalOrderServlet extends HttpServlet {
 					errorMsgs.add("病況說明請勿空白");
 				}
 
+				//取消理由
+				String moCancelReason = req.getParameter("moCancelReason");
+				
 				// 問診影音紀錄
 //				Part moVideo = req.getPart("moVideo");
 //				if(moVideo.getSubmittedFileName().equals(null)||moVideo.getSubmittedFileName().trim().length()==0)
@@ -104,6 +107,7 @@ public class MedicalOrderServlet extends HttpServlet {
 				medicalOrderVO.setMoCost(moCost);
 				medicalOrderVO.setMoTime(moTime);
 				medicalOrderVO.setMoVideo(null);
+				medicalOrderVO.setMoCancelReason(moCancelReason);
 				medicalOrderVO.setMoIntro(moIntro);
 				medicalOrderVO.setMoText(moText);
 
@@ -116,7 +120,7 @@ public class MedicalOrderServlet extends HttpServlet {
 				}
 				/*************************** 2.開始新增資料 ***************************************/
 				MedicalOrderService MedicalOrderSvc = new MedicalOrderService();
-				medicalOrderVO = MedicalOrderSvc.addMedicalOrder(memNo, drNo, moStatus, moCost, moTime, moIntro, null,
+				medicalOrderVO = MedicalOrderSvc.addMedicalOrder(memNo, drNo, moStatus, moCost, moTime, moIntro, moCancelReason ,null,
 						moText);
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 				req.setAttribute("medicalOrderVO", medicalOrderVO);
@@ -270,6 +274,9 @@ public class MedicalOrderServlet extends HttpServlet {
 					errorMsgs.add("病況說明請勿空白");
 				}
 
+				// 取消原因
+				String moCancelReason = req.getParameter("moCancelReason");
+				
 				// 問診影音紀錄
 				// Part moVideo = req.getPart("moVideo");
 				// if(moVideo.getSubmittedFileName().equals(null)||moVideo.getSubmittedFileName().trim().length()==0)
@@ -293,6 +300,7 @@ public class MedicalOrderServlet extends HttpServlet {
 				medicalOrderVO.setMoVideo(null);
 				medicalOrderVO.setMoIntro(moIntro);
 				medicalOrderVO.setMoText(moText);
+				medicalOrderVO.setMoCancelReason(moCancelReason);
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("medicalOrderVO", medicalOrderVO);
@@ -303,7 +311,7 @@ public class MedicalOrderServlet extends HttpServlet {
 				}
 				/*************************** 2.開始修改資料 ***************************************/
 				MedicalOrderService MedicalOrderSvc = new MedicalOrderService();
-				medicalOrderVO = MedicalOrderSvc.updateMedicalOrder(moNo, memNo, drNo, moStatus, moCost, moTime, moIntro, null, moText);
+				medicalOrderVO = MedicalOrderSvc.updateMedicalOrder(moNo, memNo, drNo, moStatus, moCost, moTime, moIntro, moCancelReason, null, moText);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) ***********/
 				req.setAttribute("medicalOrderVO", medicalOrderVO);

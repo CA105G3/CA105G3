@@ -79,10 +79,7 @@
 		<servlet-name>MedicalOrderImgServlet</servlet-name>
 		<url-pattern>/front-end/medicalOrder/medicalOrderServletImg.do</url-pattern>
 	</servlet-mapping>
-		<servlet>
-		<servlet-name>MedicalOrderService</servlet-name>
-		<servlet-class>com.medicalorder.model.MedicalOrderImgService</servlet-class>
-	</servlet>
+		
 	<servlet>
     	<servlet-name>AdminServlet</servlet-name>
     	<servlet-class>com.administrator.controller.AdminServlet</servlet-class>

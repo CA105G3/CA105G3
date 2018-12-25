@@ -28,7 +28,7 @@ public class MedicalOrderDAO implements MedicalOrder_interface{
 	
 	
 	private static final String INSERT_STMT = 
-			"INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),?,?,?,?,?,?,?,?)";
+			"INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),?,?,?,?,?,?,?,?,?)";
 	private static final String DELETE = 
 			"DELETE FROM MEDICALORDER WHERE MONO = ?";
 	private static final String GET_ONE_STMT =
@@ -36,7 +36,7 @@ public class MedicalOrderDAO implements MedicalOrder_interface{
 	private static final String GET_ALL_STMT =
 			"SELECT * FROM MEDICALORDER";
 	private static final String UPDATE = 
-			"UPDATE MEDICALORDER SET MEMNO=? ,DRNO=? ,MOSTATUS=? ,MOCOST=? , MOTIME=? , MOTEXT=? ,MOVIDEO=? ,MOINTRO=? WHERE MONO=? ";
+			"UPDATE MEDICALORDER SET MEMNO=? ,DRNO= ? ,MOSTATUS=? ,MOCOST=? ,MOTIME=? ,MOINTRO=?, MOCANCELREASON=? ,MOVIDEO=? ,MOTEXT=?  WHERE MONO=?";
 	
 	@Override
 	public void insert(MedicalOrderVO medicalOrderVO) {
@@ -53,8 +53,9 @@ public class MedicalOrderDAO implements MedicalOrder_interface{
 			pstmt.setInt(4, medicalOrderVO.getMoCost());
 			pstmt.setDate(5, medicalOrderVO.getMoTime());
 			pstmt.setString(6, medicalOrderVO.getMoIntro());
-			pstmt.setBytes(7, medicalOrderVO.getMoVideo());
-			pstmt.setString(8, medicalOrderVO.getMoText());
+			pstmt.setString(7, medicalOrderVO.getMoCancelReason());
+			pstmt.setBytes(8, medicalOrderVO.getMoVideo());
+			pstmt.setString(9, medicalOrderVO.getMoText());
 			
 			pstmt.executeUpdate();
 			
@@ -129,10 +130,11 @@ public class MedicalOrderDAO implements MedicalOrder_interface{
 			pstmt.setString(3, medicalOrderVO.getMoStatus());
 			pstmt.setInt(4, medicalOrderVO.getMoCost());
 			pstmt.setDate(5, medicalOrderVO.getMoTime());
-			pstmt.setString(6, medicalOrderVO.getMoText());
-			pstmt.setBytes(7, medicalOrderVO.getMoVideo());
-			pstmt.setString(8, medicalOrderVO.getMoIntro());
-			pstmt.setString(9, medicalOrderVO.getMoNo());
+			pstmt.setString(6, medicalOrderVO.getMoIntro());
+			pstmt.setString(7, medicalOrderVO.getMoCancelReason());
+			pstmt.setBytes(8, medicalOrderVO.getMoVideo());
+			pstmt.setString(9, medicalOrderVO.getMoText());
+			pstmt.setString(10, medicalOrderVO.getMoNo());
 			
 			pstmt.executeUpdate();
 			
@@ -180,10 +182,10 @@ public class MedicalOrderDAO implements MedicalOrder_interface{
 				medicalOrderVO.setMoStatus(rs.getString("moStatus"));
 				medicalOrderVO.setMoCost(rs.getInt("moCost"));
 				medicalOrderVO.setMoTime(rs.getDate("moTime"));
-				medicalOrderVO.setMoText(rs.getString("moText"));
-				medicalOrderVO.setMoVideo(rs.getBytes("moVideo"));
 				medicalOrderVO.setMoIntro(rs.getString("moIntro"));
-				
+				medicalOrderVO.setMoCancelReason("moCancelReason");
+				medicalOrderVO.setMoVideo(rs.getBytes("moVideo"));
+				medicalOrderVO.setMoText(rs.getString("moText"));				
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured." + e.getMessage());
@@ -237,7 +239,8 @@ public class MedicalOrderDAO implements MedicalOrder_interface{
 				medicalOrderVO.setMoStatus(rs.getString("moStatus"));
 				medicalOrderVO.setMoCost(rs.getInt("moCost"));
 				medicalOrderVO.setMoTime(rs.getDate("moTime"));
-				medicalOrderVO.setMoIntro(rs.getString("moIntro"));				
+				medicalOrderVO.setMoIntro(rs.getString("moIntro"));			
+				medicalOrderVO.setMoCancelReason(rs.getString("moCancelReason"));
 				medicalOrderVO.setMoVideo(rs.getBytes("moVideo"));
 				medicalOrderVO.setMoText(rs.getString("moText"));
 				list.add(medicalOrderVO);

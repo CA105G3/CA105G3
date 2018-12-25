@@ -38,7 +38,7 @@ public class AdminServlet extends HttpServlet {
 			return false;
 		} else if(adminId.equals(adminVO.getAdminId())&&adminPsw.equals(adminVO.getAdminPsw())) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 		

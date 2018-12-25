@@ -13,7 +13,7 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 	String password = "123456";
 	
 	private static final String INSERT_STMT = 
-			"INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),?,?,?,?,?,?,?,?)";
+			"INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),?,?,?,?,?,?,?,?,?)";
 	private static final String DELETE = 
 			"DELETE FROM MEDICALORDER WHERE MONO = ?";
 	private static final String GET_ONE_STMT =
@@ -21,7 +21,7 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 	private static final String GET_ALL_STMT =
 			"SELECT * FROM MEDICALORDER";
 	private static final String UPDATE = 
-			"UPDATE MEDICALORDER SET MEMNO=? ,DRNO= ? ,MOSTATUS=? ,MOCOST=? , MOTIME=? , MOTEXT=? ,MOVIDEO=? ,MOINTRO=? WHERE MONO=? ";
+			"UPDATE MEDICALORDER SET MEMNO=? ,DRNO= ? ,MOSTATUS=? ,MOCOST=? ,MOTIME=? ,MOINTRO=?, MOCANCELREASON=? ,MOVIDEO=? ,MOTEXT=?  WHERE MONO=?";
 	
 	@Override
 	public void insert(MedicalOrderVO medicalOrderVO) {
@@ -39,8 +39,9 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 			pstmt.setInt(4, medicalOrderVO.getMoCost());
 			pstmt.setDate(5, medicalOrderVO.getMoTime());
 			pstmt.setString(6, medicalOrderVO.getMoIntro());
-			pstmt.setBytes(7, medicalOrderVO.getMoVideo());
-			pstmt.setString(8, medicalOrderVO.getMoText());
+			pstmt.setString(7, medicalOrderVO.getMoCancelReason());
+			pstmt.setBytes(8, medicalOrderVO.getMoVideo());
+			pstmt.setString(9, medicalOrderVO.getMoText());
 			
 			pstmt.executeUpdate();
 			
@@ -121,13 +122,14 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 			pstmt.setString(3, medicalOrderVO.getMoStatus());
 			pstmt.setInt(4, medicalOrderVO.getMoCost());
 			pstmt.setDate(5, medicalOrderVO.getMoTime());
-			pstmt.setString(6, medicalOrderVO.getMoText());
-			pstmt.setBytes(7, medicalOrderVO.getMoVideo());
-			pstmt.setString(8, medicalOrderVO.getMoIntro());
-			pstmt.setString(9, medicalOrderVO.getMoNo());
+			pstmt.setString(6, medicalOrderVO.getMoIntro());
+			pstmt.setString(7, medicalOrderVO.getMoCancelReason());
+			pstmt.setBytes(8, medicalOrderVO.getMoVideo());
+			pstmt.setString(9, medicalOrderVO.getMoText());
+			pstmt.setString(10, medicalOrderVO.getMoNo());
 			
 			pstmt.executeUpdate();
-			
+
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver" + e.getMessage());
 		} catch (SQLException e) {
@@ -175,10 +177,11 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 				medicalOrderVO.setMoStatus(rs.getString("moStatus"));
 				medicalOrderVO.setMoCost(rs.getInt("moCost"));
 				medicalOrderVO.setMoTime(rs.getDate("moTime"));
-				medicalOrderVO.setMoText(rs.getString("moText"));
-				medicalOrderVO.setMoVideo(rs.getBytes("moVideo"));
 				medicalOrderVO.setMoIntro(rs.getString("moIntro"));
-				
+				medicalOrderVO.setMoCancelReason("moCancelReason");
+				medicalOrderVO.setMoVideo(rs.getBytes("moVideo"));
+				medicalOrderVO.setMoText(rs.getString("moText"));
+			
 			}
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver" +e.getMessage());
@@ -235,7 +238,8 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 				medicalOrderVO.setMoStatus(rs.getString("moStatus"));
 				medicalOrderVO.setMoCost(rs.getInt("moCost"));
 				medicalOrderVO.setMoTime(rs.getDate("moTime"));
-				medicalOrderVO.setMoIntro(rs.getString("moIntro"));				
+				medicalOrderVO.setMoIntro(rs.getString("moIntro"));			
+				medicalOrderVO.setMoCancelReason(rs.getString("moCancelReason"));
 				medicalOrderVO.setMoVideo(rs.getBytes("moVideo"));
 				medicalOrderVO.setMoText(rs.getString("moText"));
 				list.add(medicalOrderVO);
@@ -286,28 +290,29 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 //			System.out.print(medicalOrderVO1.getMoCost() +",");
 //			System.out.print(medicalOrderVO1.getMoTime() +",");
 //			System.out.print(medicalOrderVO1.getMoIntro() +",");
+//			System.out.print(medicalOrderVO1.getMoCancelReason() + ",");
 //			System.out.print(medicalOrderVO1.getMoVideo() +",");
 //			System.out.print(medicalOrderVO1.getMoText() +",");
 //			System.out.println();
 //		}		
 		
 		//查單筆
-//		MedicalOrderVO medicalOrderVO2 = dao.findByPrimaryKey("20181220-0012");
+//		MedicalOrderVO medicalOrderVO2 = dao.findByPrimaryKey("20181225-0009");
 //			System.out.print(medicalOrderVO2.getMoNo() +",");
 //			System.out.print(medicalOrderVO2.getMemNo() +",");
 //			System.out.print(medicalOrderVO2.getDrNo() +",");
 //			System.out.print(medicalOrderVO2.getMoStatus() +",");
 //			System.out.print(medicalOrderVO2.getMoCost() +",");
 //			System.out.print(medicalOrderVO2.getMoTime() +",");
-//			System.out.print(medicalOrderVO2.getMoIntro() +",");			
+//			System.out.print(medicalOrderVO2.getMoIntro() +",");	
+//			System.out.print(medicalOrderVO2.getMoCancelReason() + ",");
 //			System.out.print(medicalOrderVO2.getMoVideo() +",");
 //			System.out.print(medicalOrderVO2.getMoText() +",");
 //			System.out.println();
 		
-		
 				
 		//刪除
-//		dao.delete("20181217-0009");
+//		dao.delete("20181225-0010");
 				
 		//新增
 //		MedicalOrderVO medicalOrderVO1 = new MedicalOrderVO();
@@ -317,20 +322,23 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 //		medicalOrderVO1.setMoCost(9487);
 //		medicalOrderVO1.setMoTime(java.sql.Date.valueOf("2018-10-09"));
 //		medicalOrderVO1.setMoIntro("蚊蟲咬傷");
+//		medicalOrderVO1.setMoCancelReason(null);
 //		medicalOrderVO1.setMoVideo(null);
 //		medicalOrderVO1.setMoText(null);
 //		dao.insert(medicalOrderVO1);
 		
 		//修改
 //		MedicalOrderVO medicalOrderVO2 = new MedicalOrderVO();
-//		medicalOrderVO2.setMemNo("M0002");
-//		medicalOrderVO2.setDrNo("D0003");
-//		medicalOrderVO2.setMoStatus("問診完成");
+//		medicalOrderVO2.setMemNo("M0001");
+//		medicalOrderVO2.setDrNo("D0002");
+//		medicalOrderVO2.setMoStatus("等待問診");
 //		medicalOrderVO2.setMoCost(9999);
 //		medicalOrderVO2.setMoTime(java.sql.Date.valueOf("2018-10-20"));
-//		medicalOrderVO2.setMoText("開藥給你吃");
+//		medicalOrderVO2.setMoIntro("狀況不明");
+//		medicalOrderVO2.setMoCancelReason(null);
 //		medicalOrderVO2.setMoVideo(null);
-//		medicalOrderVO2.setMoIntro("頭痛不止");
+//		medicalOrderVO2.setMoText("開藥給你吃");
+//		medicalOrderVO2.setMoNo("20181225-0009");
 //		dao.update(medicalOrderVO2);
 		
 				
