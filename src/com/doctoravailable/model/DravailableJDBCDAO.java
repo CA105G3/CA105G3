@@ -10,12 +10,17 @@ public class DravailableJDBCDAO implements DravailableDAO_interface{
 	final String user = "CA105G3";
 	final String password = "123456";
 	
-	private static final String INSERT_STMT = "INSERT INTO DOCTORAVAILABLE VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),?,?,?)";
-	private static final String UPDATE_STMT = "UPDATE DOCTORAVAILABLE SET DRAYM = ?, DRAVA = ? WHERE DRNO = ?";  //實際修改預約時間時，where後面用什麼欄位?
+//	private static final String INSERT_STMT = "INSERT INTO DOCTORAVAILABLE VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),?,?,?)";
+	private static final String INSERT_STMT = "INSERT INTO DOCTORAVAILABLE VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),?,TO_DATE(?, 'YYYY-MM'),?)";
+//	private static final String UPDATE_STMT = "UPDATE DOCTORAVAILABLE SET DRAYM = ?, DRAVA = ? WHERE DRNO = ?";  //實際修改預約時間時，where後面用什麼欄位?
+//	private static final String UPDATE_STMT = "UPDATE DOCTORAVAILABLE SET DRAYM = TO_DATE(?, 'YYYY-MM'), DRAVA = ? WHERE DRAVANO = ?";  //實際修改預約時間時，where後面用什麼欄位?
+	private static final String UPDATE_STMT = "UPDATE DOCTORAVAILABLE SET DRAVA = ? WHERE DRAVANO = ?";  //實際修改預約時間時，where後面用什麼欄位?
 	private static final String DELETE_STMT = "DELETE FROM DOCTORAVAILABLE WHERE DRNO = ?";
-	private static final String FIND_BY_PK = "SELECT * FROM DOCTORAVAILABLE WHERE DRAVANO = ?";
+	private static final String FIND_BY_PK = "SELECT * FROM DOCTORAVAILABLE WHERE DRAVANO = ? AND ";
+//	private static final String FIND_BY_DRNO = "SELECT * FROM DOCTORAVAILABLE WHERE DRNO = ? AND TO_CHAR(?, 'YYMM') >= TO_CHAR(SYSDATE, 'YYMM')";
 	private static final String FIND_BY_DRNO = "SELECT * FROM DOCTORAVAILABLE WHERE DRNO = ?";
 	private static final String GET_ALL = "SELECT * FROM DOCTORAVAILABLE";
+	private static final String Get_DRAYM_BY_DRNO = "SELECT TO_CHAR(DRAYM, 'YYYY-MM') FROM DOCTORAVAILABLE WHERE DRNO = ?";
 	@Override
 	public void insert(DravailableVO dravailableVO) {
 		Connection con = null;
@@ -27,7 +32,7 @@ public class DravailableJDBCDAO implements DravailableDAO_interface{
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, dravailableVO.getDrno());
-			pstmt.setDate(2, dravailableVO.getDraym());
+			pstmt.setString(2, dravailableVO.getDraym().toString().substring(0, 7));
 			pstmt.setString(3, dravailableVO.getDrava());
 			
 			pstmt.executeUpdate();
@@ -63,9 +68,9 @@ public class DravailableJDBCDAO implements DravailableDAO_interface{
 			con = DriverManager.getConnection(url, user, password);
 			pstmt = con.prepareStatement(UPDATE_STMT);
 			
-			pstmt.setDate(1, dravailableVO.getDraym());
-			pstmt.setString(2, dravailableVO.getDrava());
-			pstmt.setString(3, dravailableVO.getDrno());
+//			pstmt.setString(1, dravailableVO.getDraym().toString().substring(0, 7));
+			pstmt.setString(1, dravailableVO.getDrava());
+			pstmt.setString(2, dravailableVO.getDravano());
 			
 			pstmt.executeUpdate();
 			
@@ -271,16 +276,16 @@ public class DravailableJDBCDAO implements DravailableDAO_interface{
 		
 		//新增
 //		DravailableVO dvo1 = new DravailableVO();
-//		dvo1.setDrno("D0005");
-//		dvo1.setDraym(Date.valueOf("2018-12-01"));
+//		dvo1.setDrno("D0011");
+//		dvo1.setDraym(Date.valueOf("2018-12-22"));
 //		dvo1.setDrava("010001101111000101001001011000100001011010001101101010100011000000100111101111001110111110110");
 //		dao.insert(dvo1);
 		//修改
-//		DravailableVO dvo2 = new DravailableVO();
-//		dvo2.setDrno("D0004");
-//		dvo2.setDraym(Date.valueOf("2018-12-11"));
-//		dvo2.setDrava("000000111111111100000000000101011111110010110101001000100100100111010111010110110110100110111");
-//		dao.update(dvo2);
+		DravailableVO dvo2 = new DravailableVO();
+		dvo2.setDravano("20181222-0018");
+//		dvo2.setDraym(Date.valueOf("2018-12-9"));
+		dvo2.setDrava("111111000010011110000110100000011010101100110000001001011001100001011010001101111000011111100");
+		dao.update(dvo2);
 //		//刪除
 //		dao.delete("D0005");
 		//findByPK
@@ -299,14 +304,14 @@ public class DravailableJDBCDAO implements DravailableDAO_interface{
 //			System.out.println("--------------------------------------");
 //		}
 		//getAll
-		List<DravailableVO> list2 = dao.getAll();
-		for(DravailableVO dvo : list2) {
-			System.out.println(dvo.getDravano());
-			System.out.println(dvo.getDrno());
-			System.out.println(dvo.getDraym());
-			System.out.println(dvo.getDrava());
-			System.out.println("--------------------------------------");
-		}
+//		List<DravailableVO> list2 = dao.getAll();
+//		for(DravailableVO dvo : list2) {
+//			System.out.println(dvo.getDravano());
+//			System.out.println(dvo.getDrno());
+//			System.out.println(dvo.getDraym());
+//			System.out.println(dvo.getDrava());
+//			System.out.println("--------------------------------------");
+//		}
 	}
 	
 	

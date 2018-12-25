@@ -1,5 +1,6 @@
 package com.doctoravailable.model;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface DravailableDAO_interface {

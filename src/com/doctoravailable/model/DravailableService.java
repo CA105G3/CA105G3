@@ -22,10 +22,9 @@ public class DravailableService {
 		return dvo;
 	}
 	
-	public DravailableVO updateDravailable(String drno, Date draym, String drava) {
+	public DravailableVO updateDravailable(String dravano, String drava) {
 		DravailableVO dvo = new DravailableVO();
-		dvo.setDrno(drno);
-		dvo.setDraym(draym);
+		dvo.setDravano(dravano);
 		dvo.setDrava(drava);
 		
 		dao.update(dvo);
