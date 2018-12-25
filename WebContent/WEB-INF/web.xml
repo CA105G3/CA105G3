@@ -28,7 +28,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>FoodOrderServlet</servlet-name>
-		<url-pattern>/foodorder/foodorder.do</url-pattern>
+		<url-pattern>/front-end/foodorder/foodorder.do</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -37,7 +37,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>OrderDetailServlet</servlet-name>
-		<url-pattern>/orderdetail/orderdetail.do</url-pattern>
+		<url-pattern>/front-end/orderdetail/orderdetail.do</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
