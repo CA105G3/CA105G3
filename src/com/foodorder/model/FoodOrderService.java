@@ -30,25 +30,37 @@ public class FoodOrderService {
 		return foodOrderVO;
 	}
 	
-	
-	public FoodOrderVO getOneFoodOrder(String orderno) {
-		return dao.findByPrimaryKey(orderno);
+	public FoodOrderVO updateOrderStatus(String orderStatus, String orderno) {
+		FoodOrderVO foodOrderVO = new FoodOrderVO();
+
+		foodOrderVO.setOrderStatus(orderStatus);
+		foodOrderVO.setOrderno(orderno);
+		dao.update_OrderStatus(foodOrderVO);
+
+		return foodOrderVO;
 	}
 	
-	public List<FoodOrderVO> getAll(){
-		return dao.getAll();
+	public FoodOrderVO findByOrderno(String orderno) {
+		return dao.findBy_Orderno(orderno);
 	}
 	
-	public List<String> getAllOrderMemno(){
-		return dao.getAllOrderMemno();
+	public List<FoodOrderVO> findBy_MemId(String memId) {
+		return dao.findBy_MemId(memId);
 	}
 	
-	public List<FoodOrderVO> findByMemno(String memno){
-		return dao.findByMemno(memno);
+	public List<FoodOrderVO> findBy_Email(String email) {
+		return dao.findBy_Email(email);
+	}
+	
+	public List<FoodOrderVO> findBy_Memno(String memno) {
+		return dao.findBy_Memno(memno);
 	}
 	
 	public Set<OrderDetailVO> getOrderDetailsByFoodOrder(String orderno){
 		return dao.getOrderDetailsByFoodOrder(orderno);
 	}
 	
+	public List<FoodOrderVO> getAll(){
+		return dao.getAll();
+	}
 }

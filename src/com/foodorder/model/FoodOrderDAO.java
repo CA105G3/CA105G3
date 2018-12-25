@@ -27,12 +27,16 @@ public class FoodOrderDAO implements FoodOrderDAO_Interface {
 	private static final String INSERT_STMT =
 			"INSERT INTO FOODORDER(ORDERNO, MEMNO, DELIVERADDR, CHEFNO, ORDERSTATUS, ORDTIME)"
 			+ "VALUES(to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(foodorder_seq.NEXTVAL), 4, '0'),?,?,?,?,?)";
-	private static final String GET_ALL_STMT = "SELECT * FROM FOODORDER ORDER BY ORDERNO";
-	private static final String GET_ONE_STMT = "SELECT * FROM FOODORDER WHERE ORDERNO = ?";
-	private static final String GET_ALL_OrderMemno_STMT = "SELECT DISTINCT MEMNO FROM FOODORDER WHERE CHEFNO='CHEF0001'";
-	private static final String GET_OrderByMemno_STMT = "SELECT * FROM FOODORDER WHERE MEMNO='M0001'";
+	
+	private static final String UPDATE_ORDERSTATUS_STMT ="UPDATE FOODORDER SET ORDERSTATUS= ? WHERE ORDERNO= ?";
+	private static final String GET_BY_ORDERNO_STMT = "SELECT * FROM FOODORDER WHERE ORDERNO = ?"; 
+	private static final String GET_BY_MEMNO_STMT = "SELECT * FROM FOODORDER WHERE MEMNO=?";
+	private static final String GET_BY_MEMID_STMT = "SELECT * FROM FOODORDER LEFT JOIN MEMBER ON FOODORDER.MEMNO=MEMBER.MEMNO WHERE MEMID=?";
+	private static final String GET_BY_EMAIL_STMT = "SELECT * FROM FOODORDER LEFT JOIN MEMBER ON FOODORDER.MEMNO=MEMBER.MEMNO WHERE EMAIL=?";
+	
 	private static final String GET_OrderDetails_ByOrder_STMT = "SELECT * FROM ORDERDETAIL WHERE ORDERNO = ? ORDER BY ODNO";
-	private static final String DELETE = "DELETE FROM FOODORDER WHERE ORDERNO = ?";
+	
+	private static final String GET_ALL_STMT = "SELECT * FROM FOODORDER ORDER BY ORDERNO";
 	
 	public void insert(FoodOrderVO foodOrderVO) {
 		Connection con = null;
@@ -71,18 +75,52 @@ public class FoodOrderDAO implements FoodOrderDAO_Interface {
 		}
 	}
 	
-	public FoodOrderVO findByPrimaryKey(String orderno) {
-		FoodOrderVO foodOrderVO = null;
+	public void update_OrderStatus(FoodOrderVO foodOrderVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ONE_STMT);
-			
-			pstmt.setString(1, orderno);
-			
+			pstmt = con.prepareStatement(UPDATE_ORDERSTATUS_STMT);
+
+			pstmt.setString(1, foodOrderVO.getOrderStatus());
+			pstmt.setString(2, foodOrderVO.getOrderno());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+	
+	public FoodOrderVO findBy_Orderno(String orderno) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		FoodOrderVO foodOrderVO = null;
+		ResultSet rs = null;		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_BY_ORDERNO_STMT);			
+			pstmt.setString(1, orderno);			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -94,9 +132,9 @@ public class FoodOrderDAO implements FoodOrderDAO_Interface {
 				foodOrderVO.setOrderStatus(rs.getString("orderStatus"));
 				foodOrderVO.setOrdTime(rs.getDate("ordTime"));				
 			}
-		}catch(SQLException se) {
+		} catch(SQLException se) {
 			throw new RuntimeException("A database error occured" + se.getMessage());
-		}finally {
+		} finally {
 			if (rs != null) {
 				try {
 					rs.close();
@@ -122,73 +160,26 @@ public class FoodOrderDAO implements FoodOrderDAO_Interface {
 		return foodOrderVO;
 	}
 
-	public List<FoodOrderVO> getAll(){
-		List<FoodOrderVO> list = new ArrayList<FoodOrderVO>();
+	public List<FoodOrderVO> findBy_Memno(String memno){
+		List<FoodOrderVO> list = new ArrayList();
 		FoodOrderVO foodOrderVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ALL_STMT);
+		try {		
+			pstmt = con.prepareStatement(GET_BY_MEMNO_STMT);
+			pstmt.setString(1, memno);
 			rs = pstmt.executeQuery();
-			
-			while (rs.next()) {
+			while(rs.next()) {
 				foodOrderVO = new FoodOrderVO();
 				foodOrderVO.setOrderno(rs.getString("orderno"));
 				foodOrderVO.setMemno(rs.getString("memno"));
 				foodOrderVO.setDeliverAddr(rs.getString("deliverAddr"));
 				foodOrderVO.setChefno(rs.getString("chefno"));
 				foodOrderVO.setOrderStatus(rs.getString("orderStatus"));
-				foodOrderVO.setOrdTime(rs.getDate("ordTime"));
-			}
-		}catch (SQLException se) {
-				new RuntimeException("A database error occured" + se.getMessage());
-			} finally {
-				if (rs != null) {
-					try {
-						rs.close();
-					} catch (SQLException se) {
-						se.printStackTrace(System.err);
-					}
-				}
-				if (pstmt != null) {
-					try {
-						pstmt.close();
-					} catch (SQLException se) {
-						se.printStackTrace(System.err);
-					}
-				}
-				if (con != null) {
-					try {
-						con.close();
-					} catch (Exception e) {
-						e.printStackTrace(System.err);
-					}
-				}
-			}
-			return list;
-	}
-	
-	public List<String> getAllOrderMemno(){
-		List<String> list2 = new ArrayList();
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ALL_OrderMemno_STMT);
-			rs = pstmt.executeQuery();
-			
-			while (rs.next()) {                   //new一個FoodOrderVO讓rs放值
-//				foodOrderVO = new FoodOrderVO();  //在這裡把取到的值轉成字串，("memno")為欄位名稱				                        
-//				foodOrderVO.setMemno(rs.getString("memno"));
-//				list2.add(foodOrderVO.getMemno());//再把從rs取出來、放到foodOrderVO的值，利用getMemno()取出並加進list2裡面
-				
-				//或是把取出的值直接加入list2裡即可
-				list2.add(rs.getString("memno"));				
+				foodOrderVO.setOrdTime(rs.getDate("ordTime"));	
+				list.add(foodOrderVO);
 			}
 		} catch(SQLException se) {
 			throw new RuntimeException("A database error occured" + se.getMessage());
@@ -215,19 +206,19 @@ public class FoodOrderDAO implements FoodOrderDAO_Interface {
 				}
 			}
 		} 
-		return list2;
+		return list;
 	}
-	
-	public List<FoodOrderVO> findByMemno(String memno){
-		List<FoodOrderVO> list3 = new ArrayList();
+
+	public List<FoodOrderVO> findBy_MemId(String memId){
+		List<FoodOrderVO> list = new ArrayList();
 		FoodOrderVO foodOrderVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_OrderByMemno_STMT);
+			pstmt = con.prepareStatement(GET_BY_MEMID_STMT );
+			pstmt.setString(1, memId);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -238,7 +229,7 @@ public class FoodOrderDAO implements FoodOrderDAO_Interface {
 				foodOrderVO.setChefno(rs.getString("chefno"));
 				foodOrderVO.setOrderStatus(rs.getString("orderStatus"));
 				foodOrderVO.setOrdTime(rs.getDate("ordTime"));	
-				list3.add(foodOrderVO);
+				list.add(foodOrderVO);
 			}
 		} catch(SQLException se) {
 			throw new RuntimeException("A database error occured" + se.getMessage());
@@ -265,9 +256,59 @@ public class FoodOrderDAO implements FoodOrderDAO_Interface {
 				}
 			}
 		} 
-		return list3;
+		return list;
 	}
-	
+
+	public List<FoodOrderVO> findBy_Email(String email){
+		List<FoodOrderVO> list = new ArrayList();
+		FoodOrderVO foodOrderVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = con.prepareStatement(GET_BY_EMAIL_STMT);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				foodOrderVO = new FoodOrderVO();
+				foodOrderVO.setOrderno(rs.getString("orderno"));
+				foodOrderVO.setMemno(rs.getString("memno"));
+				foodOrderVO.setDeliverAddr(rs.getString("deliverAddr"));
+				foodOrderVO.setChefno(rs.getString("chefno"));
+				foodOrderVO.setOrderStatus(rs.getString("orderStatus"));
+				foodOrderVO.setOrdTime(rs.getDate("ordTime"));	
+				list.add(foodOrderVO);
+			}
+		} catch(SQLException se) {
+			throw new RuntimeException("A database error occured" + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		} 
+		return list;
+	}
+
 	public Set<OrderDetailVO> getOrderDetailsByFoodOrder(String orderno){
 		Set<OrderDetailVO> set = new LinkedHashSet<OrderDetailVO>();
 		OrderDetailVO orderDetailVO = null;
@@ -275,23 +316,24 @@ public class FoodOrderDAO implements FoodOrderDAO_Interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+	
 		try {
-			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_OrderDetails_ByOrder_STMT);
+			pstmt.setString(1, orderno);
 			rs = pstmt.executeQuery();
-			
-		while(rs.next()) {
-			orderDetailVO = new OrderDetailVO();
-			orderDetailVO.setOdno(rs.getString("odno"));
-			orderDetailVO.setOrderno(rs.getString("orderno"));
-			orderDetailVO.setMenuListno(rs.getString("menuListno"));
-			orderDetailVO.setAmount(rs.getInt("amount"));
-			orderDetailVO.setUnitPrice(rs.getInt("unitPrice"));
-			set.add(orderDetailVO);
-		}
-		}catch (SQLException se) {
-			new RuntimeException("A database error occured" + se.getMessage());
+		
+			while(rs.next()) {
+				orderDetailVO = new OrderDetailVO();
+				orderDetailVO.setOdno(rs.getString("odno"));
+				orderDetailVO.setOrderno(rs.getString("orderno"));
+				orderDetailVO.setMenuListno(rs.getString("menuListno"));
+				orderDetailVO.setAmount(rs.getInt("amount"));
+				orderDetailVO.setUnitPrice(rs.getInt("unitPrice"));
+				set.add(orderDetailVO);
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
 		} finally {
 			if (rs != null) {
 				try {
@@ -316,6 +358,55 @@ public class FoodOrderDAO implements FoodOrderDAO_Interface {
 			}
 		}
 		return set;
+	}
+	
+	public List<FoodOrderVO> getAll(){
+		List<FoodOrderVO> list1 = new ArrayList<FoodOrderVO>();
+		FoodOrderVO foodOrderVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = con.prepareStatement(GET_ALL_STMT);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				foodOrderVO = new FoodOrderVO();
+				foodOrderVO.setOrderno(rs.getString("orderno"));
+				foodOrderVO.setMemno(rs.getString("memno"));
+				foodOrderVO.setDeliverAddr(rs.getString("deliverAddr"));
+				foodOrderVO.setChefno(rs.getString("chefno"));
+				foodOrderVO.setOrderStatus(rs.getString("orderStatus"));
+				foodOrderVO.setOrdTime(rs.getDate("ordTime"));
+				list1.add(foodOrderVO);
+			}
+		}catch (SQLException se) {
+			throw new RuntimeException("A database error occured" + se.getMessage());
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return list1;
 	}
 
 }
