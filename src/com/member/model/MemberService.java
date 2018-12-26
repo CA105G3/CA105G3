@@ -78,4 +78,7 @@ private MemberDAO_interface dao;
 	public List<MemberVO> getAll(){
 		return dao.getAll();
 	}
+	public MemberVO getOneMemberByAccount(String memid) {
+		return dao.findByID(memid);
+	}
 }

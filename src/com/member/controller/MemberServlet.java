@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.administrator.model.AdministratorService;
 import com.administrator.model.AdministratorVO;
@@ -491,5 +492,73 @@ public class MemberServlet extends HttpServlet {
 			}
 		}//End-point update
 		
+		
+		if ("authorization".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			String account = req.getParameter("account");
+			String accountReg = "^[(a-zA-Z0-9)]{1,20}$";
+			if (account == null || account.trim().length() == 0) {
+				errorMsgs.add("會員密碼: 請勿空白");
+			} else if(!account.trim().matches(accountReg)) { //以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("會員密碼: 只能是英文字母、數字 , 且長度必需為20內");
+            }
+		    String password = req.getParameter("password");
+		    String passwordReg = "^[(a-zA-Z0-9)]{1,20}$";
+			if (password == null || password.trim().length() == 0) {
+				errorMsgs.add("會員密碼: 請勿空白");
+			} else if(!password.trim().matches(passwordReg)) { //以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("會員密碼: 只能是英文字母、數字 , 且長度必需為20內");
+            }
+		    
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/member/index.jsp");
+				failureView.forward(req, res);
+				return;
+			}
+			
+		    if (!allowUser(account,password)) {          //【帳號 , 密碼無效時】
+		    	errorMsgs.add("帳號或密碼錯誤");
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/member/index.jsp");
+				failureView.forward(req, res);
+		      }else {                                       //【帳號 , 密碼有效時, 才做以下工作】
+		        HttpSession session = req.getSession();
+		        MemberService memSvc = new MemberService();
+			  	MemberVO memVO=memSvc.getOneMemberByAccount(account);
+		        session.setAttribute("memVO", memVO);   //*工作1: 才在session內做已經登入過的標識
+		  
+		         try {                                                        
+		           String location = (String) session.getAttribute("location");
+		           if (location != null) {
+		             session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
+		             res.sendRedirect(location);            
+		             return;
+		           }
+		         }catch (Exception ignored) { }
+
+		        res.sendRedirect(req.getContextPath()+"/front-end/member/index.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
+		      }
+		}//end auth
+		
+		if("logout".equals(action)) {
+			HttpSession session = req.getSession();
+			session.removeAttribute("memVO");
+			res.sendRedirect(req.getContextPath()+"/front-end/member/index.jsp");
+		}//end logout
+	}
+	  protected boolean allowUser(String account, String password) {
+		  	MemberService memSvc = new MemberService();
+		  	MemberVO memVO=memSvc.getOneMemberByAccount(account);
+		  	if(memVO==null) 
+		  		return false;
+		  	else if (account.equals(memVO.getMemId())&&password.equals(memVO.getPwd()))
+		  		return true;
+		  	else
+		  		return false;
 	}
 }

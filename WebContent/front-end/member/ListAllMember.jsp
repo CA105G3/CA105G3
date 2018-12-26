@@ -92,7 +92,7 @@
 		<th>修改</th>
 		<th>刪除</th>
 	</tr>
-	<%@ include file="page1.file" %> 
+	<%@ include file="pages/page1.file" %> 
 	<c:forEach var="memVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 	<tr>
 		<td>${memVO.memNo}</td>
@@ -129,7 +129,7 @@
 	</tr>
 	</c:forEach>
 </table>
-<%@ include file="page2.file" %>
+<%@ include file="pages/page2.file" %>
 
 </body>
 </html>
