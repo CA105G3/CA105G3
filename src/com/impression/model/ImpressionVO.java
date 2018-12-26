@@ -1,7 +1,11 @@
 package com.impression.model;
 
+import java.sql.Date;
+
 public class ImpressionVO implements java.io.Serializable{
 	private String impNo;
+	private Date impTime;
+	private String impName;
 	private String actNo;
 	private String memNo;
 	private String impCon;
@@ -10,6 +14,18 @@ public class ImpressionVO implements java.io.Serializable{
 	private String impField;
 	
 	
+	public String getImpName() {
+		return impName;
+	}
+	public void setImpName(String impName) {
+		this.impName = impName;
+	}
+	public Date getImpTime() {
+		return impTime;
+	}
+	public void setImpTime(Date impTime) {
+		this.impTime = impTime;
+	}
 	public String getImpNo() {
 		return impNo;
 	}

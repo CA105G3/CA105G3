@@ -134,5 +134,50 @@
     <filter-name>setCharacterEncoding</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  
+  <servlet>
+    <servlet-name>ImpressionServlet</servlet-name>
+    <servlet-class>com.impression.controller.ImpressionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ImpressionServlet</servlet-name>
+    <url-pattern>/impression/impression.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ImpressionVideo</servlet-name>
+    <servlet-class>com.impression.controller.ImpressionVideoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ImpressionVideo</servlet-name>
+    <url-pattern>/impression/impressionVideo.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>Imgservlet</servlet-name>
+    <servlet-class>com.impression.controller.Imgservlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Imgservlet</servlet-name>
+    <url-pattern>/impression/impressionServlet.do</url-pattern>
+  </servlet-mapping>
+
+<servlet>
+    <servlet-name>ImpressionPic</servlet-name>
+    <servlet-class>com.impression.controller.ImpressionPicServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ImpressionPic</servlet-name>
+    <url-pattern>/impression/impressionPic.do</url-pattern>
+  </servlet-mapping>
+  
+<servlet>
+    <servlet-name>Activityservlet</servlet-name>
+    <servlet-class>com.activity.controller.ActivityServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Activityservlet</servlet-name>
+    <url-pattern>/activity/activity.do</url-pattern>
+  </servlet-mapping>
 	
 </web-app>

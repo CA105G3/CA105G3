@@ -8,7 +8,7 @@ import com.joinact.model.JoinactVO;
 public interface ImpressionDAO_interface {
 	public void insert(ImpressionVO impressionVO);
     public void update(ImpressionVO impressionVO);
-    public void delete(String impNo);
-    public ImpressionVO findByPrimaryKey(String impNo);
+    public void delete(String impno);
+    public ImpressionVO findByPrimaryKey(String impno);
     public List<ImpressionVO> getAll();
 }
