@@ -11,9 +11,13 @@ private MemberDAO_interface dao;
 		dao=new MemberDAO();
 	}
 	
-	public MemberVO addMember(String memId,String memName,String pwd,String email,String gender,java.sql.Date birth,String addr,String allergy,String bloodType,String phone,String famHistory,String ident,String medHistory,String memStatus,String smoking,Integer locNo,java.sql.Date regDate,java.sql.Timestamp stayTime ) {
+	public MemberVO addMember(String memId,String memName,String pwd,String email,
+			String gender,java.sql.Date birth,String addr,
+			String allergy,String bloodType,String phone,String famHistory,
+			String ident,String medHistory,String memStatus,String smoking,
+			Integer locNo,java.sql.Date regDate,java.sql.Timestamp stayTime ) {
 		MemberVO memberVO = new MemberVO();
-		
+		System.out.println(stayTime);
 		memberVO.setAddr(addr);
 		memberVO.setAllergy(allergy);
 		memberVO.setBirth(birth);
@@ -36,7 +40,11 @@ private MemberDAO_interface dao;
 		return memberVO;
 	}
 	
-	public MemberVO updateMember(String memId,String memName,String pwd,String email,String gender,java.sql.Date birth,String addr,String allergy,String bloodType,String phone,String famHistory,String ident,String medHistory,String memStatus,String smoking,Integer locNo,java.sql.Date regDate,java.sql.Timestamp stayTime,String memNo) {
+	public MemberVO updateMember(String memId,String memName,String pwd,String email,
+			String gender,java.sql.Date birth,String addr,String allergy,
+			String bloodType,String phone,String famHistory,String ident,
+			String medHistory,String memStatus,String smoking,Integer locNo,
+			java.sql.Date regDate,java.sql.Timestamp stayTime,String memNo) {
 		MemberVO memberVO = new MemberVO();
 		
 		memberVO.setAddr(addr);

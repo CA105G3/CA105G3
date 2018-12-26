@@ -28,8 +28,16 @@ public class MemberDAO implements MemberDAO_interface{
 		}
 	
 	private static final String INSERT_STMT = 
-		"INSERT INTO  member(memno,memname,memid,addr,allergy,birth,bloodtype,email,famhistory,gender,ident,locno,medhistory,memstatus,phone,pwd,regdate,smoking,staytme) "
-		+ "VALUES ( ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'), ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		"INSERT INTO  member(memno,memname,memid,addr,"
+		+ "allergy,birth,bloodtype,email,"
+		+ "famhistory,gender,ident,locno,"
+		+ "medhistory,memstatus,phone,pwd,"
+		+ "regdate,smoking,staytime) "
+		+ "VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'), ?, ?, ?,"
+		+ "?,?,?,?,"
+		+ "?,?,?,?,"
+		+ "?,?,?,?,"
+		+ "?,?,?)";
 	private static final String GET_ALL_STMT = 
 		"SELECT * FROM member order by memno";
 	private static final String GET_ONE_STMT = 
@@ -37,8 +45,13 @@ public class MemberDAO implements MemberDAO_interface{
 	private static final String DELETE = 
 		"DELETE FROM member where memno = ?";
 	private static final String UPDATE = 
-		"UPDATE member set memname=?,memid=?,addr=?,allergy=?,birth=?,bloodtype=?,email=?,famhistory=?,gender=?,ident=?,locno=?,medhistory=?,memstatus=?,phone=?,pwd=?,regdate=?,smoking=?,staytme=?  where memno = ?";
+		"UPDATE member set memname=?,memid=?,addr=?,allergy=?,"
+		+ "birth=?,bloodtype=?,email=?,famhistory=?,"
+		+ "gender=?,ident=?,locno=?,medhistory=?,"
+		+ "memstatus=?,phone=?,pwd=?,regdate=?,"
+		+ "smoking=?,staytime=?  where memno = ?";
 
+	
 	@Override
 	public void insert(MemberVO memberVO) {
 		Connection con=null;
@@ -46,7 +59,7 @@ public class MemberDAO implements MemberDAO_interface{
 		try {
 			con=ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
-			
+			System.out.println("get data:"+memberVO.getMemName());
 			pstmt.setString(1,memberVO.getMemName());
 			pstmt.setString(2,memberVO.getMemId());
 			pstmt.setString(3,memberVO.getAddr());
@@ -59,10 +72,9 @@ public class MemberDAO implements MemberDAO_interface{
 			pstmt.setString(10,memberVO.getIdent());
 			pstmt.setInt(11,memberVO.getLocNo());
 			pstmt.setString(12,memberVO.getMedHistory());
-			pstmt.setString(5,memberVO.getMemStatus());
-			pstmt.setString(13,memberVO.getPhone());
-			pstmt.setString(14,memberVO.getPwd());
-			pstmt.setDate(15,memberVO.getBirth());
+			pstmt.setString(13,memberVO.getMemStatus());
+			pstmt.setString(14,memberVO.getPhone());
+			pstmt.setString(15,memberVO.getPwd());
 			pstmt.setDate(16,memberVO.getRegDate());
 			pstmt.setString(17,memberVO.getSmoking());
 			pstmt.setTimestamp(18,memberVO.getStayTime());
@@ -96,7 +108,7 @@ public class MemberDAO implements MemberDAO_interface{
 		try {
 			con=ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
-
+			
 			pstmt.setString(1,memberVO.getMemName());
 			pstmt.setString(2,memberVO.getMemId());
 			pstmt.setString(3,memberVO.getAddr());
@@ -109,10 +121,9 @@ public class MemberDAO implements MemberDAO_interface{
 			pstmt.setString(10,memberVO.getIdent());
 			pstmt.setInt(11,memberVO.getLocNo());
 			pstmt.setString(12,memberVO.getMedHistory());
-			pstmt.setString(5,memberVO.getMemStatus());
-			pstmt.setString(13,memberVO.getPhone());
-			pstmt.setString(14,memberVO.getPwd());
-			pstmt.setDate(15,memberVO.getBirth());
+			pstmt.setString(13,memberVO.getMemStatus());
+			pstmt.setString(14,memberVO.getPhone());
+			pstmt.setString(15,memberVO.getPwd());
 			pstmt.setDate(16,memberVO.getRegDate());
 			pstmt.setString(17,memberVO.getSmoking());
 			pstmt.setTimestamp(18,memberVO.getStayTime());

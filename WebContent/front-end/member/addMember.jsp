@@ -1,3 +1,4 @@
+<%@page import="java.sql.Timestamp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -43,6 +44,22 @@ MemberVO memVO = (MemberVO) request.getAttribute("memVO");
 </style>
 </head>
 <body bgcolor='white'>
+
+<% 
+  java.sql.Date regDate = null;
+  try {
+	    regDate = memVO.getRegDate();
+   } catch (Exception e) {
+	   regDate = new java.sql.Date(System.currentTimeMillis());
+   }
+  java.sql.Timestamp stayTime = null;
+  try{
+	  stayTime=memVO.getStayTime();
+  }catch(Exception e){
+	  stayTime=new java.sql.Timestamp(System.currentTimeMillis());
+  }
+%>
+
 <table id="table-1">
 	<tr><td>
 		 <h3>會員資料新增 - addMember.jsp</h3></td><td>
@@ -64,7 +81,7 @@ MemberVO memVO = (MemberVO) request.getAttribute("memVO");
  	<tr>
 		<td>會員名稱:</td>
 		<td><input type="TEXT" name="memid" size="45" 
-			 value="<%= (memVO==null)? "M0001" : memVO.getMemId()%>" /></td>
+			 value="<%= (memVO==null)? "David" : memVO.getMemId()%>" /></td>
 	</tr>
 	<tr>
 		<td>會員密碼:</td>
@@ -114,6 +131,11 @@ MemberVO memVO = (MemberVO) request.getAttribute("memVO");
 			 value="<%= (memVO==null)? "12345" : memVO.getLocNo()%>" /></td>
 	</tr>
 	<tr>
+		<td>地址:</td>
+		<td><input type="TEXT" name="addr" size="45" 
+			 value="<%= (memVO==null)? "中大路236巷22號" : memVO.getLocNo()%>" /></td>
+	</tr>
+	<tr>
 		<td>過去病史:</td>
 		<td><input type="TEXT" name="medhistory" size="45" 
 			 value="<%= (memVO==null)? "無" : memVO.getMedHistory()%>" /></td>
@@ -130,7 +152,7 @@ MemberVO memVO = (MemberVO) request.getAttribute("memVO");
 	</tr>
 	<tr>
 		<td>是否抽菸</td>
-		<td><select name="bloodtype">
+		<td><select name="smoking">
 			<option value="有" selected="selected">有</option>
 			<option value="沒有">沒有</option>
 		</select>
@@ -138,20 +160,15 @@ MemberVO memVO = (MemberVO) request.getAttribute("memVO");
 	</tr>
 	</table>
 	<br>
-	<input type="hidden" name="regdate" value="regDate">
+	<input type="hidden" name="memStatus" value="正常">
+	<input type="hidden" name="ident" value="一般會員">
+	<input type="hidden" name="regdate" value="<%=regDate%>">
+	<input type="hidden" name="staytime" value="<%=stayTime%>">
 	<input type="hidden" name="action" value="insert">
 	<input type="submit" value="送出新增">
 </FORM>
 </body>
 
-<% 
-  java.sql.Date regDate = null;
-  try {
-	    regDate = memVO.getRegDate();
-   } catch (Exception e) {
-	   regDate = new java.sql.Date(System.currentTimeMillis());
-   }
-%>
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
