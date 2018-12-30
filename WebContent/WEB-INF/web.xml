@@ -179,5 +179,22 @@
     <servlet-name>Activityservlet</servlet-name>
     <url-pattern>/activity/activity.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+		<servlet-name>MemberChefServlet</servlet-name>
+		<servlet-class>com.memberchef.controller.MemberChefServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemberChefServlet</servlet-name>
+		<url-pattern>/memberchef/memberchef.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>MemberChefImgServlet</servlet-name>
+		<servlet-class>com.memberchef.controller.MemberChefImgServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemberChefImgServlet</servlet-name>
+		<url-pattern>/memberchef/memberchefImg.do</url-pattern>
+	</servlet-mapping>
 	
 </web-app>

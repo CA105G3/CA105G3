@@ -1,17 +1,23 @@
 package com.memberchef.model;
 
-import java.util.*;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.*;
+import java.util.*;
 
-public class MemberChefJDBCDAO implements MemberChefDAO_interface{
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA105G3";
-	String passwd = "123456";
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+public class MemberChefDAO implements MemberChefDAO_interface{
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String INSERT_STMT = 
 		"INSERT INTO memberchef VALUES ('CHEF'||lpad(to_char(memberchef_seq.NEXTVAL), 4, '0'),'M0002', ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -31,8 +37,7 @@ public class MemberChefJDBCDAO implements MemberChefDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, memberChefVO.getChefName());
@@ -46,8 +51,6 @@ public class MemberChefJDBCDAO implements MemberChefDAO_interface{
 
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "+ e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "	+ se.getMessage());
 		} finally {
@@ -74,8 +77,7 @@ public class MemberChefJDBCDAO implements MemberChefDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);		
 
 			pstmt.setString(1, memberChefVO.getChefName());
@@ -90,8 +92,6 @@ public class MemberChefJDBCDAO implements MemberChefDAO_interface{
 
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "+ e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "	+ se.getMessage());
 		} finally {
@@ -119,15 +119,12 @@ public class MemberChefJDBCDAO implements MemberChefDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 			pstmt.setString(1, chefno);
 
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "+ e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "	+ se.getMessage());
 		} finally {
@@ -157,8 +154,7 @@ public class MemberChefJDBCDAO implements MemberChefDAO_interface{
 		MemberChefVO memberChefVO = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			pstmt.setString(1, chefno);
 			rs = pstmt.executeQuery();
@@ -178,8 +174,6 @@ public class MemberChefJDBCDAO implements MemberChefDAO_interface{
 			}
 			
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "+ e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "	+ se.getMessage());
 		} finally {
@@ -210,8 +204,7 @@ public class MemberChefJDBCDAO implements MemberChefDAO_interface{
 		MemberChefVO memberChefVO = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 			
@@ -219,18 +212,18 @@ public class MemberChefJDBCDAO implements MemberChefDAO_interface{
 				memberChefVO = new MemberChefVO();
 				memberChefVO.setChefNo(rs.getString(1));
 				memberChefVO.setMemNo(rs.getString(2));
-				memberChefVO.setChefPic(rs.getBytes(3));
-				memberChefVO.setChefDescrip(rs.getString(4));
-				memberChefVO.setChefStatus(rs.getString(5));
-				memberChefVO.setChefPhone(rs.getString(6));
-				memberChefVO.setChefAddr(rs.getString(7));
-				memberChefVO.setChefRep(rs.getString(8));
+				memberChefVO.setChefName(rs.getString(3));
+				memberChefVO.setChefStoreName(rs.getString(4));
+				memberChefVO.setChefPic(rs.getBytes(5));
+				memberChefVO.setChefDescrip(rs.getString(6));
+				memberChefVO.setChefStatus(rs.getString(7));
+				memberChefVO.setChefPhone(rs.getString(8));
+				memberChefVO.setChefAddr(rs.getString(9));
+				memberChefVO.setChefRep(rs.getString(10));
 				list.add(memberChefVO);
 			}
 			
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "+ e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "	+ se.getMessage());
 		} finally {
@@ -251,22 +244,6 @@ public class MemberChefJDBCDAO implements MemberChefDAO_interface{
 		}
 		return list;
 	}
-
-	public static byte[] getPictureByteArray(String path) throws IOException {
-		File file = new File(path);
-		FileInputStream fis = new FileInputStream(file);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		byte[] buffer = new byte[8192];
-		int i;
-		while ((i = fis.read(buffer)) != -1) {
-			baos.write(buffer, 0, i);
-		}
-		baos.close();
-		fis.close();
-
-		return baos.toByteArray();
-	}
-			
 	public static void main(String[] args) {
 		MemberChefJDBCDAO dao = new MemberChefJDBCDAO();
 		

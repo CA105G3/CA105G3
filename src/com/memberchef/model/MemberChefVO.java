@@ -5,6 +5,8 @@ public class MemberChefVO implements java.io.Serializable{
 		
 	private String chefNo;
 	private String memNo;
+	private String chefName;
+	private String chefStoreName;
 	private byte[] chefPic;
 	private String chefDescrip;
 	private String chefStatus;
@@ -23,6 +25,18 @@ public class MemberChefVO implements java.io.Serializable{
 	}
 	public void setMemNo(String memNo) {
 		this.memNo = memNo;
+	}
+	public String getChefName() {
+		return chefName;
+	}
+	public void setChefName(String chefName) {
+		this.chefName = chefName;
+	}
+	public String getChefStoreName() {
+		return chefStoreName;
+	}
+	public void setChefStoreName(String chefStoreName) {
+		this.chefStoreName = chefStoreName;
 	}
 	public byte[] getChefPic() {
 		return chefPic;
