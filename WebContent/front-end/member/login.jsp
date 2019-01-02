@@ -1,3 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.member.model.*"%>
+<%
+	MemberVO memVO = (MemberVO)session.getAttribute("memVO");
+%>
 <!DOCTYPE html>
 <html lang="">
 	<head>
@@ -45,6 +52,8 @@
 				
 					<!-- 右選單 -->
 					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">${(memVO==null)?'訪客': memVO.memName} 您好!</a></li>
+						<li><a href="${(memVO==null)?'login.jsp':'member.do?action=logout'}">${(memVO==null)?'登入':'登出'}</a></li>
 						<li><a href="#">個人設定</a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">繁體中文 <b class="caret"></b></a>
@@ -83,6 +92,15 @@
     			</table>
     			<input type="hidden" name="action" value="authorization">
     			</FORM>
+    			
+    		<c:if test="${not empty errorMsgs}">
+			<font style="color:red">請修正以下錯誤:</font>
+			<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+			</c:forEach>
+			</ul>
+			</c:if>
 			</div>
 		</div>	
 

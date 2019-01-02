@@ -4,6 +4,7 @@
 <%@ page import="com.member.model.*"%>
 <%
 	MemberVO memVO = (MemberVO)session.getAttribute("memVO");
+	request.getSession().setAttribute("memno",memVO.getMemNo());
 %>
 <!DOCTYPE html>
 <html lang="">
@@ -52,8 +53,8 @@
 					<!-- 右選單 -->
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="#">${(memVO==null)?'訪客': memVO.memName} 您好!</a></li>
-						<li><a href="${(memVO==null)?'login.html':'member.do?action=logout'}">${(memVO==null)?'登入':'登出'}</a></li>
-						<li><a href="#">個人設定</a></li>
+						<li><a href="${(memVO==null)?'login.jsp':'member.do?action=logout'}">${(memVO==null)?'登入':'登出'}</a></li>
+						<li><a href="${(memVO==null)?'#':'member.do?action=getOne_For_Update'}">個人設定</a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">繁體中文 <b class="caret"></b></a>
 							<ul class="dropdown-menu">
@@ -75,14 +76,7 @@
 		<br>
 		<br>
 		<br>
-		<c:if test="${not empty errorMsgs}">
-		<font style="color:red">請修正以下錯誤:</font>
-		<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-		</ul>
-		</c:if>
+
 		
 		<script src="https://code.jquery.com/jquery.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>

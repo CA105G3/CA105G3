@@ -294,10 +294,16 @@ public class MemberServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			
+			String memno;
 			try {
 				/***************************1.接收請求參數****************************************/
-				String memno = new String(req.getParameter("memno"));
+				
+				if(req.getParameter("memno")==null) {
+					memno = (String)(req.getSession().getAttribute("memno"));
+				}else {
+					memno = new String(req.getParameter("memno"));
+				}
+				
 				
 				/***************************2.開始查詢資料****************************************/
 				MemberService memSvc = new MemberService();
@@ -516,7 +522,7 @@ public class MemberServlet extends HttpServlet {
 		    
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/member/index.jsp");
+						.getRequestDispatcher("/front-end/member/login.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -524,7 +530,7 @@ public class MemberServlet extends HttpServlet {
 		    if (!allowUser(account,password)) {          //【帳號 , 密碼無效時】
 		    	errorMsgs.add("帳號或密碼錯誤");
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/member/index.jsp");
+						.getRequestDispatcher("/front-end/member/login.jsp");
 				failureView.forward(req, res);
 		      }else {                                       //【帳號 , 密碼有效時, 才做以下工作】
 		        HttpSession session = req.getSession();
@@ -541,7 +547,7 @@ public class MemberServlet extends HttpServlet {
 		           }
 		         }catch (Exception ignored) { }
 
-		        res.sendRedirect(req.getContextPath()+"/front-end/member/index.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
+		        res.sendRedirect(req.getContextPath()+"/front-end/member/login.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
 		      }
 		}//end auth
 		
