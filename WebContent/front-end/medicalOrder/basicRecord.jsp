@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.member.model.*" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <link rel="Shortcut Icon" type="image/x-icon"
 	href="<%=request.getContextPath()%>/template/images/favicon.ico">
-<title>管理員專區</title>
+<title>初診基本資料表</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -105,7 +107,7 @@
 				<div class="row slider-text align-items-end">
 					<div class="col-md-7 col-sm-12 ftco-animate mb-5">
 						<h1 class="mb-3"
-							data-scrollax=" properties: { translateY: '70%', opacity: .9}">管理員專區</h1>
+							data-scrollax=" properties: { translateY: '70%', opacity: .9}">初診基本資料表</h1>
 					</div>
 				</div>
 			</div>
@@ -113,49 +115,111 @@
 	</section>
 	<br>
 <!-- 幻燈片輪播 -->
+<%-- 錯誤表列 --%>
+<c:if test="${not empty errorMsgs}">
+	<font style="color:red">請修正以下錯誤:</font>
+	<ul>
+		<c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
+<%-- 錯誤表列 --%>
+
+
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-12 col-sm-4"></div>
-			<div class="col-xs-12 col-sm-4">
-				<form method="post"
-					action="<%=request.getContextPath()%>/back-end/admin/admin.do">
-					<table class="table table-hover table-bordered align-middle">
-						<thead>
-							<tr>
-								<th class="text-center bg-info text-white"><div>管理員登入</div></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="text-center">帳號：<input type="text"
-									name="adminId"></td>
-							</tr>
-							<tr>
-								<td class="text-center">密碼：<input type="password"
-									name="adminPsw"></td>
-							</tr>
-							<tr>
-								<td>
-									<div class="text-center">
-										<input type="submit" class="btn btn-info" value="登入">
-										<!-- 										<input type="submit" class="btn btn-danger" name="cancel" value="取消"> -->
-										<input type="hidden" name=action value="adminLogin"><br>
-									<c:if test="${not empty errorMsgs}">
-										<font style="color: red">請修正以下錯誤:</font>
-											<c:forEach var="message" items="${errorMsgs}">
-												<li style="color: red">${message}</li>
-											</c:forEach>
-									</c:if>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</form>
+			<div class="col-xs-12 col-sm-3">
+				
 			</div>
-			<div class="col-xs-12 col-sm-4"></div>
+			<div class="col-xs-12 col-sm-6">
+				
+				<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do" name="form1">
+					
+					<!-- 血型 -->
+					<div class="form-group row">
+						<label for="bloodType" class="col-sm-2 col-form-label">血型</label>
+						<div class="col-sm-10" name="bloodType">
+							<div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="bloodType" id="bloodTypeA" value="A">
+							  <label class="form-check-label" for="inlineRadio1">A</label>
+							</div>
+							<div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="bloodType" id="bloodTypeB" value="B">
+							  <label class="form-check-label" for="inlineRadio2">B</label>
+							</div>
+							<div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="bloodType" id="bloodTypeO" value="O">
+							  <label class="form-check-label" for="inlineRadio3">O</label>
+							</div>
+							<div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="bloodType" id="bloodTypeAB" value="AB">
+							  <label class="form-check-label" for="inlineRadio3">AB</label>
+							</div>
+						</div>
+					</div>
+
+					<!-- 抽菸習慣 -->
+					<div class="form-group row">
+						<label for="smoking" class="col-sm-2 col-form-label">抽菸習慣</label>
+						<div class="col-sm-10" name="smoking">
+							<div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="smoking" id="smokingYes" value="有">
+							  <label class="form-check-label" for="inlineRadio1">有</label>
+							</div>
+							<div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="smoking" id="smokingNo" value="沒有">
+							  <label class="form-check-label" for="inlineRadio2">沒有</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="allergy" class="col-sm-2 col-form-label">藥物過敏</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="allergy" name="allergy"
+								placeholder="請填寫會過敏的藥物，若無請填寫「無」">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="medHistory" class="col-sm-2 col-form-label">過往病史</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="medHistory" name="medHistory"
+								placeholder="請填寫過去曾進行過的手術以及慢性疾病，若無請填寫「無」">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="famHistory" class="col-sm-2 col-form-label">家族病史</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="famHistory" name="famHistory"
+								placeholder="請填寫家族病史，若無請填寫「無」">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="col-sm-10 text-center">
+							<input type="submit" class="btn bg-primary text-white" value="新增">
+							<input type="hidden" name="action" value="updateBasicRecord">
+						</div>
+					</div>
+
+				</form>
+				
+				
+				
+			</div>
+			<div class="col-xs-12 col-sm-3">
+				
+			</div>
 		</div>
 	</div>
+		
+
+
+
+
+
+
 
 	<br>
 	<script src="<%=request.getContextPath()%>/template/js/jquery.min.js"></script>

@@ -1,12 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.medicalorder.model.*"%>
 <!DOCTYPE html>
+<%
+	
+%>
 <html lang="en">
 <head>
 <link rel="Shortcut Icon" type="image/x-icon"
 	href="<%=request.getContextPath()%>/template/images/favicon.ico">
-<title>管理員專區</title>
+<title>會員病例歷史紀錄</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -105,7 +108,7 @@
 				<div class="row slider-text align-items-end">
 					<div class="col-md-7 col-sm-12 ftco-animate mb-5">
 						<h1 class="mb-3"
-							data-scrollax=" properties: { translateY: '70%', opacity: .9}">管理員專區</h1>
+							data-scrollax=" properties: { translateY: '70%', opacity: .9}">會員病例歷史紀錄</h1>
 					</div>
 				</div>
 			</div>
@@ -113,49 +116,48 @@
 	</section>
 	<br>
 <!-- 幻燈片輪播 -->
+
+
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-12 col-sm-4"></div>
-			<div class="col-xs-12 col-sm-4">
-				<form method="post"
-					action="<%=request.getContextPath()%>/back-end/admin/admin.do">
-					<table class="table table-hover table-bordered align-middle">
-						<thead>
-							<tr>
-								<th class="text-center bg-info text-white"><div>管理員登入</div></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="text-center">帳號：<input type="text"
-									name="adminId"></td>
-							</tr>
-							<tr>
-								<td class="text-center">密碼：<input type="password"
-									name="adminPsw"></td>
-							</tr>
-							<tr>
-								<td>
-									<div class="text-center">
-										<input type="submit" class="btn btn-info" value="登入">
-										<!-- 										<input type="submit" class="btn btn-danger" name="cancel" value="取消"> -->
-										<input type="hidden" name=action value="adminLogin"><br>
-									<c:if test="${not empty errorMsgs}">
-										<font style="color: red">請修正以下錯誤:</font>
-											<c:forEach var="message" items="${errorMsgs}">
-												<li style="color: red">${message}</li>
-											</c:forEach>
-									</c:if>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</form>
-			</div>
-			<div class="col-xs-12 col-sm-4"></div>
+			<table class="table table-striped table-bordered">
+			  <thead>
+			    <tr>
+			      <th scope="col">醫療人員編號</th>
+			      <th scope="col">診療狀態</th>
+			      <th scope="col">診療費用</th>
+			      <th scope="col">約診時間</th>
+			      <th scope="col">病況說明</th>
+			      <th scope="col">問診影音紀錄</th>
+			      <th scope="col">問診文字紀錄</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <td scope="col">醫療人員編號</td>
+			      <td scope="col">診療狀態</td>
+			      <td scope="col">診療費用</td>
+			      <td scope="col">約診時間</td>
+			      <td scope="col">病況說明</td>
+			      <td scope="col">問診影音紀錄</td>
+			      <td scope="col">問診文字紀錄</td>
+			    </tr>
+			  </tbody>
+			</table>
+
+
+
+
+
+
+
+
 		</div>
 	</div>
+
+
+
+
 
 	<br>
 	<script src="<%=request.getContextPath()%>/template/js/jquery.min.js"></script>
