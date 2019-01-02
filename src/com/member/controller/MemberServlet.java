@@ -127,7 +127,7 @@ public class MemberServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			
+			MemberService memSvc_checkid= new MemberService();
 			try {
 				//ID:
 				String memid=req.getParameter("memid");
@@ -137,6 +137,12 @@ public class MemberServlet extends HttpServlet {
 				} else if(!memid.trim().matches(memidReg)) { //以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("會員帳號: 只能是英文字母、數字 , 且長度必需為20內");
 	            }
+				List<MemberVO> check_list = memSvc_checkid.getAll();
+				for(MemberVO memVO : check_list) {
+					if(memid.equals(memVO.getMemName())) {
+						errorMsgs.add("會員帳號已重複");
+					}
+				}
 				//PWD:
 				String mempsw =req.getParameter("mempsw");
 				String mempswReg = "^[(a-zA-Z0-9)]{1,20}$";
@@ -298,7 +304,7 @@ public class MemberServlet extends HttpServlet {
 			try {
 				/***************************1.接收請求參數****************************************/
 				
-				if(req.getParameter("memno")==null) {
+				if(req.getParameter("memno").equals(null)) {
 					memno = (String)(req.getSession().getAttribute("memno"));
 				}else {
 					memno = new String(req.getParameter("memno"));
@@ -547,7 +553,7 @@ public class MemberServlet extends HttpServlet {
 		           }
 		         }catch (Exception ignored) { }
 
-		        res.sendRedirect(req.getContextPath()+"/front-end/member/login.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
+		        res.sendRedirect(req.getContextPath()+"/front-end/member/index.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
 		      }
 		}//end auth
 		
@@ -556,6 +562,12 @@ public class MemberServlet extends HttpServlet {
 			session.removeAttribute("memVO");
 			res.sendRedirect(req.getContextPath()+"/front-end/member/index.jsp");
 		}//end logout
+		
+		if("signup".equals(action)) {
+			RequestDispatcher View = req
+					.getRequestDispatcher("/front-end/member/addMember.jsp");
+			View.forward(req, res);
+		}
 	}
 	  protected boolean allowUser(String account, String password) {
 		  	MemberService memSvc = new MemberService();

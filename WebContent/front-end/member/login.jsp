@@ -37,7 +37,7 @@
 					<!-- 左選單 -->
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="#">關於CSS可樂</a></li>
-						<li><a href="#">CSS教學</a></li>
+						<li><a href="<%=request.getContextPath()%>/front-end/member/index.jsp">回首頁</a></li>
 						<li><a href="#">CSS範例</a></li>
 						<li><a href="#">原創CSS</a></li>
 					</ul>
@@ -87,10 +87,10 @@
     				</tr>
     				<tr>
     					<td><INPUT TYPE="SUBMIT" value="送出"></td>
-    					<td><input type="reset" value="清除"></td>
+    					<td><input type="reset" value="清除"><input type="button" value="註冊" onclick="register()"> </td>
     				</tr>
-    			</table>
     			<input type="hidden" name="action" value="authorization">
+    			</table>
     			</FORM>
     			
     		<c:if test="${not empty errorMsgs}">
@@ -106,7 +106,11 @@
 
 		
 		
-		
+		<script type="text/javascript">
+			function register(){
+				document.location.href="member.do?action=signup";
+			}
+		</script>
 		<script src="https://code.jquery.com/jquery.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	</body>
