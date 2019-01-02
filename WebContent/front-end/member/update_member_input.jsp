@@ -69,7 +69,7 @@
 	</tr>
 	<tr>
 		<td>會員帳號:</td>
-		<td><input name="memid" type="text" value="<%=memVO.getMemId()%>"></td>
+		<td><input name="memid" type="text" value="<%=memVO.getMemId()%>" readonly></td>
 	</tr>
 	<tr>
 		<td>會員密碼:</td>
