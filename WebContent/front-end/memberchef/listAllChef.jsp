@@ -38,8 +38,8 @@
       <div class="owl-carousel owl-theme" id="carousel-id">
       	<c:forEach var="chefVO" items="${list}">
 	        <div class="item ">
-	          <div class="card" onclick="location.href='<%=request.getContextPath()%>/memberchef/memberchef.do?action=getOne_For_Display&chefNo=${chefVO.chefNo}';">
-	            <img class="card-img-top img-fluid" src="<%=request.getContextPath()%>/memberchef/memberchefImg.do?chefno=${chefVO.chefNo}" alt="Card image cap">
+	          <div class="card" onclick="location.href='<%=request.getContextPath()%>/front-end/memberchef/memberchef.do?action=getOne_For_Display&chefNo=${chefVO.chefNo}';">
+	            <img class="card-img-top img-fluid" src="<%=request.getContextPath()%>/front-end/memberchef/memberchefImg.do?chefNo=${chefVO.chefNo}" alt="Card image cap">
 	            <div class="card-body">
 	              <h4 class="card-title">${chefVO.chefStoreName}</h4>
 	              <p class="card-text">${chefVO.chefDescrip}</p>
@@ -52,9 +52,9 @@
     </div>
   </div>
 
-	<script src="<%=request.getContextPath()%>/memberchef/js/jquery-3.3.1.min.js"></script>
-	<script src="<%=request.getContextPath()%>/memberchef/js/owl.carousel.min.js"></script>
-
+	<script src="<%=request.getContextPath()%>/front-end/memberchef/js/jquery-3.3.1.min.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/memberchef/js/owl.carousel.min.js"></script>
+  
   <script type="text/javascript">
   $(document).ready(function(){
     $('.owl-carousel').owlCarousel({
@@ -69,7 +69,7 @@
                 items:3
             },
             1000:{
-                items:3
+                items:5
             }
         }
     })  

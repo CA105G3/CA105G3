@@ -47,7 +47,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
-                    <img src="<%=request.getContextPath()%>/memberchef/memberchefImg.do?chefno=<%=chefVO.getChefNo()%>" id="preview"/>
+                    <img src="<%=request.getContextPath()%>/front-end/memberchef/memberchefImg.do?chefNo=<%=chefVO.getChefNo()%>" id="preview"/>
                     <div class="file btn btn-lg btn-primary">
                         Select Photo
                         <input type="file" name="chefPic" accept="image/*" onchange="readURL(this);" value="<%=chefVO.getChefPic()%>"/>

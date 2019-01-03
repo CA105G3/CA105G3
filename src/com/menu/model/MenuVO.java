@@ -5,7 +5,7 @@ public class MenuVO implements java.io.Serializable{
 	
 	private String menuNo;
 	private String chefNo;
-	private Integer unitPrice;
+	private int unitPrice;
 	private String mainCourse;
 	private byte[] menuPic;
 	private String deliverable;
@@ -22,10 +22,10 @@ public class MenuVO implements java.io.Serializable{
 	public void setChefNo(String chefNo) {
 		this.chefNo = chefNo;
 	}
-	public Integer getUnitPrice() {
+	public int getUnitPrice() {
 		return unitPrice;
 	}
-	public void setUnitPrice(Integer unitPrice) {
+	public void setUnitPrice(int unitPrice) {
 		this.unitPrice = unitPrice;
 	}
 	public String getMainCourse() {

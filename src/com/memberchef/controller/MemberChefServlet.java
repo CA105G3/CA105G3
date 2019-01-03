@@ -32,7 +32,7 @@ public class MemberChefServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
-        if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求  
+        if ("getOne_For_Display".equals(action)) { // 來自*.jsp的請求  
 			
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -50,7 +50,7 @@ public class MemberChefServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/memberchef/select_page.jsp");
+							.getRequestDispatcher("/front\u002dend/memberchef/listAllChef.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -65,14 +65,14 @@ public class MemberChefServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/memberchef/select_page.jsp");
+							.getRequestDispatcher("/front\u002dend/memberchef/listAllChef.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)***********/
 				req.setAttribute("chefVO", chefVO); // 資料庫取出的chefVO物件,存入req
-				String url = "/memberchef/memberchef.jsp";
+				String url = "/front\u002dend/memberchef/memberchef.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交memberchef.jsp
 				successView.forward(req, res);				
 				
@@ -80,14 +80,14 @@ public class MemberChefServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/memberchef/select_page.jsp");
+						.getRequestDispatcher("/front\u002dend/memberchef/listAllChef.jsp");
 				failureView.forward(req, res);
 			}
 		}
         
 //				=============================================================================
         
-        if ("getOne_For_Update".equals(action)) { // 來自listAllChef.jsp的請求
+        if ("getOne_For_Update".equals(action)) { // 來自memberchef.jsp的請求
 
         	Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -101,14 +101,14 @@ public class MemberChefServlet extends HttpServlet {
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("chefVO", chefVO); // 資料庫取出的chefVO物件,存入req
-				String url = "/memberchef/updateChef.jsp";
+				String url = "/front\u002dend/memberchef/updateChef.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交updateChef.jsp
 				successView.forward(req, res);	
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
 				errorMsgs.put("Exception", "無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("listAllChef.jsp");
+						.getRequestDispatcher("/front\u002dend/memberchef/memberchef.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -184,7 +184,7 @@ public class MemberChefServlet extends HttpServlet {
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/memberchef/updateChef.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front\u002dend/memberchef/updateChef.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -195,14 +195,14 @@ public class MemberChefServlet extends HttpServlet {
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)***********/
 				req.setAttribute("chefVO", chefVO);
-				String url = "/memberchef/memberchef.jsp";
+				String url = "/front\u002dend/memberchef/memberchef.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後轉交memberchef.jsp
 				successView.forward(req, res);				
 				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
 				errorMsgs.put("Exception",e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/memberchef/updateChef.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front\u002dend/memberchef/updateChef.jsp");
 				failureView.forward(req, res);
 			}
         }
@@ -267,7 +267,7 @@ public class MemberChefServlet extends HttpServlet {
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/memberchef/addChef.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front\u002dend/memberchef/addChef.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -277,14 +277,14 @@ public class MemberChefServlet extends HttpServlet {
 				chefSvc.addMemberChef(chefName, chefStoreName, chefPic, chefDescrip, "啓用", chefPhone, chefAddr, chefRep);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/memberchef/listAllChef.jsp";
+				String url = "/front\u002dend/memberchef/listAllChef.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
 				errorMsgs.put("Exception",e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/memberchef/addChef.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front\u002dend/memberchef/addChef.jsp");
 				failureView.forward(req, res);
 			}
 		}

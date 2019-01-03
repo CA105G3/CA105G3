@@ -197,4 +197,21 @@
 		<url-pattern>/memberchef/memberchefImg.do</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>MenuServlet</servlet-name>
+		<servlet-class>com.menu.controller.MenuServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MenuServlet</servlet-name>
+		<url-pattern>/front-end/menu/menu.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>MenuImgServlet</servlet-name>
+		<servlet-class>com.menu.controller.MenuImgServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MenuImgServlet</servlet-name>
+		<url-pattern>/front-end/menu/menuImg.do</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

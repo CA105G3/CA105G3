@@ -36,7 +36,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
-                    <img src="<%=request.getContextPath()%>/memberchef/memberchefImg.do?chefno=${chefVO.chefNo}" alt=""/>
+                    <img src="<%=request.getContextPath()%>/front-end/memberchef/memberchefImg.do?chefNo=${chefVO.chefNo}" alt=""/>
                 </div>
             </div>
             <div class="col-md-6">

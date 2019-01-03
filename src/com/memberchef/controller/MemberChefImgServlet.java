@@ -16,9 +16,9 @@ public class MemberChefImgServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		String chefno = req.getParameter("chefno");
+		String chefNo = req.getParameter("chefNo");
 		MemberChefService chefSvc = new MemberChefService();
-		byte[] pic = chefSvc.getOneChef(chefno).getChefPic();
+		byte[] pic = chefSvc.getOneChef(chefNo).getChefPic();
 		
 		ServletOutputStream out = res.getOutputStream();
 		res.setContentLength(pic.length);

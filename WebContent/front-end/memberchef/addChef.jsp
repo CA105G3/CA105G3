@@ -141,7 +141,7 @@
                             </div>
                             <div class="col-md-8">
                                 <input type="TEXT" name="chefName" size="45" placeholder="請輸入廚師姓名" 
-                                value="${param.chefName}"/></td>
+                                value="${param.chefName}"/>
                                 <br><div class="errMsg">${errorMsgs.chefName}</div>
                             </div>
                         </div>
@@ -151,7 +151,7 @@
                             </div>
                             <div class="col-md-8">
                                 <input type="TEXT" name="chefAddr" size="45" placeholder="請輸入地址" 
-                                value="${param.chefAddr}"/></td>
+                                value="${param.chefAddr}"/>
                                 <br><div class="errMsg">${errorMsgs.chefAddr}</div>
                             </div>
                         </div>
@@ -161,7 +161,7 @@
                             </div>
                             <div class="col-md-8">
                                 <input type="TEL" name="chefPhone" size="45" placeholder="請輸入電話" 
-                                value="${param.chefPhone}"/></td>
+                                value="${param.chefPhone}"/>
                                 <br><div class="errMsg">${errorMsgs.chefPhone}</div>
                             </div>
                         </div>
@@ -171,7 +171,7 @@
                             </div>
                             <div class="col-md-8">
                                 <input type="TEL" name="chefRep" size="45" placeholder="請輸入負責人" 
-                                value="${param.chefRep}"/></td>
+                                value="${param.chefRep}"/>
                                 <br><div class="errMsg">${errorMsgs.chefRep}</div>
                             </div>
                         </div>
@@ -187,7 +187,7 @@
                             <div class="col-md-12">
                                 <input type="hidden" name="action" value="insert">
                                 <button type="submit" class="small button">送出新增</button>
-                                <button type="reset" class="small button" onclick=function>清空重填</button>
+                                <button type="reset" class="small button">清空重填</button>
                             </div>
                         </div>
                     </div>
