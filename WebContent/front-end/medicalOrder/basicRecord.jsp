@@ -5,6 +5,8 @@
 <%@ page import="com.member.model.*" %>
 <!DOCTYPE html>
 <html lang="en">
+
+
 <head>
 <link rel="Shortcut Icon" type="image/x-icon"
 	href="<%=request.getContextPath()%>/template/images/favicon.ico">

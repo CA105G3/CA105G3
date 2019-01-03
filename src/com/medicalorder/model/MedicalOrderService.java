@@ -1,5 +1,6 @@
 package com.medicalorder.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MedicalOrderService {
@@ -64,4 +65,8 @@ public class MedicalOrderService {
 		return dao.getAll();
 	}
 	
+	public List<MedicalOrderVO> findListforMember(String memNo){
+		return dao.findListforMember(memNo);	
+	}
+
 }

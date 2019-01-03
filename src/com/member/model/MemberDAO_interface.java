@@ -11,4 +11,5 @@ public interface MemberDAO_interface {
     public MemberVO findByPrimaryKey(String memberNo);
     public List<MemberVO> getAll();
     public MemberVO findByID(String memid);
+    public MemberVO UpdateForBasicRecord(MemberVO memberVO);
 }

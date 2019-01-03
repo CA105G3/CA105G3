@@ -9,6 +9,7 @@ import java.util.List;
 import javax.print.attribute.standard.RequestingUserName;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,9 @@ import javax.servlet.http.Part;
 import com.medicalorder.model.MedicalOrderDAO;
 import com.medicalorder.model.MedicalOrderService;
 import com.medicalorder.model.MedicalOrderVO;
+import com.member.model.*;
 
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class MedicalOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -31,7 +34,72 @@ public class MedicalOrderServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-
+		
+		if("updateBasicRecord".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/			
+//			String memId = req.getParameter("memId");	//整合版
+			String memId = "David";	//測試版
+			
+			String bloodType = req.getParameter("bloodType");
+			if(bloodType == null) {
+				errorMsgs.add("請選擇血型");
+			}
+			
+			String smoking = req.getParameter("smoking");
+			if(smoking == null) {
+				errorMsgs.add("請選擇是否抽菸");
+			}
+			
+			String allergy = req.getParameter("allergy");
+			if (allergy == null || allergy.trim().length() == 0) {
+				errorMsgs.add("請填寫是否有藥物過敏，若無請填寫「無」");
+			}
+			
+			String medHistory = req.getParameter("medHistory");
+			if (allergy == null || allergy.trim().length() == 0) {
+				errorMsgs.add("請填寫是否有過往病史，若無請填寫「無」");
+			}
+			
+			String famHistory = req.getParameter("famHistory");
+			if (allergy == null || allergy.trim().length() == 0) {
+				errorMsgs.add("請填寫是否有家族病史，若無請填寫「無」");
+			}
+			
+			MemberVO memberVO = new MemberVO();
+			memberVO.setBloodType(bloodType);
+			memberVO.setSmoking(smoking);
+			memberVO.setAllergy(allergy);
+			memberVO.setMedHistory(medHistory);
+			memberVO.setFamHistory(famHistory);
+			memberVO.setMemId(memId);
+			
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("memberVO", memberVO);
+				RequestDispatcher failureData = req
+						.getRequestDispatcher("/front-end/medicalOrder/basicRecord.jsp");
+				failureData.forward(req, res);
+				return;
+			}
+			/*************************** 2.開始新增資料 ***************************************/
+			MemberService memSvc = new MemberService();
+			memberVO = memSvc.UpdateForBasicRecord(memId, bloodType, smoking, allergy, medHistory, famHistory);
+			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+			req.setAttribute("memberVO", memberVO);
+			String url = "/front-end/medicalOrder/medicalPay.jsp";
+			RequestDispatcher successData = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+			successData.forward(req, res);
+			/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureData = req.getRequestDispatcher("/front-end/medicalOrder/basicRecord.jsp");
+				failureData.forward(req, res);
+			}		
+		}
+		
+		
 		// 新增一筆資料
 		if ("insert".equals(action)) {
 
@@ -88,12 +156,20 @@ public class MedicalOrderServlet extends HttpServlet {
 				String moCancelReason = req.getParameter("moCancelReason");
 				
 				// 問診影音紀錄
-//				Part moVideo = req.getPart("moVideo");
-//				if(moVideo.getSubmittedFileName().equals(null)||moVideo.getSubmittedFileName().trim().length()==0)
-//					errorMsgs.add("請上傳PPT");
-//				InputStream fileContent = moVideo.getInputStream();
-//				byte[] moVideoUp=readFully(fileContent);
-
+				
+				byte[] moVideo = null;
+				
+				Part part = req.getPart("moVideo");
+				if(part.getSubmittedFileName().equals("")||part.getSubmittedFileName().trim().length()==0) {
+					errorMsgs.add("請上傳圖片");
+					moVideo = null;
+				}else {
+					InputStream in = part.getInputStream();
+					moVideo = new byte[in.available()];
+					in.read(moVideo);
+					in.close();
+				}
+					
 				// 問診文字紀錄
 				String moText = req.getParameter("moText").trim();
 				if (moText == null || moText.trim().length() == 0) {
@@ -106,7 +182,7 @@ public class MedicalOrderServlet extends HttpServlet {
 				medicalOrderVO.setMoStatus(moStatus);
 				medicalOrderVO.setMoCost(moCost);
 				medicalOrderVO.setMoTime(moTime);
-				medicalOrderVO.setMoVideo(null);
+				medicalOrderVO.setMoVideo(moVideo);
 				medicalOrderVO.setMoCancelReason(moCancelReason);
 				medicalOrderVO.setMoIntro(moIntro);
 				medicalOrderVO.setMoText(moText);
@@ -120,8 +196,8 @@ public class MedicalOrderServlet extends HttpServlet {
 				}
 				/*************************** 2.開始新增資料 ***************************************/
 				MedicalOrderService MedicalOrderSvc = new MedicalOrderService();
-				medicalOrderVO = MedicalOrderSvc.addMedicalOrder(memNo, drNo, moStatus, moCost, moTime, moIntro, moCancelReason ,null,
-						moText);
+				medicalOrderVO = MedicalOrderSvc.addMedicalOrder(memNo, drNo, moStatus, moCost, moTime, moIntro,
+						moCancelReason , moVideo ,moText);
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 				req.setAttribute("medicalOrderVO", medicalOrderVO);
 				String url = "/front-end/medicalOrder/listAllMedicalOrder.jsp";

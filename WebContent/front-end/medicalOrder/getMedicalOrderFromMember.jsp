@@ -1,56 +1,44 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.medicalorder.model.*"%>
-<!DOCTYPE html>
+<%@ page import="com.doctor.model.*"%>
+<%@ page import="com.member.model.*"%>
+<%@ page import="java.util.*"%>
+
+<jsp:useBean id="doctorVO" scope="page" class="com.doctor.model.DoctorVO" />
+<jsp:useBean id="doctorSvc" scope="page" class="com.doctor.model.DoctorService" />
+<jsp:useBean id="memberVO" scope="page" class="com.member.model.MemberVO" />
+<jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService"/>
 <%
-	
+	MedicalOrderService moSvc = new MedicalOrderService();
+	List<MedicalOrderVO> list = moSvc.findListforMember("M0001");
+	pageContext.setAttribute("list", list);
 %>
+
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
 <link rel="Shortcut Icon" type="image/x-icon"
 	href="<%=request.getContextPath()%>/template/images/favicon.ico">
 <title>會員病例歷史紀錄</title>
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700"
-	rel="stylesheet">
-
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/open-iconic-bootstrap.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/animate.css">
-
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/owl.carousel.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/owl.theme.default.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/magnific-popup.css">
-
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/aos.css">
-
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/ionicons.min.css">
-
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/bootstrap-datepicker.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/jquery.timepicker.css">
-
-
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/flaticon.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/icomoon.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/style.css">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700" rel="stylesheet">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/open-iconic-bootstrap.min.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/animate.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/owl.carousel.min.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/owl.theme.default.min.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/magnific-popup.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/aos.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/ionicons.min.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/bootstrap-datepicker.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/jquery.timepicker.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/flaticon.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/icomoon.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/style.css">
+<link rel="stylesheet"	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
 	crossorigin="anonymous">
 <style>
 .btn {
@@ -122,8 +110,8 @@
 		<div class="row">
 			<table class="table table-striped table-bordered">
 			  <thead>
-			    <tr>
-			      <th scope="col">醫療人員編號</th>
+			    <tr align='center'>
+			      <th scope="col">醫生姓名</th>
 			      <th scope="col">診療狀態</th>
 			      <th scope="col">診療費用</th>
 			      <th scope="col">約診時間</th>
@@ -133,25 +121,25 @@
 			    </tr>
 			  </thead>
 			  <tbody>
+<c:forEach var="moVO" items="${list}" >
 			    <tr>
-			      <td scope="col">醫療人員編號</td>
-			      <td scope="col">診療狀態</td>
-			      <td scope="col">診療費用</td>
-			      <td scope="col">約診時間</td>
-			      <td scope="col">病況說明</td>
-			      <td scope="col">問診影音紀錄</td>
-			      <td scope="col">問診文字紀錄</td>
+			      <td scope="col">
+      				<c:forEach var="memberVO" items="${memberSvc.all}">
+      					<c:if test="${memberVO.memNo==doctorVO.memno}">
+      						${memberVO.memName}
+      					</c:if>
+      				</c:forEach>
+			      </td>
+			      <td scope="col">${moVO.moStatus}</td>
+			      <td scope="col">${moVO.moCost}</td>
+			      <td scope="col">${moVO.moTime}</td>
+			      <td scope="col">${moVO.moIntro}</td>
+			      <td scope="col">${moVO.moVideo}</td>
+			      <td scope="col">${moVO.moText}</td>
+</c:forEach>
 			    </tr>
 			  </tbody>
 			</table>
-
-
-
-
-
-
-
-
 		</div>
 	</div>
 
@@ -161,31 +149,20 @@
 
 	<br>
 	<script src="<%=request.getContextPath()%>/template/js/jquery.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery-migrate-3.0.1.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="<%=request.getContextPath()%>/template/js/popper.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/bootstrap.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery.easing.1.3.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery.waypoints.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery.stellar.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/owl.carousel.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery.magnific-popup.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/bootstrap.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery.easing.1.3.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery.waypoints.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery.stellar.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/owl.carousel.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery.magnific-popup.min.js"></script>
 	<script src="<%=request.getContextPath()%>/template/js/aos.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery.animateNumber.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/bootstrap-datepicker.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery.timepicker.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery.animateNumber.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/bootstrap-datepicker.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery.timepicker.min.js"></script>
 	<script src="<%=request.getContextPath()%>/template/js/scrollax.min.js"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="<%=request.getContextPath()%>/template/js/google-map.js"></script>
 	<script src="<%=request.getContextPath()%>/template/js/main.js"></script>
 	<!--以下可改動-->

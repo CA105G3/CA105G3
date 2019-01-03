@@ -81,4 +81,17 @@ private MemberDAO_interface dao;
 	public MemberVO getOneMemberByAccount(String memid) {
 		return dao.findByID(memid);
 	}
+	
+	public MemberVO UpdateForBasicRecord(String memId ,String bloodType 
+			,String smoking ,String allergy, String medHistory ,String famHistory) {
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMemId(memId);
+		memberVO.setBloodType(bloodType);
+		memberVO.setAllergy(allergy);
+		memberVO.setSmoking(smoking);
+		memberVO.setMedHistory(medHistory);
+		memberVO.setFamHistory(famHistory);
+		dao.UpdateForBasicRecord(memberVO);
+		return memberVO;
+	}
 }

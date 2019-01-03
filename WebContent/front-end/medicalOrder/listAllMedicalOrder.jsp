@@ -78,6 +78,7 @@
 		<th>診療費用</th>
 		<th>約診時間</th>
 		<th>病況說明</th>
+		<th>取消理由</th>
 		<th>問診影音紀錄</th>
 		<th>問診文字紀錄</th>
 		<th>修改</th>
@@ -94,7 +95,8 @@
 			<td>${MedicalOrderVO.moCost}</td>
 			<td>${MedicalOrderVO.moTime}</td> 
 			<td>${MedicalOrderVO.moIntro}</td>
-			<td><img src="<%=request.getContextPath()%>/medicalorder/medicalOrderServletImg.do?moNO=${MedicalOrderVO.moVideo}" width=50% height=50% /></td> 
+			<td>${MedicalOrderVO.moCancelReason}</td>
+			<td><img src="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServletImg.do?moNo=${MedicalOrderVO.moNo}" height="200" /></td> 
 			<td>${MedicalOrderVO.moText}</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do" style="margin-bottom: 0px;">

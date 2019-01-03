@@ -9,5 +9,5 @@ public interface MedicalOrder_interface {
 	public void delete(String moNo);
 	public MedicalOrderVO findByPrimaryKey(String moNo);
 	public List<MedicalOrderVO> getAll();
-	
+	public List<MedicalOrderVO> findListforMember(String memNo);
 }

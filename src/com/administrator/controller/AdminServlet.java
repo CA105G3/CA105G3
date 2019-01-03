@@ -66,7 +66,17 @@ public class AdminServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
-	
+		if("adminLogout".equals(action)) {
+			//移除session的物件
+			HttpSession session = req.getSession();
+			session.removeAttribute("adminVO");
+			//轉回登入頁面
+			String url = "/back-end/admin/adminLogin.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+			successView.forward(req, res);	
+		}
+		
+		
 		if("adminLogin".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -108,7 +118,7 @@ public class AdminServlet extends HttpServlet {
 					HttpSession session = req.getSession();					
 					session.setAttribute("adminVO", adminVO1);
 
-					String url = "/back-end/admin/adminLoginSuccess.jsp";
+					String url = "/back-end/admin/adminLoginMain.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); //成功後轉交給"/back-end/admin/adminLoginSuccess.jsp"
 					successView.forward(req, res);				
 				}
@@ -194,19 +204,19 @@ public class AdminServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
-				String adminid=req.getParameter("adminid");
+				String adminId=req.getParameter("adminId");
 				String adminidReg = "^[(a-zA-Z0-9)]{1,10}$";
-				if (adminid == null || adminid.trim().length() == 0) {
+				if (adminId == null || adminId.trim().length() == 0) {
 					errorMsgs.add("管理員名稱: 請勿空白");
-				} else if(!adminid.trim().matches(adminidReg)) { //以下練習正則(規)表示式(regular-expression)
+				} else if(!adminId.trim().matches(adminidReg)) { //以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("管理員名稱: 只能是英文字母、數字 , 且長度必需為10");
 	            }
 				
-				String adminpsw=req.getParameter("adminpsw");
+				String adminPsw=req.getParameter("adminPsw");
 				String adminpswReg = "^[(a-zA-Z0-9)]{1,10}$";
-				if (adminpsw == null || adminpsw.trim().length() == 0) {
+				if (adminPsw == null || adminPsw.trim().length() == 0) {
 					errorMsgs.add("管理員密碼: 請勿空白");
-				} else if(!adminpsw.trim().matches(adminpswReg)) { //以下練習正則(規)表示式(regular-expression)
+				} else if(!adminPsw.trim().matches(adminpswReg)) { //以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("管理員密碼:只能是英文字母、數字 , 且長度必需為10");
 	            }
 				String adminName = req.getParameter("adminName");
@@ -224,8 +234,8 @@ public class AdminServlet extends HttpServlet {
 				}
 				
 				AdministratorVO adminVO = new AdministratorVO();
-				adminVO.setAdminId(adminid);
-				adminVO.setAdminPsw(adminpsw);
+				adminVO.setAdminId(adminId);
+				adminVO.setAdminPsw(adminPsw);
 				adminVO.setPriority(priority);
 				adminVO.setStatus(status);
 				adminVO.setReg(reg);
@@ -243,7 +253,7 @@ public class AdminServlet extends HttpServlet {
 				
 				/***************************2.開始新增資料***************************************/
 				AdministratorService adminSvc = new AdministratorService();
-				adminVO = adminSvc.addAdmin(adminid, adminpsw, adminName, priority, status, reg);
+				adminVO = adminSvc.addAdmin(adminId, adminId, adminName, priority, status, reg);
 
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/admin/ListAllAdmin.jsp";

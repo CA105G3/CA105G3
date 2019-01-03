@@ -1,25 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.administrator.model.*"%>
-<%
-	AdministratorVO adminVO = (AdministratorVO) request.getAttribute("adminVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
-	pageContext.setAttribute("adminVO", adminVO);
-%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <link rel="Shortcut Icon" type="image/x-icon"
 	href="<%=request.getContextPath()%>/template/images/favicon.ico">
-<title>管理員專區</title>
+<title>DoctorInfo</title>
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700"
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700"
 	rel="stylesheet">
-
 <link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/open-iconic-bootstrap.min.css">
 <link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/animate.css">
 <link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/owl.carousel.min.css">
@@ -91,7 +80,7 @@
 				<div class="row slider-text align-items-end">
 					<div class="col-md-7 col-sm-12 ftco-animate mb-5">
 						<h1 class="mb-3"
-							data-scrollax=" properties: { translateY: '70%', opacity: .9}">管理員專區</h1>
+							data-scrollax=" properties: { translateY: '70%', opacity: .9}">醫生個人頁面</h1>
 					</div>
 				</div>
 			</div>
@@ -99,91 +88,23 @@
 	</section>
 	<br>
 <!-- 幻燈片輪播 -->
-<!-- 		<div class="container"> -->
-<!-- 			<div class="row"> -->
-<!-- 				<div class="col-xs-12 col-sm-3"> -->
-<!-- 					<div class="list-group"> -->
-<!-- 					  <a href="addAdmin.jsp" class="list-group-item list-group-item-action">新增管理員</a> -->
-<!-- 					  <a href="#" class="list-group-item list-group-item-action">會員驗證申請</a> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-xs-12 col-sm-9"> -->
-<!-- 					<h3> 登入成功的頁面 - login_success.jsp </h3>  -->
-<%-- 				   	<h3> 歡迎:<font color=red> ${adminVO.adminName} </font>您好</h3> --%>
-<!-- 				   	<FORM> -->
-<!-- 						<input type="hidden" name="action" value="adminLogout"> -->
-<!-- 						<input type="submit" value="登出" > -->
-<!-- 					</FORM>  -->
-<!-- 				</div>	 -->
-<!-- 			</div> -->
-<!-- 		</div> -->
 
-
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12 col-sm-3">
-				
-			</div>
-				<div class="col-xs-12 col-sm-3">
-					<div class="card" style="width: 18rem;">
-					  <img class="card-img-top" src="<%=request.getContextPath()%>/back-end/admin/pic/TeenCerberus1.png" alt="Card image cap">
-					  <div class="card-body text-center">
-					    <a href="addAdmin.jsp" class="btn btn-primary">　新增網站管理員　</a>
-					  </div>
-					</div>
-				</div>
-			<div class="col-xs-12 col-sm-3">
-				<div class="col-xs-12 col-sm-3">
-					<div class="card" style="width: 18rem;">
-					  <img class="card-img-top" src="<%=request.getContextPath()%>/back-end/admin/pic/Thanos1.png" alt="Card image cap">
-					  <div class="card-body text-center">
-					    <a href="#" class="btn btn-primary">　會員權限驗證　</a>
-					  </div>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-3">
-				
-			</div>
-
-
-
-
-		</div>
-	</div>
-
-
-
-				  
-
-<!-- 引用的js檔 -->
 	<br>
 	<script src="<%=request.getContextPath()%>/template/js/jquery.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery-migrate-3.0.1.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="<%=request.getContextPath()%>/template/js/popper.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/bootstrap.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery.easing.1.3.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery.waypoints.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery.stellar.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/owl.carousel.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery.magnific-popup.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/bootstrap.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery.easing.1.3.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery.waypoints.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery.stellar.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/owl.carousel.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery.magnific-popup.min.js"></script>
 	<script src="<%=request.getContextPath()%>/template/js/aos.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery.animateNumber.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/bootstrap-datepicker.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery.timepicker.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery.animateNumber.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/bootstrap-datepicker.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery.timepicker.min.js"></script>
 	<script src="<%=request.getContextPath()%>/template/js/scrollax.min.js"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="<%=request.getContextPath()%>/template/js/google-map.js"></script>
 	<script src="<%=request.getContextPath()%>/template/js/main.js"></script>
 	<!--以下可改動-->

@@ -25,6 +25,9 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 	private static final String UPDATE =
 		"UPDATE MEMBER SET MemId =? WHERE MEMno = ?";
 	
+	private static final String UPDATE_FOR_BASIC_RECORD = 
+		"UPDATE MEMBER SET bloodType=?, smoking=?, allergy=?, medHistory=?, famHistory=? where memId = ?";
+	
 	@Override
 	public void insert(MemberVO memberVO) {
 		Connection con = null;
@@ -227,11 +230,55 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 				}
 			}
 		}
-		
-		
-		
+	
 		return memberVO;
 	}
+
+	@Override
+	public MemberVO UpdateForBasicRecord(MemberVO memberVO) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(dirver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			
+			pstmt = con.prepareStatement(UPDATE_FOR_BASIC_RECORD);
+			
+			pstmt.setString(1, memberVO.getBloodType());
+			pstmt.setString(2, memberVO.getSmoking());
+			pstmt.setString(3, memberVO.getMedHistory());
+			pstmt.setString(4, memberVO.getFamHistory());
+			pstmt.setString(5, memberVO.getAllergy());
+			pstmt.setString(6, memberVO.getMemId());
+				
+			pstmt.executeUpdate();	
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver." +e.getMessage());
+		}catch(SQLException se) {
+			throw new RuntimeException("Couldn't load database driver." +se.getMessage());
+		}finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if(con!=null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	
+		return memberVO;
+	}	
+	
 
 	@Override
 	public List<MemberVO> getAll() {
@@ -302,6 +349,11 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		}
 		return list;
 	}
+
+		
+	
+	
+	
 	
 	public static void main(String[] args){
 		MemberJDBCDAO dao = new MemberJDBCDAO();
@@ -340,6 +392,18 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 //		memberVO2.setMemId("super handsome");
 //		dao.update(memberVO2);
 //		System.out.println("OKOK");
+
+		//UpdateForBasicRecord
+//		MemberVO memberVO3 = new MemberVO();
+//		memberVO3.setMemId("David");
+//		memberVO3.setBloodType("AB");
+//		memberVO3.setSmoking("有");
+//		memberVO3.setMedHistory("膝蓋退化");
+//		memberVO3.setAllergy(null);
+//		memberVO3.setFamHistory(null);
+//		dao.UpdateForBasicRecord(memberVO3);
+//		System.out.println("OKOK");
+	
 		
 		//刪除
 //		dao.delete("M0021");
@@ -369,32 +433,33 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 //		System.out.println("----------------------------------");
 		
 		//查詢全部
-		List<MemberVO> list = dao.getAll();
-		for(MemberVO amem:list) {
-			
-			System.out.print(amem.getMemNo()+",");
-			System.out.print(amem.getMemId()+",");
-			System.out.print(amem.getPwd()+",");
-			System.out.print(amem.getMemName()+",");
-			System.out.print(amem.getPhone()+",");
-			System.out.print(amem.getBirth()+",");
-			System.out.print(amem.getRegDate()+",");
-			System.out.print(amem.getStayTime()+",");
-			System.out.print(amem.getMemStatus()+",");
-			System.out.print(amem.getIdent()+",");
-			System.out.print(amem.getGender()+",");
-			System.out.print(amem.getEmail()+",");
-			System.out.print(amem.getLocNo()+",");
-			System.out.print(amem.getAddr()+",");
-			System.out.print(amem.getBloodType()+",");
-			System.out.print(amem.getSmoking()+",");
-			System.out.print(amem.getAllergy()+",");
-			System.out.print(amem.getBloodType()+",");
-			System.out.print(amem.getFamHistory()+",");
-			System.out.println();	
-		}	
-		
+//		List<MemberVO> list = dao.getAll();
+//		for(MemberVO amem:list) {
+//			
+//			System.out.print(amem.getMemNo()+",");
+//			System.out.print(amem.getMemId()+",");
+//			System.out.print(amem.getPwd()+",");
+//			System.out.print(amem.getMemName()+",");
+//			System.out.print(amem.getPhone()+",");
+//			System.out.print(amem.getBirth()+",");
+//			System.out.print(amem.getRegDate()+",");
+//			System.out.print(amem.getStayTime()+",");
+//			System.out.print(amem.getMemStatus()+",");
+//			System.out.print(amem.getIdent()+",");
+//			System.out.print(amem.getGender()+",");
+//			System.out.print(amem.getEmail()+",");
+//			System.out.print(amem.getLocNo()+",");
+//			System.out.print(amem.getAddr()+",");
+//			System.out.print(amem.getBloodType()+",");
+//			System.out.print(amem.getSmoking()+",");
+//			System.out.print(amem.getAllergy()+",");
+//			System.out.print(amem.getBloodType()+",");
+//			System.out.print(amem.getFamHistory()+",");
+//			System.out.println();	
+//		}	
+//		
 	}
+
 
 	@Override
 	public MemberVO findByID(String memid) {

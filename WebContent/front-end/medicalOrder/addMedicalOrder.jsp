@@ -65,60 +65,78 @@
 	</ul>
 </c:if>
 							<!-- <%=request.getContextPath()%>/medicalorder/medicalOrderServlet.do" -->
-<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do" name="form1" >
-<table>
-	<tr>
-		<td>會員編號：</td>
-		<td><input type="TEXT" name="memNo" size="45" 
-			 value="<%= (medicalOrderVO==null)? "M0001" : medicalOrderVO.getMemNo()%>" /></td>
-	</tr>
-	<tr>
-		<td>醫療人員編號：</td>
-		<td><input type="TEXT" name="drNo" size="45"
-			 value="<%= (medicalOrderVO==null)? "D0001" : medicalOrderVO.getDrNo()%>" /></td>
-	</tr>
-	<tr>
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do" name="form1" enctype='multipart/form-data' >
+	<table>
 		<tr>
-		<td>診療狀態：</td>
-		<td>
-			<select size="1" name="moStatus">				
- 				<option value="等待問診">等待問診</option>
- 				<option value="問診完成">問診完成</option>
- 				<option value="等待審核">等待審核</option>
- 				<option value="取消問診">取消問診</option>
-			</select>
-		</td>
-	</tr>
-	<tr>
+			<td>會員編號：</td>
+			<td><input type="TEXT" name="memNo" size="45" 
+				 value="<%= (medicalOrderVO==null)? "M0001" : medicalOrderVO.getMemNo()%>" /></td>
+		</tr>
 		<tr>
-		<td>診療費用：</td>
-		<td><input type="TEXT" name="moCost" size="45"
-			 value="<%= (medicalOrderVO==null)? 7777 : medicalOrderVO.getMoCost()%>" /></td>
-	</tr>
-	<tr>
-		<td>約診時間：</td>
-		<td><input name="moTime" id="f_date1" type="text"></td>
-	</tr>
-	<tr>
-		<td>病況說明：</td>
-		<td><textarea  name="moIntro" rows="10" cols="50"
-			 value="<%= (medicalOrderVO==null)? "10000" : medicalOrderVO.getMoIntro()%>" ></textarea></td>
-	</tr>
-	<tr>
-		<td>問診影音紀錄：</td>
-		<td>		<td><input type="file" name="moVideo" size="45" onchange="loadFile(event)"
-			 value="<%= (medicalOrderVO == null)? request.getContextPath()+"/Imgs/Doctor/03.jpg" : medicalOrderVO.getMoVideo() %>" /></td></td>
-	</tr><!-- 改成影音上傳 -->
-	<tr>
-		<td>問診文字紀錄：</td>
-		<td><input type="TEXT" name="moText" size="45"
-			 value="<%= (medicalOrderVO==null)? "100" : medicalOrderVO.getMoText()%>" /></td>
-	</tr>
+			<td>醫療人員編號：</td>
+			<td><input type="TEXT" name="drNo" size="45"
+				 value="<%= (medicalOrderVO==null)? "D0001" : medicalOrderVO.getDrNo()%>" /></td>
+		</tr>
+		<tr>
+			<tr>
+			<td>診療狀態：</td>
+			<td>
+				<select size="1" name="moStatus">				
+	 				<option value="等待問診">等待問診</option>
+	 				<option value="問診完成">問診完成</option>
+	 				<option value="等待審核">等待審核</option>
+	 				<option value="取消問診">取消問診</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<tr>
+			<td>診療費用：</td>
+			<td><input type="TEXT" name="moCost" size="45"
+				 value="<%= (medicalOrderVO==null)? 7777 : medicalOrderVO.getMoCost()%>" /></td>
+		</tr>
+		<tr>
+			<td>約診時間：</td>
+			<td><input name="moTime" id="f_date1" type="text"></td>
+		</tr>
+		<tr>
+			<td>病況說明：</td>
+			<td><textarea  name="moIntro" rows="10" cols="50"
+				 value="<%= (medicalOrderVO==null)? "10000" : medicalOrderVO.getMoIntro()%>" ></textarea></td>
+		</tr>
+		<tr>
+			<td>取消原因：</td>
+			<td><input type="TEXT" name="moCancelReason" size="45"
+				 value="<%= (medicalOrderVO==null)? "因故取消" : medicalOrderVO.getMoCancelReason() %>" /></td>
+		</tr>		
+		<tr>
+			<td>問診影音紀錄</td>
+			<td><img id="output"  src="<%=request.getContextPath()%>/Imgs/MedicalOrder/No-Image-Basic.png"/ height="200"></td>
+			<td><input type="file" name="moVideo" size="45" onchange="loadFile(event)"/></td>
+		</tr>
+		<tr>
+			<td>問診文字紀錄：</td>
+			<td><input type="TEXT" name="moText" size="45"
+				 value="<%= (medicalOrderVO==null)? "100" : medicalOrderVO.getMoText()%>" /></td>
+		</tr>
+	
+	</table>
+	<input type="hidden" name="action" value="insert">
+	<input type="submit" value="送出新增">
+</FORM>
 
-</table>
-<br>
-<input type="hidden" name="action" value="insert">
-<input type="submit" value="送出新增"></FORM>
+<script>
+  var loadFile = function(event) {
+    var reader = new FileReader();
+    reader.onload = function(){
+      var output = document.getElementById('output');
+      output.src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  };
+</script>
+
+
 </body>
 
 
@@ -145,16 +163,7 @@
            height: 151px;   /* height:  151px; */
   }
 </style>
-<script>
-  var loadFile = function(event) {
-    var reader = new FileReader();
-    reader.onload = function(){
-      var output = document.getElementById('output');
-      output.src = reader.result;
-    };
-    reader.readAsDataURL(event.target.files[0]);
-  };
-</script>
+
 <script>
         $.datetimepicker.setLocale('zh');
         $('#f_date1').datetimepicker({

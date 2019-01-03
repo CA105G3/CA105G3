@@ -22,6 +22,9 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 			"SELECT * FROM MEDICALORDER";
 	private static final String UPDATE = 
 			"UPDATE MEDICALORDER SET MEMNO=? ,DRNO= ? ,MOSTATUS=? ,MOCOST=? ,MOTIME=? ,MOINTRO=?, MOCANCELREASON=? ,MOVIDEO=? ,MOTEXT=?  WHERE MONO=?";
+	private static final String FIND_LIST_FOR_MEMBER = 
+			"SELECT MEMNO, DRNO, MOSTATUS, MOCOST, MOTIME, MOINTRO, MOVIDEO, MOTEXT FROM MEDICALORDER WHERE MEMNO = ?";
+	
 	
 	@Override
 	public void insert(MedicalOrderVO medicalOrderVO) {
@@ -276,6 +279,67 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 		return list;
 	}
 
+	@Override
+	public List<MedicalOrderVO> findListforMember(String memNo) {
+		
+		List<MedicalOrderVO> list = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			pstmt = con.prepareStatement(FIND_LIST_FOR_MEMBER);
+			
+			list = new ArrayList();
+			pstmt.setString(1, memNo);
+			rs = pstmt.executeQuery();
+			
+
+			while(rs.next()) {	
+				MedicalOrderVO medicalOrderVO = new MedicalOrderVO();			
+				medicalOrderVO.setMemNo(rs.getString("MEMNO"));
+				medicalOrderVO.setDrNo(rs.getString("DRNO"));
+				medicalOrderVO.setMoStatus(rs.getString("MOSTATUS"));
+				medicalOrderVO.setMoCost(rs.getInt("MOCOST"));
+				medicalOrderVO.setMoTime(rs.getDate("MOTIME"));
+				medicalOrderVO.setMoIntro(rs.getString("MOINTRO"));
+				medicalOrderVO.setMoVideo(rs.getBytes("MOVIDEO"));
+				medicalOrderVO.setMoText(rs.getString("MOTEXT"));
+				
+				list.add(medicalOrderVO);			
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(con!=null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}		
+		return list;
+	}
+
 	public static void main(String[] args) {
 		
 		MedicalOrderJDBCDAO dao = new MedicalOrderJDBCDAO();
@@ -341,7 +405,20 @@ public class MedicalOrderJDBCDAO implements MedicalOrder_interface{
 //		medicalOrderVO2.setMoNo("20181225-0009");
 //		dao.update(medicalOrderVO2);
 		
-				
+		//查單一會員的病例歷史紀錄
+		List<MedicalOrderVO> list = dao.findListforMember("M0001");
+		
+		for(MedicalOrderVO medicalOrderVO : list) {
+			System.out.print(medicalOrderVO.getMemNo() +",");
+			System.out.print(medicalOrderVO.getDrNo() +",");
+			System.out.print(medicalOrderVO.getMoStatus() +",");
+			System.out.print(medicalOrderVO.getMoCost() +",");
+			System.out.print(medicalOrderVO.getMoTime() +",");
+			System.out.print(medicalOrderVO.getMoIntro() +",");
+			System.out.print(medicalOrderVO.getMoVideo() +",");
+			System.out.print(medicalOrderVO.getMoText() +",");
+			System.out.println();
+		}
 		
 	}
 
