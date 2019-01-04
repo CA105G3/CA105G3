@@ -1,7 +1,6 @@
 package com.member.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +13,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.administrator.model.AdministratorVO;
+import com.tools.mail.Verifymail;
 
 public class MemberDAO implements MemberDAO_interface{
 
@@ -53,18 +53,19 @@ public class MemberDAO implements MemberDAO_interface{
 		+ "smoking=?,staytime=?  where memno = ?";
 
 	private static final String GET_ONE_STMT_BY_ID="select * from member where memid=?";
-
+	
 	private static final String UPDATE_FOR_BASIC_RECORD = 
 			"UPDATE MEMBER SET bloodType=?, smoking=?, allergy=?, medHistory=?, famHistory=? where memId = ?";
-		
+	
 	@Override
 	public void insert(MemberVO memberVO) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
 			con=ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_STMT);
-			System.out.println("get data:"+memberVO.getMemName());
+			String col[] = {"MEMNO"};
+			pstmt = con.prepareStatement(INSERT_STMT,col);
+			
 			pstmt.setString(1,memberVO.getMemName());
 			pstmt.setString(2,memberVO.getMemId());
 			pstmt.setString(3,memberVO.getAddr());
@@ -84,6 +85,24 @@ public class MemberDAO implements MemberDAO_interface{
 			pstmt.setString(17,memberVO.getSmoking());
 			pstmt.setTimestamp(18,memberVO.getStayTime());
 			pstmt.executeUpdate();
+			
+			
+			String next_memno = null;
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+				next_memno = rs.getString(1);
+			} else {
+				System.out.println("未取得自增主鍵值");
+			}
+			rs.close();
+			
+			
+			Verifymail sendmail = new Verifymail();
+			String subject="線上醫療會員註冊驗證信件";
+			String messageText="親愛的會員 "+memberVO.getMemName()+"您好"+"\n"
+			+"感謝您註冊本網站，以下是您的驗證網址，請點擊通過驗證，謝謝!"+"\n"
+			+"http://localhost:8081/ca105g3/front-end/member/member.do?action=verify&memno="+next_memno;
+			sendmail.sendMail(memberVO.getEmail(), subject, messageText);
 		}catch(SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -382,13 +401,12 @@ public class MemberDAO implements MemberDAO_interface{
 		}
 		return memberVO;
 	}
-
 	@Override
 	public MemberVO UpdateForBasicRecord(MemberVO memberVO) {
-		
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_FOR_BASIC_RECORD);
@@ -399,9 +417,9 @@ public class MemberDAO implements MemberDAO_interface{
 			pstmt.setString(4, memberVO.getFamHistory());
 			pstmt.setString(5, memberVO.getAllergy());
 			pstmt.setString(6, memberVO.getMemId());
-				
+
 			pstmt.executeUpdate();	
-			
+
 		} catch(SQLException se) {
 			throw new RuntimeException("Couldn't load database driver." +se.getMessage());
 		} finally {
@@ -420,8 +438,6 @@ public class MemberDAO implements MemberDAO_interface{
 				}
 			}
 		}
-	
 		return memberVO;
 	}	
-	
 }

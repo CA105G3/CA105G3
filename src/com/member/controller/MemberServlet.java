@@ -17,6 +17,7 @@ import com.administrator.model.AdministratorService;
 import com.administrator.model.AdministratorVO;
 import com.member.model.*;
 import com.ppttool.model.PPTToolService;
+import com.tools.mail.Verifymail;
 
 
 
@@ -50,7 +51,7 @@ public class MemberServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/member/select_page.jsp");
+							.getRequestDispatcher("/front-end/member/index.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -64,7 +65,7 @@ public class MemberServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/member/select_page.jsp");
+							.getRequestDispatcher("/front-end/member/index.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -78,14 +79,14 @@ public class MemberServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/ppt/select_page.jsp");
+							.getRequestDispatcher("/front-end/member/index.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("memVO", memVO); // 資料庫取出的empVO物件,存入req
-				String url = "/front-end/member/listOneMember.jsp";
+				String url = "/front-end/member/showonemember.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
 
@@ -273,7 +274,7 @@ public class MemberServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("memVO",memVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/member/addMember.jsp");
+							.getRequestDispatcher("/front-end/member/index.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -281,7 +282,8 @@ public class MemberServlet extends HttpServlet {
 				MemberService memSvc = new MemberService();
 				memVO = memSvc.addMember(memid, memname, mempsw, email, gender, birth, addr, allergy, bloodtype, phone, famhistory, ident, medhistory, memStatus, smoking, locno, regdate, stayTime);
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/front-end/member/ListAllMember.jsp";
+				
+				String url = "/front-end/member/index.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				
@@ -289,7 +291,7 @@ public class MemberServlet extends HttpServlet {
 			}catch(Exception e) {
 				errorMsgs.add("新增資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/member/addMember.jsp");
+							.getRequestDispatcher("/front-end/member/index.jsp");
 				failureView.forward(req, res);
 			}
 		}// inset end
@@ -509,7 +511,7 @@ public class MemberServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
+			req.setAttribute("loginerrorMsgs", errorMsgs);
 			
 			String account = req.getParameter("account");
 			String accountReg = "^[(a-zA-Z0-9)]{1,20}$";
@@ -528,7 +530,7 @@ public class MemberServlet extends HttpServlet {
 		    
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/member/login.jsp");
+						.getRequestDispatcher("/front-end/member/index.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -536,7 +538,7 @@ public class MemberServlet extends HttpServlet {
 		    if (!allowUser(account,password)) {          //【帳號 , 密碼無效時】
 		    	errorMsgs.add("帳號或密碼錯誤");
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/member/login.jsp");
+						.getRequestDispatcher("/front-end/member/index.jsp");
 				failureView.forward(req, res);
 		      }else {                                       //【帳號 , 密碼有效時, 才做以下工作】
 		        HttpSession session = req.getSession();
@@ -562,12 +564,6 @@ public class MemberServlet extends HttpServlet {
 			session.removeAttribute("memVO");
 			res.sendRedirect(req.getContextPath()+"/front-end/member/index.jsp");
 		}//end logout
-		
-		if("signup".equals(action)) {
-			RequestDispatcher View = req
-					.getRequestDispatcher("/front-end/member/addMember.jsp");
-			View.forward(req, res);
-		}
 	}
 	  protected boolean allowUser(String account, String password) {
 		  	MemberService memSvc = new MemberService();
