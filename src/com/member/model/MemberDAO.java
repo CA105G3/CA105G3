@@ -56,7 +56,7 @@ public class MemberDAO implements MemberDAO_interface{
 	
 	private static final String UPDATE_FOR_BASIC_RECORD = 
 			"UPDATE MEMBER SET bloodType=?, smoking=?, allergy=?, medHistory=?, famHistory=? where memId = ?";
-	
+	private static final String UPDATE_FOR_VERIFY="UPDATE MEMBER SET MEMSTATUS=? where memno=?";
 	@Override
 	public void insert(MemberVO memberVO) {
 		Connection con=null;
@@ -439,5 +439,37 @@ public class MemberDAO implements MemberDAO_interface{
 			}
 		}
 		return memberVO;
+	}	
+	
+	public void UpdateVerify(String memno) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_FOR_VERIFY);
+			pstmt.setString(1, "正常");
+			pstmt.setString(2,memno);
+			pstmt.executeUpdate();	
+
+		} catch(SQLException se) {
+			throw new RuntimeException("Couldn't load database driver." +se.getMessage());
+		} finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if(con!=null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}	
 }

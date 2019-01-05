@@ -4,7 +4,9 @@
 <%@ page import="com.member.model.*"%>
 <%@ page import="java.util.*" %>
 <%
-	MemberVO memVO = (MemberVO)session.getAttribute("memVO");
+	MemberVO memVO=null;
+	memVO = (MemberVO)session.getAttribute("memVO");
+	memVO=(MemberVO)request.getAttribute("memVO");
 	if(memVO!=null){
 		request.getSession().setAttribute("memno",memVO.getMemNo());
 	}

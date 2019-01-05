@@ -8,6 +8,13 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 	String dirver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "CA105G3";
+	@Override
+	public void UpdateVerify(String memno) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 

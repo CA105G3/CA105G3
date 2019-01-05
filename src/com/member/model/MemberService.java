@@ -94,4 +94,10 @@ private MemberDAO_interface dao;
 		dao.UpdateForBasicRecord(memberVO);
 		return memberVO;
 	}
+	public MemberVO VerifyMember(String memno) {
+		MemberVO memVO=null;
+		dao.UpdateVerify(memno);
+		memVO=dao.findByPrimaryKey(memno);
+		return memVO;
+	}
 }

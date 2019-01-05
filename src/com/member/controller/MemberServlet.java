@@ -311,15 +311,13 @@ public class MemberServlet extends HttpServlet {
 				}else {
 					memno = new String(req.getParameter("memno"));
 				}
-				
-				
 				/***************************2.開始查詢資料****************************************/
 				MemberService memSvc = new MemberService();
 				MemberVO memVO  = memSvc.getOneMember(memno);
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("memVO", memVO);         // 資料庫取出的empVO物件,存入req
-				String url = "/front-end/member/update_member_input.jsp";
+				String url = "/front-end/member/updatemydata.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);
 
@@ -327,7 +325,7 @@ public class MemberServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/member/ListAllMember.jsp");
+						.getRequestDispatcher("/front-end/member/showonemember.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -480,7 +478,7 @@ public class MemberServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("memVO",memVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/member/update_member_input.jsp");
+							.getRequestDispatcher("/front-end/member/updatemydata.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -493,7 +491,7 @@ public class MemberServlet extends HttpServlet {
 						regdate, stayTime, memNo);
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("memVO", memVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				String url = "/front-end/member/listOneMember.jsp";
+				String url = "/front-end/member/showonemember.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 
@@ -501,7 +499,7 @@ public class MemberServlet extends HttpServlet {
 			}catch(Exception e) {
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/member/update_member_input.jsp");
+						.getRequestDispatcher("/front-end/member/updatemydata.jsp");
 				failureView.forward(req, res);
 			}
 		}//End-point update
@@ -564,6 +562,22 @@ public class MemberServlet extends HttpServlet {
 			session.removeAttribute("memVO");
 			res.sendRedirect(req.getContextPath()+"/front-end/member/index.jsp");
 		}//end logout
+		if("verify".equals(action)) {
+			String memno = req.getParameter("memno");
+			MemberService memSvc = new MemberService();
+			MemberVO memVO=memSvc.VerifyMember(memno);
+			HttpSession session = req.getSession();
+			session.setAttribute("memVO", memVO);
+			try {                                                        
+		        String location = (String) session.getAttribute("location");
+		        if (location != null) {
+		             session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
+		             res.sendRedirect(location);            
+		             return;
+		           }
+		         }catch (Exception ignored) { }
+		        res.sendRedirect(req.getContextPath()+"/front-end/member/index.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
+		}
 	}
 	  protected boolean allowUser(String account, String password) {
 		  	MemberService memSvc = new MemberService();
