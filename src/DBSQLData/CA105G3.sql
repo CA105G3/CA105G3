@@ -99,15 +99,15 @@ INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 4, '0'),'Docto
 -- create license
 -----------------------------------------------
 CREATE TABLE license(
-    licNo       VARCHAR2(5 BYTE) NOT NULL ,
-    memNo       VARCHAR2(5 BYTE) NOT NULL ,
-    licData     BLOB ,
-    licStatus   VARCHAR2(9 BYTE) NOT NULL ,
-    licDesc     VARCHAR2(500 BYTE) NOT NULL ,
-    licDue      DATE  ,
-    CONSTRAINT licence_pk PRIMARY KEY (licNo),
-    CONSTRAINT licence_fk FOREIGN KEY (memNo) REFERENCES MEMBER (memNo),
-    CONSTRAINT CHK_licstatus CHECK (licStatus in('生效中','已失效'))
+    licno       VARCHAR2(5 BYTE) NOT NULL ,
+    memno       VARCHAR2(5 BYTE) NOT NULL ,
+    licdata     BLOB ,
+    licstatus   VARCHAR2(9 BYTE) NOT NULL ,
+    licdesc     VARCHAR2(500 BYTE) NOT NULL ,
+    licdue      DATE  ,
+    CONSTRAINT licence_pk PRIMARY KEY (licno),
+    CONSTRAINT licence_fk FOREIGN KEY (memno) REFERENCES MEMBER (memno),
+    CONSTRAINT CHK_licstatus CHECK (licstatus in('生效中','已失效','審核中'))
 );
     
 CREATE SEQUENCE license_seq
@@ -118,6 +118,11 @@ NOCYCLE
 NOCACHE;
 
 INSERT INTO license VALUES('L'||lpad(to_char(license_seq.NEXTVAL), 4, '0'),'M0001',NULL,'生效中','不明證照',TO_DATE('2028-12-31','YYYY-MM-DD'));
+INSERT INTO license VALUES('L'||lpad(to_char(license_seq.NEXTVAL), 4, '0'),'M0017',NULL,'生效中','黑證照',TO_DATE('2020-01-22','YYYY-MM-DD'));
+INSERT INTO license VALUES('L'||lpad(to_char(license_seq.NEXTVAL), 4, '0'),'M0018',NULL,'已失效','特級廚師證照',TO_DATE('2018-03-03','YYYY-MM-DD'));
+INSERT INTO license VALUES('L'||lpad(to_char(license_seq.NEXTVAL), 4, '0'),'M0019',NULL,'生效中','多益證照',TO_DATE('2025-11-12','YYYY-MM-DD'));
+INSERT INTO license VALUES('L'||lpad(to_char(license_seq.NEXTVAL), 4, '0'),'M0016',NULL,'生效中','獵人職照',TO_DATE('2023-08-09','YYYY-MM-DD'));
+INSERT INTO license VALUES('L'||lpad(to_char(license_seq.NEXTVAL), 4, '0'),'M0020',NULL,'已失效','霍格華茲畢業證書',TO_DATE('2016-07-16','YYYY-MM-DD'));
 
 -----------------------------------------------
 -- create administrator
@@ -159,16 +164,20 @@ CREATE TABLE activity
 (
     actno       VARCHAR2(7 BYTE),
     memno       VARCHAR2(5 BYTE),
-    actname     VARCHAR2(20 BYTE) NOT NULL,
-    actloc      VARCHAR2(20 BYTE) NOT NULL,
+    actname     VARCHAR2(50 BYTE) NOT NULL,
+    actloc      VARCHAR2(50 BYTE) NOT NULL,
     acttime     DATE NOT NULL,
     actstatus   VARCHAR2(9 BYTE) NOT NULL,
+    actmax	NUMBER(5,0) NOT NULL,
     actlimit    NUMBER(5,0) NOT NULL, 
-    timecheck   NUMBER(2,0) NOT NULL, 
+    timecheck   NUMBER(2,0) NOT NULL,
+    actDesc     VARCHAR2(300 BYTE),
+    actpic      BLOB, 
     CONSTRAINT activity_pk PRIMARY KEY (actno),
     CONSTRAINT activity_fk FOREIGN KEY (memno) REFERENCES MEMBER (memno),
-    CONSTRAINT CHK_actstatus CHECK (actstatus in('舉辦中','已結束','已取消'))
+    CONSTRAINT CHK_actstatus CHECK (actstatus in('募集中','已結束','已取消'))
 );
+
 
 CREATE SEQUENCE activity_seq
 INCREMENT BY 1
@@ -177,27 +186,50 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO activity VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0001','太陽拳比賽','那美克星',TO_DATE('2018-12-31','YYYY-MM-DD'),'舉辦中','10','3');
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0001','太陽拳比賽','那美克星',TO_DATE('2018-12-31','YYYY-MM-DD'),'募集中',10,3,2,'誰是最強的太陽拳繼承者!一起來挑戰八!',null);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0008','捕獲寶可夢','芳緣地區',TO_DATE('2018-01-13','YYYY-MM-DD'),'已結束',50,20,1,'鳳王路奇亞現蹤，需組一團來攻陷，加入我吧!',null);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0012','外丹功推廣','台中公園',TO_DATE('2018-08-26','YYYY-MM-DD'),'已結束',150,50,3,'外丹功好，強身健體，還不受中共壓迫歐',null);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0007','看夜景','愛情摩天輪',TO_DATE('2019-05-20','YYYY-MM-DD'),'募集中',10,5,5,'高雄發大財，錢進得來，出的去，韓總讓大家賺大錢',null);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0018','腳踏車競速','台北河濱',TO_DATE('2018-09-01','YYYY-MM-DD'),'募集中',100,45,2,'我是彭于晏，邀請大家陪我尬車競速',null);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0010','翻墮羅拳展示','天橋下',TO_DATE('2018-10-11','YYYY-MM-DD'),'募集中',30,5,1,'秘術拳法徵求繼承者，意者請洽我',null);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0019','象棋大賽','陽明公園榕樹下',TO_DATE('2019-02-02','YYYY-MM-DD'),'募集中',60,10,1,'高處不勝寒，坐擁榕樹下20年，誰能贏我',null);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0013','慈善撲克大賽','公海賭神豪華郵輪',TO_DATE('2019-01-24','YYYY-MM-DD'),'募集中',500,100,10,'20塊港幣想贏到100萬，哈哈哈哈，好啊我借你',null);
 
 -----------------------------------------------
 -- create Joinact
 -----------------------------------------------
-CREATE TABLE joinact(
+CREATE TABLE joinact
+(
     actno   VARCHAR2(7 BYTE),
     memno   VARCHAR2(5 BYTE),
+    joinstatus  NUMBER(1, 0) NOT NULL,
     CONSTRAINT joinact_pk PRIMARY KEY (actno,memno),
     CONSTRAINT joinact_fk1 FOREIGN KEY (actno) REFERENCES activity (actno),
     CONSTRAINT joinact_fk2 FOREIGN KEY (memno) REFERENCES MEMBER (memno)
 );
     
-INSERT INTO joinact VALUES('ACT0001','M0001');
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0001','M0001',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0002','M0012',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0002','M0010',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0003','M0002',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0003','M0019',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0005','M0017',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0004','M0008',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0007','M0015',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0006','M0010',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0001','M0018',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0004','M0015',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0001','M0007',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0008','M0001',1);
 
 -----------------------------------------------
 -- create impression
 -----------------------------------------------
 CREATE TABLE impression
 (
-    impno       VARCHAR2(13 BYTE),
+    impno       VARCHAR2(5 BYTE),
+    imptime     DATE NOT NULL,
+    impname     VARCHAR2(30 BYTE),
     actno       VARCHAR2(7 BYTE),
     memno       VARCHAR2(5 BYTE),
     impcon      VARCHAR2(2000 BYTE) ,
@@ -216,14 +248,21 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO impression VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),'ACT0001','M0001','沒心得',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'比克魔王太強大','ACT0001','M0001','沒心得',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'抓到波克比','ACT0002','M0012','沒心得',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'前往真新鎮','ACT0002','M0010','今天花了我好幾顆金莓果才搞定班基拉斯，看來我的曲E還要再練練。',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'我是破風手','ACT0005','M0017','隔壁老王實在太弱了，根本比不贏我中和鵬魚雁，下次練練再來吧!',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'健康你我他','ACT0003','M0019','外丹功重在練心，重中之重，凡人不會理解的。',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'高雄賺大錢','ACT0004','M0008','今天與隔壁李太太看了愛河的夜景，讓我又燃起了年輕時候戀愛的感覺啊!',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'抖手救世界','ACT0003','M0002','外丹功總共有十二式，彈抖運動是其主流。彈抖動作配合節奏的呼吸，可使人體保持肌肉鬆弛，呼吸平順，身體的供氧量充足，經過約數十分鐘的彈抖動作之後，整個人便覺身輕氣爽。',NULL,NULL,'文字心得');
 
 -----------------------------------------------
 -- create reportact
 -----------------------------------------------
-CREATE TABLE reportact（
-    repano      VARCHAR2(8 BYTE) NOT NULL ,
-    actno       VARCHAR2(7 BYTE) NOT NULL , 
+CREATE TABLE reportact
+（
+    repano      VARCHAR2(8 BYTE),
+    actno       VARCHAR2(7 BYTE) NOT NULL ,
     memno       VARCHAR2(5 BYTE) NOT NULL ,
     repastatus  VARCHAR2(9 BYTE) NOT NULL ,
     CONSTRAINT reportact_pk PRIMARY KEY (repano),
