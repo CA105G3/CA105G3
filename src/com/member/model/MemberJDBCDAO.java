@@ -15,6 +15,13 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 	}
 
 
+	@Override
+	public void UpdateLogin(String memno, Timestamp lastlogin) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 

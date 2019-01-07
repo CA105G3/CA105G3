@@ -13,4 +13,5 @@ public interface MemberDAO_interface {
     public MemberVO findByID(String memid);
     public MemberVO UpdateForBasicRecord(MemberVO memberVO);
     public void UpdateVerify(String memno);
+    public void UpdateLogin(String memno,java.sql.Timestamp lastlogin);
 }

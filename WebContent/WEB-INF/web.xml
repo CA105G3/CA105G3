@@ -1,128 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
-	id="WebApp_ID" version="4.0">
-	<display-name>CA105G3</display-name>
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
-	</welcome-file-list>
-	
-	<servlet>
-		<servlet-name>MemberServlet</servlet-name>
-		<servlet-class>com.member.controller.MemberServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>MemberServlet</servlet-name>
-		<url-pattern>/front-end/member/member.do</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>FoodOrderServlet</servlet-name>
-		<servlet-class>com.foodorder.controller.FoodOrderServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>FoodOrderServlet</servlet-name>
-		<url-pattern>/front-end/foodorder/foodorder.do</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>OrderDetailServlet</servlet-name>
-		<servlet-class>com.orderdetail.controller.OrderDetailServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>OrderDetailServlet</servlet-name>
-		<url-pattern>/front-end/orderdetail/orderdetail.do</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>PPTToolServlet</servlet-name>
-		<servlet-class>com.ppttool.controller.PPTServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>PPTToolServlet</servlet-name>
-		<url-pattern>/front-end/ppt/ppt.do</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>PPTImgServlet</servlet-name>
-		<servlet-class>com.ppttool.controller.PPTImgServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>PPTImgServlet</servlet-name>
-		<url-pattern>/ppt/pptImg.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>PPTToolService</servlet-name>
-		<servlet-class>com.ppttool.model.PPTToolService</servlet-class>
-	</servlet>
-	
-  	<servlet>
-		<servlet-name>MedicalOrderServlet</servlet-name>
-		<servlet-class>com.medicalorder.controller.MedicalOrderServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>MedicalOrderServlet</servlet-name>
-		<url-pattern>/front-end/medicalOrder/medicalOrderServlet.do</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>MedicalOrderImgServlet</servlet-name>
-		<servlet-class>com.medicalorder.controller.MedicalOrderImgServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>MedicalOrderImgServlet</servlet-name>
-		<url-pattern>/front-end/medicalOrder/medicalOrderServletImg.do</url-pattern>
-	</servlet-mapping>
-		
-	<servlet>
-    	<servlet-name>AdminServlet</servlet-name>
-    	<servlet-class>com.administrator.controller.AdminServlet</servlet-class>
-  	</servlet>
-  	<servlet-mapping>
-    	<servlet-name>AdminServlet</servlet-name>
-    	<url-pattern>/back-end/admin/admin.do</url-pattern>
-  	</servlet-mapping>
-	
-	<servlet>
-    	<servlet-name>FavDrServlet</servlet-name>
-    	<servlet-class>com.favdr.controller.FavDrServlet</servlet-class>
- 	</servlet>
-  	<servlet-mapping>
-    	<servlet-name>FavDrServlet</servlet-name>
-    	<url-pattern>/front-end/favDr/favDrServlet.do</url-pattern>
- 	</servlet-mapping>
- 		<servlet>
-		<servlet-name>DoctorServlet</servlet-name>
-		<servlet-class>com.doctor.controller.DoctorServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>DoctorServlet</servlet-name>
-		<url-pattern>/doctor/doctor.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>DoctorImgServlet</servlet-name>
-		<servlet-class>com.doctor.controller.DoctorImgServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>DoctorImgServlet</servlet-name>
-		<url-pattern>/doctor/doctorImg.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>DravailableServlet</servlet-name>
-		<servlet-class>com.doctoravailable.controller.DravailableServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>DravailableServlet</servlet-name>
-		<url-pattern>/doctoravailable/dravailable.do</url-pattern>
-	</servlet-mapping>
-	
-	<filter>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>CA105G3</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>MemberServlet</servlet-name>
+    <servlet-class>com.member.controller.MemberServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberServlet</servlet-name>
+    <url-pattern>/front-end/member/member.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>FoodOrderServlet</servlet-name>
+    <servlet-class>com.foodorder.controller.FoodOrderServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FoodOrderServlet</servlet-name>
+    <url-pattern>/front-end/foodorder/foodorder.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>OrderDetailServlet</servlet-name>
+    <servlet-class>com.orderdetail.controller.OrderDetailServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrderDetailServlet</servlet-name>
+    <url-pattern>/front-end/orderdetail/orderdetail.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>PPTToolServlet</servlet-name>
+    <servlet-class>com.ppttool.controller.PPTServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PPTToolServlet</servlet-name>
+    <url-pattern>/front-end/ppt/ppt.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>PPTImgServlet</servlet-name>
+    <servlet-class>com.ppttool.controller.PPTImgServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PPTImgServlet</servlet-name>
+    <url-pattern>/ppt/pptImg.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>PPTToolService</servlet-name>
+    <servlet-class>com.ppttool.model.PPTToolService</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>MedicalOrderServlet</servlet-name>
+    <servlet-class>com.medicalorder.controller.MedicalOrderServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MedicalOrderServlet</servlet-name>
+    <url-pattern>/front-end/medicalOrder/medicalOrderServlet.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>MedicalOrderImgServlet</servlet-name>
+    <servlet-class>com.medicalorder.controller.MedicalOrderImgServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MedicalOrderImgServlet</servlet-name>
+    <url-pattern>/front-end/medicalOrder/medicalOrderServletImg.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AdminServlet</servlet-name>
+    <servlet-class>com.administrator.controller.AdminServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminServlet</servlet-name>
+    <url-pattern>/back-end/admin/admin.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>FavDrServlet</servlet-name>
+    <servlet-class>com.favdr.controller.FavDrServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FavDrServlet</servlet-name>
+    <url-pattern>/front-end/favDr/favDrServlet.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DoctorServlet</servlet-name>
+    <servlet-class>com.doctor.controller.DoctorServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DoctorServlet</servlet-name>
+    <url-pattern>/doctor/doctor.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DoctorImgServlet</servlet-name>
+    <servlet-class>com.doctor.controller.DoctorImgServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DoctorImgServlet</servlet-name>
+    <url-pattern>/doctor/doctorImg.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DravailableServlet</servlet-name>
+    <servlet-class>com.doctoravailable.controller.DravailableServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DravailableServlet</servlet-name>
+    <url-pattern>/doctoravailable/dravailable.do</url-pattern>
+  </servlet-mapping>
+  <filter>
     <filter-name>setCharacterEncoding</filter-name>
     <filter-class>com.tools.filter.SetCharacterEncodingFilter</filter-class>
     <init-param>
@@ -134,7 +121,6 @@
     <filter-name>setCharacterEncoding</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-  
   <servlet>
     <servlet-name>ImpressionServlet</servlet-name>
     <servlet-class>com.impression.controller.ImpressionServlet</servlet-class>
@@ -143,7 +129,6 @@
     <servlet-name>ImpressionServlet</servlet-name>
     <url-pattern>/impression/impression.do</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>ImpressionVideo</servlet-name>
     <servlet-class>com.impression.controller.ImpressionVideoServlet</servlet-class>
@@ -152,8 +137,7 @@
     <servlet-name>ImpressionVideo</servlet-name>
     <url-pattern>/impression/impressionVideo.do</url-pattern>
   </servlet-mapping>
-  
-   <servlet>
+  <servlet>
     <servlet-name>Imgservlet</servlet-name>
     <servlet-class>com.impression.controller.Imgservlet</servlet-class>
   </servlet>
@@ -161,8 +145,7 @@
     <servlet-name>Imgservlet</servlet-name>
     <url-pattern>/impression/impressionServlet.do</url-pattern>
   </servlet-mapping>
-
-<servlet>
+  <servlet>
     <servlet-name>ImpressionPic</servlet-name>
     <servlet-class>com.impression.controller.ImpressionPicServlet</servlet-class>
   </servlet>
@@ -170,8 +153,7 @@
     <servlet-name>ImpressionPic</servlet-name>
     <url-pattern>/impression/impressionPic.do</url-pattern>
   </servlet-mapping>
-  
-<servlet>
+  <servlet>
     <servlet-name>Activityservlet</servlet-name>
     <servlet-class>com.activity.controller.ActivityServlet</servlet-class>
   </servlet>
@@ -179,39 +161,45 @@
     <servlet-name>Activityservlet</servlet-name>
     <url-pattern>/activity/activity.do</url-pattern>
   </servlet-mapping>
-  
   <servlet>
-		<servlet-name>MemberChefServlet</servlet-name>
-		<servlet-class>com.memberchef.controller.MemberChefServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>MemberChefServlet</servlet-name>
-		<url-pattern>/memberchef/memberchef.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>MemberChefImgServlet</servlet-name>
-		<servlet-class>com.memberchef.controller.MemberChefImgServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>MemberChefImgServlet</servlet-name>
-		<url-pattern>/memberchef/memberchefImg.do</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>MenuServlet</servlet-name>
-		<servlet-class>com.menu.controller.MenuServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>MenuServlet</servlet-name>
-		<url-pattern>/front-end/menu/menu.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>MenuImgServlet</servlet-name>
-		<servlet-class>com.menu.controller.MenuImgServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>MenuImgServlet</servlet-name>
-		<url-pattern>/front-end/menu/menuImg.do</url-pattern>
-	</servlet-mapping>
-	
+    <servlet-name>MemberChefServlet</servlet-name>
+    <servlet-class>com.memberchef.controller.MemberChefServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberChefServlet</servlet-name>
+    <url-pattern>/memberchef/memberchef.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>MemberChefImgServlet</servlet-name>
+    <servlet-class>com.memberchef.controller.MemberChefImgServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberChefImgServlet</servlet-name>
+    <url-pattern>/memberchef/memberchefImg.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>MenuServlet</servlet-name>
+    <servlet-class>com.menu.controller.MenuServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MenuServlet</servlet-name>
+    <url-pattern>/front-end/menu/menu.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>MenuImgServlet</servlet-name>
+    <servlet-class>com.menu.controller.MenuImgServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MenuImgServlet</servlet-name>
+    <url-pattern>/front-end/menu/menuImg.do</url-pattern>
+  </servlet-mapping>
+  
+  <filter>
+    <filter-name>Acess_Filter</filter-name>
+    <filter-class>com.tools.filter.MemberExist</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>Acess_Filter</filter-name>
+    <url-pattern>/doctoravailable/selectDoctorAvailable_page.jsp</url-pattern>
+  </filter-mapping>
 </web-app>

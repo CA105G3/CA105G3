@@ -78,7 +78,8 @@ private MemberDAO_interface dao;
 	public List<MemberVO> getAll(){
 		return dao.getAll();
 	}
-	public MemberVO getOneMemberByAccount(String memid) {
+	public MemberVO getOneMemberByAccount(String memid,java.sql.Timestamp stayTime) {
+		dao.UpdateLogin(memid, stayTime);
 		return dao.findByID(memid);
 	}
 	

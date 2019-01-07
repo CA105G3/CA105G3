@@ -1,6 +1,7 @@
 package com.member.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
@@ -540,10 +541,12 @@ public class MemberServlet extends HttpServlet {
 				failureView.forward(req, res);
 		      }else {                                       //【帳號 , 密碼有效時, 才做以下工作】
 		        HttpSession session = req.getSession();
+		        req.getSession().removeAttribute("accessfail");
+		        java.sql.Timestamp lastlogin = new Timestamp(System.currentTimeMillis());
 		        MemberService memSvc = new MemberService();
-			  	MemberVO memVO=memSvc.getOneMemberByAccount(account);
+			  	MemberVO memVO=memSvc.getOneMemberByAccount(account,lastlogin);
 		        session.setAttribute("memVO", memVO);   //*工作1: 才在session內做已經登入過的標識
-		  
+
 		         try {                                                        
 		           String location = (String) session.getAttribute("location");
 		           if (location != null) {
@@ -556,9 +559,10 @@ public class MemberServlet extends HttpServlet {
 		        res.sendRedirect(req.getContextPath()+"/front-end/member/index.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
 		      }
 		}//end auth
-		
+	
 		if("logout".equals(action)) {
 			HttpSession session = req.getSession();
+			session.removeAttribute("memno");
 			session.removeAttribute("memVO");
 			res.sendRedirect(req.getContextPath()+"/front-end/member/index.jsp");
 		}//end logout
@@ -581,7 +585,8 @@ public class MemberServlet extends HttpServlet {
 	}
 	  protected boolean allowUser(String account, String password) {
 		  	MemberService memSvc = new MemberService();
-		  	MemberVO memVO=memSvc.getOneMemberByAccount(account);
+		  	java.sql.Timestamp lastlogin = new Timestamp(System.currentTimeMillis());
+		  	MemberVO memVO=memSvc.getOneMemberByAccount(account,lastlogin);
 		  	if(memVO==null) 
 		  		return false;
 		  	else if (account.equals(memVO.getMemId())&&password.equals(memVO.getPwd()))

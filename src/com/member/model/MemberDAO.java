@@ -51,6 +51,8 @@ public class MemberDAO implements MemberDAO_interface{
 		+ "gender=?,ident=?,locno=?,medhistory=?,"
 		+ "memstatus=?,phone=?,pwd=?,regdate=?,"
 		+ "smoking=?,staytime=?  where memno = ?";
+	
+	private static final String UPDATE_LOGIN="update member set staytime=? where memid=?";
 
 	private static final String GET_ONE_STMT_BY_ID="select * from member where memid=?";
 	
@@ -471,5 +473,35 @@ public class MemberDAO implements MemberDAO_interface{
 				}
 			}
 		}
-	}	
+	}
+	public void UpdateLogin(String memno,java.sql.Timestamp lastlogin) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_LOGIN);
+			pstmt.setTimestamp(1, lastlogin);
+			pstmt.setString(2,memno);
+			pstmt.executeUpdate();	
+
+		} catch(SQLException se) {
+			throw new RuntimeException("Couldn't load database driver." +se.getMessage());
+		} finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if(con!=null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
 }

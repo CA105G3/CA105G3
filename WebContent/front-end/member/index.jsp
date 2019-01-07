@@ -12,7 +12,7 @@
 	}
 	
 	List<String> loginerrorMsgs = (LinkedList)request.getAttribute("loginerrorMsgs");
-	
+	List<String> accessfail=(LinkedList)request.getSession().getAttribute("accessfail");
 	 java.sql.Date regDate = null;
 	  try {
 		    regDate = memVO.getRegDate();
@@ -25,6 +25,7 @@
 	  }catch(Exception e){
 		  stayTime=new java.sql.Timestamp(System.currentTimeMillis());
 	  }
+	  
 %>
 <!DOCTYPE html>
 <html>
@@ -58,8 +59,10 @@
 	}
   	</style>
   </head>
-  <body <%=(loginerrorMsgs==null)?"":"onload=faillogin()" %>>
-    
+<%--   <body <%=(loginerrorMsgs==null)?"":"onload=faillogin()" %>> --%>
+    <body<% if(loginerrorMsgs!=null||accessfail!=null){
+    	out.print(" onload=faillogin()");
+    } %>>
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
 	      <a class="navbar-brand" href="index.jsp">Plus      <i class="fas fa-plus-square"></i></a>
@@ -72,7 +75,7 @@
 	          <li class="nav-item"><a href="food.html" class="nav-link"><%= (memVO==null)? "訪客" :memVO.getMemName() %> 您好!</a></li>
 	          <li class="nav-item"><a href=<%=(memVO==null)? "index.jsp" : request.getContextPath()+"/front-end/member/member.do?action=getOne_For_Display&memno="+memVO.getMemNo() %> class="nav-link">個人設定</a></li>
 	          <li class="nav-item"><a href="food.html" class="nav-link">送餐專區</a></li>
-	          <li class="nav-item"><a href="doctors.html" class="nav-link">線上問診</a></li>
+	          <li class="nav-item"><a href="<%=request.getContextPath() %>/doctoravailable/selectDoctorAvailable_page.jsp" class="nav-link">線上問診</a></li>
 	          <li class="nav-item"><a href="../impression/impsearch.jsp" class="nav-link">活動專區</a></li>
 	          <li class="nav-item"><a href="contact.html" class="nav-link">聯繫我們</a></li>
 	          <li class="nav-item cta"><a href="member.do?action=logout" class="nav-link" <%= (memVO==null)? "data-toggle='modal' data-target='#modalRequest'" :"" %>  ><span id="mylogin"><%= (memVO==null)? "登入/註冊" :"登出" %></span></a></li>
@@ -317,6 +320,15 @@
 			<font style="color:red">請修正以下錯誤:</font>
 			<ul>
 			<c:forEach var="message" items="${loginerrorMsgs}">
+			<li style="color:red">${message}</li>
+	        </c:forEach>
+			</ul>
+		  </c:if>
+		  
+		  <c:if test="${not empty accessfail}">
+			<font style="color:red">請修正以下錯誤:</font>
+			<ul>
+			<c:forEach var="message" items="${accessfail}">
 			<li style="color:red">${message}</li>
 	        </c:forEach>
 			</ul>
