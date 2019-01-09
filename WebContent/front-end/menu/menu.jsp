@@ -48,7 +48,7 @@
 	              </div>
 	              <div class="">
 	                <label>
-	                  ${menuVO.deliverable}
+ 	                  ${menuVO.deliverable}
 	                </label>
 	              </div>
 	            </div>
@@ -58,7 +58,7 @@
       </c:forEach>	
     </div>
     <div class="col-sm-2 col-sm-offset-5">
-      <input type="hidden" name="chefNo" value="<%=list.get(0).getChefNo()%>">
+      <input type="hidden" name="chefNo" value="<%=list.get(0).getChefNo() %>">
       <input type="hidden" name="action" value="getOne_For_Update">
       <input type="submit" class="btn btn-primary" value="修改基本菜單">
     </div>

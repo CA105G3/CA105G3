@@ -48,7 +48,7 @@
 	              	<input type="number" class="form-control" name="unitPrice" value="${menuVO.unitPrice}" placeholder="請輸入餐點價格" required/>
 	              </div>
 	              <div class="">
-	                <label>
+	                <%-- <label>
 	                  <c:choose>
 	                  	<c:when test="${menuVO.deliverable == '可送餐'}">
 	                  	  <input type="checkbox" name="deliverable" value="可送餐" checked/>可送餐
@@ -57,7 +57,7 @@
 	                  	  <input type="checkbox" name="deliverable" value="可送餐"/>可送餐
 	                  	</c:otherwise>
 	                  </c:choose>
-	                </label>
+	                </label> --%>
 	              </div>
 	              <input type="hidden" name="menuNo" value="${menuVO.menuNo}">
 	              <input type="hidden" name="chefNo" value="${menuVO.chefNo}">
@@ -66,9 +66,37 @@
 	        </div>
       	</div>
       </c:forEach>	
+      	<div class="col-xs-12 col-sm-3 col-lg-2">
+	        <div class="card">
+	          <div class="card-image">
+	            <img src="<%=request.getContextPath()%>/Imgs/Menu/nopic.jpg"/>
+	            <input type="file" name="menuPic" accept="image/*" onchange="readURL(this);" value=""/>  
+	          </div>
+	          <div class="card-content">
+	            <div class="form-group">
+	              <label class="control-label" for="mainCourse">餐點名稱</label>
+	              <div class="">
+	              	<input type="text" class="form-control" name="mainCourse" value="" placeholder="請輸入餐點名稱"/>
+	              </div>
+	              <label class="control-label" for="unitPrice">餐點價格</label>
+	              <div class="">
+	              	<input type="number" class="form-control" name="unitPrice" value="" placeholder="請輸入餐點價格"/>
+	              </div>
+	              <div class="">
+	                <!-- <label>
+	                  <input type="checkbox" name="deliverable" value="可送餐" checked/>可送餐
+	                </label> -->
+	              </div>
+	              <input type="hidden" name="menuNo" value="">
+	              <input type="hidden" name="chefNo" value="<%=list.get(0).getChefNo()%>">
+	            </div>
+	          </div>
+	        </div>
+      	</div>
     </div>
     <div class="col-sm-2 col-sm-offset-5">
-      <button type="submit" class="btn btn-primary" name="action" value="update">送出修改</button>
+      <input type="hidden" name="action" value="update"/>
+      <input type="submit" class="btn btn-primary" value="送出修改"/>
     </div>
   </div>
 </form>  
@@ -83,7 +111,6 @@
 	        reader.onload = function (e) {
 	            $('#preview').attr('src', e.target.result);
 	        };
-	
 	        reader.readAsDataURL(input.files[0]);
 	    }
 	}

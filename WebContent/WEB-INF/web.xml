@@ -193,6 +193,15 @@
     <servlet-name>MenuImgServlet</servlet-name>
     <url-pattern>/front-end/menu/menuImg.do</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+	<servlet-name>MenuListServlet</servlet-name>
+	<servlet-class>com.menulist.controller.MenuListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>MenuListServlet</servlet-name>
+	<url-pattern>/front-end/menulist/menulist.do</url-pattern>
+  </servlet-mapping>  
   
   <filter>
     <filter-name>Acess_Filter</filter-name>

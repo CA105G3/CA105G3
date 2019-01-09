@@ -47,6 +47,10 @@ public class MenuListService {
 	public MenuListVO getOneMenuList(String menuListNo) {
 		return dao.findByPrimaryKey(menuListNo);
 	}
+	
+	public List<MenuListVO> getOneKindMenuList(String menuNo) {
+		return dao.findByMenuNo(menuNo);
+	}
 
 	public List<MenuListVO> getAll() {
 		return dao.getAll();

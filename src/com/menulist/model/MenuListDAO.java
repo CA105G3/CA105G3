@@ -30,6 +30,8 @@ public class MenuListDAO implements MenuListDAO_interface{
 			"SELECT menulistno,menuno,menudate,menutimeslot from menulist order by menulistno";
 		private static final String GET_ONE_STMT = 
 			"SELECT menulistno,menuno,menudate,menutimeslot from menulist where menulistno=?";
+		private static final String GET_ONEMENU_STMT = 
+			"SELECT menulistno,menuno,menudate,menutimeslot from menulist where menuno=?";
 		private static final String DELETE = 
 			"DELETE FROM menulist where menulistno = ?";
 		private static final String UPDATE = 
@@ -177,6 +179,50 @@ public class MenuListDAO implements MenuListDAO_interface{
 			}
 		}
 		return menulistVO;
+	}
+
+	@Override
+	public List<MenuListVO> findByMenuNo(String MenuNo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<MenuListVO> list = new ArrayList<MenuListVO>();
+		MenuListVO menulistVO = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONEMENU_STMT);
+			pstmt.setString(1, MenuNo);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				menulistVO = new MenuListVO();
+				menulistVO.setMenuListNo(rs.getString(1));
+				menulistVO.setMenuNo(rs.getString(2));
+				menulistVO.setMenuDate(rs.getDate(3));
+				menulistVO.setMenuTimeSlot(rs.getString(4));
+				list.add(menulistVO);
+			}
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "	+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 
 	@Override

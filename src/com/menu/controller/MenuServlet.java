@@ -140,58 +140,107 @@ public class MenuServlet extends HttpServlet {
 			
 
 			try {
-				/***********************1.接收請求參數 & 修改資料**********************************/
+				/***********************1.接收請求參數 & 新增修改資料******************************/
 				
 				MenuVO menuVO = new MenuVO();
 				MenuService menuSvc = new MenuService();
 				
-				Collection<Part> menuPiclist = req.getParts();
-				String[] mainCourselist = req.getParameterValues("mainCourse");
-				String[] unitPricelist = req.getParameterValues("unitPrice");
-				String[] deliverablelist = req.getParameterValues("deliverable");
-				String[] menuNolist = req.getParameterValues("menuNo");
-				String[] chefNolist = req.getParameterValues("chefNo");
+				String[] mainCourseList = req.getParameterValues("mainCourse");
+				String[] unitPriceList = req.getParameterValues("unitPrice");
+//				String[] deliverableList = req.getParameterValues("deliverable");
+				String[] menuNoList = req.getParameterValues("menuNo");
+				String[] chefNoList = req.getParameterValues("chefNo");
+				Collection<Part> menuPicPart = req.getParts();
 				
-				for(Part part : menuPiclist) {
-					System.out.println(part.getName());
+//				for(Part part : menuPicPart) {
+//					System.out.println(part);
+//				}
+				
+				List<byte[]> menuPicList = new LinkedList<byte[]>();
+				int count = 0;
+				for(Part part : menuPicPart) {
+					
+					if("menuPic".equals(part.getName())) {
+						byte[] pic = null;
+						String filename = part.getSubmittedFileName();
+						if (filename != "") {
+							InputStream in = part.getInputStream();
+							pic = new byte[in.available()];
+							in.read(pic);
+							in.close();
+							menuPicList.add(pic);
+							count++;
+						} else {
+							pic = menuSvc.getOneMenu(menuNoList[count]).getMenuPic();
+							if(pic != null) {
+								menuPicList.add(pic);
+							} else {
+								InputStream inDefault = getServletContext().getResourceAsStream("/Imgs/Menu/nopic.jpg");
+								pic = new byte[inDefault.available()];
+								inDefault.read(pic);
+								inDefault.close();
+								menuPicList.add(pic);
+							}
+							count++;
+						}
+					}
 				}
 				
-				System.out.println(chefNolist[0]);
-				System.out.println(menuPiclist.size());
-				System.out.println(mainCourselist.length);
-				System.out.println(unitPricelist.length);
-				System.out.println(deliverablelist.length);
-				System.out.println(menuNolist.length);
-				System.out.println(chefNolist.length);
-				System.out.println(Integer.parseInt(unitPricelist[0].trim()) * 2);
+				for(String a : mainCourseList) {
+					System.out.print(a + " ");
+				}
+				System.out.println("----------------------");
+				for(String a : unitPriceList) {
+					System.out.print(a + " ");
+				}
+//				System.out.println("----------------------");
+//				for(String a : deliverableList) {
+//					System.out.print(a + " ");
+//				}
+				System.out.println("----------------------");
+				for(String a : menuNoList) {
+					System.out.print(a + " ");
+				}
+				System.out.println("----------------------");
+				for(String a : chefNoList) {
+					System.out.print(a + " ");
+				}
+				System.out.println("----------------------");
 				
-				for(int i = 0; i < mainCourselist.length; i++) {
-					menuVO = menuSvc.getOneMenu(menuNolist[i]);
-					byte[] menuPic = menuSvc.getOneMenu(menuNolist[i]).getMenuPic();
+				
+				
+				System.out.println(chefNoList[1]);
+				System.out.println(menuPicPart.size());
+				System.out.println(menuPicList.size());
+				System.out.println(mainCourseList.length);
+				System.out.println(unitPriceList.length);
+//				System.out.println(deliverableList.length);
+				System.out.println(menuNoList.length);
+				System.out.println(chefNoList.length);
+//
+//				menuVO = menuSvc.getOneMenu(menuNoList[1]);
+//				if(menuVO == null) {
+//					System.out.println("1");
+//				} else {
+//					System.out.println("2");
+//				}
+//				
+				for(int i = 0; i < mainCourseList.length; i++) {
+					menuVO = menuSvc.getOneMenu(menuNoList[i]);
+//					byte[] menuPic = menuSvc.getOneMenu(menuNoList[i]).getMenuPic();
 					
 					if(menuVO == null) {
-//						==========================處理圖片===============================
-//						Part part = menuPiclist.get(i);
-//						String filename = part.getSubmittedFileName();
-//
-//						if (filename != "") {
-//							InputStream in = part.getInputStream();
-//							menuPic = new byte[in.available()];
-//							in.read(menuPic);
-//							in.close();
-//						} else {
-//							menuPic = menuSvc.getOneMenu(menuNolist[i]).getMenuPic();
-//						}
-//						=================================================================
-						System.out.println("1");
-						menuSvc.addMenu(chefNolist[i], Integer.parseInt(unitPricelist[i].trim()), mainCourselist[i], menuPic, deliverablelist[i]);
+						if(mainCourseList[i] != "") {
+							menuSvc.addMenu(chefNoList[0], Integer.parseInt(unitPriceList[i].trim()), mainCourseList[i], menuPicList.get(i), "可送餐");
+							System.out.println("add");
+						}
 					} else {
-						menuSvc.updateMenu(Integer.parseInt(unitPricelist[i].trim()), mainCourselist[i], menuPic, deliverablelist[i], menuNolist[i]);
+						menuSvc.updateMenu(Integer.parseInt(unitPriceList[i].trim()), mainCourseList[i], menuPicList.get(i), "可送餐", menuNoList[i]);
+						System.out.println("up");
 					}
-//					list.add(menuVO);
 				}
 				
-				List<MenuVO> list = menuSvc.getOneChefMenu(chefNolist[0]);
+				List<MenuVO> list = menuSvc.getOneChefMenu(chefNoList[0]);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)***********/
 				req.setAttribute("list", list);
@@ -203,7 +252,7 @@ public class MenuServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.put("Exception",e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front\u002dend/menu/menu.jsp");
+						.getRequestDispatcher("/front\u002dend/menu/select_page.jsp");
 				failureView.forward(req, res);
 			}
         }
