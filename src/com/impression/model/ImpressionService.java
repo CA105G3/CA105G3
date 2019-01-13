@@ -9,7 +9,7 @@ public class ImpressionService {
 	private ImpressionDAO_interface dao;
 	
 	public ImpressionService() {
-		dao = new ImpressionJDBCDAO();
+		dao = new ImpressionDAO();
 	}
 	
 	public ImpressionVO addImp(String actNo,String impName, String memNo,
@@ -60,5 +60,7 @@ public class ImpressionService {
 		dao.delete(impno);
 	}
 	
-	
+	public List<ImpressionVO> myimpression(String memNo) {
+		return dao.findmyimp(memNo);
+	}
 }

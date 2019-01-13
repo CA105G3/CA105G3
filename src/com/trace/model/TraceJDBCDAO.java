@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.activity.model.ActivityJDBCDAO;
-import com.joinact.model.JoinactVO;
+import com.activity.model.ActivityDAO;
+import com.joinact.model.JoinActVO;
 
 public class TraceJDBCDAO implements TraceDAO_interface{
 	

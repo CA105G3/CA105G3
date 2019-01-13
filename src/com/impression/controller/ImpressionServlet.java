@@ -36,40 +36,40 @@ public class ImpressionServlet extends HttpServlet{
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 	
-		if ("getOne_For_Display".equals(action)) { // �Ӧ�select_page.jsp���ШD
+		if ("getOne_For_Display".equals(action)) { //來自impsearch.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
-//			try {
+			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				String str = req.getParameter("impNo");
-				if (str == null || (str.trim()).length() == 0) {
-					errorMsgs.add("請輸入心得編號");
-				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/impression/impsearch.jsp");
-					failureView.forward(req, res);
-					return;//程式中斷
-				}
-				
-				String impNo = null;
-				try {
-					impNo = new String(str);
-				} catch (Exception e) {
-					errorMsgs.add("員工編號格式不正確");
-				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/impression/impsearch.jsp");
-					failureView.forward(req, res);
-					return;//程式中斷
-				}
+				String impNo = req.getParameter("impNo");
+//				if (str == null || (str.trim()).length() == 0) {
+//					errorMsgs.add("請輸入心得編號");
+//				}
+//				// Send the use back to the form, if there were errors
+//				if (!errorMsgs.isEmpty()) {
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/front-end/impression/impsearch.jsp");
+//					failureView.forward(req, res);
+//					return;//程式中斷
+//				}
+//				
+//				String impNo = null;
+//				try {
+//					impNo = new String(str);
+//				} catch (Exception e) {
+//					errorMsgs.add("心得編號格式不正確");
+//				}
+//				// Send the use back to the form, if there were errors
+//				if (!errorMsgs.isEmpty()) {
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/front-end/impression/impsearch.jsp");
+//					failureView.forward(req, res);
+//					return;//程式中斷
+//				}
 				
 				/***************************2.開始查詢資料*****************************************/
 				ImpressionService impressionSvc = new ImpressionService();
@@ -80,24 +80,24 @@ public class ImpressionServlet extends HttpServlet{
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/impression/impsearch.jsp");
+							.getRequestDispatcher("/front-end/impression/impsearch.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("impressionVO", impressionVO); // 資料庫取出的impressionVO物件,存入req
-				String url = "/impression/listOneImp.jsp";
+				String url = "/front-end/impression/listOneImp.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneImp.jsp
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理*************************************/
-//			} catch (Exception e) {
-//				errorMsgs.add("無法取得資料:" + e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/impression/select_page.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/impression/impsearch.jsp");
+				failureView.forward(req, res);
+			}
 		}
 		
 		
@@ -120,7 +120,7 @@ public class ImpressionServlet extends HttpServlet{
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("impressionVO", impressionVO);         // 資料庫取出的impressionVO物件,存入req
-				String url = "/impression/update_imp_input.jsp";
+				String url = "/front-end/impression/update_imp_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);//  成功轉交 update_imp_input.jsp
 				successView.forward(req, res);
 
@@ -128,7 +128,7 @@ public class ImpressionServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/impression/listAllImp.jsp");
+						.getRequestDispatcher("/front-end/impression/listAllImp.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -200,7 +200,7 @@ public class ImpressionServlet extends HttpServlet{
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("impressionVO", impressionVO); // 資料庫取出的impressionVO物件,存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/impression/update_imp_input.jsp");
+							.getRequestDispatcher("/front-end/impression/update_imp_input.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -211,7 +211,7 @@ public class ImpressionServlet extends HttpServlet{
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("impressionVO", impressionVO); // 資料庫update成功後,正確的的impressionVO物件,存入req
-				String url = "/impression/listOneImp.jsp";
+				String url = "/front-end/impression/listOneImp.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneImp.jsp
 				successView.forward(req, res);
 
@@ -287,7 +287,7 @@ public class ImpressionServlet extends HttpServlet{
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("impressionVO", impressionVO); // 資料庫取出的impressionVO物件,存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/impression/addImp.jsp");
+							.getRequestDispatcher("/front-end/impression/addImp.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -297,7 +297,7 @@ public class ImpressionServlet extends HttpServlet{
 				impressionVO = impressionSvc.addImp(actno,impname, memno, impcon, recvideo,recpic, impfield);
 				
 				/***************************3..新增完成,準備轉交(Send the Success view)***********/
-				String url = "/impression/listAllImp.jsp";
+				String url = "/front-end/impression/listAllImp.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllEmp.jsp
 				successView.forward(req, res);				
 				
@@ -305,7 +305,7 @@ public class ImpressionServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/impression/addImp.jsp");
+						.getRequestDispatcher("/front-end/impression/addImp.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -327,7 +327,7 @@ public class ImpressionServlet extends HttpServlet{
 				impressionSvc.deleteImp(impNo);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/impression/listAllImp.jsp";
+				String url = "/front-end/impression/listAllImp.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// �R�����\��,���^�e�X�R�����ӷ�����
 				successView.forward(req, res);
 				
@@ -335,7 +335,7 @@ public class ImpressionServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/impression/listAllImp.jsp");
+						.getRequestDispatcher("/front-end/impression/listAllImp.jsp");
 				failureView.forward(req, res);
 			}
 		}

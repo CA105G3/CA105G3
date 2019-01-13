@@ -1,11 +1,14 @@
 package com.member.model;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -13,6 +16,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.administrator.model.AdministratorVO;
+import com.license.model.LicenseVO;
 import com.tools.mail.Verifymail;
 
 public class MemberDAO implements MemberDAO_interface{
@@ -59,6 +63,12 @@ public class MemberDAO implements MemberDAO_interface{
 	private static final String UPDATE_FOR_BASIC_RECORD = 
 			"UPDATE MEMBER SET bloodType=?, smoking=?, allergy=?, medHistory=?, famHistory=? where memId = ?";
 	private static final String UPDATE_FOR_VERIFY="UPDATE MEMBER SET MEMSTATUS=? where memno=?";
+	//license驗證
+	private static final String CHANGE_IDNET =
+			"UPDATE member set ident=? where memno=?";
+	//license取得會員資料
+	private static final String GET_MEM_BY_LIC=
+			"SELECT licNo,memNo,licData,licStatus,licDesc,licDue FROM License WHERE memNO = ? ORDER BY LicNO";
 	@Override
 	public void insert(MemberVO memberVO) {
 		Connection con=null;
@@ -503,5 +513,97 @@ public class MemberDAO implements MemberDAO_interface{
 				}
 			}
 		}
+	}
+	//licnese 驗證
+	@Override
+	public void changeident(String memNo,String ident) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		
+		try {
+			con=ds.getConnection();
+			pstmt = con.prepareStatement(CHANGE_IDNET);
+			
+			pstmt.setString(1,ident);
+			pstmt.setString(2, memNo);
+			pstmt.executeUpdate();
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
+	@Override
+	public Set<LicenseVO> findByMemNo(String memNo) {
+		
+			Set<LicenseVO> set = new LinkedHashSet<LicenseVO>();
+			LicenseVO licenseVO = null;
+			
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+		
+			try {
+		
+				con=ds.getConnection();
+				pstmt = con.prepareStatement(GET_MEM_BY_LIC);
+				//SELECT licNo,memNo,licData,licStatus,licDesc,licDue FROM License WHERE memNO = ? ORDER BY LicNO
+				pstmt.setString(1, memNo);
+				rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+					licenseVO = new LicenseVO();
+					licenseVO.setLicNo(rs.getString("licNo"));
+					licenseVO.setMemNo(rs.getString("memNo"));
+					licenseVO.setLicData(rs.getBytes("licData"));
+					licenseVO.setLicStatus(rs.getString("licStatus"));
+					licenseVO.setLicDesc(rs.getString("licDesc"));
+					licenseVO.setLicDue(rs.getDate("licDue"));
+					set.add(licenseVO); // Store the row in the vector
+				}
+		
+				// Handle any SQL errors
+			
+			}catch (SQLException se) {
+				throw new RuntimeException("Couldn't load database driver."+ se.getMessage());
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return set;
 	}
 }

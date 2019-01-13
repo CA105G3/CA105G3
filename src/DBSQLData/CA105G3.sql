@@ -123,7 +123,6 @@ INSERT INTO license VALUES('L'||lpad(to_char(license_seq.NEXTVAL), 4, '0'),'M001
 INSERT INTO license VALUES('L'||lpad(to_char(license_seq.NEXTVAL), 4, '0'),'M0019',NULL,'生效中','多益證照',TO_DATE('2025-11-12','YYYY-MM-DD'));
 INSERT INTO license VALUES('L'||lpad(to_char(license_seq.NEXTVAL), 4, '0'),'M0016',NULL,'生效中','獵人職照',TO_DATE('2023-08-09','YYYY-MM-DD'));
 INSERT INTO license VALUES('L'||lpad(to_char(license_seq.NEXTVAL), 4, '0'),'M0020',NULL,'已失效','霍格華茲畢業證書',TO_DATE('2016-07-16','YYYY-MM-DD'));
-
 -----------------------------------------------
 -- create administrator
 -----------------------------------------------
@@ -172,12 +171,13 @@ CREATE TABLE activity
     actlimit    NUMBER(5,0) NOT NULL, 
     timecheck   NUMBER(2,0) NOT NULL,
     actDesc     VARCHAR2(300 BYTE),
-    actpic      BLOB, 
+    actpic      BLOB,
+    latitude    VARCHAR2(50 BYTE) NOT NULL,
+    longtitude  VARCHAR2(50 BYTE) NOT NULL,
     CONSTRAINT activity_pk PRIMARY KEY (actno),
     CONSTRAINT activity_fk FOREIGN KEY (memno) REFERENCES MEMBER (memno),
     CONSTRAINT CHK_actstatus CHECK (actstatus in('募集中','已結束','已取消'))
 );
-
 
 CREATE SEQUENCE activity_seq
 INCREMENT BY 1
@@ -186,20 +186,19 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0001','太陽拳比賽','那美克星',TO_DATE('2018-12-31','YYYY-MM-DD'),'募集中',10,3,2,'誰是最強的太陽拳繼承者!一起來挑戰八!',null);
-INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0008','捕獲寶可夢','芳緣地區',TO_DATE('2018-01-13','YYYY-MM-DD'),'已結束',50,20,1,'鳳王路奇亞現蹤，需組一團來攻陷，加入我吧!',null);
-INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0012','外丹功推廣','台中公園',TO_DATE('2018-08-26','YYYY-MM-DD'),'已結束',150,50,3,'外丹功好，強身健體，還不受中共壓迫歐',null);
-INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0007','看夜景','愛情摩天輪',TO_DATE('2019-05-20','YYYY-MM-DD'),'募集中',10,5,5,'高雄發大財，錢進得來，出的去，韓總讓大家賺大錢',null);
-INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0018','腳踏車競速','台北河濱',TO_DATE('2018-09-01','YYYY-MM-DD'),'募集中',100,45,2,'我是彭于晏，邀請大家陪我尬車競速',null);
-INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0010','翻墮羅拳展示','天橋下',TO_DATE('2018-10-11','YYYY-MM-DD'),'募集中',30,5,1,'秘術拳法徵求繼承者，意者請洽我',null);
-INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0019','象棋大賽','陽明公園榕樹下',TO_DATE('2019-02-02','YYYY-MM-DD'),'募集中',60,10,1,'高處不勝寒，坐擁榕樹下20年，誰能贏我',null);
-INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0013','慈善撲克大賽','公海賭神豪華郵輪',TO_DATE('2019-01-24','YYYY-MM-DD'),'募集中',500,100,10,'20塊港幣想贏到100萬，哈哈哈哈，好啊我借你',null);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0001','太陽拳比賽','桃園市中壢區中正公園',TO_DATE('2018-12-31','YYYY-MM-DD'),'募集中',10,3,2,'誰是最強的太陽拳繼承者!一起來挑戰八!',null,24.960402,121.226430);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0008','捕獲寶可夢','桃園市中壢區精五行養身館',TO_DATE('2018-01-13','YYYY-MM-DD'),'已結束',50,20,1,'鳳王路奇亞現蹤，需組一團來攻陷，加入我吧!',null,24.959477,121.218103);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0012','外丹功推廣','桃園市中壢區沙皇風尚咖啡館',TO_DATE('2018-08-26','YYYY-MM-DD'),'已結束',150,50,3,'外丹功好，強身健體，還不受中共壓迫歐',null,24.957615,121.212902);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0007','看夜景','桃園市中壢區社會福利基金會',TO_DATE('2019-05-20','YYYY-MM-DD'),'募集中',10,5,5,'高雄發大財，錢進得來，出的去，韓總讓大家賺大錢',null,24.959594,121.206722);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0018','腳踏車競速','永安漁港',TO_DATE('2018-09-01','YYYY-MM-DD'),'募集中',100,45,2,'我是彭于晏，邀請大家陪我尬車競速',null,24.988651,121.014494);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0010','翻墮羅拳展示','桃園市中壢區SOGO',TO_DATE('2018-10-11','YYYY-MM-DD'),'募集中',30,5,1,'秘術拳法徵求繼承者，意者請洽我',null,24.962474,121.223562);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0019','象棋大賽','中壢區新勢公園',TO_DATE('2019-02-02','YYYY-MM-DD'),'募集中',60,10,1,'高處不勝寒，坐擁榕樹下20年，誰能贏我',null,24.951806,121.216693);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0013','慈善撲克大賽','佑民醫院',TO_DATE('2019-01-24','YYYY-MM-DD'),'募集中',500,100,10,'20塊港幣想贏到100萬，哈哈哈哈，好啊我借你',null,24.957371,121.203808);
 
 -----------------------------------------------
 -- create Joinact
 -----------------------------------------------
-CREATE TABLE joinact
-(
+CREATE TABLE joinact(
     actno   VARCHAR2(7 BYTE),
     memno   VARCHAR2(5 BYTE),
     joinstatus  NUMBER(1, 0) NOT NULL,
@@ -221,7 +220,6 @@ INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0001','M0018',1);
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0004','M0015',1);
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0001','M0007',1);
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0008','M0001',1);
-
 -----------------------------------------------
 -- create impression
 -----------------------------------------------
@@ -259,8 +257,7 @@ INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'
 -----------------------------------------------
 -- create reportact
 -----------------------------------------------
-CREATE TABLE reportact
-（
+CREATE TABLE reportact（
     repano      VARCHAR2(8 BYTE),
     actno       VARCHAR2(7 BYTE) NOT NULL ,
     memno       VARCHAR2(5 BYTE) NOT NULL ,

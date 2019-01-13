@@ -4,6 +4,8 @@ import java.sql.*;
 import java.sql.Date;
 import java.util.*;
 
+import com.license.model.LicenseVO;
+
 public class MemberJDBCDAO implements MemberDAO_interface{
 	String dirver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -41,7 +43,12 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 	
 	private static final String UPDATE_FOR_BASIC_RECORD = 
 		"UPDATE MEMBER SET bloodType=?, smoking=?, allergy=?, medHistory=?, famHistory=? where memId = ?";
-	
+	//license更改會員ident狀態
+	private static final String CHANGE_IDNET =
+			"UPDATE member set ident=? where memno=?";
+	//license取得會員資料
+	private static final String GET_MEM_BY_LIC=
+			"SELECT licNo,memNo,licData,licStatus,licDesc,licDue FROM License WHERE memNO = ? ORDER BY LicNO";
 	@Override
 	public void insert(MemberVO memberVO) {
 		Connection con = null;
@@ -479,5 +486,73 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 	public MemberVO findByID(String memid) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public Set<LicenseVO> findByMemNo(String memNo) {
+		Set<LicenseVO> set = new LinkedHashSet<LicenseVO>();
+		LicenseVO licenseVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	
+		try {
+	
+			Class.forName(dirver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_MEM_BY_LIC);
+			//SELECT licNo,memNo,licData,licStatus,licDesc,licDue FROM License WHERE memNO = ? ORDER BY LicNO
+			pstmt.setString(1, memNo);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				licenseVO = new LicenseVO();
+				licenseVO.setLicNo(rs.getString("licNo"));
+				licenseVO.setMemNo(rs.getString("memNo"));
+				licenseVO.setLicData(rs.getBytes("licData"));
+				licenseVO.setLicStatus(rs.getString("licStatus"));
+				licenseVO.setLicDesc(rs.getString("licDesc"));
+				licenseVO.setLicDue(rs.getDate("licDue"));
+				set.add(licenseVO); // Store the row in the vector
+			}
+	
+			// Handle any SQL errors
+		}catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver." +e.getMessage()); 
+		}catch (SQLException se) {
+			throw new RuntimeException("Couldn't load database driver."+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return set;
+	}
+
+
+	@Override
+	public void changeident(String memNo, String ident) {
+		// TODO Auto-generated method stub
+		
 	}
 }

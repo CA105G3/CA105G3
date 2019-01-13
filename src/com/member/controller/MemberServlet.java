@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import com.administrator.model.AdministratorService;
 import com.administrator.model.AdministratorVO;
+import com.license.model.LicenseVO;
 import com.member.model.*;
 import com.ppttool.model.PPTToolService;
 import com.tools.mail.Verifymail;
@@ -582,6 +584,38 @@ public class MemberServlet extends HttpServlet {
 		         }catch (Exception ignored) { }
 		        res.sendRedirect(req.getContextPath()+"/front-end/member/index.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
 		}
+		
+		//start license
+		if ("getone_For_lic".equals(action)) {
+
+					List<String> errorMsgs = new LinkedList<String>();
+					req.setAttribute("errorMsgs", errorMsgs);
+
+//					try {
+						/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ****************************************/
+						String memNo = new String(req.getParameter("memNo"));
+						System.out.println(memNo);
+
+						/*************************** 2.開始查詢資料****************************************/
+						MemberService memberSvc = new MemberService();
+						Set<LicenseVO> set = memberSvc.getOneMemberByLicense(memNo);
+
+						/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+						req.setAttribute("mem_lic", set);    // 資料庫取出的impressionVO物件,存入req
+
+						String url = null;
+						if ("getone_For_lic".equals(action))
+							url = "/front-end/member/mem_lic.jsp";        // 成功轉交 act_imp.jsp
+						
+						RequestDispatcher successView = req.getRequestDispatcher(url);
+						successView.forward(req, res);
+
+						/*************************** 其他可能的錯誤處理 ***********************************/
+//					} catch (Exception e) {
+//						throw new ServletException(e);
+//					}
+		}
+		//end license
 	}
 	  protected boolean allowUser(String account, String password) {
 		  	MemberService memSvc = new MemberService();

@@ -1,8 +1,10 @@
 package com.member.model;
 
 import java.util.List;
+import java.util.Set;
 
 import com.administrator.model.AdministratorVO;
+import com.license.model.LicenseVO;
 
 public class MemberService {
 private MemberDAO_interface dao;
@@ -100,5 +102,17 @@ private MemberDAO_interface dao;
 		dao.UpdateVerify(memno);
 		memVO=dao.findByPrimaryKey(memno);
 		return memVO;
+	}
+	//license尋找會員
+	public Set<LicenseVO> getOneMemberByLicense(String memNo) {
+		return dao.findByMemNo(memNo);
+	}
+	//license更改會員ident狀態
+	public MemberVO changeident(String ident,String memNo) {
+		MemberVO memberVO = new MemberVO();
+		memberVO.setIdent(ident);
+		memberVO.setMemNo(memNo);
+		dao.changeident(memNo, ident);
+		return memberVO;
 	}
 }

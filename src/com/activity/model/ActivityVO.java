@@ -8,11 +8,16 @@ public class ActivityVO implements java.io.Serializable{
 	private String actName;
 	private String actLoc;
 	private Date actTime;
-	private String actStatus;
+	private String actStatus;	
+	private Integer actMax;
 	private Integer actLimit;
 	private Integer timeCheck;
+	private String actDesc;
+	private byte[] actPic;
+	private String latiTude;
+	private String longtiTude;
 	public String getActNo() {
-		return actNo;
+		return actNo;  
 	}
 	public void setActNo(String actNo) {
 		this.actNo = actNo;
@@ -58,6 +63,36 @@ public class ActivityVO implements java.io.Serializable{
 	}
 	public void setTimeCheck(Integer timeCheck) {
 		this.timeCheck = timeCheck;
+	}
+	public byte[] getActPic() {
+		return actPic;
+	}
+	public void setActPic(byte[] actpic) {
+		this.actPic = actpic;
+	}
+	public Integer getActMax() {
+		return actMax;
+	}
+	public void setActMax(Integer actMax) {
+		this.actMax = actMax;
+	}
+	public String getActDesc() {
+		return actDesc;
+	}
+	public void setActDesc(String actDesc) {
+		this.actDesc = actDesc;
+	}
+	public String getLatiTude() {
+		return latiTude;
+	}
+	public void setLatiTude(String latiTude) {
+		this.latiTude = latiTude;
+	}
+	public String getLongtiTude() {
+		return longtiTude;
+	}
+	public void setLongtiTude(String longtiTude) {
+		this.longtiTude = longtiTude;
 	}
 	
 	
