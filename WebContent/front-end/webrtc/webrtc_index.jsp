@@ -1,9 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.ppttool.model.*" %>
+<%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html>
     <head>
         <title>SimpleWebRTC Demo</title>
     </head>
-    <body>
+    <body onload="connect();" onunload="disconnect();">
         <h1 id="title">Start a room</h1>
         <style>
             .videoContainer {
@@ -33,6 +38,10 @@
             	width:640px;
             	height:360px;
             }
+            #ppt{
+            	width:480px;
+            	height:320px;
+            }
         </style>
         <button id="screenShareButton"></button>
         <p id="subTitle"></p>
@@ -48,15 +57,20 @@
             <div id="localVolume" class="volume_bar"></div>
         </div>
         </td>
-        
         <td>
         <div id="remotes"></div>
         </td>
-        
+<%--         <td><img src="<%=request.getContextPath()%>/ppt/pptImg.do?pptno=${pptVO.pptno}"></td> --%>
+       <td><img src="<%=request.getContextPath()%>/ppt/pptImg.do?pptno=P0001" id="ppt"></td>
         </tr>
+		<tr>
+        <td></td><td></td>
+        <td><button onclick="back()">上一頁</button></td>
+        <td><button onclick="next()">下一頁</button></td>
+		</tr>
         </table>
        
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="simplewebrtc.bundle.js"></script>
         <script>
             // grab the room from the URL
@@ -181,5 +195,47 @@
                 }
             });
         </script>
-    </body>
+<!--         	以下是WebSocket -->
+        
+        <script>
+	    var MyPoint = "/MyEchoServer/peter/309";
+	    var host = window.location.host;
+	    var path = window.location.pathname;
+	    var webCtx = path.substring(0, path.indexOf('/', 1));
+	    var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+	    
+	    console.log("webCtx:"+webCtx+" path:"+path+" host:"+host);
+	    console.log(endPointURL);
+		var webSocket;
+		var userName="D0001";
+		
+		function connect() {
+			// 建立 websocket 物件
+			webSocket = new WebSocket(endPointURL);
+			
+			webSocket.onopen = function(event) {
+				console.log("Open a WebSocket!");
+			};
+			webSocket.onmessage = function(event) {
+				console.log(event.data);
+				$('#ppt').attr('src',"<%=request.getContextPath()%>/ppt/pptImg.do?pptno="+event.data);
+			};
+			webSocket.onclose = function(event) {
+			};
+		}
+		
+		function back(){
+			var jsonObj = {"userName" : userName, "message" : "back"};
+	        webSocket.send(JSON.stringify(jsonObj));
+		}
+		function next(){
+			var jsonObj = {"userName" : userName, "message" : "next"};
+	        webSocket.send(JSON.stringify(jsonObj));
+		}
+		
+		function disconnect () {
+			
+		}
+		</script>
+	</body>
 </html>

@@ -38,20 +38,28 @@ public class MemberExist implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 		HttpSession session = request.getSession();
+		MemberVO memVO=(MemberVO)session.getAttribute("memVO");
 		String memno = (String)session.getAttribute("memno");
 		System.out.println(memno);
-		if(memno==null) {
-			List<String> errorMsgs = new LinkedList<String>();
+		List<String> errorMsgs = new LinkedList<String>();
+		if(memVO==null) {
+			
 			errorMsgs.add("請先登入會員");
 			session.setAttribute("accessfail", errorMsgs);
 //			request.setAttribute("loginerrorMsgs", errorMsgs);
+			
 			response.sendRedirect(request.getContextPath()+"/front-end/member/index.jsp");
-//			RequestDispatcher failacess =request.getRequestDispatcher("/front-end/member/index.jsp");
+//			RequestDispatcher failacess =request.getRequestDispatcher(request.getServletPath());
 //			RequestDispatcher failacess = request.getServletContext().getRequestDispatcher("/front-end/member/index.jsp"); 
 //			RequestDispatcher failacess =request.getRequestDispatcher("/front-end/member/index.jsp");
 //			failacess.forward(request, response);
-			
+//			failacess.forward(request, response);
 			return;
+		}else if(memVO.getMemStatus().equals("停用")) {
+			errorMsgs.add("請先到您的E-mail做驗證");
+			session.setAttribute("accessfail", errorMsgs);
+			session.removeAttribute("memVO");
+			response.sendRedirect(request.getContextPath()+"/front-end/member/index.jsp");
 		}
 		chain.doFilter(request, response);
 	}

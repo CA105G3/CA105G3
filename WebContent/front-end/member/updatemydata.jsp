@@ -192,10 +192,6 @@
 						<td><input name="addr" type="text" value="<%=memVO.getAddr()%>"></td>
 					</tr>
 					<tr>
-						<td><p>會員狀態:</p></td>
-						<td><input name="memstatus" type="text" value="<%=memVO.getMemStatus()%>" readonly></td>
-					</tr>
-					<tr>
 						<td><p>過往病史:</p></td>
 						<td><input name="medhistory" type="text" value="<%=memVO.getMedHistory()%>"></td>
 					</tr>
@@ -208,7 +204,7 @@
 						<td><input name="allergy" type="text" value="<%=memVO.getAllergy()%>"></td>
 					</tr>
 					<tr>
-						<td><p>是否有吸菸:</p></td>
+						<td><p>是否抽菸:</p></td>
 						<td><select name="smoking">
 							<option value="有" ${(memVO.gender=='有')?'selected':''}>有</option>
 							<option value="沒有" ${(memVO.gender=='沒有')?'selected':''}>沒有</option>
@@ -216,12 +212,14 @@
 						</td>
 					</tr>
 					<tr>
+<!-- 						<td><p>會員狀態:</p></td> -->
+<!-- 						<td><select name="memstatus" disabled="disabled"> -->
+<%-- 							<option value="正常" ${(memVO.memStatus=='正常')?'selected':''}>正常</option> --%>
+<%-- 							<option value="停用" ${(memVO.memStatus=='停用')?'selected':''}>停用</option> --%>
+<!-- 							</select> -->
+<!-- 						</td> -->
 						<td><p>會員狀態:</p></td>
-						<td><select name="memstatus" disabled="disabled">
-							<option value="正常" ${(memVO.gender=='正常')?'selected':''}>正常</option>
-							<option value="停用" ${(memVO.gender=='停用')?'selected':''}>停用</option>
-							</select>
-						</td>
+						<td><input name="memstatus" readonly value="<%=memVO.getMemStatus()%>"></td>
 					</tr>
 					<tr>
 						<td><p>註冊日期:</p></td>

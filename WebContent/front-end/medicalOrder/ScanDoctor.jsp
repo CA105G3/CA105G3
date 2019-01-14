@@ -38,11 +38,28 @@
 .btn {
 	border-radius: 0
 }
+
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
 </style>
+
+
 
 </head>
 <body>
 
+	<div>
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
@@ -79,8 +96,8 @@
 			</div>
 		</div>
 	</nav>
+	</div>
 	<!-- END nav -->
-
 	<section class="home-slider owl-carousel">
 		<div class="slider-item bread-item"
 			style="background-image: url('<%=request.getContextPath()%>/template/images/bg_1.jpg');"
@@ -98,19 +115,21 @@
 	</section>
 	<br>
 <!-- 幻燈片輪播 -->
-<div class="container">
-	<div class="row">
-		<div class="col-xs-12 col-sm-2"></div>
-		<div class="col-xs-12 col-sm-2"></div>
-		<div class="col-xs-12 col-sm-2"></div>
-		<div class="col-xs-12 col-sm-2"></div>
-		<div class="col-xs-12 col-sm-2 ">
-			<button type="button" class="btn btn-light text-primary">
-			<a href="#" class="text-primary pull-right">醫生管理頁面</a>
-			</button>
+	<div>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-2"></div>
+			<div class="col-xs-12 col-sm-2"></div>
+			<div class="col-xs-12 col-sm-2"></div>
+			<div class="col-xs-12 col-sm-2"></div>
+			<div class="col-xs-12 col-sm-2 ">
+				<button type="button" class="btn btn-light text-primary">
+				<a href="#" class="text-primary pull-right">醫生管理頁面</a>
+				</button>
+			</div>
 		</div>
 	</div>
-</div>
 
 
 	<section class="ftco-section">
@@ -122,6 +141,56 @@
           </div>
         </div>
       </div>
+      <div class="wrapper">
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Bootstrap Sidebar</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+            <p>Dummy Heading</p>
+            <li class="active">
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <li>
+                        <a href="#">Home 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Home 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Home 3</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li>
+                        <a href="#">Page 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 3</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Portfolio</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+    </nav>
+
+</div>
     </section>
     
 
@@ -148,6 +217,7 @@
 </c:forEach>
         </div>
 
+	</div>
 
 
 	<br>
