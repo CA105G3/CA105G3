@@ -146,6 +146,14 @@
     <url-pattern>/front-end/menu/menu.do</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>MenuAjaxServlet</servlet-name>
+    <servlet-class>com.menu.controller.MenuAjaxServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MenuAjaxServlet</servlet-name>
+    <url-pattern>/front-end/menu/menuajax.do</url-pattern>
+  </servlet-mapping>  
+  <servlet>
     <servlet-name>MenuImgServlet</servlet-name>
     <servlet-class>com.menu.controller.MenuImgServlet</servlet-class>
   </servlet>
@@ -153,16 +161,22 @@
     <servlet-name>MenuImgServlet</servlet-name>
     <url-pattern>/front-end/menu/menuImg.do</url-pattern>
   </servlet-mapping>
-
   <servlet>
-	<servlet-name>MenuListServlet</servlet-name>
-	<servlet-class>com.menulist.controller.MenuListServlet</servlet-class>
+    <servlet-name>MenuListServlet</servlet-name>
+    <servlet-class>com.menulist.controller.MenuListServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-	<servlet-name>MenuListServlet</servlet-name>
-	<url-pattern>/front-end/menulist/menulist.do</url-pattern>
-  </servlet-mapping>  
-  
+    <servlet-name>MenuListServlet</servlet-name>
+    <url-pattern>/front-end/menulist/menulist.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>MenuListAjaxServlet</servlet-name>
+    <servlet-class>com.menulist.controller.MenuListAjaxServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MenuListAjaxServlet</servlet-name>
+    <url-pattern>/front-end/menulist/menulistajax.do</url-pattern>
+  </servlet-mapping>
   <filter>
     <filter-name>Acess_Filter</filter-name>
     <filter-class>com.tools.filter.MemberExist</filter-class>
@@ -171,7 +185,6 @@
     <filter-name>Acess_Filter</filter-name>
     <url-pattern>/doctoravailable/selectDoctorAvailable_page.jsp</url-pattern>
   </filter-mapping>
-  
   <servlet>
     <servlet-name>ImpressionServlet</servlet-name>
     <servlet-class>com.impression.controller.ImpressionServlet</servlet-class>
@@ -180,7 +193,6 @@
     <servlet-name>ImpressionServlet</servlet-name>
     <url-pattern>/impression/impression.do</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>ImpressionVideo</servlet-name>
     <servlet-class>com.impression.controller.ImpressionVideoServlet</servlet-class>
@@ -189,8 +201,7 @@
     <servlet-name>ImpressionVideo</servlet-name>
     <url-pattern>/impression/impressionVideo.do</url-pattern>
   </servlet-mapping>
-  
-   <servlet>
+  <servlet>
     <servlet-name>ImgServlet</servlet-name>
     <servlet-class>com.impression.controller.Imgservlet</servlet-class>
   </servlet>
@@ -198,8 +209,7 @@
     <servlet-name>ImgServlet</servlet-name>
     <url-pattern>/impression/impressionServlet.do</url-pattern>
   </servlet-mapping>
-
-<servlet>
+  <servlet>
     <servlet-name>ImpressionPic</servlet-name>
     <servlet-class>com.impression.controller.ImpressionPicServlet</servlet-class>
   </servlet>
@@ -207,8 +217,7 @@
     <servlet-name>ImpressionPic</servlet-name>
     <url-pattern>/impression/impressionPic.do</url-pattern>
   </servlet-mapping>
-  
-<servlet>
+  <servlet>
     <servlet-name>ActivityServlet</servlet-name>
     <servlet-class>com.activity.controller.ActivityServlet</servlet-class>
   </servlet>
@@ -216,7 +225,6 @@
     <servlet-name>ActivityServlet</servlet-name>
     <url-pattern>/activity/activity.do</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>ActivityPic</servlet-name>
     <servlet-class>com.activity.controller.ActivityPicServlet</servlet-class>
@@ -225,7 +233,6 @@
     <servlet-name>ActivityPic</servlet-name>
     <url-pattern>/activity/activityPic.do</url-pattern>
   </servlet-mapping>
-
   <servlet>
     <servlet-name>LicenseServlet</servlet-name>
     <servlet-class>com.license.controller.LicenseServlet</servlet-class>
@@ -234,7 +241,6 @@
     <servlet-name>LicenseServlet</servlet-name>
     <url-pattern>/license/license.do</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>LicensePic</servlet-name>
     <servlet-class>com.license.controller.LicensePicServlet</servlet-class>
@@ -251,7 +257,6 @@
     <servlet-name>forTestServlet</servlet-name>
     <url-pattern>/activity/forTest.do</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>JoinActServlet</servlet-name>
     <servlet-class>com.joinact.controller.JoinActServlet</servlet-class>
@@ -260,5 +265,4 @@
     <servlet-name>JoinActServlet</servlet-name>
     <url-pattern>/joinact/joinact.do</url-pattern>
   </servlet-mapping>
-  
 </web-app>

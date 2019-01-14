@@ -7,5 +7,6 @@ public interface MemberChefDAO_interface {
 	public void update(MemberChefVO memberChefVO); 
 	public void delete(String chefNo); 
 	public MemberChefVO findByPrimaryKey(String chefNo);
+	public MemberChefVO findByMemNo(String memNo);
 	public List<MemberChefVO> getAll();
 }

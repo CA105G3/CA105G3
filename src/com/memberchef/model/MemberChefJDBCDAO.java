@@ -20,6 +20,8 @@ public class MemberChefJDBCDAO implements MemberChefDAO_interface{
 		"SELECT chefno,memno,chefname,chefstorename,chefpic,chefdescrip,chefstatus,chefphone,chefaddr,chefrep from memberchef order by chefno";
 	private static final String GET_ONE_STMT = 
 		"SELECT chefno,memno,chefname,chefstorename,chefpic,chefdescrip,chefstatus,chefphone,chefaddr,chefrep from memberchef where chefno=?";
+	private static final String GET_ONE_STMT_by_memNo = 
+		"SELECT chefno,memno,chefname,chefstorename,chefpic,chefdescrip,chefstatus,chefphone,chefaddr,chefrep from memberchef where memno=?";
 	private static final String DELETE = 
 		"DELETE FROM memberchef where chefno = ?";
 	private static final String UPDATE = 
@@ -202,6 +204,58 @@ public class MemberChefJDBCDAO implements MemberChefDAO_interface{
 	}
 
 	@Override
+	public MemberChefVO findByMemNo(String memNo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MemberChefVO memberChefVO = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_STMT_by_memNo);
+			pstmt.setString(1, memNo);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				memberChefVO = new MemberChefVO();
+				memberChefVO.setChefNo(rs.getString(1));
+				memberChefVO.setMemNo(rs.getString(2));
+				memberChefVO.setChefName(rs.getString(3));
+				memberChefVO.setChefStoreName(rs.getString(4));
+				memberChefVO.setChefPic(rs.getBytes(5));
+				memberChefVO.setChefDescrip(rs.getString(6));
+				memberChefVO.setChefStatus(rs.getString(7));
+				memberChefVO.setChefPhone(rs.getString(8));
+				memberChefVO.setChefAddr(rs.getString(9));
+				memberChefVO.setChefRep(rs.getString(10));
+			}
+			
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "+ e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "	+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return memberChefVO ;
+	}
+
+	@Override
 	public List<MemberChefVO> getAll() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -310,17 +364,30 @@ public class MemberChefJDBCDAO implements MemberChefDAO_interface{
 //		// 刪除
 //		dao.delete("CHEF0002");
 //		
+//		// 查詢一筆
+//		MemberChefVO memberChefVO3 = dao.findByPrimaryKey("CHEF0001");
+//		System.out.print(memberChefVO3.getChefNo() + " , ");
+//		System.out.print(memberChefVO3.getMemNo() + " , ");
+//		System.out.print(memberChefVO3.getChefName() + " , ");
+//		System.out.print(memberChefVO3.getChefStoreName() + " , ");
+//		System.out.print(memberChefVO3.getChefDescrip() + " , ");
+//		System.out.print(memberChefVO3.getChefStatus() + " , ");
+//		System.out.print(memberChefVO3.getChefPhone() + " , ");
+//		System.out.print(memberChefVO3.getChefAddr() + " , ");
+//		System.out.println(memberChefVO3.getChefRep());
+//		System.out.println("================================");
+		
 		// 查詢一筆
-		MemberChefVO memberChefVO3 = dao.findByPrimaryKey("CHEF0001");
-		System.out.print(memberChefVO3.getChefNo() + " , ");
-		System.out.print(memberChefVO3.getMemNo() + " , ");
-		System.out.print(memberChefVO3.getChefName() + " , ");
-		System.out.print(memberChefVO3.getChefStoreName() + " , ");
-		System.out.print(memberChefVO3.getChefDescrip() + " , ");
-		System.out.print(memberChefVO3.getChefStatus() + " , ");
-		System.out.print(memberChefVO3.getChefPhone() + " , ");
-		System.out.print(memberChefVO3.getChefAddr() + " , ");
-		System.out.println(memberChefVO3.getChefRep());
+		MemberChefVO memberChefVO4 = dao.findByMemNo("M0001");
+		System.out.print(memberChefVO4.getChefNo() + " , ");
+		System.out.print(memberChefVO4.getMemNo() + " , ");
+		System.out.print(memberChefVO4.getChefName() + " , ");
+		System.out.print(memberChefVO4.getChefStoreName() + " , ");
+		System.out.print(memberChefVO4.getChefDescrip() + " , ");
+		System.out.print(memberChefVO4.getChefStatus() + " , ");
+		System.out.print(memberChefVO4.getChefPhone() + " , ");
+		System.out.print(memberChefVO4.getChefAddr() + " , ");
+		System.out.println(memberChefVO4.getChefRep());
 		System.out.println("================================");
 		
 //		// 查詢全部

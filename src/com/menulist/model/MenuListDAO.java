@@ -37,20 +37,27 @@ public class MenuListDAO implements MenuListDAO_interface{
 		private static final String UPDATE = 
 			"UPDATE menulist set menuno=?, menudate=?, menutimeslot=? where menulistno=?";
 	
-	public void insert(MenuListVO menuListVO) {
+	public String insert(MenuListVO menuListVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String pk = null;
 		
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_STMT);
+			pstmt = con.prepareStatement(INSERT_STMT, new String[]{"menulistno"});
 			pstmt.setString(1, menuListVO.getMenuNo());
 			pstmt.setDate(2, menuListVO.getMenuDate());
 			pstmt.setString(3, menuListVO.getMenuTimeSlot());
 			
 			pstmt.executeUpdate();
+			rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+                pk = rs.getString(1);
+            }
 			
-			
+			return pk ;
+					
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "	+ se.getMessage());
 		} finally {

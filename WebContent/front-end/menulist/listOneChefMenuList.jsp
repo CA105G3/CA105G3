@@ -12,7 +12,7 @@
 <%@ include file="calendarCommon.jsp" %>
 <!DOCTYPE html>
 <head>
-  <title>devdaily.com calendar</title>
+  <title>查看上架餐點</title>
   
   <link rel="StyleSheet" href="css/calendar.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
@@ -29,24 +29,24 @@
 	max-width:250px;
 }
 .card .card-image img {
-  display: block;
-  border-radius: 2px 2px 0 0;
-  position: relative;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 100%;
+	display: block;
+	border-radius: 2px 2px 0 0;
+	position: relative;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: 100%;
 }
 .card .card-content {
-  padding: 0 0 0 0;
-  border-radius: 0 0 2px 2px;
+	padding: 0 0 0 0;
+	border-radius: 0 0 2px 2px;
 }
 
 .card .card-content p {
-  margin:0;
-  font-size:1.45rem;
-  color: #555555;
+	margin:0;
+	font-size:1.45rem;
+	color: #555555;
 }
 /*----3.a.Horizontal----*/
 .card.horizontal .card-image img {
@@ -88,12 +88,21 @@
 .card .card-image {
   position: relative;
 }
-h5 {
+h4 {
     display: block;
     margin-block-start: 0.1em;
-    margin-block-end: 0.5em;
+    margin-block-end: 0.4em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
+}
+.descrip_title {
+	text-align: left;
+    padding-left: 10px
+}
+.descrip_content {
+	text-align: right;
+    padding-left: 20px;
+    padding-right: 10px
 }
 
 </style>
@@ -104,7 +113,7 @@ h5 {
 <table border="1" cellspacing="0" cellpadding="4" width="100%" height="100%" id="calendar_table">
   <tr>
     <td width="100%" colspan="7" class="month_year_header">
-      <%=intMonth+1%>,<%=monthName%>, <%=intYear%> ,<%=prevYear%> ,<%=nextYear%>
+      <%=monthName%>, <%=intYear%>
     </td>
   </tr>
   <tr class="week_header_row">
@@ -129,54 +138,646 @@ h5 {
         if( currentDayInt == days[i][j] && currentMonthInt == aMonth.getMonth() && currentYearInt == aMonth.getYear() ){
           %><td class="today_cell"><%=days[i][j]%>
           	<div>
-          	<%	for(MenuListVO menuListVO : menuList){
+          	<%	List<MenuListVO> tempMenuListVO = new ArrayList<MenuListVO>();
+          		StringBuilder timeFlag = new StringBuilder();
+          		for(MenuListVO menuListVO : menuList){
        				if(menuListVO.getMenuDate().getDate() == days[i][j] && menuListVO.getMenuDate().getMonth()+1 == intMonth+1 && menuListVO.getMenuDate().getYear()+1900 == intYear) {
-     					for(MenuVO menuVO : menu){
-							if(menuListVO.getMenuNo().equals(menuVO.getMenuNo())){
-								%><div class="card horizontal">
-						            <div class="card-image">
-						              <img src="<%=request.getContextPath()%>/front-end/menu/menuImg.do?menuNo=<%=menuVO.getMenuNo()%>">
-						            </div>
-						            <div class="card-stacked">
-						              <div class="card-content">
-						                <h5><%=menuVO.getMainCourse()%></h5><span><%=menuListVO.getMenuTimeSlot()%>餐</span>
-						                <span><%=menuVO.getUnitPrice()%>元</span><span><%=menuVO.getDeliverable()%></span>
-						                <input type="hidden" class="btn btn-styled"/>
-						              </div>
-						            </div>
-						          </div>
-								<%
-							}   						
-     					}//end for menu
+     					tempMenuListVO.add(menuListVO);
+     					timeFlag.append(menuListVO.getMenuTimeSlot());
        				}
-       			} //end for menulist
+       			}
+          		
+          		switch(timeFlag.toString()){
+          		case "早午晚":
+          			for(MenuListVO menuListVO : tempMenuListVO){
+              			for(MenuVO menuVO : menu){
+              				if(menuListVO.getMenuNo().equals(menuVO.getMenuNo())){
+              					%><div class="card horizontal">
+              			            <div class="card-image">
+              			              <img src="<%=request.getContextPath()%>/front-end/menu/menuImg.do?menuNo=<%=menuVO.getMenuNo()%>">
+              			            </div>
+              			            <div class="card-stacked">
+              			              <div class="card-content">
+              			              	<div class="descrip_title"><%=menuListVO.getMenuTimeSlot()%>餐</div>
+              			                <h4><span><%=menuVO.getMainCourse()%></span></h4>
+              			                <div class="descrip_content"><%=menuVO.getUnitPrice()%>元</div>
+              			                <div class="descrip_content"><%=menuVO.getDeliverable()%></div>
+              			                <input type="hidden" class="btn btn-styled"/>
+              			              </div>
+              			            </div>
+              			          </div>
+              					<%
+              				}   						
+              			}
+              		}
+          			break;
+          		case "早午":
+          			for(MenuListVO menuListVO : tempMenuListVO){
+              			for(MenuVO menuVO : menu){
+              				if(menuListVO.getMenuNo().equals(menuVO.getMenuNo())){
+              					%><div class="card horizontal">
+              			            <div class="card-image">
+              			              <img src="<%=request.getContextPath()%>/front-end/menu/menuImg.do?menuNo=<%=menuVO.getMenuNo()%>">
+              			            </div>
+              			            <div class="card-stacked">
+              			              <div class="card-content">
+              			              	<div class="descrip_title"><%=menuListVO.getMenuTimeSlot()%>餐</div>
+              			                <h4><span><%=menuVO.getMainCourse()%></span></h4>
+              			                <div class="descrip_content"><%=menuVO.getUnitPrice()%>元</div>
+              			                <div class="descrip_content"><%=menuVO.getDeliverable()%></div>
+              			                <input type="hidden" class="btn btn-styled"/>
+              			              </div>
+              			            </div>
+              			          </div>
+              					<%
+              				}   						
+              			}
+              		}
+          			%><div class="card horizontal">
+			            <div class="card-image">
+			              <img src="<%=request.getContextPath()%>/Imgs/Menu/nullpic.jpg">
+			            </div>
+			            <div class="card-stacked">
+			              <div class="card-content">
+			              	<div class="descrip_title"></div>
+			                <h4></h4>
+			                <div class="descrip_content"></div>
+			                <div class="descrip_content"></div>
+			                <input type="hidden" class="btn btn-styled"/>
+			              </div>
+			            </div>
+			          </div>
+					<%
+          			break;	
+          		case "午晚":
+          			%><div class="card horizontal">
+			            <div class="card-image">
+			              <img src="<%=request.getContextPath()%>/Imgs/Menu/nullpic.jpg">
+			            </div>
+			            <div class="card-stacked">
+			              <div class="card-content">
+			              	<div class="descrip_title"></div>
+			                <h4></h4>
+			                <div class="descrip_content"></div>
+			                <div class="descrip_content"></div>
+			                <input type="hidden" class="btn btn-styled"/>
+			              </div>
+			            </div>
+			          </div>
+					<%
+					for(MenuListVO menuListVO : tempMenuListVO){
+              			for(MenuVO menuVO : menu){
+              				if(menuListVO.getMenuNo().equals(menuVO.getMenuNo())){
+              					%><div class="card horizontal">
+              			            <div class="card-image">
+              			              <img src="<%=request.getContextPath()%>/front-end/menu/menuImg.do?menuNo=<%=menuVO.getMenuNo()%>">
+              			            </div>
+              			            <div class="card-stacked">
+              			              <div class="card-content">
+              			              	<div class="descrip_title"><%=menuListVO.getMenuTimeSlot()%>餐</div>
+              			                <h4><span><%=menuVO.getMainCourse()%></span></h4>
+              			                <div class="descrip_content"><%=menuVO.getUnitPrice()%>元</div>
+              			                <div class="descrip_content"><%=menuVO.getDeliverable()%></div>
+              			                <input type="hidden" class="btn btn-styled"/>
+              			              </div>
+              			            </div>
+              			          </div>
+              					<%
+              				}   						
+              			}
+              		}
+          			break;	
+          		case "早晚":
+          			int flag = 0;
+					for(MenuListVO menuListVO : tempMenuListVO){
+	          			for(MenuVO menuVO : menu){
+	          				if(menuListVO.getMenuNo().equals(menuVO.getMenuNo())){
+	          					if(flag == 0){
+	          						%><div class="card horizontal">
+		          			            <div class="card-image">
+		          			              <img src="<%=request.getContextPath()%>/front-end/menu/menuImg.do?menuNo=<%=menuVO.getMenuNo()%>">
+		          			            </div>
+		          			            <div class="card-stacked">
+		          			              <div class="card-content">
+		          			              	<div class="descrip_title"><%=menuListVO.getMenuTimeSlot()%>餐</div>
+		          			                <h4><span><%=menuVO.getMainCourse()%></span></h4>
+		          			                <div class="descrip_content"><%=menuVO.getUnitPrice()%>元</div>
+		          			                <div class="descrip_content"><%=menuVO.getDeliverable()%></div>
+		          			                <input type="hidden" class="btn btn-styled"/>
+		          			              </div>
+		          			            </div>
+		          			          </div>
+		          			          <div class="card horizontal">
+						            	<div class="card-image">
+							              <img src="<%=request.getContextPath()%>/Imgs/Menu/nullpic.jpg">
+							            </div>
+							            <div class="card-stacked">
+							              <div class="card-content">
+							              	<div class="descrip_title"></div>
+							                <h4></h4>
+							                <div class="descrip_content"></div>
+							                <div class="descrip_content"></div>
+							                <input type="hidden" class="btn btn-styled"/>
+							              </div>
+							            </div>
+							          </div>
+		          					<%	flag++;
+	          					} else {
+	          						%><div class="card horizontal">
+		          			            <div class="card-image">
+		          			              <img src="<%=request.getContextPath()%>/front-end/menu/menuImg.do?menuNo=<%=menuVO.getMenuNo()%>">
+		          			            </div>
+		          			            <div class="card-stacked">
+		          			              <div class="card-content">
+		          			              	<div class="descrip_title"><%=menuListVO.getMenuTimeSlot()%>餐</div>
+		          			                <h4><span><%=menuVO.getMainCourse()%></span></h4>
+		          			                <div class="descrip_content"><%=menuVO.getUnitPrice()%>元</div>
+		          			                <div class="descrip_content"><%=menuVO.getDeliverable()%></div>
+		          			                <input type="hidden" class="btn btn-styled"/>
+		          			              </div>
+		          			            </div>
+		          			          </div>
+		          					<%
+	          					}
+	          				}   						
+	          			}
+	          		}
+          			break;	
+          		case "早":
+          			for(MenuListVO menuListVO : tempMenuListVO){
+              			for(MenuVO menuVO : menu){
+              				if(menuListVO.getMenuNo().equals(menuVO.getMenuNo())){
+              					%><div class="card horizontal">
+              			            <div class="card-image">
+              			              <img src="<%=request.getContextPath()%>/front-end/menu/menuImg.do?menuNo=<%=menuVO.getMenuNo()%>">
+              			            </div>
+              			            <div class="card-stacked">
+              			              <div class="card-content">
+              			              	<div class="descrip_title"><%=menuListVO.getMenuTimeSlot()%>餐</div>
+              			                <h4><span><%=menuVO.getMainCourse()%></span></h4>
+              			                <div class="descrip_content"><%=menuVO.getUnitPrice()%>元</div>
+              			                <div class="descrip_content"><%=menuVO.getDeliverable()%></div>
+              			                <input type="hidden" class="btn btn-styled"/>
+              			              </div>
+              			            </div>
+              			          </div>
+              					<%
+              				}   						
+              			}
+              		}
+          			for(int n = 0; n < 2; n++){
+              			%><div class="card horizontal">
+    			            <div class="card-image">
+    			              <img src="<%=request.getContextPath()%>/Imgs/Menu/nullpic.jpg">
+    			            </div>
+    			            <div class="card-stacked">
+    			              <div class="card-content">
+    			              	<div class="descrip_title"></div>
+    			                <h4></h4>
+    			                <div class="descrip_content"></div>
+    			                <div class="descrip_content"></div>
+    			                <input type="hidden" class="btn btn-styled"/>
+    			              </div>
+    			            </div>
+    			          </div>
+    					<%
+    				}
+          			break;	
+          		case "午":
+          			%><div class="card horizontal">
+			            <div class="card-image">
+			              <img src="<%=request.getContextPath()%>/Imgs/Menu/nullpic.jpg">
+			            </div>
+			            <div class="card-stacked">
+			              <div class="card-content">
+			              	<div class="descrip_title"></div>
+			                <h4></h4>
+			                <div class="descrip_content"></div>
+			                <div class="descrip_content"></div>
+			                <input type="hidden" class="btn btn-styled"/>
+			              </div>
+			            </div>
+			          </div>
+					<%
+          			for(MenuListVO menuListVO : tempMenuListVO){
+              			for(MenuVO menuVO : menu){
+              				if(menuListVO.getMenuNo().equals(menuVO.getMenuNo())){
+              					%><div class="card horizontal">
+              			            <div class="card-image">
+              			              <img src="<%=request.getContextPath()%>/front-end/menu/menuImg.do?menuNo=<%=menuVO.getMenuNo()%>">
+              			            </div>
+              			            <div class="card-stacked">
+              			              <div class="card-content">
+              			              	<div class="descrip_title"><%=menuListVO.getMenuTimeSlot()%>餐</div>
+              			                <h4><span><%=menuVO.getMainCourse()%></span></h4>
+              			                <div class="descrip_content"><%=menuVO.getUnitPrice()%>元</div>
+              			                <div class="descrip_content"><%=menuVO.getDeliverable()%></div>
+              			                <input type="hidden" class="btn btn-styled"/>
+              			              </div>
+              			            </div>
+              			          </div>
+              					<%
+              				}   						
+              			}
+              		}
+					%><div class="card horizontal">
+			            <div class="card-image">
+			              <img src="<%=request.getContextPath()%>/Imgs/Menu/nullpic.jpg">
+			            </div>
+			            <div class="card-stacked">
+			              <div class="card-content">
+			              	<div class="descrip_title"></div>
+			                <h4></h4>
+			                <div class="descrip_content"></div>
+			                <div class="descrip_content"></div>
+			                <input type="hidden" class="btn btn-styled"/>
+			              </div>
+			            </div>
+			          </div>
+					<%
+          			break;	
+          		case "晚":
+          			for(int n = 0; n < 2; n++){
+              			%><div class="card horizontal">
+    			            <div class="card-image">
+    			              <img src="<%=request.getContextPath()%>/Imgs/Menu/nullpic.jpg">
+    			            </div>
+    			            <div class="card-stacked">
+    			              <div class="card-content">
+    			              	<div class="descrip_title"></div>
+    			                <h4></h4>
+    			                <div class="descrip_content"></div>
+    			                <div class="descrip_content"></div>
+    			                <input type="hidden" class="btn btn-styled"/>
+    			              </div>
+    			            </div>
+    			          </div>
+    					<%
+    				}
+          			for(MenuListVO menuListVO : tempMenuListVO){
+              			for(MenuVO menuVO : menu){
+              				if(menuListVO.getMenuNo().equals(menuVO.getMenuNo())){
+              					%><div class="card horizontal">
+              			            <div class="card-image">
+              			              <img src="<%=request.getContextPath()%>/front-end/menu/menuImg.do?menuNo=<%=menuVO.getMenuNo()%>">
+              			            </div>
+              			            <div class="card-stacked">
+              			              <div class="card-content">
+              			              	<div class="descrip_title"><%=menuListVO.getMenuTimeSlot()%>餐</div>
+              			                <h4><span><%=menuVO.getMainCourse()%></span></h4>
+              			                <div class="descrip_content"><%=menuVO.getUnitPrice()%>元</div>
+              			                <div class="descrip_content"><%=menuVO.getDeliverable()%></div>
+              			                <input type="hidden" class="btn btn-styled"/>
+              			              </div>
+              			            </div>
+              			          </div>
+              					<%
+              				}   						
+              			}
+              		}
+          			break;
+          		default:
+          			for(int n = 0; n < 3; n++){
+          			%><div class="card horizontal">
+			            <div class="card-image">
+			              <img src="<%=request.getContextPath()%>/Imgs/Menu/nullpic.jpg">
+			            </div>
+			            <div class="card-stacked">
+			              <div class="card-content">
+			              	<div class="descrip_title"></div>
+			                <h4></h4>
+			                <div class="descrip_content"></div>
+			                <div class="descrip_content"></div>
+			                <input type="hidden" class="btn btn-styled"/>
+			              </div>
+			            </div>
+			          </div>
+					<%
+					}
+          		}
           	%>
           </div>
           </td><%
         } else {
           %><td class="day_cell"><div><%=days[i][j]%></div>
           <div>
-          	<%	for(MenuListVO menuListVO : menuList){
+          	<%	List<MenuListVO> tempMenuListVO = new ArrayList<MenuListVO>();
+          		StringBuilder timeFlag = new StringBuilder();
+          		for(MenuListVO menuListVO : menuList){
        				if(menuListVO.getMenuDate().getDate() == days[i][j] && menuListVO.getMenuDate().getMonth()+1 == intMonth+1 && menuListVO.getMenuDate().getYear()+1900 == intYear) {
-     					for(MenuVO menuVO : menu){
-							if(menuListVO.getMenuNo().equals(menuVO.getMenuNo())){
-								%><div class="card horizontal">
-						            <div class="card-image">
-						              <img src="<%=request.getContextPath()%>/front-end/menu/menuImg.do?menuNo=<%=menuVO.getMenuNo()%>">
-						            </div>
-						            <div class="card-stacked">
-						              <div class="card-content">
-						                <h5><%=menuVO.getMainCourse()%></h5><span><%=menuListVO.getMenuTimeSlot()%>餐</span>
-						                <span><%=menuVO.getUnitPrice()%>元</span><span><%=menuVO.getDeliverable()%></span>
-						                <input type="hidden" class="btn btn-styled"/>
-						              </div>
-						            </div>
-						          </div>
-								<%
-							}   						
-     					}//end for menu
+     					tempMenuListVO.add(menuListVO);
+     					timeFlag.append(menuListVO.getMenuTimeSlot());
        				}
-       			} //end for menulist
+       			}
+          		
+          		switch(timeFlag.toString()){
+          		case "早午晚":
+          			for(MenuListVO menuListVO : tempMenuListVO){
+              			for(MenuVO menuVO : menu){
+              				if(menuListVO.getMenuNo().equals(menuVO.getMenuNo())){
+              					%><div class="card horizontal">
+              			            <div class="card-image">
+              			              <img src="<%=request.getContextPath()%>/front-end/menu/menuImg.do?menuNo=<%=menuVO.getMenuNo()%>">
+              			            </div>
+              			            <div class="card-stacked">
+              			              <div class="card-content">
+              			              	<div class="descrip_title"><%=menuListVO.getMenuTimeSlot()%>餐</div>
+              			                <h4><span><%=menuVO.getMainCourse()%></span></h4>
+              			                <div class="descrip_content"><%=menuVO.getUnitPrice()%>元</div>
+              			                <div class="descrip_content"><%=menuVO.getDeliverable()%></div>
+              			                <input type="hidden" class="btn btn-styled"/>
+              			              </div>
+              			            </div>
+              			          </div>
+              					<%
+              				}   						
+              			}
+              		}
+          			break;
+          		case "早午":
+          			for(MenuListVO menuListVO : tempMenuListVO){
+              			for(MenuVO menuVO : menu){
+              				if(menuListVO.getMenuNo().equals(menuVO.getMenuNo())){
+              					%><div class="card horizontal">
+              			            <div class="card-image">
+              			              <img src="<%=request.getContextPath()%>/front-end/menu/menuImg.do?menuNo=<%=menuVO.getMenuNo()%>">
+              			            </div>
+              			            <div class="card-stacked">
+              			              <div class="card-content">
+              			              	<div class="descrip_title"><%=menuListVO.getMenuTimeSlot()%>餐</div>
+              			                <h4><span><%=menuVO.getMainCourse()%></span></h4>
+              			                <div class="descrip_content"><%=menuVO.getUnitPrice()%>元</div>
+              			                <div class="descrip_content"><%=menuVO.getDeliverable()%></div>
+              			                <input type="hidden" class="btn btn-styled"/>
+              			              </div>
+              			            </div>
+              			          </div>
+              					<%
+              				}   						
+              			}
+              		}
+          			%><div class="card horizontal">
+			            <div class="card-image">
+			              <img src="<%=request.getContextPath()%>/Imgs/Menu/nullpic.jpg">
+			            </div>
+			            <div class="card-stacked">
+			              <div class="card-content">
+			              	<div class="descrip_title"></div>
+			                <h4></h4>
+			                <div class="descrip_content"></div>
+			                <div class="descrip_content"></div>
+			                <input type="hidden" class="btn btn-styled"/>
+			              </div>
+			            </div>
+			          </div>
+					<%
+          			break;	
+          		case "午晚":
+          			%><div class="card horizontal">
+			            <div class="card-image">
+			              <img src="<%=request.getContextPath()%>/Imgs/Menu/nullpic.jpg">
+			            </div>
+			            <div class="card-stacked">
+			              <div class="card-content">
+			              	<div class="descrip_title"></div>
+			                <h4></h4>
+			                <div class="descrip_content"></div>
+			                <div class="descrip_content"></div>
+			                <input type="hidden" class="btn btn-styled"/>
+			              </div>
+			            </div>
+			          </div>
+					<%
+					for(MenuListVO menuListVO : tempMenuListVO){
+              			for(MenuVO menuVO : menu){
+              				if(menuListVO.getMenuNo().equals(menuVO.getMenuNo())){
+              					%><div class="card horizontal">
+              			            <div class="card-image">
+              			              <img src="<%=request.getContextPath()%>/front-end/menu/menuImg.do?menuNo=<%=menuVO.getMenuNo()%>">
+              			            </div>
+              			            <div class="card-stacked">
+              			              <div class="card-content">
+              			              	<div class="descrip_title"><%=menuListVO.getMenuTimeSlot()%>餐</div>
+              			                <h4><span><%=menuVO.getMainCourse()%></span></h4>
+              			                <div class="descrip_content"><%=menuVO.getUnitPrice()%>元</div>
+              			                <div class="descrip_content"><%=menuVO.getDeliverable()%></div>
+              			                <input type="hidden" class="btn btn-styled"/>
+              			              </div>
+              			            </div>
+              			          </div>
+              					<%
+              				}   						
+              			}
+              		}
+          			break;	
+          		case "早晚":
+          			int flag = 0;
+					for(MenuListVO menuListVO : tempMenuListVO){
+	          			for(MenuVO menuVO : menu){
+	          				if(menuListVO.getMenuNo().equals(menuVO.getMenuNo())){
+	          					if(flag == 0){
+	          						%><div class="card horizontal">
+		          			            <div class="card-image">
+		          			              <img src="<%=request.getContextPath()%>/front-end/menu/menuImg.do?menuNo=<%=menuVO.getMenuNo()%>">
+		          			            </div>
+		          			            <div class="card-stacked">
+		          			              <div class="card-content">
+		          			              	<div class="descrip_title"><%=menuListVO.getMenuTimeSlot()%>餐</div>
+		          			                <h4><span><%=menuVO.getMainCourse()%></span></h4>
+		          			                <div class="descrip_content"><%=menuVO.getUnitPrice()%>元</div>
+		          			                <div class="descrip_content"><%=menuVO.getDeliverable()%></div>
+		          			                <input type="hidden" class="btn btn-styled"/>
+		          			              </div>
+		          			            </div>
+		          			          </div>
+		          			          <div class="card horizontal">
+						            	<div class="card-image">
+							              <img src="<%=request.getContextPath()%>/Imgs/Menu/nullpic.jpg">
+							            </div>
+							            <div class="card-stacked">
+							              <div class="card-content">
+							              	<div class="descrip_title"></div>
+							                <h4></h4>
+							                <div class="descrip_content"></div>
+							                <div class="descrip_content"></div>
+							                <input type="hidden" class="btn btn-styled"/>
+							              </div>
+							            </div>
+							          </div>
+		          					<%	flag++;
+	          					} else {
+	          						%><div class="card horizontal">
+		          			            <div class="card-image">
+		          			              <img src="<%=request.getContextPath()%>/front-end/menu/menuImg.do?menuNo=<%=menuVO.getMenuNo()%>">
+		          			            </div>
+		          			            <div class="card-stacked">
+		          			              <div class="card-content">
+		          			              	<div class="descrip_title"><%=menuListVO.getMenuTimeSlot()%>餐</div>
+		          			                <h4><span><%=menuVO.getMainCourse()%></span></h4>
+		          			                <div class="descrip_content"><%=menuVO.getUnitPrice()%>元</div>
+		          			                <div class="descrip_content"><%=menuVO.getDeliverable()%></div>
+		          			                <input type="hidden" class="btn btn-styled"/>
+		          			              </div>
+		          			            </div>
+		          			          </div>
+		          					<%
+	          					}
+	          				}   						
+	          			}
+	          		}
+          			break;	
+          		case "早":
+          			for(MenuListVO menuListVO : tempMenuListVO){
+              			for(MenuVO menuVO : menu){
+              				if(menuListVO.getMenuNo().equals(menuVO.getMenuNo())){
+              					%><div class="card horizontal">
+              			            <div class="card-image">
+              			              <img src="<%=request.getContextPath()%>/front-end/menu/menuImg.do?menuNo=<%=menuVO.getMenuNo()%>">
+              			            </div>
+              			            <div class="card-stacked">
+              			              <div class="card-content">
+              			              	<div class="descrip_title"><%=menuListVO.getMenuTimeSlot()%>餐</div>
+              			                <h4><span><%=menuVO.getMainCourse()%></span></h4>
+              			                <div class="descrip_content"><%=menuVO.getUnitPrice()%>元</div>
+              			                <div class="descrip_content"><%=menuVO.getDeliverable()%></div>
+              			                <input type="hidden" class="btn btn-styled"/>
+              			              </div>
+              			            </div>
+              			          </div>
+              					<%
+              				}   						
+              			}
+              		}
+          			for(int n = 0; n < 2; n++){
+              			%><div class="card horizontal">
+    			            <div class="card-image">
+    			              <img src="<%=request.getContextPath()%>/Imgs/Menu/nullpic.jpg">
+    			            </div>
+    			            <div class="card-stacked">
+    			              <div class="card-content">
+    			              	<div class="descrip_title"></div>
+    			                <h4></h4>
+    			                <div class="descrip_content"></div>
+    			                <div class="descrip_content"></div>
+    			                <input type="hidden" class="btn btn-styled"/>
+    			              </div>
+    			            </div>
+    			          </div>
+    					<%
+    				}
+          			break;	
+          		case "午":
+          			%><div class="card horizontal">
+			            <div class="card-image">
+			              <img src="<%=request.getContextPath()%>/Imgs/Menu/nullpic.jpg">
+			            </div>
+			            <div class="card-stacked">
+			              <div class="card-content">
+			              	<div class="descrip_title"></div>
+			                <h4></h4>
+			                <div class="descrip_content"></div>
+			                <div class="descrip_content"></div>
+			                <input type="hidden" class="btn btn-styled"/>
+			              </div>
+			            </div>
+			          </div>
+					<%
+          			for(MenuListVO menuListVO : tempMenuListVO){
+              			for(MenuVO menuVO : menu){
+              				if(menuListVO.getMenuNo().equals(menuVO.getMenuNo())){
+              					%><div class="card horizontal">
+              			            <div class="card-image">
+              			              <img src="<%=request.getContextPath()%>/front-end/menu/menuImg.do?menuNo=<%=menuVO.getMenuNo()%>">
+              			            </div>
+              			            <div class="card-stacked">
+              			              <div class="card-content">
+              			              	<div class="descrip_title"><%=menuListVO.getMenuTimeSlot()%>餐</div>
+              			                <h4><span><%=menuVO.getMainCourse()%></span></h4>
+              			                <div class="descrip_content"><%=menuVO.getUnitPrice()%>元</div>
+              			                <div class="descrip_content"><%=menuVO.getDeliverable()%></div>
+              			                <input type="hidden" class="btn btn-styled"/>
+              			              </div>
+              			            </div>
+              			          </div>
+              					<%
+              				}   						
+              			}
+              		}
+					%><div class="card horizontal">
+			            <div class="card-image">
+			              <img src="<%=request.getContextPath()%>/Imgs/Menu/nullpic.jpg">
+			            </div>
+			            <div class="card-stacked">
+			              <div class="card-content">
+			              	<div class="descrip_title"></div>
+			                <h4></h4>
+			                <div class="descrip_content"></div>
+			                <div class="descrip_content"></div>
+			                <input type="hidden" class="btn btn-styled"/>
+			              </div>
+			            </div>
+			          </div>
+					<%
+          			break;	
+          		case "晚":
+          			for(int n = 0; n < 2; n++){
+              			%><div class="card horizontal">
+    			            <div class="card-image">
+    			              <img src="<%=request.getContextPath()%>/Imgs/Menu/nullpic.jpg">
+    			            </div>
+    			            <div class="card-stacked">
+    			              <div class="card-content">
+    			              	<div class="descrip_title"></div>
+    			                <h4></h4>
+    			                <div class="descrip_content"></div>
+    			                <div class="descrip_content"></div>
+    			                <input type="hidden" class="btn btn-styled"/>
+    			              </div>
+    			            </div>
+    			          </div>
+    					<%
+    				}
+          			for(MenuListVO menuListVO : tempMenuListVO){
+              			for(MenuVO menuVO : menu){
+              				if(menuListVO.getMenuNo().equals(menuVO.getMenuNo())){
+              					%><div class="card horizontal">
+              			            <div class="card-image">
+              			              <img src="<%=request.getContextPath()%>/front-end/menu/menuImg.do?menuNo=<%=menuVO.getMenuNo()%>">
+              			            </div>
+              			            <div class="card-stacked">
+              			              <div class="card-content">
+              			              	<div class="descrip_title"><%=menuListVO.getMenuTimeSlot()%>餐</div>
+              			                <h4><span><%=menuVO.getMainCourse()%></span></h4>
+              			                <div class="descrip_content"><%=menuVO.getUnitPrice()%>元</div>
+              			                <div class="descrip_content"><%=menuVO.getDeliverable()%></div>
+              			                <input type="hidden" class="btn btn-styled"/>
+              			              </div>
+              			            </div>
+              			          </div>
+              					<%
+              				}   						
+              			}
+              		}
+          			break;
+          		default:
+          			for(int n = 0; n < 3; n++){
+          			%><div class="card horizontal">
+			            <div class="card-image">
+			              <img src="<%=request.getContextPath()%>/Imgs/Menu/nullpic.jpg">
+			            </div>
+			            <div class="card-stacked">
+			              <div class="card-content">
+			              	<div class="descrip_title"></div>
+			                <h4></h4>
+			                <div class="descrip_content"></div>
+			                <div class="descrip_content"></div>
+			                <input type="hidden" class="btn btn-styled"/>
+			              </div>
+			            </div>
+			          </div>
+					<%
+					}
+          		}
           	%>
           </div></td><%
         }
@@ -197,7 +798,7 @@ h5 {
     <td id="prev_link">
       <form method="post" action="menulist.do">
         <input type="submit" name="PREV" value=" << ">
-        <input type="text" name="chefNo" value="CHEF0001">
+        <input type="hidden" name="chefNo" value="CHEF0001">
         <input type="hidden" name="action" value="For_Display">
         <input type="hidden" name="month" value="<%=prevMonth%>">
         <input type="hidden" name="year" value="<%=prevYear%>">
@@ -206,7 +807,7 @@ h5 {
     <td id="next_link">
       <form method="post" action="menulist.do">
         <input type="submit" name="NEXT" value=" >> ">
-        <input type="text" name="chefNo" value="CHEF0001">
+        <input type="hidden" name="chefNo" value="CHEF0001">
         <input type="hidden" name="action" value="For_Display">
         <input type="hidden" name="month" value="<%=nextMonth%>">
         <input type="hidden" name="year" value="<%=nextYear%>">

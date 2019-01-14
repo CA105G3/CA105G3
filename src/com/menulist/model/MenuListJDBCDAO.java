@@ -24,20 +24,29 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 		"UPDATE menulist set menuno=?, menudate=?, menutimeslot=? where menulistno=?";
 	
 	@Override
-	public void insert(MenuListVO menuListVO) {
+	public String insert(MenuListVO menuListVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String pk = null;
 		
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(INSERT_STMT);
+			pstmt = con.prepareStatement(INSERT_STMT, new String[]{"menulistno"});
 			pstmt.setString(1, menuListVO.getMenuNo());
 			pstmt.setDate(2, menuListVO.getMenuDate());
 			pstmt.setString(3, menuListVO.getMenuTimeSlot());
 			
 			pstmt.executeUpdate();
 			
+			rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+                pk = rs.getString(1);
+                System.out.println("PK：" + pk);
+            }
+			
+			return pk ;
 			
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "+ e.getMessage());
@@ -277,12 +286,12 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 	public static void main(String[] args) {
 		MenuListJDBCDAO dao = new MenuListJDBCDAO();
 		
-//		// 新增
-//		MenuListVO menulistVO1 = new MenuListVO();
-//		menulistVO1.setMenuNo("20181213-0001");
-//		menulistVO1.setMenuDate(java.sql.Date.valueOf("2018-12-25"));
-//		menulistVO1.setMenuTimeSlot("早");
-//		dao.insert(menulistVO1);
+		// 新增
+		MenuListVO menulistVO1 = new MenuListVO();
+		menulistVO1.setMenuNo("20181224-0001");
+		menulistVO1.setMenuDate(java.sql.Date.valueOf("2019-02-02"));
+		menulistVO1.setMenuTimeSlot("午");
+		dao.insert(menulistVO1);
 //		
 //		// 修改
 //		MenuListVO menulistVO2 = new MenuListVO();
@@ -295,29 +304,29 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 //		// 刪除
 //		dao.delete("20181213-0003");
 //		
-		// 查詢一筆
-		MenuListVO menulistVO3 = dao.findByPrimaryKey("20190105-0012");
-		System.out.print(menulistVO3.getMenuListNo() + " , ");
-		System.out.print(menulistVO3.getMenuNo() + " , ");
-		System.out.print(menulistVO3.getMenuDate() + " , ");
-		System.out.println(menulistVO3.getMenuTimeSlot() + " , ");
-		System.out.println("================================");
-		
-		java.util.Date ud = new java.util.Date(menulistVO3.getMenuDate().getTime());
-		System.out.println(menulistVO3.getMenuDate().getDate());
-		System.out.println(menulistVO3.getMenuDate().getMonth()+1);
-		System.out.println(menulistVO3.getMenuDate().getYear()+1900);
-		System.out.println(menulistVO3.getMenuDate().toString());
-		
-		int year = 2019;
-		int month = 1;
-		int day = 5;
-		if(menulistVO3.getMenuDate().toString().equals(new StringBuilder().append(year).append("-").append(month).append("-").append(day).toString())) {
-			System.out.println("true");
-		} else {
-			System.out.println("false");
-		}
-		
+//		// 查詢一筆
+//		MenuListVO menulistVO3 = dao.findByPrimaryKey("20190105-0012");
+//		System.out.print(menulistVO3.getMenuListNo() + " , ");
+//		System.out.print(menulistVO3.getMenuNo() + " , ");
+//		System.out.print(menulistVO3.getMenuDate() + " , ");
+//		System.out.println(menulistVO3.getMenuTimeSlot() + " , ");
+//		System.out.println("================================");
+//		
+//		java.util.Date ud = new java.util.Date(menulistVO3.getMenuDate().getTime());
+//		System.out.println(menulistVO3.getMenuDate().getDate());
+//		System.out.println(menulistVO3.getMenuDate().getMonth()+1);
+//		System.out.println(menulistVO3.getMenuDate().getYear()+1900);
+//		System.out.println(menulistVO3.getMenuDate().toString());
+//		
+//		int year = 2019;
+//		int month = 1;
+//		int day = 5;
+//		if(menulistVO3.getMenuDate().toString().equals(new StringBuilder().append(year).append("-").append(month).append("-").append(day).toString())) {
+//			System.out.println("true");
+//		} else {
+//			System.out.println("false");
+//		}
+//		
 //		
 //		// 查詢一項MENUNO
 //		List<MenuListVO> list1 = dao.findByMenuNo("20181230-0010");

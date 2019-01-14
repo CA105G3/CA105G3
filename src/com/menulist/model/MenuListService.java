@@ -16,7 +16,7 @@ public class MenuListService {
 		menulistVO.setMenuNo(menuNo);
 		menulistVO.setMenuDate(menuDate);
 		menulistVO.setMenuTimeSlot(menuTimeSlot);
-		dao.insert(menulistVO);
+		menulistVO.setMenuListNo(dao.insert(menulistVO));
 		
 		return menulistVO;
 	}

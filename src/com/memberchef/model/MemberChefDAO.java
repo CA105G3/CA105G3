@@ -26,6 +26,8 @@ public class MemberChefDAO implements MemberChefDAO_interface{
 		"SELECT chefno,memno,chefname,chefstorename,chefpic,chefdescrip,chefstatus,chefphone,chefaddr,chefrep from memberchef order by chefno";
 	private static final String GET_ONE_STMT = 
 		"SELECT chefno,memno,chefname,chefstorename,chefpic,chefdescrip,chefstatus,chefphone,chefaddr,chefrep from memberchef where chefno=?";
+	private static final String GET_ONE_STMT_by_memNo = 
+		"SELECT chefno,memno,chefname,chefstorename,chefpic,chefdescrip,chefstatus,chefphone,chefaddr,chefrep from memberchef where memno=?";
 	private static final String DELETE = 
 		"DELETE FROM memberchef where chefno = ?";
 	private static final String UPDATE = 
@@ -157,6 +159,55 @@ public class MemberChefDAO implements MemberChefDAO_interface{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			pstmt.setString(1, chefno);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				memberChefVO = new MemberChefVO();
+				memberChefVO.setChefNo(rs.getString(1));
+				memberChefVO.setMemNo(rs.getString(2));
+				memberChefVO.setChefName(rs.getString(3));
+				memberChefVO.setChefStoreName(rs.getString(4));
+				memberChefVO.setChefPic(rs.getBytes(5));
+				memberChefVO.setChefDescrip(rs.getString(6));
+				memberChefVO.setChefStatus(rs.getString(7));
+				memberChefVO.setChefPhone(rs.getString(8));
+				memberChefVO.setChefAddr(rs.getString(9));
+				memberChefVO.setChefRep(rs.getString(10));
+			}
+			
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "	+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return memberChefVO ;
+	}
+
+	@Override
+	public MemberChefVO findByMemNo(String memNo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MemberChefVO memberChefVO = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_STMT_by_memNo);
+			pstmt.setString(1, memNo);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {

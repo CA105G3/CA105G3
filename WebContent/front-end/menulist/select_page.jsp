@@ -51,13 +51,20 @@
 <ul>
   
     <FORM METHOD="post" method="post" ACTION="menulist.do" >
-        <b>輸入廚師編號 (如CHEF0001):</b>
+        <b>查詢：輸入廚師編號 (如CHEF0001):</b>
         <input type="text" name="chefNo" value="CHEF0001">
         <input type="hidden" name="action" value="For_Display">
         <input type="submit" value="送出">
     </FORM>
     
-        <FORM METHOD="post" method="post" ACTION="menulist.do" >
+    <FORM METHOD="post" method="post" ACTION="menulist.do" >
+        <b>上下架：輸入廚師編號 (如CHEF0001):</b>
+        <input type="text" name="chefNo" value="CHEF0001">
+        <input type="hidden" name="action" value="For_Update">
+        <input type="submit" value="送出">
+    </FORM>
+    
+    <FORM METHOD="post" method="post" ACTION="menulist.do" >
         <b>輸入廚師編號 (工程師畫面):</b>
         <input type="text" name="chefNo" value="CHEF0001">
         <input type="hidden" name="action" value="For_Display_Test">
