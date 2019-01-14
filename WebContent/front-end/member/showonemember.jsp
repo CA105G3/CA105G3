@@ -16,7 +16,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%@include file="test.file" %>
+    <%@include file="includedfiles/css.file" %>
   	
   	<style type="text/css">
   	#mytable{
@@ -40,26 +40,7 @@
   
   </head>
 	<body>
-	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
-	      <a class="navbar-brand" href="index.jsp">Plus      <i class="fas fa-plus-square"></i></a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
-
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="food.html" class="nav-link"><%= (memVO==null)? "訪客" :memVO.getMemName() %> 您好!</a></li>
-	          <li class="nav-item"><a href=<%=(memVO==null)? "index.jsp" : request.getContextPath()+"/front-end/member/member.do?action=getOne_For_Display&memno="+memVO.getMemNo() %> class="nav-link">個人設定</a></li>
-	          <li class="nav-item"><a href="food.html" class="nav-link">送餐專區</a></li>
-	          <li class="nav-item"><a href="doctors.html" class="nav-link">線上問診</a></li>
-	          <li class="nav-item"><a href="../impression/impsearch.jsp" class="nav-link">活動專區</a></li>
-	          <li class="nav-item"><a href="contact.html" class="nav-link">聯繫我們</a></li>
-	          <li class="nav-item cta"><a href="member.do?action=logout" class="nav-link" <%= (memVO==null)? "data-toggle='modal' data-target='#modalRequest'" :"" %>  ><span id="mylogin"><%= (memVO==null)? "登入/註冊" :"登出" %></span></a></li>
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
+	<%@include file="includedfiles/nav.file" %>
     <!-- END nav -->
     
     <!-- 可動部分 -->
@@ -168,8 +149,8 @@
 	</section>
 
 
-  <%@include file="js.file" %>
+  <%@include file="includedfiles/js.file" %>
 
   <!-- 以上為可動部分 -->
-<%@include file="footer.file" %>
+<%@include file="includedfiles/footer.file" %>
 </html>

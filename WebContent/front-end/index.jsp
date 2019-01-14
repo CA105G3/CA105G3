@@ -13,7 +13,9 @@
 	List<String> errorMsgs = (LinkedList)request.getAttribute("errorMsgs");
 	List<String> loginerrorMsgs = (LinkedList)request.getAttribute("loginerrorMsgs");
 	List<String> accessfail=(LinkedList)request.getSession().getAttribute("accessfail");
-	 java.sql.Date regDate = null;
+	 
+	//for login and signup
+	java.sql.Date regDate = null;
 	  try {
 		    regDate = memVO.getRegDate();
 	   } catch (Exception e) {
@@ -30,7 +32,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<%@include file="test.file" %>
+	<%@include file="member/includedfiles/css.file" %>
 </head>
 
 
@@ -42,29 +44,12 @@
 	}
     %>>
     
-	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
-	      <a class="navbar-brand" href="index.jsp">Plus<i class="fas fa-plus-square"></i></a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span>Menu
-	      </button>
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="food.html" class="nav-link"><%= (memVO==null)? "訪客" :memVO.getMemName() %> 您好!</a></li>
-	          <li class="nav-item"><a href=<%=(memVO==null)? "index.jsp" : request.getContextPath()+"/front-end/member/member.do?action=getOne_For_Display&memno="+memVO.getMemNo() %> class="nav-link">個人設定</a></li>
-	          <li class="nav-item"><a href="food.html" class="nav-link">送餐專區</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath() %>/doctoravailable/selectDoctorAvailable_page.jsp" class="nav-link">線上問診</a></li>
-	          <li class="nav-item"><a href="../impression/impsearch.jsp" class="nav-link">活動專區</a></li>
-	          <li class="nav-item cta"><a href="member.do?action=logout" class="nav-link" <%= (memVO==null)? "data-toggle='modal' data-target='#modalRequest'" :"" %>  ><span id="mylogin"><%= (memVO==null)? "登入/註冊" :"登出" %></span></a></li>
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
+	<%@include file="/front-end/member/includedfiles/nav.file" %>
     <!-- END nav -->
     
     <!-- 可動部分 -->
     <section class="home-slider owl-carousel">
-      <div class="slider-item" style="background-image: url('images/bg_1.jpg');">
+      <div class="slider-item" style="background-image: url('<%=request.getContextPath() %>/front-end/member/images/bg_1.jpg');">
         <div class="overlay"></div>
         <div class="container">
           <div class="row slider-text align-items-center" data-scrollax-parent="true">
@@ -77,7 +62,7 @@
         </div>
       </div>
 
-      <div class="slider-item" style="background-image: url('images/bg_2.jpg');">
+      <div class="slider-item" style="background-image: url('<%=request.getContextPath() %>/front-end/member/images/bg_2.jpg');">
         <div class="overlay"></div>
         <div class="container">
           <div class="row slider-text align-items-center" data-scrollax-parent="true">
@@ -275,7 +260,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="member.do" method="post">
+          <form action="<%=request.getContextPath() %>/front-end/member/member.do" method="post">
             <div class="form-group">
               <!-- <label for="appointment_name" class="text-black">Full Name</label> -->
               <input type="text" class="form-control" id="appointment_name" placeholder="帳號" NAME="account">
@@ -328,7 +313,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="member.do" method="post">
+          <form action="<%=request.getContextPath()%>/front-end/member/member.do" method="post">
             <div class="form-group">
               <!-- <label for="appointment_name" class="text-black">Full Name</label> -->
               <input type="text" class="form-control" id="sign_account" placeholder="使用者名稱" NAME="memid">
@@ -433,7 +418,7 @@
     </div>
   </div>
   
-  <%@include file="js.file" %>
+  <%@include file="member/includedfiles/js.file" %>
    
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
@@ -480,5 +465,5 @@
 </body>
 
   <!-- 以上為可動部分 -->
-<%@include file="footer.file" %>
+<%@include file="member/includedfiles/footer.file" %>
 </html>

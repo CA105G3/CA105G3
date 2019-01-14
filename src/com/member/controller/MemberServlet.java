@@ -558,7 +558,7 @@ public class MemberServlet extends HttpServlet {
 		           }
 		         }catch (Exception ignored) { }
 
-		        res.sendRedirect(req.getContextPath()+"/front-end/member/index.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
+		        res.sendRedirect(req.getContextPath()+"/front-end/index.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
 		      }
 		}//end auth
 	
@@ -566,7 +566,7 @@ public class MemberServlet extends HttpServlet {
 			HttpSession session = req.getSession();
 			session.removeAttribute("memno");
 			session.removeAttribute("memVO");
-			res.sendRedirect(req.getContextPath()+"/front-end/member/index.jsp");
+			res.sendRedirect(req.getContextPath()+"/front-end/index.jsp");
 		}//end logout
 		if("verify".equals(action)) {
 			String memno = req.getParameter("memno");

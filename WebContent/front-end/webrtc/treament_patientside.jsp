@@ -3,13 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.ppttool.model.*" %>
 <%@ page import="java.util.*" %>
+<%@ page import="com.member.model.*" %>
+<% MemberVO memVO=(MemberVO)session.getAttribute("memVO"); %>
 <!DOCTYPE html>
 <html>
     <head>
         <title>SimpleWebRTC Demo</title>
-    </head>
-    <body onload="connect();" onunload="disconnect();">
-        <h1 id="title">Start a room</h1>
         <style>
             .videoContainer {
                 position: relative;
@@ -43,6 +42,10 @@
             	height:320px;
             }
         </style>
+    </head>
+    <body onload="connect();" onunload="disconnect();">
+        <h1 id="title">Start a room</h1>
+        My name is <%=memVO.getMemName()%>
         <button id="screenShareButton"></button>
         <p id="subTitle"></p>
         <form id="createRoom">
@@ -63,11 +66,6 @@
 <%--         <td><img src="<%=request.getContextPath()%>/ppt/pptImg.do?pptno=${pptVO.pptno}"></td> --%>
        <td><img src="<%=request.getContextPath()%>/ppt/pptImg.do?pptno=P0001" id="ppt"></td>
         </tr>
-		<tr>
-        <td></td><td></td>
-        <td><button onclick="back()">上一頁</button></td>
-        <td><button onclick="next()">下一頁</button></td>
-		</tr>
         </table>
        
         <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -198,7 +196,8 @@
 <!--         	以下是WebSocket -->
         
         <script>
-	    var MyPoint = "/MyEchoServer/peter/309";
+//	    var MyPoint = "/MyEchoServer/peter/<%=memVO.getMemName()%>";
+      	var MyPoint="/MyEchoServer/peter/20190102-0001";//未來導入問診紀錄編號
 	    var host = window.location.host;
 	    var path = window.location.pathname;
 	    var webCtx = path.substring(0, path.indexOf('/', 1));

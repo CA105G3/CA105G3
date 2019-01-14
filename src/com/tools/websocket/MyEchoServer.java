@@ -28,7 +28,7 @@ private static final Set<Session> allSessions = Collections.synchronizedSet(new 
 	List<PPTToolVO> list =(ArrayList)pptSvc.getAll();
 	int a=0;
 	@OnOpen
-	public void onOpen(@PathParam("myName") String myName, @PathParam("myRoom") int myRoom, Session userSession) throws IOException {
+	public void onOpen(@PathParam("myName") String myName, @PathParam("myRoom") String myRoom, Session userSession) throws IOException {
 		allSessions.add(userSession);
 		System.out.println(userSession.getId() + ": 已連線");
 		System.out.println(myName + ": 已連線");
