@@ -25,7 +25,7 @@ private static final Set<Session> allSessions = Collections.synchronizedSet(new 
 	
 	JSONObject getInfo;
 	PPTToolService pptSvc=new PPTToolService();
-	List<PPTToolVO> list =(ArrayList)pptSvc.getAll();
+	List<PPTToolVO> list =pptSvc.getAll();
 	int a=0;
 	@OnOpen
 	public void onOpen(@PathParam("myName") String myName, @PathParam("myRoom") String myRoom, Session userSession) throws IOException {
@@ -45,14 +45,18 @@ private static final Set<Session> allSessions = Collections.synchronizedSet(new 
 		getInfo=new JSONObject(message);
 		String username=getInfo.getString("userName");
 		String message2=getInfo.getString("message");
+		
 		ArrayList<PPTToolVO> pptlist = new ArrayList<PPTToolVO>();
-		for(int i=0;i<list.size();i++) {
-			PPTToolVO pptvo=list.get(i);
-			if(pptvo.getDrno().equals(username)) {
-				pptlist.add(pptvo);
-			}
-		}
+		list.stream().filter(ppt->ppt.getDrno().equals(username)).forEach(ppt->pptlist.add(ppt));
+		
+//		for(int i=0;i<list.size();i++) {
+//			PPTToolVO pptvo=list.get(i);
+//			if(pptvo.getDrno().equals(username)) {
+//				pptlist.add(pptvo);
+//			}
+//		}
 		int t=pptlist.size();
+//		int t=list.size();
 		if(message2.equals("next")) {
 			System.out.println("next");
 			a++;
@@ -60,6 +64,7 @@ private static final Set<Session> allSessions = Collections.synchronizedSet(new 
 				a=0;
 			
 			PPTToolVO pptvo=pptlist.get(a);
+//			PPTToolVO pptvo=list.get(a);
 			for (Session session : allSessions) {
 				if (session.isOpen())
 					session.getAsyncRemote().sendText(pptvo.getPptno());

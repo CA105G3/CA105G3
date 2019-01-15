@@ -46,7 +46,7 @@ private MemberDAO_interface dao;
 			String gender,java.sql.Date birth,String addr,String allergy,
 			String bloodType,String phone,String famHistory,String ident,
 			String medHistory,String memStatus,String smoking,Integer locNo,
-			java.sql.Date regDate,java.sql.Timestamp stayTime,String memNo) {
+			java.sql.Date regDate,java.sql.Timestamp stayTime,String memNo,byte[] memPic) {
 		MemberVO memberVO = new MemberVO();
 		
 		memberVO.setAddr(addr);
@@ -68,6 +68,7 @@ private MemberDAO_interface dao;
 		memberVO.setSmoking(smoking);
 		memberVO.setStayTime(stayTime);
 		memberVO.setMemNo(memNo);
+		memberVO.setMemPic(memPic);
 		dao.update(memberVO);
 		return memberVO;
 	}

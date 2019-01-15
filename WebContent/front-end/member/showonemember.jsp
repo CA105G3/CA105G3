@@ -13,6 +13,7 @@
 	
 	List<String> errorMsgs = (LinkedList)request.getAttribute("errorMsgs");
 %>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -82,11 +83,23 @@
 		   	<div >
 		   	<form action="member.do" method="post">
 			<table>
+<!-- 			<tr> -->
+<%-- 				<th><p>會員編號</p></th><td><%=memVO.getMemNo()%></td> --%>
+<!-- 			</tr> -->
 			<tr>
-				<th><p>會員編號</p></th><td><%=memVO.getMemNo()%></td>
+				<th><p>會員照片</p></th>
+				<td>
+				<img src=<%=(memVO.getMemPic()==null)?request.getContextPath()+"/front-end/images/person_1.jpg": request.getContextPath()+"/front-end/member/membergetpic.do?memno="+memVO.getMemNo()%> width="180" height="160">
+				</td>
 			</tr>
 			<tr>
-				<th><p>會員帳號</p></th><td><%=memVO.getMemId()%></td>
+				<th><p>會員編號</p></th><td>${memVO.memNo}</td>
+			</tr>
+<!-- 			<tr> -->
+<%-- 				<th><p>會員帳號</p></th><td><%=memVO.getMemId()%></td> --%>
+<!-- 			</tr> -->
+			<tr>
+				<th><p>會員帳號</p></th><td>${memVO.memId}</td>
 			</tr>
 			<tr>
 				<th><p>會員姓名</p></th><td><%=memVO.getMemName()%></td>
@@ -147,10 +160,7 @@
 		  </div>
 		</div>
 	</section>
-
-
-  <%@include file="includedfiles/js.file" %>
-
+  <%@include file="includedfiles/js.file" %>	
   <!-- 以上為可動部分 -->
 <%@include file="includedfiles/footer.file" %>
 </html>

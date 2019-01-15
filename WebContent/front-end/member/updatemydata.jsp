@@ -88,8 +88,18 @@
 						</c:forEach>
 					</ul>
 				</c:if>
-				<FORM METHOD="post" ACTION="member.do" name="form1">
+				<FORM METHOD="post" ACTION="member.do" name="form1" enctype='multipart/form-data'>
 				<table>
+					<tr>
+						<th><p>會員照片</p></th>
+						<td>
+						<img src=<%=(memVO.getMemPic()==null)?request.getContextPath()+"/front-end/images/person_1.jpg": request.getContextPath()+"/front-end/member/membergetpic.do?memno="+memVO.getMemNo()%> id="myPic" width="180" height="160">
+						</td>
+					</tr>
+					<tr>
+						<th><p>上傳照片</p></th>
+						<td><input type="file" name="memPic" onchange="loadFile(event)"/></td>
+					</tr>
 					<tr>
 						<td><p>會員編號:</p></td>
 						<td><input name="memno" type="text" value="<%=memVO.getMemNo()%>" readonly></td>
@@ -223,6 +233,16 @@
            //minDate:               '-1970-01-01', // 去除今日(不含)之前
            maxDate:               '+1970-01-01'  // 去除今日(不含)之後
         });
+</script>
+<script>
+  var loadFile = function(event) {
+    var reader = new FileReader();
+    reader.onload = function(){
+      var output = document.getElementById('myPic');
+      output.src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  };
 </script>       
   <!-- 以上為可動部分 -->
   <%@include file="includedfiles/footer.file" %>

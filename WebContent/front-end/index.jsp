@@ -359,13 +359,21 @@
               <input type="text" class="form-control" id="sign_phone" placeholder="電話" NAME="phone">
             </div>
            
-           <div class="form-group">
-              <!-- <label for="appointment_email" class="text-black">Email</label> -->
-              <input type="text" class="form-control" id="sign_locno" placeholder="郵遞區號" NAME="locno">
-            </div>
+<!--            <div class="form-group"> -->
+<!--               <label for="appointment_email" class="text-black">Email</label> -->
+<!--               <input type="text" class="form-control" id="sign_locno" placeholder="郵遞區號" NAME="locno"> -->
+<!--             </div> -->
            
            <div class="form-group">
+            <div id="twzipcode">
+		     <div class="form-control" data-role="county" data-style="Style Name"></div>
+		     <div class="form-control" data-role="district" data-style="Style Name"></div>
+		     <div class="form-control" data-role="zipcode" data-style="Style Name"></div>
+		    </div>
+           </div>
+           <div class="form-group">
               <!-- <label for="appointment_email" class="text-black">Email</label> -->
+             
               <input type="text" class="form-control" id="sign_address" placeholder="地址" NAME="addr">
             </div>
            
@@ -424,7 +432,6 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
-
 <style>
   .xdsoft_datetimepicker .xdsoft_datepicker {
            width:  300px;   /* width:  300px; */
@@ -433,6 +440,32 @@
            height: 151px;   /* height:  151px; */
   }
 </style>
+
+<style>
+.city, .town{width: 100%;}
+.f1{float:left;margin-left:5px;margin-right:5px;width:calc(5% - 10px)}
+.f2{float:left;margin-left:5px;margin-right:5px;width:calc(10% - 10px)}
+.f3{float:left;margin-left:5px;margin-right:5px;width:calc(15% - 10px)}
+.f4{float:left;margin-left:5px;margin-right:5px;width:calc(20% - 10px)}
+.f5{float:left;margin-left:5px;margin-right:5px;width:calc(25% - 10px)}
+.f6{float:left;margin-left:5px;margin-right:5px;width:calc(30% - 10px)}
+.f7{float:left;margin-left:5px;margin-right:5px;width:calc(35% - 10px)}
+.f8{float:left;margin-left:5px;margin-right:5px;width:calc(40% - 10px)}
+.f9{float:left;margin-left:5px;margin-right:5px;width:calc(45% - 10px)}
+.f10{float:left;margin-left:5px;margin-right:5px;width:calc(50% - 10px)}
+.f11{float:left;margin-left:5px;margin-right:5px;width:calc(55% - 10px)}
+.f12{float:left;margin-left:5px;margin-right:5px;width:calc(60% - 10px)}
+.f13{float:left;margin-left:5px;margin-right:5px;width:calc(65% - 10px)}
+.f14{float:left;margin-left:5px;margin-right:5px;width:calc(70% - 10px)}
+.f15{float:left;margin-left:5px;margin-right:5px;width:calc(75% - 10px)}
+.f16{float:left;margin-left:5px;margin-right:5px;width:calc(80% - 10px)}
+.f17{float:left;margin-left:5px;margin-right:5px;width:calc(85% - 10px)}
+.f18{float:left;margin-left:5px;margin-right:5px;width:calc(90% - 10px)}
+.f19{float:left;margin-left:5px;margin-right:5px;width:calc(95% - 10px)}
+.f20{float:left;margin-left:5px;margin-right:5px;width:calc(100% - 10px)}
+</style>
+
+
 <script>
         $.datetimepicker.setLocale('zh');
         $('#birth_date').datetimepicker({
@@ -447,8 +480,7 @@
            maxDate:               '+1970-01-01'  // 去除今日(不含)之後
         });
 </script>
-
-  <script type="text/javascript">
+<script type="text/javascript">
   function faillogin(){ 
   	$("#mylogin").trigger("click");
   };
@@ -460,8 +492,22 @@
   function failsignup(){ 
 	  $("#signup2").trigger("click");
   };
-  
-  </script>  
+</script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>	 -->
+<!-- <script src="/front-end/member/js/jquery.twzipcode-1.4.1.js"></script> -->
+<!-- <script src="/front-end/member/js/jquery.twzipcode.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.15-rc1/jquery.twzipcode.js"></script>	
+<script>$('#twzipcode').twzipcode();</script>
+
+<script>
+$("#zipcode3").twzipcode({
+"zipcodeIntoDistrict": true,
+"css": ["city form-control", "town form-control"],
+"countyName": "city", // 指定城市 select name
+"districtName": "town" // 指定地區 select name
+});
+</script>
 </body>
 
   <!-- 以上為可動部分 -->

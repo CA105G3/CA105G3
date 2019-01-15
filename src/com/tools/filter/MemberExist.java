@@ -59,7 +59,7 @@ public class MemberExist implements Filter {
 			errorMsgs.add("請先到您的E-mail做驗證");
 			session.setAttribute("accessfail", errorMsgs);
 			session.removeAttribute("memVO");
-			response.sendRedirect(request.getContextPath()+"/front-end/member/index.jsp");
+			response.sendRedirect(request.getContextPath()+"/front-end/index.jsp");
 		}
 		chain.doFilter(request, response);
 	}

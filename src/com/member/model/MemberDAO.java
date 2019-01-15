@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -54,7 +55,7 @@ public class MemberDAO implements MemberDAO_interface{
 		+ "birth=?,bloodtype=?,email=?,famhistory=?,"
 		+ "gender=?,ident=?,locno=?,medhistory=?,"
 		+ "memstatus=?,phone=?,pwd=?,regdate=?,"
-		+ "smoking=?,staytime=?  where memno = ?";
+		+ "smoking=?,staytime=?,mempic=?  where memno = ?";
 	
 	private static final String UPDATE_LOGIN="update member set staytime=? where memid=?";
 
@@ -62,7 +63,7 @@ public class MemberDAO implements MemberDAO_interface{
 	
 	private static final String UPDATE_FOR_BASIC_RECORD = 
 			"UPDATE MEMBER SET bloodType=?, smoking=?, allergy=?, medHistory=?, famHistory=? where memId = ?";
-	private static final String UPDATE_FOR_VERIFY="UPDATE MEMBER SET MEMSTATUS=? where memno=?";
+	private static final String UPDATE_FOR_VERIFY="UPDATE MEMBER SET MEMSTATUS=?,staytime=? where memno=?";
 	//license驗證
 	private static final String CHANGE_IDNET =
 			"UPDATE member set ident=? where memno=?";
@@ -113,7 +114,7 @@ public class MemberDAO implements MemberDAO_interface{
 			String subject="線上醫療會員註冊驗證信件";
 			String messageText="親愛的會員 "+memberVO.getMemName()+"您好"+"\n"
 			+"感謝您註冊本網站，以下是您的驗證網址，請點擊通過驗證，謝謝!"+"\n"
-			+"http://localhost:8081/ca105g3/front-end/member/member.do?action=verify&memno="+next_memno;
+			+"http://localhost:8081/CA105G3/front-end/member/member.do?action=verify&memno="+next_memno;
 			sendmail.sendMail(memberVO.getEmail(), subject, messageText);
 		}catch(SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -163,7 +164,8 @@ public class MemberDAO implements MemberDAO_interface{
 			pstmt.setDate(16,memberVO.getRegDate());
 			pstmt.setString(17,memberVO.getSmoking());
 			pstmt.setTimestamp(18,memberVO.getStayTime());
-			pstmt.setString(19, memberVO.getMemNo());
+			pstmt.setBytes(19, memberVO.getMemPic());
+			pstmt.setString(20, memberVO.getMemNo());
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -252,6 +254,7 @@ public class MemberDAO implements MemberDAO_interface{
 				memberVO.setRegDate(rs.getDate("regdate"));
 				memberVO.setSmoking(rs.getString("smoking"));
 				memberVO.setStayTime(rs.getTimestamp("staytime"));
+				memberVO.setMemPic(rs.getBytes("mempic"));
 			}
 			// Handle any driver errors
 		}catch (SQLException se) {
@@ -457,12 +460,13 @@ public class MemberDAO implements MemberDAO_interface{
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
+		Timestamp time = new Timestamp(System.currentTimeMillis());
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_FOR_VERIFY);
 			pstmt.setString(1, "正常");
-			pstmt.setString(2,memno);
+			pstmt.setTimestamp(2, time);
+			pstmt.setString(3,memno);
 			pstmt.executeUpdate();	
 
 		} catch(SQLException se) {
