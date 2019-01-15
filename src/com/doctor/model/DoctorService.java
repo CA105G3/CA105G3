@@ -1,12 +1,13 @@
 package com.doctor.model;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class DoctorService {
 	private DoctorDAO_interface dao;
 	
 	public DoctorService(){
-		dao = new DoctorJDBCDAO();
+		dao = new DoctorDAO();
 	}
 	
 	public DoctorVO addDoctor(String memno, String resume,String isonline, String status, 
@@ -58,4 +59,13 @@ public class DoctorService {
 	public List<DoctorVO> getMajor(){
 		return dao.getMajor();
 	}
+	
+	public DoctorVO getDrno(String memno) {
+		return dao.getDrno(memno);
+	}
+	
+	public void UpdateIsonline(String isonline,String memno) {
+		dao.UpdateIsonline(isonline, memno);
+	}
+	
 }

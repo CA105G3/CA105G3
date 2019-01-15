@@ -1,5 +1,6 @@
 package com.doctor.model;
 
+import java.sql.Connection;
 import java.util.List;
 
 public interface DoctorDAO_interface {
@@ -10,5 +11,7 @@ public interface DoctorDAO_interface {
 	public List<DoctorVO> findByMajor(String major);
 	public List<DoctorVO> getAll();
 	public List<DoctorVO> getMajor();
+	public DoctorVO getDrno(String memno);
+	public void UpdateIsonline(String isonline,String memno);
 }
 

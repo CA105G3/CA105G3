@@ -4,6 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -114,13 +116,14 @@ public class PPTServlet extends HttpServlet {
 				PPTToolService pptSvc = new PPTToolService();
 				pptSvc.deletePPT(pptno);
 				
-				String url="/front-end/ppt/ListAllPPT.jsp";
+//				String url="/front-end/ppt/ListAllPPT.jsp";
+				String url = "/front-end/ppt/upload_ppt_by_smallfu.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				
 			}catch(Exception e) {
 				errorMsgs.add("刪除資料失敗"+e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/ppt/ListAllPPT.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/ppt/upload_ppt_by_smallfu.jsp");
 				failureView.forward(req, res);
 			}
 		}//End-point delete	
@@ -284,6 +287,100 @@ public class PPTServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		if ("getPPTsByDrno".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				String drno=req.getParameter("drno");
+				PPTToolService ps = new PPTToolService();
+				List<PPTToolVO> list = ps.getPPTsByDrno(drno);
+				req.setAttribute("upload_ppt_by_smallfu", list);
+				String url = "/front-end/upload_ppt_by_smallfu.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+			}catch(Exception e) {
+				errorMsgs.add("查詢資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/upload_ppt_by_smallfu.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		if ("uploadPPT".equals(action)) {
+			System.out.println(action);
+			List<String> errorMsgs = new ArrayList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			
+//			try {
+				String drno = req.getParameter("drno");
+				PPTToolService ps = new PPTToolService();
+				Collection<Part> parts = req.getParts();
+				//沒判斷要不要修改
+				int count = 1;
+				for(Part part : parts) {
+					System.out.println(count);
+					String pptno = req.getParameter("drPic" + count);
+					System.out.println("fileName = " + part.getSubmittedFileName() + "沒名字");
+					if(part.getSubmittedFileName().equals(null)||part.getSubmittedFileName().trim().length()==0) {
+						System.out.println("未選擇檔案，因此" + pptno + "不做修改");
+						errorMsgs.add("未選擇檔案");
+						String url = "/front-end/ppt/upload_ppt_by_smallfu.jsp";
+						RequestDispatcher successView = req.getRequestDispatcher(url); 
+						successView.forward(req, res);
+						return;
+					}else if(pptno == null || pptno.trim().length() == 0){
+						PPTToolVO pptVO = new PPTToolVO();
+						InputStream fileContent = part.getInputStream();
+						byte[] data=readFully(fileContent);
+						pptVO.setDrno(drno);
+						pptVO.setPpt(data);
+						pptVO = ps.addPPT(drno, data);
+						System.out.println("新增照片；沒修改照片");
+						String url = "/front-end/ppt/upload_ppt_by_smallfu.jsp";
+						RequestDispatcher successView = req.getRequestDispatcher(url); 
+						successView.forward(req, res);
+						return;
+					}else{
+						System.out.println("死在這?");
+						PPTToolVO pptVO = ps.getOnePPT(pptno);
+						System.out.println("pptVO = " + pptVO);
+						InputStream fileContent = part.getInputStream();
+						byte[] data=readFully(fileContent);
+						pptVO = ps.update(pptno, data, drno);
+						System.out.println(pptno + "換照片");
+					}
+					count++;
+				}
+				
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					System.out.println("有錯誤訊息");
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/upload_ppt_by_smallfu.jsp");
+					failureView.forward(req, res);
+					System.out.println(errorMsgs);
+					return;
+				}
+				
+				/***************************3.新增完成,準備轉交(Send the Success view)***********/
+				String url = "/front-end/ppt/upload_ppt_by_smallfu.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); 
+				successView.forward(req, res);				
+				
+				/***************************其他可能的錯誤處理**********************************/
+				
+//			}catch(Exception e) {
+//				errorMsgs.add("新增資料失敗:"+e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/front-end/ppt/upload_ppt_by_smallfu.jsp");
+//				failureView.forward(req, res);
+//			}
+		}//End-point insert
 	}
 	
 	public static byte[] readFully(InputStream input) throws IOException

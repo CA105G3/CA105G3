@@ -8,6 +8,8 @@ public interface DravailableDAO_interface {
 	public void update(DravailableVO dravailableVO);
 	public void delete(String dravano);
 	public DravailableVO findByPK(String dravano);   //主要是用drno找醫生和他的draym,drava?
+	public DravailableVO findDravaByDrnoThismonth(String drno);
+	public DravailableVO findDravaByDrnoNextmonth(String drno);
 	public List<DravailableVO> findByDrno(String drno);
 	public List<DravailableVO> getAll();
 }

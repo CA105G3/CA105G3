@@ -99,4 +99,17 @@ public class MedicalOrderService {
 	public List<MedicalOrderVO> getByDrnoThisWeek(String drno){
 		return dao.getByDrnoThisWeek(drno);
 	}
+	
+	public void cancelByDr(String moNo, String moStatus){
+		MedicalOrderVO medicalOrderVO = new MedicalOrderVO();
+		medicalOrderVO.setMoStatus(moStatus);
+		medicalOrderVO.setMoNo(moNo);
+		dao.calcelByDr(medicalOrderVO);
+	}
+	
+	public List<MedicalOrderVO> getByDrnoThisMonthDone(String drno){
+		return dao.getByDrnoThisMonthDone(drno);
+	}
 }
+
+
