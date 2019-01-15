@@ -9,7 +9,7 @@ public class DravailableService {
 	private DravailableDAO_interface dao;
 	
 	public DravailableService() {
-		dao = new DravailableJDBCDAO();
+		dao = new DravailableDAO();
 	}
 	
 	public DravailableVO addDravailable(String drno, Date draym, String drava) {
@@ -44,6 +44,13 @@ public class DravailableService {
 		return dao.findByDrno(drno);
 	}
 	
+	public DravailableVO getDravaInThismonthByDrno(String drno) {
+		return dao.findDravaByDrnoThismonth(drno);
+	}
+	
+	public DravailableVO getDravaNextmonthByDrno(String drno) {
+		return dao.findDravaByDrnoNextmonth(drno);
+	}
 	public List<DravailableVO> getAll(){
 		return dao.getAll();
 	}

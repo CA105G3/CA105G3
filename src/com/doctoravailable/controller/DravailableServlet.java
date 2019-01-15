@@ -1,11 +1,11 @@
 package com.doctoravailable.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +16,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.doctor.model.DoctorService;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.doctoravailable.model.DravailableService;
 import com.doctoravailable.model.DravailableVO;
 
@@ -52,14 +54,14 @@ public class DravailableServlet extends HttpServlet {
 		}
 		
 		
-		
+//		表格版
 		if ("getSameDrschedule_By_Drno".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
 				String drno = req.getParameter("drno");
-				List<Map> avaTime = HandleDravailable.GetSameDrschedule(drno);				
+				List<Map> avaTime = HandleDravailable.GetSameDrschedule(drno);		
 				req.setAttribute("avaTime", avaTime);
 				RequestDispatcher successView = req.getRequestDispatcher("getSameDrschedule_By_Drno.jsp");
 				successView.forward(req, res);
@@ -68,7 +70,43 @@ public class DravailableServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/doctoravailable/selectDoctorAvailable_page.jsp");
 				failureView.forward(req, res);
 			}
+		}		
+//		月曆版
+		if ("getSameDrschedule_By_Drno_B".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				String drno = req.getParameter("drno");
+				List<Map> avaTime = HandleDravailable.GetDravaThismonthByDrno(drno);		
+				req.setAttribute("avaTime", avaTime);
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/doctoravailable/calendarMonthPrintView.jsp");
+				successView.forward(req, res);
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage()); 
+				RequestDispatcher failureView = req.getRequestDispatcher("/doctoravailable/selectDoctorAvailable_page.jsp");
+				failureView.forward(req, res);
+			}
 		}
+//		醫生或病患查看下個月
+		if ("getSameDrschedule_By_Drno_Nextmonth".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+//			try {
+				String drno = req.getParameter("drno");
+				System.out.println(drno);
+				List<Map> avaTime = HandleDravailable.GetDravaNextmonthByDrno(drno);		
+				req.setAttribute("avaTime", avaTime);
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/doctoravailable/calendarNextMonthPrintView.jsp");
+				successView.forward(req, res);
+//			} catch (Exception e) {
+//				errorMsgs.add("無法取得資料:" + e.getMessage()); 
+//				RequestDispatcher failureView = req.getRequestDispatcher("/doctoravailable/selectDoctorAvailable_page.jsp");
+//				failureView.forward(req, res);
+//			}
+		}
+
 		
 		
 	
@@ -85,7 +123,7 @@ public class DravailableServlet extends HttpServlet {
 				String drno = req.getParameter("drno");
 				Date draym = Date.valueOf(req.getParameter("draym")); //新增或修改時會用sql指令把日期改成每月1號
 				String ym = draym.toString().substring(0, 7);
-				String drava = availableTime.set93Zero();
+				String drava = GenerateDrava.set93Zero();
 				String thisDay = req.getParameter("draym").substring(8, 10);
 				int thisDayIndex = Integer.parseInt(thisDay) * 3 - 3;
 				System.out.println(thisDayIndex);
@@ -189,6 +227,90 @@ public class DravailableServlet extends HttpServlet {
 			}
 		}
 		
+		if ("updateByAjax".equals(action)) {
+			System.out.println(action);
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				res.setContentType("text/plain");
+				res.setCharacterEncoding("UTF-8");
+				PrintWriter out = res.getWriter();
+				JSONObject obj = new JSONObject();
+				
+				
+				String dravano = req.getParameter("dravano");
+				int index = Integer.parseInt(req.getParameter("index"));
+				String vx = req.getParameter("vx");
+				//判斷一下如果點擊的時間如果是當天的話，有沒有超過該時段開始的時間
+				int clock = Integer.valueOf(req.getParameter("clock")); //點到的時段
+				
+				System.out.println("點到的時段clock = " + clock);
+				
+				
+				
+				
+				//現在時間
+				Calendar currentCal = Calendar.getInstance();
+				int hour = currentCal.get(Calendar.HOUR_OF_DAY);
+				int date = currentCal.get(Calendar.DAY_OF_MONTH)-1;
+				System.out.println(date);
+				System.out.println(hour);//早上九點是09
+				if(index / 3 == date && hour >= clock ) {
+					System.out.println("今天已過此時段");
+					obj.put("notToday", true);
+					out.print(obj);
+					out.flush();
+					out.close();
+					return;
+				}
+				
+				
+				System.out.println("dravano = " + dravano);
+				System.out.println("index = " + index);
+				System.out.println("可否預約 = " + vx);
+				DravailableService ds = new DravailableService();
+				DravailableVO dvo = ds.getOneDravailable(dravano);
+				String drava = dvo.getDrava();
+				StringBuffer dravaSB = new StringBuffer(drava);
+				if(vx.equals("V")) {
+					dravaSB.setCharAt(index, '0');
+					vx = "X";
+				}else {
+					dravaSB.setCharAt(index, '1');
+					vx = "V";
+				}
+				drava = dravaSB.toString();
+				dvo.setDrava(drava);
+				dvo = ds.updateDravailable(dravano, drava);
+				
+
+				obj.put("vx", vx);
+				out.print(obj);
+				out.flush();
+				out.close();
+				
+//				List<Map> list = new ArrayList<Map>();
+//				Map<String, String> map = new HashMap<String, String>();
+//				map.put("key", "1");
+//				map.put("key", "2");
+//				list.add(map);
+//				
+//				JSONArray arr = new JSONArray();
+//				for(Map<String, String> m: list) {
+//					JSONObject obj = new JSONObject();
+//					for(String key: m.keySet()) {
+//						obj.put(key, m.get(key));
+//					}
+//					arr.put(obj);
+//				}
+				
+			}catch(Exception e) {
+				errorMsgs.add("修改資料失敗" + e.getMessage());
+//				RequestDispatcher failureView = req.getRequestDispatcher("getSameDrschedule_By_Drno.jsp");
+//				failureView.forward(req, res);
+			}
+			
+		}
 	}
 
 }

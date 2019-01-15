@@ -1,6 +1,11 @@
 package com.ppttool.model;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,7 +39,8 @@ public class PPTToolDAO implements PPTToolDAO_interface {
 				"DELETE FROM PPTTOOL WHERE pptno = ?";
 		private static final String UPDATE = 
 				"UPDATE PPTTOOL SET ppt =? WHERE pptno = ?";
-	
+		private static final String GET_PPTS_BY_DRNO=
+				"SELECT * FROM PPTTOOL WHERE DRNO = ? ORDER BY PPTNO";
 	@Override
 	public void insert(PPTToolVO ppttoolvo) {
 		Connection con=null;
@@ -198,6 +204,59 @@ public class PPTToolDAO implements PPTToolDAO_interface {
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// ppttoolvo 也稱為 Domain objects
+				ppttoolvo = new PPTToolVO();
+				ppttoolvo.setPptno(rs.getString("pptno"));
+				ppttoolvo.setDrno(rs.getString("drno"));
+				ppttoolvo.setPpt(rs.getBytes("ppt"));
+				list.add(ppttoolvo); // Store the row in the list
+			}
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	public List<PPTToolVO> getPPTsByDrno(String drno) {
+		List<PPTToolVO> list = new ArrayList<PPTToolVO>();
+		PPTToolVO ppttoolvo = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_PPTS_BY_DRNO);
+			pstmt.setString(1, drno);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {

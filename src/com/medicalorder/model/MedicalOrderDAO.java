@@ -45,13 +45,15 @@ public class MedicalOrderDAO implements MedicalOrder_interface{
 	
 	//=======================================================================
 	//醫生歷史看診紀錄
-	private static final String GET_BY_DRNO = "SELECT* FROM MEDICALORDER WHERE DRNO=? AND MOSTATUS = '問診完成'";
+	private static final String GET_BY_DRNO = "SELECT* FROM MEDICALORDER WHERE DRNO=? AND MOSTATUS = '問診完成' ORDER BY MOTIME, MOHOUR, MONO";
 	//醫生查詢預約
 	private static final String GET_BY_DRNO_TODAY = "SELECT* FROM MEDICALORDER WHERE DRNO=? AND MOSTATUS = '等待問診' AND TO_CHAR(MOTIME, 'YYMMDD') = TO_CHAR(SYSDATE, 'YYMMDD') ORDER BY MOHOUR, MONO";
 	private static final String GET_BY_DRNO_THISMONTH = "SELECT* FROM MEDICALORDER WHERE DRNO=? AND MOSTATUS = '等待問診' AND TO_CHAR(MOTIME, 'YYMMDD') >= TO_CHAR(SYSDATE, 'YYMMDD')  AND TO_CHAR(MOTIME, 'YYMM') = TO_CHAR(SYSDATE, 'YYMM') ORDER BY MOTIME, MOHOUR, MONO";
+	private static final String GET_BY_DRNO_THISMONTH_DONE = "SELECT* FROM MEDICALORDER WHERE DRNO=? AND MOSTATUS = '問診完成' AND TO_CHAR(MOTIME, 'YYMMDD') <= TO_CHAR(SYSDATE, 'YYMMDD')  AND TO_CHAR(MOTIME, 'YYMM') = TO_CHAR(SYSDATE, 'YYMM') ORDER BY MOTIME, MOHOUR, MONO";
 	private static final String GET_BY_DRNO_NEXTMONTH = "SELECT* FROM MEDICALORDER WHERE DRNO=? AND MOSTATUS = '等待問診' AND TO_CHAR(MOTIME, 'YYMM') = TO_CHAR(ADD_MONTHS(SYSDATE, 1), 'YYMM') ORDER BY MOTIME, MOHOUR, MONO"; 
 	private static final String GET_BY_DRNO_THISWEEK = "SELECT* FROM MEDICALORDER WHERE DRNO=? AND  MOSTATUS = '等待問診' AND TO_CHAR(MOTIME, 'YYMMDD') <= TO_CHAR(NEXT_DAY(SYSDATE, 7), 'YYMMDD') "
 			+ "AND TO_CHAR(MOTIME, 'YYMMDD') >= TO_CHAR(SYSDATE, 'YYMMDD') ORDER BY MOTIME, MOHOUR, MONO";
+	private static final String CANCEL_BY_DR = "UPDATE MEDICALORDER SET MOSTATUS=? WHERE MONO=?";
 	//========================================================================		
 	
 	@Override
@@ -392,7 +394,10 @@ public class MedicalOrderDAO implements MedicalOrder_interface{
 	}
 	
 	
-//	=========================================================
+	
+	
+	
+//	==============================================================
 	public List<MedicalOrderVO> getByDrno(String drno) {
 		
 		List<MedicalOrderVO> list = new ArrayList<MedicalOrderVO>();
@@ -573,6 +578,66 @@ public class MedicalOrderDAO implements MedicalOrder_interface{
 		return list;
 	}
 	
+public List<MedicalOrderVO> getByDrnoThisMonthDone(String drno) {
+		
+		List<MedicalOrderVO> list = new ArrayList<MedicalOrderVO>();
+		MedicalOrderVO medicalOrderVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_BY_DRNO_THISMONTH_DONE);
+			pstmt.setString(1, drno);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				medicalOrderVO = new MedicalOrderVO();
+				medicalOrderVO.setMoNo(rs.getString("moNo"));
+				medicalOrderVO.setMemNo(rs.getString("memNo"));
+				medicalOrderVO.setDrNo(rs.getString("drNo"));
+				medicalOrderVO.setMoStatus(rs.getString("moStatus"));
+				medicalOrderVO.setMoCost(rs.getInt("moCost"));
+				medicalOrderVO.setMoTime(rs.getDate("moTime"));
+				medicalOrderVO.setMoHour(rs.getInt("moHour"));
+				medicalOrderVO.setMoIntro(rs.getString("moIntro"));			
+				medicalOrderVO.setMoCancelReason(rs.getString("moCancelReason"));
+				medicalOrderVO.setMoVideo(rs.getBytes("moVideo"));
+				medicalOrderVO.setMoText(rs.getString("moText"));
+				list.add(medicalOrderVO);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured." + e.getMessage());
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			
+		}
+		
+		return list;
+	}
+	
 	public List<MedicalOrderVO> getByDrnoNextMonth(String drno) {
 		
 		List<MedicalOrderVO> list = new ArrayList<MedicalOrderVO>();
@@ -692,4 +757,40 @@ public class MedicalOrderDAO implements MedicalOrder_interface{
 		
 		return list;
 	}
+	
+	public void calcelByDr(MedicalOrderVO medicalOrderVO) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(CANCEL_BY_DR);
+			pstmt.setString(1, medicalOrderVO.getMoStatus());
+			pstmt.setString(2, medicalOrderVO.getMoNo());
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured." + e.getMessage());
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+//==================================================================
+	
 }

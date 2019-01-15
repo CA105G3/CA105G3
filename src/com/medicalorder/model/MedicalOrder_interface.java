@@ -17,4 +17,6 @@ public interface MedicalOrder_interface {
 	public List<MedicalOrderVO> getByDrnoThisMonth(String drno);
 	public List<MedicalOrderVO> getByDrnoNextMonth(String drno);
 	public List<MedicalOrderVO> getByDrnoThisWeek(String drno);
+	public void calcelByDr(MedicalOrderVO medicalOrderVO);
+	public List<MedicalOrderVO> getByDrnoThisMonthDone(String drno);
 }

@@ -714,6 +714,20 @@ public List<MedicalOrderVO> getByDrnoThisWeek(String drno) {
 	
 	return list;
 }
+
+@Override
+public void calcelByDr(MedicalOrderVO medicalOrderVO) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public List<MedicalOrderVO> getByDrnoThisMonthDone(String drno) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+//=========================================================
 	
 	public static void main(String[] args) {
 		
@@ -811,6 +825,7 @@ public List<MedicalOrderVO> getByDrnoThisWeek(String drno) {
 //		dao.cancelMedicalOrder(medicalOrderVO3);
 		
 	}
+
 
 
 
