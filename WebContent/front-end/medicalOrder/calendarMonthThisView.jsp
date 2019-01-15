@@ -99,8 +99,6 @@
 		</ul>
 	</c:if>
 	
-<div class="container-fluid">
-    <div class="row">
 		<table class="table" id="table-1">
 			<tr>
 				<td>
@@ -245,9 +243,6 @@
 	</div>
 
 
-
-	</div>
-</div>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 <script src="https://code.jquery.com/jquery.js"></script>

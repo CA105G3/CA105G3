@@ -8,6 +8,12 @@
 <jsp:useBean id="memberVO" scope="page" class="com.member.model.MemberVO" />
 <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService"/>
 
+
+<%	
+	MemberVO memVO = (MemberVO)session.getAttribute("memVO");
+
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -123,7 +129,6 @@
 	<br>
 <!-- 幻燈片輪播 -->
 
-
 <div class="container-fluid">
     <div class="row">
 
@@ -137,6 +142,21 @@
 <!-- 				<a class="list-group-item list-group-item-action list-group-item-primary" href="getMedicalOrderFromMember.jsp" >個人看診紀錄</a> -->
 <!-- 				<a href="#" class="list-group-item list-group-item-action list-group-item-primary">醫生管理頁面</a> -->
 <!-- 			</div> -->
+
+<c:forEach var="doctorVO" items="${doctorSvc.all}">
+	<c:if test="${memVO.getMemNo()==doctorVO.memno}">
+<!-- 			<div class="list-group"> -->
+<!-- 				<a class="list-group-item list-group-item-action list-group-item-primary" href="#" >我是醫療人員</a> -->
+<!-- 			</div> -->
+				<form method="post" action="<%=request.getContextPath()%>/doctor.do">
+					<input type="hidden" name="memno" value="M0020"> 
+					<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>"> 
+					<input type="hidden" name="action" value="enter_dr_admin">
+					<input type="submit" value="我是醫療人員"  class="btn btn-info">
+				</form>
+	</c:if>
+</c:forEach>
+
 		</div>
 		
 
@@ -150,12 +170,13 @@
 	        		<div class="col-lg-3 col-md-6 staff">
 	      				<div class="img mb-4" style="background-image: url(<%=request.getContextPath()%>/doctor/doctorImg.do?drno=${doctorVO.drno});"></div>
 	      					<div class="info text-center">
-	      					<h3><a href="teacher-single.html">
+	      					<h3><a href="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do?action=findDr&&drno=${doctorVO.drno}">
 	      						<c:forEach var="memberVO" items="${memberSvc.all}">
 	      							<c:if test="${memberVO.memNo==doctorVO.memno}">${memberVO.memName}</c:if>
 	      						</c:forEach>
+	      						<span class="position">${doctorVO.major}</span>
 	      					</a></h3>
-	      					<span class="position">${doctorVO.major}</span>
+	      					
 	      				</div>
 	        		</div>
 	        		</a>

@@ -125,7 +125,7 @@
 						<p class="mb-4"
 							data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">輕鬆簡單的方式，讓您在家也能體驗醫療的好處</p>
 						<p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
-							<h1>醫生個人簡介</h1>
+							<a href="ScanDoctor.jsp" class="btn btn-primary px-4 py-3">立即預約</a>
 						</p>
 					</div>
 				</div>
@@ -144,7 +144,7 @@
 							data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">專業的醫療服務</h1>
 						<p class="mb-4">為家中不方便的患者所提供的線上諮詢，您一定不能錯過!!</p>
 						<p>
-							醫生個人簡介
+							<a href="ScanDoctor.jsp" class="btn btn-primary px-4 py-3">線上預約</a>
 						</p>
 					</div>
 				</div>
@@ -157,20 +157,19 @@
 	<!-- ====================================== -->
 <br>
 <br>
-<!-- 左邊側邊欄+右邊醫生介紹 -->
+
 <div class="container-fluid">
     <div class="row">
-		
-<!-- 左邊側邊欄 -->
-		<div class="col-xs-12 col-sm-3 ">
+
+
+<!-- 		左方問診管理		 -->
+		<div class="col-xs-12 col-sm-3">
 			<%@ include file="sidebar.jsp" %>
 		</div>
 
-<!-- 右邊醫生介紹 -->
-		<div class="col-xs-12 col-sm-9" >
 
 <p>&nbsp;</p>
-	<div class="row d-flex justify-content-center">
+	<div class="row d-flex">
 		<div class="col-lg-8 ">
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -226,24 +225,19 @@
 			</div>
 			<!-- /.panel -->
 		</div>
-		<div>
+
+	</div>		
+</div>		
 		
+<!-- include的片段		 -->
+<div class="container-fluid">
+		<div>
+			<c:if test="${month == 'thismonth'}"><%@ include file="calendarMonthThisView.jsp" %></c:if>
+			<c:if test="${month == 'nextmonth'}"><%@ include file="calendarMonthNextView.jsp" %></c:if>		
 		</div>
 	</div>
-</div>
+</div>	
 
-
-<!-- include進來的月曆 -->
-<div class="container-fluid">
-    <div class="row">
-		<c:if test="${month == 'thismonth'}">
-			<%@ include file="calendarMonthThisView.jsp" %>
-		</c:if>
-		<c:if test="${month == 'nextmonth'}">
-			<%@ include file="calendarMonthNextView.jsp" %>
-		</c:if>			
-	</div>
-</div>
 		<footer class="ftco-footer ftco-bg-dark ftco-section">
 			<div class="container">
 				<div class="row mb-5">

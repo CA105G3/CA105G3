@@ -307,14 +307,13 @@ public class MedicalOrderServlet extends HttpServlet {
 		if("updateBasicRecord".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			try {
+//			try {
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/			
 
-//			String memId = req.getParameter("memId");	//整合版
+			String memId = req.getParameter("memId");	//整合版
 //			String memId = "David";	//測試版
-			MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
-			String memId = memberVO.getMemId();		
-			
+			MemberVO memberVO = (MemberVO)session.getAttribute("memVO");
+		
 			String bloodType = req.getParameter("bloodType");
 			if(bloodType == null) {
 				errorMsgs.add("請選擇血型");
@@ -339,6 +338,10 @@ public class MedicalOrderServlet extends HttpServlet {
 			if (allergy == null || allergy.trim().length() == 0) {
 				errorMsgs.add("請填寫是否有家族病史，若無請填寫「無」");
 			}
+
+System.out.println();			
+			
+			
 			
 			memberVO.setBloodType(bloodType);
 			memberVO.setSmoking(smoking);
@@ -363,11 +366,11 @@ public class MedicalOrderServlet extends HttpServlet {
 			RequestDispatcher successData = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successData.forward(req, res);
 			/*************************** 其他可能的錯誤處理 **********************************/
-			} catch (Exception e) {
-				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureData = req.getRequestDispatcher("/front-end/medicalOrder/basicRecord.jsp");
-				failureData.forward(req, res);
-			}		
+//			} catch (Exception e) {
+//				errorMsgs.add(e.getMessage());
+//				RequestDispatcher failureData = req.getRequestDispatcher("/front-end/medicalOrder/basicRecord.jsp");
+//				failureData.forward(req, res);
+//			}		
 		}
 		
 

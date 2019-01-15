@@ -8,10 +8,9 @@
 </head>
 <body>
 			<div class="list-group">
-				<a href="#" class="list-group-item list-group-item-action bg-primary text-white">問診相關連結</a>
+				<a  class="list-group-item list-group-item-action bg-primary text-white">問診相關連結</a>
 				<a class="list-group-item list-group-item-action list-group-item-primary" href="ScanDoctor.jsp" >瀏覽所有醫生</a>
 				<a class="list-group-item list-group-item-action list-group-item-primary" href="getMedicalOrderFromMember.jsp" >個人看診紀錄</a>
-				<a href="#" class="list-group-item list-group-item-action list-group-item-primary">醫生管理頁面</a>
 			</div>
 </body>
 </html>

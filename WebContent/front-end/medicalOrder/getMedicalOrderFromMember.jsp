@@ -11,18 +11,12 @@
 <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService"/>
 
 <%	
-// 	MemberVO sessonMemberVO = (MemberVO)session.getAttribute("memberVO");
+	MemberVO memVO = (MemberVO)session.getAttribute("memVO");
 	MedicalOrderService moSvc = new MedicalOrderService();
-//  	List<MedicalOrderVO> list = moSvc.findListforMember(sessonMemberVO.getMemNo());	//上線版
-	List<MedicalOrderVO> list = moSvc.findListforMember("M0001");	//測試版 -->
+ 	List<MedicalOrderVO> list = moSvc.findListforMember(memVO.getMemNo());	//上線版
+// 	List<MedicalOrderVO> list = moSvc.findListforMember("M0001");	//測試版 -->
  	pageContext.setAttribute("list", list);
 
-%>
-
-<%
-// 	MedicalOrderService moSvc = new MedicalOrderService();
-// 	List<MedicalOrderVO> list = moSvc.findListforMember("M0001");
-// 	pageContext.setAttribute("list", list);
 %>
 
 <!DOCTYPE html>
@@ -155,11 +149,11 @@
 			<table class="table table-striped table-bordered">
 			  <thead>
 			    <tr align='center'>
+			      <th scope="col">看診單編號</th>
 			      <th scope="col">醫生姓名</th>
 			      <th scope="col">診療狀態</th>
 			      <th scope="col">診療費用</th>
-			      <th scope="col">約診日期</th>
-			      <th scope="col">約診時段</th>
+			      <th scope="col">約診時間</th>
 			      <th scope="col">病況說明</th>
 			      <th scope="col">取消原因</th>
 <!-- 			      <th scope="col">問診影音紀錄</th> -->
@@ -170,6 +164,7 @@
 			  <tbody>
 <c:forEach var="moVO" items="${list}" >
 			    <tr>
+			      <td scope="col" class="text-center"><a href="<%=request.getContextPath()%>/front-end/webrtc/treament_patientside.jsp">${moVO.moNo}</a></td>
 			      <td scope="col" class="text-center">			      
 <%-- 			  ${moVO.drNo} 1.先取出medicalOrderVO的drNo--%>
 <%-- 			  ${doctorSvc.getOneDoctor(moVO.drNo).memno} 2.再從doctorServicec呼叫方法取出會員編號--%>
@@ -177,8 +172,8 @@
 			      </td>
 			      <td scope="col" class="text-center">${moVO.moStatus}</td>
 			      <td scope="col" class="text-center">${moVO.moCost}</td>
-			      <td scope="col" class="text-center">${moVO.moTime}</td>
-			      <th scope="col" class="text-center">
+			      <td scope="col" class="text-center">${moVO.moTime} 
+
 			      	<c:choose>
 			      		<c:when test="${moVO.moHour==9}"><c:out value="09:00~12:00" /></c:when>
 			      		<c:when test="${moVO.moHour==13}"><c:out value="13:00~16:00"/></c:when>
@@ -205,51 +200,7 @@
 </div>
 	<br>
 	<script>
-// 		$(".btn").click(function(){			
-// 			swal("取消理由", {
-// 				  content: "input",
-// 			})
-// 			.then((value) => {
-<%--   				window.location.href = "<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do?action=cancelMO&moCancelReason=" + value + "&moNo=" + $(this).val(); --%>
-// 			});		
-// 		});
-		
-// 		$(".btn").click(function(){
-// 			Swal({
-// 				  type: 'warning',
-// 				  title: '確定要取消問診？',
-// 				  text: '確定取消問診請輸入取消理由',
-// 				  input: 'text',
-// 				  inputAttributes: {
-// 				    autocapitalize: 'off'
-// 				  },
-// 				  showCancelButton: true,
-// 				  confirmButtonText: 'Look up',
-// 				  showLoaderOnConfirm: true,
-// 				  preConfirm: (login) => {
-// 				    return fetch(`//api.github.com/users/${login}`)
-// 				      .then(response => {
-// 				        if (!response.ok) {
-// 				          throw new Error(response.statusText)
-// 				        }
-// 				        return response.json()
-// 				      })
-// 				      .catch(error => {
-// 				        Swal.showValidationMessage(
-// 				          `Request failed: ${error}`
-// 				        )
-// 				      })
-// 				  },
-// 				  allowOutsideClick: () => !Swal.isLoading()
-// 				}).then((result) => {
-// 				  if (result.value) {
-// 				    Swal({
-// 				      title: `${result.value.login}'s avatar`,
-// 				      imageUrl: result.value.avatar_url
-// 				    })
-// 				  }
-// 				})
-// 		});
+
 		
 		$(".btn").click(function(e){	
 			Swal({
