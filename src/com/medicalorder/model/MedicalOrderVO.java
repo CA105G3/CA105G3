@@ -2,6 +2,7 @@ package com.medicalorder.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Date;
 
 public class MedicalOrderVO implements Serializable{
 
@@ -11,6 +12,7 @@ public class MedicalOrderVO implements Serializable{
 	private String moStatus;
 	private Integer moCost;
 	private Date moTime;
+	private Integer moHour;
 	private String moIntro;
 	private byte[] moVideo;
 	private String moText;
@@ -51,6 +53,12 @@ public class MedicalOrderVO implements Serializable{
 	}
 	public void setMoTime(Date moTime) {
 		this.moTime = moTime;
+	}
+	public Integer getMoHour() {
+		return moHour;
+	}
+	public void setMoHour(Integer moHour) {
+		this.moHour = moHour;
 	}
 	public String getMoIntro() {
 		return moIntro;

@@ -34,4 +34,8 @@ public class PPTToolService {
 	public List<PPTToolVO> getAll(){
 		return dao.getAll();
 	}
+	
+	public List<PPTToolVO> getPPTsByDrno(String drno){
+		return dao.getPPTsByDrno(drno);
+	}
 }

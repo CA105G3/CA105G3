@@ -10,4 +10,13 @@ public interface MedicalOrder_interface {
 	public MedicalOrderVO findByPrimaryKey(String moNo);
 	public List<MedicalOrderVO> getAll();
 	public List<MedicalOrderVO> findListforMember(String memNo);
+	public void cancelMedicalOrder(MedicalOrderVO medicalOrderVO);
+//	====================================================
+	public List<MedicalOrderVO> getByDrno(String drno);
+	public List<MedicalOrderVO> getByDrnoToday(String drno);
+	public List<MedicalOrderVO> getByDrnoThisMonth(String drno);
+	public List<MedicalOrderVO> getByDrnoNextMonth(String drno);
+	public List<MedicalOrderVO> getByDrnoThisWeek(String drno);
+	public void calcelByDr(MedicalOrderVO medicalOrderVO);
+	public List<MedicalOrderVO> getByDrnoThisMonthDone(String drno);
 }

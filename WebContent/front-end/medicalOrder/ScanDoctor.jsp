@@ -3,7 +3,6 @@
 <%@ page import="com.doctor.model.*"%>
 <%@ page import="com.member.model.*"%>
 <%@ page import="java.util.*"%>
-
 <jsp:useBean id="doctorVO" scope="page" class="com.doctor.model.DoctorVO" />
 <jsp:useBean id="doctorSvc" scope="page" class="com.doctor.model.DoctorService" />
 <jsp:useBean id="memberVO" scope="page" class="com.member.model.MemberVO" />
@@ -14,7 +13,7 @@
 <head>
 <link rel="Shortcut Icon" type="image/x-icon"
 	href="<%=request.getContextPath()%>/template/images/favicon.ico">
-<title>瀏覽醫生</title>
+<title>瀏覽全部醫生</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700"
@@ -38,28 +37,11 @@
 .btn {
 	border-radius: 0
 }
-
-.wrapper {
-    display: flex;
-    align-items: stretch;
-}
-
-#sidebar {
-    min-width: 250px;
-    max-width: 250px;
-}
-
-#sidebar.active {
-    margin-left: -250px;
-}
 </style>
-
-
 
 </head>
 <body>
 
-	<div>
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
@@ -96,18 +78,43 @@
 			</div>
 		</div>
 	</nav>
-	</div>
 	<!-- END nav -->
+
 	<section class="home-slider owl-carousel">
-		<div class="slider-item bread-item"
-			style="background-image: url('<%=request.getContextPath()%>/template/images/bg_1.jpg');"
-			data-stellar-background-ratio="0.5">
+		<div class="slider-item"
+			style="background-image: url('<%=request.getContextPath()%>/template/images/bg_1.jpg');">
 			<div class="overlay"></div>
-			<div class="container" data-scrollax-parent="true">
-				<div class="row slider-text align-items-end">
-					<div class="col-md-7 col-sm-12 ftco-animate mb-5">
-						<h1 class="mb-3"
-							data-scrollax=" properties: { translateY: '70%', opacity: .9}">瀏覽醫生</h1>
+			<div class="container">
+				<div class="row slider-text align-items-center"
+					data-scrollax-parent="true">
+					<div class="col-md-6 col-sm-12 ftco-animate"
+						data-scrollax=" properties: { translateY: '70%' }">
+						<h1 class="mb-4"
+							data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">舒適的問診體驗</h1>
+						<p class="mb-4"
+							data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">輕鬆簡單的方式，讓您在家也能體驗醫療的好處</p>
+						<p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
+							<h1>醫生總覽</h1>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="slider-item"
+			style="background-image: url('<%=request.getContextPath()%>/template/images/bg_2.jpg');">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row slider-text align-items-center"
+					data-scrollax-parent="true">
+					<div class="col-md-6 col-sm-12 ftco-animate"
+						data-scrollax=" properties: { translateY: '70%' }">
+						<h1 class="mb-4"
+							data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">專業的醫療服務</h1>
+						<p class="mb-4">為家中不方便的患者所提供的線上諮詢，您一定不能錯過!!</p>
+						<p>
+							<h1>醫生總覽</h1>
+						</p>
 					</div>
 				</div>
 			</div>
@@ -115,109 +122,50 @@
 	</section>
 	<br>
 <!-- 幻燈片輪播 -->
-	<div>
-	
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12 col-sm-2"></div>
-			<div class="col-xs-12 col-sm-2"></div>
-			<div class="col-xs-12 col-sm-2"></div>
-			<div class="col-xs-12 col-sm-2"></div>
-			<div class="col-xs-12 col-sm-2 ">
-				<button type="button" class="btn btn-light text-primary">
-				<a href="#" class="text-primary pull-right">醫生管理頁面</a>
-				</button>
+
+
+<div class="container-fluid">
+    <div class="row">
+
+
+<!-- 		左方問診管理		 -->
+		<div class="col-xs-12 col-sm-3">
+			<%@ include file="sidebar.jsp" %>
+<!-- 			<div class="list-group"> -->
+<!-- 				<a href="#" class="list-group-item list-group-item-action bg-primary text-white">問診相關連結</a> -->
+<!-- 				<a class="list-group-item list-group-item-action list-group-item-primary" href="ScanDoctor.jsp" >瀏覽所有醫生</a> -->
+<!-- 				<a class="list-group-item list-group-item-action list-group-item-primary" href="getMedicalOrderFromMember.jsp" >個人看診紀錄</a> -->
+<!-- 				<a href="#" class="list-group-item list-group-item-action list-group-item-primary">醫生管理頁面</a> -->
+<!-- 			</div> -->
+		</div>
+		
+
+
+		<!-- 右方醫生表列 -->		
+		<div class="col-xs-12 col-sm-9" >
+		
+			<div class="row">
+				<c:forEach var="doctorVO" items="${doctorSvc.all}">
+	        		<a href="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do?action=findDr&&drno=${doctorVO.drno}">
+	        		<div class="col-lg-3 col-md-6 staff">
+	      				<div class="img mb-4" style="background-image: url(<%=request.getContextPath()%>/doctor/doctorImg.do?drno=${doctorVO.drno});"></div>
+	      					<div class="info text-center">
+	      					<h3><a href="teacher-single.html">
+	      						<c:forEach var="memberVO" items="${memberSvc.all}">
+	      							<c:if test="${memberVO.memNo==doctorVO.memno}">${memberVO.memName}</c:if>
+	      						</c:forEach>
+	      					</a></h3>
+	      					<span class="position">${doctorVO.major}</span>
+	      				</div>
+	        		</div>
+	        		</a>
+	        	</c:forEach>
 			</div>
 		</div>
+		
 	</div>
-
-
-	<section class="ftco-section">
-      <div class="container">
-      	<div class="row justify-content-center mb-5 pb-5">
-          <div class="col-md-7 text-center heading-section ftco-animate">
-            <h2 class="mb-3">Meet Our Experience Dentist</h2>
-            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences</p>
-          </div>
-        </div>
-      </div>
-      <div class="wrapper">
-    <!-- Sidebar -->
-    <nav id="sidebar">
-        <div class="sidebar-header">
-            <h3>Bootstrap Sidebar</h3>
-        </div>
-
-        <ul class="list-unstyled components">
-            <p>Dummy Heading</p>
-            <li class="active">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-                <ul class="collapse list-unstyled" id="homeSubmenu">
-                    <li>
-                        <a href="#">Home 1</a>
-                    </li>
-                    <li>
-                        <a href="#">Home 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Home 3</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">About</a>
-            </li>
-            <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li>
-                        <a href="#">Page 1</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 3</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">Portfolio</a>
-            </li>
-            <li>
-                <a href="#">Contact</a>
-            </li>
-        </ul>
-    </nav>
-
 </div>
-    </section>
-    
 
-
-
-        <div class="row">
-<c:forEach var="doctorVO" items="${doctorSvc.all}">
-        	<div class="col-lg-3 col-md-6 d-flex mb-sm-4 ftco-animate">
-        		<div class="staff">
-      				<div class="img mb-4" 
-						style="background-image: url(<%=request.getContextPath()%>/doctor/doctorImg.do?drno=${doctorVO.drno});"></div>
-      				<div class="info text-center">
-      					<h3><a href="teacher-single.html">
-      						<c:forEach var="memberVO" items="${memberSvc.all}">
-      							<c:if test="${memberVO.memNo==doctorVO.memno}">
-      								${memberVO.memName}
-      							</c:if>
-      						</c:forEach>
-      					</a></h3>
-      					<span class="position">${doctorVO.major}</span>
-      				</div>
-        		</div>
-        	</div>
-</c:forEach>
-        </div>
-
-	</div>
 
 
 	<br>

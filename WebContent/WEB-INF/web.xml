@@ -265,4 +265,12 @@
     <servlet-name>JoinActServlet</servlet-name>
     <url-pattern>/joinact/joinact.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>MemberImgServlet</servlet-name>
+    <servlet-class>com.member.controller.MemberImgServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberImgServlet</servlet-name>
+    <url-pattern>/front-end/member/membergetpic.do</url-pattern>
+  </servlet-mapping>
 </web-app>

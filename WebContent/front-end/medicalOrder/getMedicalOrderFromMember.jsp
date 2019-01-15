@@ -9,10 +9,20 @@
 <jsp:useBean id="doctorSvc" scope="page" class="com.doctor.model.DoctorService" />
 <jsp:useBean id="memberVO" scope="page" class="com.member.model.MemberVO" />
 <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService"/>
-<%
+
+<%	
+// 	MemberVO sessonMemberVO = (MemberVO)session.getAttribute("memberVO");
 	MedicalOrderService moSvc = new MedicalOrderService();
-	List<MedicalOrderVO> list = moSvc.findListforMember("M0001");
-	pageContext.setAttribute("list", list);
+//  	List<MedicalOrderVO> list = moSvc.findListforMember(sessonMemberVO.getMemNo());	//上線版
+	List<MedicalOrderVO> list = moSvc.findListforMember("M0001");	//測試版 -->
+ 	pageContext.setAttribute("list", list);
+
+%>
+
+<%
+// 	MedicalOrderService moSvc = new MedicalOrderService();
+// 	List<MedicalOrderVO> list = moSvc.findListforMember("M0001");
+// 	pageContext.setAttribute("list", list);
 %>
 
 <!DOCTYPE html>
@@ -40,6 +50,7 @@
 <link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/style.css">
 <link rel="stylesheet"	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
 	crossorigin="anonymous">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <style>
 .btn {
 	border-radius: 0
@@ -88,15 +99,40 @@
 	<!-- END nav -->
 
 	<section class="home-slider owl-carousel">
-		<div class="slider-item bread-item"
-			style="background-image: url('<%=request.getContextPath()%>/template/images/bg_1.jpg');"
-			data-stellar-background-ratio="0.5">
+		<div class="slider-item"
+			style="background-image: url('<%=request.getContextPath()%>/template/images/bg_1.jpg');">
 			<div class="overlay"></div>
-			<div class="container" data-scrollax-parent="true">
-				<div class="row slider-text align-items-end">
-					<div class="col-md-7 col-sm-12 ftco-animate mb-5">
-						<h1 class="mb-3"
-							data-scrollax=" properties: { translateY: '70%', opacity: .9}">會員病例歷史紀錄</h1>
+			<div class="container">
+				<div class="row slider-text align-items-center"
+					data-scrollax-parent="true">
+					<div class="col-md-6 col-sm-12 ftco-animate"
+						data-scrollax=" properties: { translateY: '70%' }">
+						<h1 class="mb-4"
+							data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">舒適的問診體驗</h1>
+						<p class="mb-4"
+							data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">輕鬆簡單的方式，讓您在家也能體驗醫療的好處</p>
+						<p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
+							<h1>個人看診紀錄<h1>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="slider-item"
+			style="background-image: url('<%=request.getContextPath()%>/template/images/bg_2.jpg');">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row slider-text align-items-center"
+					data-scrollax-parent="true">
+					<div class="col-md-6 col-sm-12 ftco-animate"
+						data-scrollax=" properties: { translateY: '70%' }">
+						<h1 class="mb-4"
+							data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">專業的醫療服務</h1>
+						<p class="mb-4">為家中不方便的患者所提供的線上諮詢，您一定不能錯過!!</p>
+						<p>
+							<h1>個人看診紀錄<h1>
+						</p>
 					</div>
 				</div>
 			</div>
@@ -106,48 +142,152 @@
 <!-- 幻燈片輪播 -->
 
 
-	<div class="container">
-		<div class="row">
+<div class="container-fluid">
+	<div class="row">
+		
+		<!-- 		左方問診管理		 -->
+		<div class="col-xs-12 col-sm-3">
+			<%@ include file="sidebar.jsp" %>
+		</div>
+		
+<!-- 		右方會員看診紀錄資訊 -->
+		<div class="col-xs-12 col-sm-9" >
 			<table class="table table-striped table-bordered">
 			  <thead>
 			    <tr align='center'>
 			      <th scope="col">醫生姓名</th>
 			      <th scope="col">診療狀態</th>
 			      <th scope="col">診療費用</th>
-			      <th scope="col">約診時間</th>
+			      <th scope="col">約診日期</th>
+			      <th scope="col">約診時段</th>
 			      <th scope="col">病況說明</th>
-			      <th scope="col">問診影音紀錄</th>
+			      <th scope="col">取消原因</th>
+<!-- 			      <th scope="col">問診影音紀錄</th> -->
 			      <th scope="col">問診文字紀錄</th>
+			      <th scope="col">取消問診</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 <c:forEach var="moVO" items="${list}" >
 			    <tr>
-			      <td scope="col">
-      				<c:forEach var="memberVO" items="${memberSvc.all}">
-      					<c:if test="${memberVO.memNo==doctorVO.memno}">
-      						${memberVO.memName}
-      					</c:if>
-      				</c:forEach>
+			      <td scope="col" class="text-center">			      
+<%-- 			  ${moVO.drNo} 1.先取出medicalOrderVO的drNo--%>
+<%-- 			  ${doctorSvc.getOneDoctor(moVO.drNo).memno} 2.再從doctorServicec呼叫方法取出會員編號--%>
+			      ${memberSvc.getOneMember(doctorSvc.getOneDoctor(moVO.drNo).memno).memName} <%-- 再從memberService呼叫方法取出memName --%>
 			      </td>
-			      <td scope="col">${moVO.moStatus}</td>
-			      <td scope="col">${moVO.moCost}</td>
-			      <td scope="col">${moVO.moTime}</td>
+			      <td scope="col" class="text-center">${moVO.moStatus}</td>
+			      <td scope="col" class="text-center">${moVO.moCost}</td>
+			      <td scope="col" class="text-center">${moVO.moTime}</td>
+			      <th scope="col" class="text-center">
+			      	<c:choose>
+			      		<c:when test="${moVO.moHour==9}"><c:out value="09:00~12:00" /></c:when>
+			      		<c:when test="${moVO.moHour==13}"><c:out value="13:00~16:00"/></c:when>
+			      		<c:when test="${moVO.moHour==17}"><c:out value="17:00~20:00"/></c:when>   	
+			      	</c:choose>
+			      </th>
 			      <td scope="col">${moVO.moIntro}</td>
-			      <td scope="col">${moVO.moVideo}</td>
+			      <td scope="col">${moVO.moCancelReason}</td>
+<%-- 			      <td scope="col">${moVO.moVideo}</td> --%>
 			      <td scope="col">${moVO.moText}</td>
+			      <td scope="col">
+	<c:if test="${moVO.moStatus == '等待問診'  || moVO.moStatus == '等待審核'}">			      
+			      	<button type="button" value="${moVO.moNo}" id="cancel" class="btn btn-warning">取消預約</button>
+			      </td>
+	</c:if>
 </c:forEach>
 			    </tr>
 			  </tbody>
 			</table>
 		</div>
 	</div>
-
-
-
-
-
+	</div>
+</div>
+</div>
 	<br>
+	<script>
+// 		$(".btn").click(function(){			
+// 			swal("取消理由", {
+// 				  content: "input",
+// 			})
+// 			.then((value) => {
+<%--   				window.location.href = "<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do?action=cancelMO&moCancelReason=" + value + "&moNo=" + $(this).val(); --%>
+// 			});		
+// 		});
+		
+// 		$(".btn").click(function(){
+// 			Swal({
+// 				  type: 'warning',
+// 				  title: '確定要取消問診？',
+// 				  text: '確定取消問診請輸入取消理由',
+// 				  input: 'text',
+// 				  inputAttributes: {
+// 				    autocapitalize: 'off'
+// 				  },
+// 				  showCancelButton: true,
+// 				  confirmButtonText: 'Look up',
+// 				  showLoaderOnConfirm: true,
+// 				  preConfirm: (login) => {
+// 				    return fetch(`//api.github.com/users/${login}`)
+// 				      .then(response => {
+// 				        if (!response.ok) {
+// 				          throw new Error(response.statusText)
+// 				        }
+// 				        return response.json()
+// 				      })
+// 				      .catch(error => {
+// 				        Swal.showValidationMessage(
+// 				          `Request failed: ${error}`
+// 				        )
+// 				      })
+// 				  },
+// 				  allowOutsideClick: () => !Swal.isLoading()
+// 				}).then((result) => {
+// 				  if (result.value) {
+// 				    Swal({
+// 				      title: `${result.value.login}'s avatar`,
+// 				      imageUrl: result.value.avatar_url
+// 				    })
+// 				  }
+// 				})
+// 		});
+		
+		$(".btn").click(function(e){	
+			Swal({
+				title: '是否取消預約問診',
+				text: "若取消問診，將無法進行預約看診",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: '取消預約',
+				cancelButtonText: '回到紀錄'
+			}).then((result) => {
+				if (result.value) {
+				    Swal({
+				    	title: '請輸入取消理由',
+				    	input: 'text',
+				    	showCancelButton: true,
+					  	confirmButtonColor: '#3085d6',
+					  	cancelButtonColor: '#d33',
+					  	confirmButtonText: '取消預約',
+						cancelButtonText: '回到紀錄',
+						inputValidator: function (value) {
+							return new Promise(function (reject) {
+						    	if (value){
+						    		console.log(value);
+						    		window.location.href = "<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do?action=cancelMO&moCancelReason=" + value + "&moNo=" + $(e.target).val();
+						      	} else {
+						        	reject('你需要輸入取消理由')
+						      	}
+						    })
+						}
+					})
+				}
+			})
+	 	});
+		
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.33.1/dist/sweetalert2.all.min.js"></script>
 	<script src="<%=request.getContextPath()%>/template/js/jquery.min.js"></script>
 	<script	src="<%=request.getContextPath()%>/template/js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="<%=request.getContextPath()%>/template/js/popper.min.js"></script>
@@ -162,8 +302,6 @@
 	<script	src="<%=request.getContextPath()%>/template/js/bootstrap-datepicker.js"></script>
 	<script	src="<%=request.getContextPath()%>/template/js/jquery.timepicker.min.js"></script>
 	<script src="<%=request.getContextPath()%>/template/js/scrollax.min.js"></script>
-	<script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-	<script src="<%=request.getContextPath()%>/template/js/google-map.js"></script>
 	<script src="<%=request.getContextPath()%>/template/js/main.js"></script>
 	<!--以下可改動-->
 </body>

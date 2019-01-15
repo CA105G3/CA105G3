@@ -41,6 +41,8 @@ public class PPTToolJDBCDAO implements PPTToolDAO_interface {
 	private static final String UPDATE =
 			"UPDATE PPTTOOL SET ppt =? WHERE pptno = ?";
 	
+	private static final String GET_PPTS_BY_DRNO=
+			"SELECT * FROM PPTTOOL WHERE DRNO = ? ORDER BY PPTNO";
 	@Override
 	public void insert(PPTToolVO ppttoolvo) {
 		Connection con = null;
@@ -205,6 +207,60 @@ public class PPTToolJDBCDAO implements PPTToolDAO_interface {
 			Class.forName(dirver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ALL_STMT);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ppttoolvo = new PPTToolVO();
+				ppttoolvo.setPptno(rs.getString("pptno"));
+				ppttoolvo.setDrno(rs.getString("drno"));
+				ppttoolvo.setPpt(rs.getBytes("ppt"));
+				//test
+				file=new File("D:\\"+i+".png");
+				FileOutputStream fos = new FileOutputStream(file);
+				blob=rs.getBlob("ppt");
+				d=blob.getBytes(1, (int)blob.length());
+				fos.write(d);
+				fos.close();
+				list.add(ppttoolvo);
+				i++;
+				}
+		} catch(SQLException | ClassNotFoundException | IOException e) {
+			throw new RuntimeException("Couldn't load database driver." +e.getMessage());
+		}finally{
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if(con!=null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	public List<PPTToolVO> getPPTsByDrno(String drno) {
+		List<PPTToolVO> list = new ArrayList<PPTToolVO>();
+		PPTToolVO ppttoolvo=null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		// test
+		File file;
+		byte[] d;
+		Blob blob;
+		int i=0;
+		
+		try {
+			Class.forName(dirver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_PPTS_BY_DRNO);
+			pstmt.setString(1, drno);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				ppttoolvo = new PPTToolVO();

@@ -1,6 +1,7 @@
 package com.member.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
@@ -9,11 +10,13 @@ import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import com.administrator.model.AdministratorService;
 import com.administrator.model.AdministratorVO;
@@ -21,13 +24,14 @@ import com.license.model.LicenseVO;
 import com.member.model.*;
 import com.ppttool.model.PPTToolService;
 import com.tools.mail.Verifymail;
+import com.tools.transImage.TranslateImage;
 
 
 
 /**
  * Servlet implementation class MemberServlet1
  */
-
+@MultipartConfig
 public class MemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -97,7 +101,7 @@ public class MemberServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/member/select_page.jsp");
+						.getRequestDispatcher("/front-end/index.jsp");
 				failureView.forward(req, res);
 			}
 		}//End-point getOne_For_Display	
@@ -193,7 +197,7 @@ public class MemberServlet extends HttpServlet {
 	            }
 				//LocNo
 				Integer locno=null;
-				String getlocno=req.getParameter("locno");
+				String getlocno=req.getParameter("zipcode");
 				String locnoReg="^[(0-9)]{1,5}$";
 				if (getlocno == null || getlocno.trim().length() == 0) {
 					errorMsgs.add("會員郵遞區號: 請勿空白");
@@ -201,14 +205,29 @@ public class MemberServlet extends HttpServlet {
 					errorMsgs.add("會員郵遞區號: 只能是數字 , 且長度必需為5內");
 	            }
 				locno=Integer.valueOf(getlocno);
+				
+				String county=req.getParameter("county");
+				if (county == null || county.trim().length() == 0) {
+					errorMsgs.add("城市: 請選擇城市");
+				}
+				
+				String district=req.getParameter("district");
+				if (district == null || district.trim().length() == 0) {
+					errorMsgs.add("地區: 請選擇地區");
+				}
+				
 				//地址
 				String addr=req.getParameter("addr");
 				String addrReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]{1,60}$";
 				if (addr == null || addr.trim().length() == 0) {
-					errorMsgs.add("會員姓名: 請勿空白");
+					errorMsgs.add("地址: 請勿空白");
 				} else if(!addr.trim().matches(addrReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("會員名稱: 只能是中文(20個字內)、英文字母、數字 , 且長度必需為60內");
+					errorMsgs.add("地址 只能是中文(20個字內)、英文字母、數字 , 且長度必需為60內");
 	            }
+				
+				addr=county+district+addr;
+				System.out.println(addr);
+				
 				//過去病史
 				String medhistory=req.getParameter("medhistory");
 				String medhistoryReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]{1,600}$";
@@ -277,7 +296,7 @@ public class MemberServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("memVO",memVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/member/index.jsp");
+							.getRequestDispatcher("/front-end/index.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -286,7 +305,7 @@ public class MemberServlet extends HttpServlet {
 				memVO = memSvc.addMember(memid, memname, mempsw, email, gender, birth, addr, allergy, bloodtype, phone, famhistory, ident, medhistory, memStatus, smoking, locno, regdate, stayTime);
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				
-				String url = "/front-end/member/index.jsp";
+				String url = "/front-end/index.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				
@@ -294,7 +313,7 @@ public class MemberServlet extends HttpServlet {
 			}catch(Exception e) {
 				errorMsgs.add("新增資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/member/index.jsp");
+							.getRequestDispatcher("/front-end/index.jsp");
 				failureView.forward(req, res);
 			}
 		}// inset end
@@ -457,6 +476,17 @@ public class MemberServlet extends HttpServlet {
 					stayTime=new java.sql.Timestamp(System.currentTimeMillis());
 					errorMsgs.add("請輸入登入日期!");
 				}
+				//大頭照
+				byte[] data;
+				Part memPic=req.getPart("memPic");
+				if(memPic.getSubmittedFileName().equals("")||memPic.getSubmittedFileName().trim().length()==0) {
+					MemberService memSvc =new MemberService();
+					data=memSvc.getOneMember(memNo).getMemPic();
+				}else {
+					InputStream fileContent = memPic.getInputStream();
+					data=TranslateImage.readFully(fileContent);
+				}
+				
 				MemberVO memVO=new MemberVO();
 				memVO.setAddr(addr);
 				memVO.setAllergy(allergy);
@@ -477,6 +507,7 @@ public class MemberServlet extends HttpServlet {
 				memVO.setSmoking(smoking);
 				memVO.setStayTime(stayTime);
 				memVO.setMemNo(memNo);
+				memVO.setMemPic(data);
 				
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("memVO",memVO); // 含有輸入格式錯誤的empVO物件,也存入req
@@ -491,7 +522,7 @@ public class MemberServlet extends HttpServlet {
 						gender, birth, addr, allergy, 
 						bloodtype, phone, famhistory, ident, 
 						medhistory, memStatus, smoking, locno, 
-						regdate, stayTime, memNo);
+						regdate, stayTime, memNo,data);
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("memVO", memVO); // 資料庫update成功後,正確的的empVO物件,存入req
 				String url = "/front-end/member/showonemember.jsp";
@@ -582,7 +613,7 @@ public class MemberServlet extends HttpServlet {
 		             return;
 		           }
 		         }catch (Exception ignored) { }
-		        res.sendRedirect(req.getContextPath()+"/front-end/member/index.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
+		        res.sendRedirect(req.getContextPath()+"/front-end/index.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
 		}
 		
 		//start license

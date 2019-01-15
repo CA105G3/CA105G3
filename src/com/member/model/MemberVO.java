@@ -4,6 +4,10 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class MemberVO implements java.io.Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String addr;
 	private String allergy;
 	private Date birth;
@@ -23,7 +27,14 @@ public class MemberVO implements java.io.Serializable{
 	private Date regDate;
 	private String smoking;
 	private Timestamp stayTime;
+	private byte[] memPic;
 	
+	public byte[] getMemPic() {
+		return memPic;
+	}
+	public void setMemPic(byte[] memPic) {
+		this.memPic = memPic;
+	}
 	public String getAddr() {
 		return addr;
 	}

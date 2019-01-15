@@ -3,9 +3,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.member.model.*" %>
+<%-- <jsp:useBean id="memberVO" scope="page" class="com.member.model.MemberVO" /> --%>
+<%-- <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService"/> --%>
+
+<%	
+//上線版
+	MemberVO brMemberVO = (MemberVO)session.getAttribute("memberVO");
+// 	if(memVO!=null){
+// 	request.getSession().setAttribute("memno",memVO.getMemNo());
+// 	}
+	//測試版
+// 	memberVO = (MemberVO)memberSvc.getOneMember("M0001");
+// 	session.getAttribute("memberVO",memberVO);
+%>
+
 <!DOCTYPE html>
 <html lang="en">
-
 
 <head>
 <link rel="Shortcut Icon" type="image/x-icon"
@@ -15,42 +28,23 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700"
-	rel="stylesheet">
+<link	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700" rel="stylesheet">
 
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/open-iconic-bootstrap.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/animate.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/open-iconic-bootstrap.min.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/animate.css">
 
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/owl.carousel.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/owl.theme.default.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/magnific-popup.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/owl.carousel.min.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/owl.theme.default.min.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/magnific-popup.css">
 
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/aos.css">
-
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/ionicons.min.css">
-
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/bootstrap-datepicker.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/jquery.timepicker.css">
-
-
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/flaticon.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/icomoon.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/template/css/style.css">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/aos.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/ionicons.min.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/bootstrap-datepicker.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/jquery.timepicker.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/flaticon.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/icomoon.css">
+<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/style.css">
+<link rel="stylesheet"	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
 	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
 	crossorigin="anonymous">
 <style>
@@ -101,15 +95,40 @@
 	<!-- END nav -->
 
 	<section class="home-slider owl-carousel">
-		<div class="slider-item bread-item"
-			style="background-image: url('<%=request.getContextPath()%>/template/images/bg_1.jpg');"
-			data-stellar-background-ratio="0.5">
+		<div class="slider-item"
+			style="background-image: url('<%=request.getContextPath()%>/template/images/bg_1.jpg');">
 			<div class="overlay"></div>
-			<div class="container" data-scrollax-parent="true">
-				<div class="row slider-text align-items-end">
-					<div class="col-md-7 col-sm-12 ftco-animate mb-5">
-						<h1 class="mb-3"
-							data-scrollax=" properties: { translateY: '70%', opacity: .9}">初診基本資料表</h1>
+			<div class="container">
+				<div class="row slider-text align-items-center"
+					data-scrollax-parent="true">
+					<div class="col-md-6 col-sm-12 ftco-animate"
+						data-scrollax=" properties: { translateY: '70%' }">
+						<h1 class="mb-4"
+							data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">舒適的問診體驗</h1>
+						<p class="mb-4"
+							data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">輕鬆簡單的方式，讓您在家也能體驗醫療的好處</p>
+						<p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
+							個人基本病歷表
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="slider-item"
+			style="background-image: url('<%=request.getContextPath()%>/template/images/bg_2.jpg');">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row slider-text align-items-center"
+					data-scrollax-parent="true">
+					<div class="col-md-6 col-sm-12 ftco-animate"
+						data-scrollax=" properties: { translateY: '70%' }">
+						<h1 class="mb-4"
+							data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">專業的醫療服務</h1>
+						<p class="mb-4">為家中不方便的患者所提供的線上諮詢，您一定不能錯過!!</p>
+						<p>
+							個人基本病歷表
+						</p>
 					</div>
 				</div>
 			</div>
@@ -128,14 +147,13 @@
 </c:if>
 <%-- 錯誤表列 --%>
 
-
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12 col-sm-3">
 				
 			</div>
 			<div class="col-xs-12 col-sm-6">
-				
+				<h6 class="text-danger">*請確認病歷基本資料是否有需修正</h3>
 				<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do" name="form1">
 					
 					<!-- 血型 -->
@@ -143,19 +161,19 @@
 						<label for="bloodType" class="col-sm-2 col-form-label">血型</label>
 						<div class="col-sm-10" name="bloodType">
 							<div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="bloodType" id="bloodTypeA" value="A">
+							  <input class="form-check-input" type="radio" name="bloodType" id="bloodTypeA" value="A" ${(memberVO.bloodType=="A") ? 'CHECKED' : ''}>
 							  <label class="form-check-label" for="inlineRadio1">A</label>
 							</div>
 							<div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="bloodType" id="bloodTypeB" value="B">
+							  <input class="form-check-input" type="radio" name="bloodType" id="bloodTypeB" value="B" ${(memberVO.bloodType=="B") ? 'CHECKED' : ''}>
 							  <label class="form-check-label" for="inlineRadio2">B</label>
 							</div>
 							<div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="bloodType" id="bloodTypeO" value="O">
+							  <input class="form-check-input" type="radio" name="bloodType" id="bloodTypeO" value="O" ${(memberVO.bloodType=="O") ? 'CHECKED' : ''}>
 							  <label class="form-check-label" for="inlineRadio3">O</label>
 							</div>
 							<div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="bloodType" id="bloodTypeAB" value="AB">
+							  <input class="form-check-input" type="radio" name="bloodType" id="bloodTypeAB" value="AB" ${(memberVO.bloodType=="AB") ? 'CHECKED' : ''}>
 							  <label class="form-check-label" for="inlineRadio3">AB</label>
 							</div>
 						</div>
@@ -166,11 +184,11 @@
 						<label for="smoking" class="col-sm-2 col-form-label">抽菸習慣</label>
 						<div class="col-sm-10" name="smoking">
 							<div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="smoking" id="smokingYes" value="有">
+							  <input class="form-check-input" type="radio" name="smoking" id="smokingYes" value="有" ${(memberVO.smoking=="有") ? 'CHECKED' : ''}>
 							  <label class="form-check-label" for="inlineRadio1">有</label>
 							</div>
 							<div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="smoking" id="smokingNo" value="沒有">
+							  <input class="form-check-input" type="radio" name="smoking" id="smokingNo" value="沒有" ${(memberVO.smoking=="沒有") ? 'CHECKED' : ''}>
 							  <label class="form-check-label" for="inlineRadio2">沒有</label>
 							</div>
 						</div>
@@ -180,27 +198,36 @@
 						<label for="allergy" class="col-sm-2 col-form-label">藥物過敏</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="allergy" name="allergy"
-								placeholder="請填寫會過敏的藥物，若無請填寫「無」">
+								value="${(memberVO.allergy != null) ? memberVO.allergy : '' }">
+							請填寫會過敏的藥物，若無請填寫「無」
 						</div>
 					</div>
 					<div class="form-group row">
 						<label for="medHistory" class="col-sm-2 col-form-label">過往病史</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="medHistory" name="medHistory"
-								placeholder="請填寫過去曾進行過的手術以及慢性疾病，若無請填寫「無」">
+							value="${(memberVO.medHistory != null) ? memberVO.medHistory : '' }">
+							請填寫過去曾進行過的手術以及慢性疾病，若無請填寫「無」
 						</div>
 					</div>
 					<div class="form-group row">
 						<label for="famHistory" class="col-sm-2 col-form-label">家族病史</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="famHistory" name="famHistory"
-								placeholder="請填寫家族病史，若無請填寫「無」">
+							value="${(memberVO.famHistory != null) ? memberVO.famHistory : '' }">
+							請填寫家族病史，若無請填寫「無」
 						</div>
 					</div>
 
 					<div class="form-group row">
 						<div class="col-sm-10 text-center">
-							<input type="submit" class="btn bg-primary text-white" value="新增">
+							<input type="hidden" name="memId" value="${memberVO.memId}">
+							<input type="hidden" name="bloodType" value="bloodType">
+							<input type="hidden" name="smoking" value="smoking">
+							<input type="hidden" name="allergy" value="allergy">
+							<input type="hidden" name="medHistory" value="medHistory">
+							<input type="hidden" name="famHistory" value="famHistory">							
+							<input type="submit" class="btn bg-primary text-white" value="提交">
 							<input type="hidden" name="action" value="updateBasicRecord">
 						</div>
 					</div>
@@ -225,31 +252,20 @@
 
 	<br>
 	<script src="<%=request.getContextPath()%>/template/js/jquery.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery-migrate-3.0.1.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="<%=request.getContextPath()%>/template/js/popper.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/bootstrap.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery.easing.1.3.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery.waypoints.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery.stellar.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/owl.carousel.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery.magnific-popup.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/bootstrap.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery.easing.1.3.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery.waypoints.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery.stellar.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/owl.carousel.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery.magnific-popup.min.js"></script>
 	<script src="<%=request.getContextPath()%>/template/js/aos.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery.animateNumber.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/bootstrap-datepicker.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/template/js/jquery.timepicker.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery.animateNumber.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/bootstrap-datepicker.js"></script>
+	<script	src="<%=request.getContextPath()%>/template/js/jquery.timepicker.min.js"></script>
 	<script src="<%=request.getContextPath()%>/template/js/scrollax.min.js"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="<%=request.getContextPath()%>/template/js/google-map.js"></script>
 	<script src="<%=request.getContextPath()%>/template/js/main.js"></script>
 	<!--以下可改動-->
