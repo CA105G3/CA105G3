@@ -18,6 +18,14 @@
     <url-pattern>/front-end/member/member.do</url-pattern>
   </servlet-mapping>
   <servlet>
+	<servlet-name>ShoppingCartServlet</servlet-name>
+	<servlet-class>com.menulist.controller.ShoppingCartServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>ShoppingCartServlet</servlet-name>
+	<url-pattern>/shoppingCart.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>FoodOrderServlet</servlet-name>
     <servlet-class>com.foodorder.controller.FoodOrderServlet</servlet-class>
   </servlet>
