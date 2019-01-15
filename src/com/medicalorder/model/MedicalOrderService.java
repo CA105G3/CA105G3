@@ -1,6 +1,6 @@
 package com.medicalorder.model;
 
-import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 public class MedicalOrderService {
@@ -12,7 +12,7 @@ public class MedicalOrderService {
 	}
 	
 	public MedicalOrderVO addMedicalOrder(String memNo, String drNo, String moStatus,
-			 Integer moCost, java.sql.Date moTime, String moIntro, String moCancelReason ,byte[] moVideo, String moText) {
+			 Integer moCost, Date moTime, Integer moHour, String moIntro, String moCancelReason ,byte[] moVideo, String moText) {
 		
 		MedicalOrderVO medicalOrderVO = new MedicalOrderVO();
 		
@@ -22,6 +22,7 @@ public class MedicalOrderService {
 		medicalOrderVO.setMoStatus(moStatus);
 		medicalOrderVO.setMoCost(moCost);
 		medicalOrderVO.setMoTime(moTime);
+		medicalOrderVO.setMoHour(moHour);
 		medicalOrderVO.setMoIntro(moIntro);
 		medicalOrderVO.setMoCancelReason(moCancelReason);
 		medicalOrderVO.setMoVideo(moVideo);
@@ -33,7 +34,7 @@ public class MedicalOrderService {
 	}
 
 	public MedicalOrderVO updateMedicalOrder(String moNo, String memNo, String drNo, String moStatus,
-			 Integer moCost, java.sql.Date moTime, String moIntro, String moCancelReason ,byte[] moVideo, String moText) {
+			 Integer moCost, Date moTime, String moIntro, String moCancelReason ,byte[] moVideo, String moText) {
 		
 		MedicalOrderVO medicalOrderVO = new MedicalOrderVO();
 
@@ -68,5 +69,34 @@ public class MedicalOrderService {
 	public List<MedicalOrderVO> findListforMember(String memNo){
 		return dao.findListforMember(memNo);	
 	}
-
+	
+	public MedicalOrderVO cancelMedicalOrder(String moNo, String moCancelReason) {
+		MedicalOrderVO medicalOrderVO = new MedicalOrderVO();
+		medicalOrderVO.setMoNo(moNo);
+		medicalOrderVO.setMoCancelReason(moCancelReason);
+		dao.cancelMedicalOrder(medicalOrderVO);
+		return medicalOrderVO;
+	}
+	
+	
+//	========================================================
+	public List<MedicalOrderVO> getByDrno(String drno){
+		return dao.getByDrno(drno);
+	}
+	
+	public List<MedicalOrderVO> getByDrnoToday(String drno){
+		return dao.getByDrnoToday(drno);
+	}
+	
+	public List<MedicalOrderVO> getByDrnoThisMonth(String drno){
+		return dao.getByDrnoThisMonth(drno);
+	}
+	
+	public List<MedicalOrderVO> getByDrnoNextMonth(String drno){
+		return dao.getByDrnoNextMonth(drno);
+	}
+	
+	public List<MedicalOrderVO> getByDrnoThisWeek(String drno){
+		return dao.getByDrnoThisWeek(drno);
+	}
 }

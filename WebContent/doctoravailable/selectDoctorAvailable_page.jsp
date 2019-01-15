@@ -4,10 +4,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-
+<%@ page import="com.member.model.*" %>
+<jsp:useBean id="memberVO" scope="page" class="com.member.model.MemberVO" />
+<jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService"/>
 <%
 	DravailableVO dvo = (DravailableVO) request.getAttribute("dvo");
+	memberVO = (MemberVO)memberSvc.getOneMember("M0001");
+	session.setAttribute("memberVO",memberVO);
 %>
 
 
@@ -69,6 +72,7 @@ h4 {
 				class="com.doctor.model.DoctorService" /> 
 				<%-- 		<jsp:useBean id="dravailableSvc" scope="page" --%>
 			<%-- 			class="com.doctoravailable.model.DravailableService" /> --%>
+		病患角度查詢選擇醫生可預約時間（表格版）
 		<li>
 			<form method="post" action="dravailable.do">
 				<b>選擇醫生編號</b> <select size="1" name="drno">
@@ -83,7 +87,19 @@ h4 {
 
 
 		<li>
-		醫生角度查詢(登入後可以透過join獲得drno，查看行程)
+		醫生角度查詢(登入後可以透過join獲得drno，查看行程)月曆版
+			<form method="post" action="dravailable.do">
+				<b>醫療人員行程</b> <select size="1" name="drno">
+					<c:forEach var="doctorVO" items="${doctorSvc.all}">
+						<option value="${doctorVO.drno}">${doctorVO.drno}
+					</c:forEach>
+				</select> <input type="hidden" name="action"
+					value="getSameDrschedule_By_Drno_B"> <input type="submit"
+					value="送出">
+			</form>
+		</li>
+		<li>
+		醫生角度查詢(登入後可以透過join獲得drno，查看行程)表格版
 			<form method="post" action="dravailable.do">
 				<b>醫療人員行程</b> <select size="1" name="drno">
 					<c:forEach var="doctorVO" items="${doctorSvc.all}">
