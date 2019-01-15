@@ -3,10 +3,12 @@ package com.foodorder.model;
 import java.util.List;
 import java.util.Set;
 
+import com.foodorder.model.FoodOrderVO;
 import com.orderdetail.model.OrderDetailVO;
 
 
 public interface FoodOrderDAO_Interface {
+	public void insertWithOrderDetails(FoodOrderVO foodOrderVO, List<OrderDetailVO> list);
 	public void insert(FoodOrderVO foodOrderVO);
 	//變更訂單狀態
 	public void update_OrderStatus(FoodOrderVO foodOrderVO);

@@ -12,6 +12,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.orderdetail.model.OrderDetailVO;
+
 public class OrderDetailDAO implements OrderDetailDAO_Interface{
 	private static DataSource ds = null;
 	static {
@@ -61,6 +63,44 @@ public class OrderDetailDAO implements OrderDetailDAO_Interface{
 					con.close();
 				} catch (Exception e) {
 					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	public void insert2(OrderDetailVO orderDetailVO, Connection con) {
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(INSERT_STMT);
+			
+			pstmt.setString(1, orderDetailVO.getOrderno());
+			pstmt.setString(2, orderDetailVO.getMenuListno());
+			pstmt.setInt(3, orderDetailVO.getAmount());
+			pstmt.setInt(4, orderDetailVO.getUnitPrice());
+//			pstmt.setString(5, orderDetailVO.getOdStatus());
+			
+			pstmt.executeUpdate();
+		} catch(SQLException se) {
+			if (con != null) {
+				try {
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back by orderdetail");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			} throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
 				}
 			}
 		}
@@ -149,7 +189,6 @@ public class OrderDetailDAO implements OrderDetailDAO_Interface{
 		}
 		return orderDetailVO;
 	}
-
 	public List<OrderDetailVO> getAll(){
 		List<OrderDetailVO> list = new ArrayList<OrderDetailVO>();
 		OrderDetailVO orderDetailVO = null;
@@ -170,7 +209,7 @@ public class OrderDetailDAO implements OrderDetailDAO_Interface{
 				orderDetailVO.setMenuListno(rs.getString("menuListno"));
 				orderDetailVO.setAmount(rs.getInt("amount"));
 				orderDetailVO.setUnitPrice(rs.getInt("unitPrice"));
-				orderDetailVO.setOdno(rs.getString("odno"));
+//				orderDetailVO.setOdStatus(rs.getString("odStatus"));
 				list.add(orderDetailVO);
 			}
 		} catch (SQLException se) {

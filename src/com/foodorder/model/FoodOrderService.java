@@ -1,10 +1,16 @@
 package com.foodorder.model;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.Set;
 
+import org.omg.DynamicAny.DynAnyOperations;
+
 import com.foodorder.model.FoodOrderDAO_Interface;
+import com.orderdetail.model.OrderDetailJDBCDAO;
 import com.orderdetail.model.OrderDetailVO;
 
 
@@ -12,7 +18,7 @@ public class FoodOrderService {
 	private FoodOrderDAO_Interface dao;
 	
 	public FoodOrderService() {
-		dao = new FoodOrderJDBCDAO();
+		dao = new FoodOrderDAO();
 	}
 	
 	public FoodOrderVO addFoodOrder(String memno, String deliverAddr, 
@@ -28,6 +34,10 @@ public class FoodOrderService {
 		dao.insert(foodOrderVO);
 		
 		return foodOrderVO;
+	}
+	
+	public void insertWithOrderDetails(FoodOrderVO foodOrderVO, List<OrderDetailVO> list) {
+		dao.insertWithOrderDetails(foodOrderVO, list);
 	}
 	
 	public FoodOrderVO updateOrderStatus(String orderStatus, String orderno) {

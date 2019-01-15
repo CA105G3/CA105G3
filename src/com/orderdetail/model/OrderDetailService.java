@@ -28,7 +28,7 @@ public class OrderDetailService {
 	
 	public OrderDetailVO getOneOrderDetail(String odno) {
 		return dao.findByPrimaryKey(odno);
-	}
+	  }
 	
 	public List<OrderDetailVO> getAll(){
 		return dao.getAll();

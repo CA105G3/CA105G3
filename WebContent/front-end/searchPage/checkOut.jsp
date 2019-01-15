@@ -1,18 +1,11 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.*"%>
-<%@ page import="com.foodorder.model.*" %>
 <%@ page import="com.menulist.model2.*" %>
-<%
-	FoodOrderService foodOrderSvc = new FoodOrderService();
-	List<FoodOrderVO> list = foodOrderSvc.getAll();
-	pageContext.setAttribute("list",list);  //«e­±ªºlist¬OpageContext¸Ì¯¸¦sªÅ¶¡ªºlist,«á­±ªºlist¬O¦Û¤vVO¸Ìªºlist
-%>
-
 <html>
 <head>
 <meta charset="UTF-8">
-<title>À\¶¼­q³æ¦Cªí  - listAllFoodOrders.jsp</title>
+<title>çµå¸³é é¢</title>
 
 <style>
   table#table-1 {
@@ -47,27 +40,25 @@
 </style>
 </head>
 <body>
-<table id="table-1">
-	<!--<img src="images/food_header.jpg">  -->
-	<tr><td>
-		<h3>®¥³ß±z­qÀ\¦¨¥\!</h3>
-	</td></tr>
-</table>
-<form id="new_order" action="<%=request.getContextPath() %>/front-end/foodorder/foodorder.do" method="get">
+<img src="images/foodorder2.png"> <font size="+3">è¨‚é¤å…§å®¹</font>
+<hr><p>
+
+<%-- <form id="checkoutForm" action="<%=request.getContextPath() %>/shoppingCart.do" method="get"> --%>
 <table id="table-1" style="margin: auto;">
 	<tr>
-		<th width="90">·~ªÌ</th>
-		<th width="140">À\ÂI¦WºÙ</th>
-		<th width="130">¨ÑÀ\®É¬q</th>
-		<th width="90">³æ»ù</th>
-		<th width="90">¼Æ¶q</th>
+		<th width="90">æ¥­è€…</th>
+		<th width="140">é¤é»žåç¨±</th>
+		<th width="130">ä¾›é¤æ™‚æ®µ</th>
+		<th width="90">å–®åƒ¹</th>
+		<th width="90">æ•¸é‡</th>
+		<th width="200">é€é¤åœ°å€</th>
 	</tr></table><table style="margin: auto;">
 
 	<%  @SuppressWarnings("unchecked")
 		Vector<MenuListVO> buylist = (Vector<MenuListVO>) session.getAttribute("shoppingcart");
 		String total =  (String) request.getAttribute("total");
-		String deliverAddr =  (String) request.getAttribute("deliverAddr");
 		String[] amountArray = request.getParameterValues("amount");
+		String deliverAddr=(String)request.getAttribute("deliverAddr");
 	%>
 	<%	for (int i = 0; i < buylist.size(); i++) {
 		MenuListVO order = buylist.get(i);
@@ -84,19 +75,33 @@
 		<td width="100"><%=mainCourse%>   </td>
 		<td width="100"><%=menuTimeSlot%></td>
 		<td width="100"><%=unitPrice%>    </td>
-		<td width="100"><%=amount%> </td>
-	<tr>
-		<td colspan="6" style="text-align:right;"> 
-		   <font size="+2">Á`ª÷ÃB¡G <h4>$<%=total%></h4> </font>
-	    </td>
-	</tr>
+		<td width="100"><%=amount%> </td><td width="120"></td>
+		
+		</tr>
 	<%
 		}
 	%>
+	<tr>
+		<td colspan="6" style="text-align:right;"> 
+		   <font size="+2">ç¸½é‡‘é¡ï¼š <h4>$${total}</h4> </font>
+	    </td>
+	</tr> 
 </table>
-	<p>°eÀ\¦a§}:${foodOrderVO.deliverAddr}
-
+       <p>
+       	 
+   é€é¤åœ°å€:<%=deliverAddr%>
+<!-- </form> -->
+<form name="new_order" action="<%=request.getContextPath()%>/shoppingCart.do" method="POST">
+	   <input type="hidden" name="chefNo" value="CHEF0001">
+   	   <input type="hidden" name="memno" value="M0001">
+   	   <input type="hidden" name="deliverAddr" value="<%=deliverAddr%>">
+   	   <input type="hidden" name="orderStatus" value="æŽ¥å—">
+   	   <input type="hidden" name="total" value="<%=total%>">
+   	   <input type="hidden" name="menuListNo" value="${menuListVO.menuListNo}">   		       
+       <input type="hidden" name="action"  value="insert"> 
+       <input type="submit" value="å®Œæˆçµå¸³" class="button">
 </form>
-	<p><a href="<%=request.getContextPath() %>/front-end/searchPage/select_page.jsp"><font size="+1"> §Ú ·Q Ä~ Äò ­q À\</font></a>
+       
+
 </body>
 </html>
