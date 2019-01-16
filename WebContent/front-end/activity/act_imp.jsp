@@ -48,10 +48,12 @@
 
 <h4>此頁練習採用 EL 的寫法取值:</h4>
 <table id="table-2">
-	<tr><td>
-		 <h3>活動心得 - act_imp.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/front-end/impression/impsearch.jsp"><img src="<%=request.getContextPath()%>/front-end/activity/img/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
+	<tr>
+		<td>
+		 	<h3>活動心得 - act_imp.jsp</h3>
+		 	<h4><a href="<%=request.getContextPath()%>/front-end/impression/impsearch.jsp"><img src="<%=request.getContextPath()%>/front-end/activity/img/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		</td>
+	</tr>
 </table>
 
 <%-- 錯誤表列 --%>

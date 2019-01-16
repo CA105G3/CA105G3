@@ -107,12 +107,22 @@
 				</c:otherwise>
 			</c:choose>
 				<td>${personActVO.actDesc}</td>
+<!--退出活動 -->
 				<td>	
 			  		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/joinact/joinact.do" style="margin-bottom: 0px;">
 				    	<input type="submit" value="退出活動">
 				    	<input type="hidden" name="actNo"  value="${personActVO.actNo}">
 				    	<input type="hidden" name="memNo" value="${personActVO.memNo}">
 				    	<input type="hidden" name="action" value="delete">
+			     	</FORM>
+				</td>
+<!--加入聊天室 -->
+				<td>	
+			  		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/activity/activity.do" style="margin-bottom: 0px;">
+				    	<input type="submit" value="進入聊天室">
+				    	<input type="hidden" name="actNo"  value="${personActVO.actNo}">
+				    	<input type="hidden" name="memNo" value="${personActVO.memNo}">
+				    	<input type="hidden" name="action" value="chat_room">
 			     	</FORM>
 				</td>
 			</tr>

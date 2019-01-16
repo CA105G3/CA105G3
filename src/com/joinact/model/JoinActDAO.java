@@ -51,9 +51,13 @@ private static DataSource ds = null;
 	private static final String FIND_JOIN_ACT =
 		"select joinact.memno,joinact.actno,activity.actname,activity.actloc,activity.acttime,activity.actpic,activity.actdesc "
 		+ "from joinact join activity on joinact.actno=activity.actno where joinact.memno=? and joinact.joinstatus=1 order by joinact.actno";
+	//查詢會員是否有參加過活動
 	private static final String FIND_REPEATACT = 
 		"select joinact.memno,joinact.actno,activity.actname,activity.actloc,activity.acttime,activity.actpic,activity.actdesc "
 		+ "from joinact join activity on joinact.actno=activity.actno where joinact.memno=? and joinact.actNo=? order by joinact.actno";	
+	//查詢參加活動的會員名稱
+	private static final String FIND_NAME_IN_CHAT = 
+			"SELECT joinact.memno,joinact.actno,member.memname from joinact,member where joinact.memno = member.memno and actNo =?";
 	@Override
 	public void insert(JoinActVO joinactVO) {
 		Connection con = null;
@@ -395,4 +399,55 @@ public JoinActVO findrepeatact(String actNo,String memNo) {
 	}	
 
 }
+
+@Override
+public List<ChatRoomVO> chatroomall(String actNo) {
+	List<ChatRoomVO> list = new ArrayList<ChatRoomVO>();
+	ChatRoomVO chatRoomVO = null;
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	try {
+		con=ds.getConnection();
+		pstmt = con.prepareStatement(FIND_NAME_IN_CHAT);
+		pstmt.setString(1, actNo);
+		rs = pstmt.executeQuery();
+		
+		while(rs.next()) {
+			chatRoomVO = new ChatRoomVO();
+			
+			chatRoomVO.setMemNo(rs.getString("Memno"));	
+			chatRoomVO.setActNo(rs.getString("actNo"));
+			chatRoomVO.setMemName(rs.getString("memName"));
+			list.add(chatRoomVO);
+		}
+	}catch(SQLException se) {
+		throw new RuntimeException("Couldn't load database driver." +se.getMessage());
+	}finally {
+		if(rs!=null) {
+			try {
+				rs.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if(pstmt!=null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if(con!=null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace(System.err);
+			}
+		}
+	}
+	return list;
+}
+
 }

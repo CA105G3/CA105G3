@@ -92,6 +92,9 @@ body {
   	<input type="button" value="查經緯度並在地圖上顯示" id="submit">
   	<input type="hidden" name="latiTude" id="lat" value="<%= (activityVO==null)?"": activityVO.getLatiTude()%>">
 	<input type="hidden" name="longtiTude" id="long" value="<%= (activityVO==null)?"": activityVO.getLongtiTude()%>">
+<%-- 	<input type="text" name="latiTude" id="lat" value="<%= (activityVO==null)?"": activityVO.getLatiTude()%>"> --%>
+<%-- 	<input type="text" name="longtiTude" id="long" value="<%= (activityVO==null)?"": activityVO.getLongtiTude()%>"> --%>
+		
 	<div id="map"></div>
   </div>
   
@@ -182,22 +185,18 @@ body {
 		//初始化地圖
 		function initMap() {
 	    	//put the lat and lng in the map
-	        var thePlaceNeedToBeDynmic = { lat: 24.968269, lng: 121.192192 };
-
-	        
+	        var thePlaceNeedToBeDynmic = { lat: 24.968269, lng: 121.192192 }; 
 	        var map = new google.maps.Map(document.getElementById('map'), { zoom: 14, center: thePlaceNeedToBeDynmic });
 	        var marker = new google.maps.Marker({ position: thePlaceNeedToBeDynmic, map: map ,title:"中央大學"});
 			
 	        var geocoder = new google.maps.Geocoder();
 	        document.getElementById('submit').addEventListener('click', function() {geocodeAddress(geocoder, map);
-	        
 	        });
 	            	
 		//查詢地點
 	    function geocodeAddress(geocoder, resultsMap) {
 	        var address = document.getElementById('address').value;
-	        var lat = null;
-	        var lng = null;
+	     	
 	        geocoder.geocode({ 'address': address }, function(results, status) {        	
 	            if (status === 'OK') {
 	                resultsMap.setCenter(results[0].geometry.location);
@@ -208,11 +207,30 @@ body {
 	                console.log(results[0].geometry.location.lng());
 	                document.getElementById( 'lat' ).value = results[0].geometry.location.lat();
 	                document.getElementById( 'long' ).value = results[0].geometry.location.lng();
-	                var marker = new google.maps.Marker({
+	                marker = new google.maps.Marker({
 	                    map: resultsMap,
 	                    position: results[0].geometry.location,
+	                    animation: google.maps.Animation.DROP,
 	                    draggable:true
 	                });
+	              //拖曳位置
+	                google.maps.event.addListener(marker, 'dragend', function(marker){
+	                    var latLng = marker.latLng;
+	                    console.log(latLng);
+	                    currentLatitude = latLng.lat();
+	                    currentLongitude = latLng.lng();
+	                    $("#lat").val(currentLatitude);
+	                    $("#long").val(currentLongitude);
+// 	                    geocodePosition(marker.getPosition());
+	                    geocoder.geocode({
+	                        'latLng': latLng
+	                      }, function(results, status) {
+	                          if (status === 'OK') {
+	                        	  document.getElementById( 'address' ).value = (results[0].formatted_address);
+	                              }
+	                          });
+						
+	                 }); 
 	                
 	            } else {
 	                alert('Geocode was not successful for the following reason: ' + status);
@@ -220,6 +238,17 @@ body {
 	        });	        
 	    }
 		
+	    function geocodePosition(pos) {
+	    	  geocoder.geocode({
+	    	    latLng: pos
+	    	  }, function(responses) {
+	    	    if (responses && responses.length > 0) {
+	    	    	document.getElementById( 'address' ).value = updateMarkerAddress(responses[0].formatted_address);
+	    	    } else {
+	    	      updateMarkerAddress('Cannot determine address at this location.');
+	    	    }
+	    	  });
+	    	}
 	        //畫圓圈
 	        var circle = new google.maps.Circle({
 			  center: thePlaceNeedToBeDynmic,
@@ -230,40 +259,11 @@ body {
 			  map: map
 			});
 	        
-	    google.maps.event.addListener(marker, 'draggable', function () {
-            geocodePosition(geocoder, marker.getPosition(), circle, marker);
-        });	
-	    function geocodePosition(geocoder, pos, circle, marker) {
-            geocoder.geocode({
-                'latLng': pos
-            }, function (results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    marker.setPosition(pos);
-                    if (results[0]) {
-                        document.getElementById("address").value = results[0].formatted_address;
-                        $scope.$apply(function () {
-                            vm.location.address = document.getElementById('address').value;
-                            vm.location.longitude = pos.lng().toFixed(6);
-                            vm.location.latitude = pos.lng().toFixed(6);
-                        });
-                        circle.setCenter(pos);
-                    } else {
-                        alert('此位置無法定址');
-                    }
-                }
-                else {
-                    marker.setPosition({
-                        lat: parseFloat(vm.location.latitude),
-                        lng: parseFloat(vm.location.longitude)
-                    });
-                    alert('此位置無法定址');
-                }
-            });
-        }
+
 	    }
 </script>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTnkH63kGQfUHVWE7JNFKvt4QobWesS-Y&callback=initMap">
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTnkH63kGQfUHVWE7JNFKvt4QobWesS-Y&libraries=places&callback=initMap">
 </script>
 <!-- ----------------------------------------------------------------------------------------------------------------------------->
 <script>

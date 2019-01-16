@@ -23,6 +23,7 @@ import com.activity.model.ActivityService;
 import com.activity.model.ActivityVO;
 import com.impression.model.ImpressionService;
 import com.impression.model.ImpressionVO;
+import com.joinact.model.ChatRoomVO;
 import com.joinact.model.JoinActService;
 import com.joinact.model.JoinActVO;
 import com.joinact.model.PersonActVO;
@@ -383,7 +384,7 @@ if ("insert".equals(action)) { // 來自addact.jsp的請求
 				
 				/***************************3..新增完成,準備轉交(Send the Success view)***********/
 				req.setAttribute("actVO", actVO);
-				String url = "/front-end/activity/actone.jsp";
+				String url = "/front-end/activity/join_actall2.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);				
 				
@@ -472,7 +473,7 @@ if ("Join_act".equals(action)) {
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 		
-//			try {
+			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String actNo = req.getParameter("actNo").trim();
 				System.out.println(actNo);
@@ -511,13 +512,13 @@ if ("Join_act".equals(action)) {
 				successView.forward(req, res);
 		
 				/***************************其他可能的錯誤處理*************************************/
-//			} catch (Exception e) {
-//				System.out.println("最下面");
-//				errorMsgs.add("修改資料失敗:"+e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/front-end/activity/join_actall2.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				System.out.println("最下面");
+				errorMsgs.add("修改資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/activity/join_actall2.jsp");
+				failureView.forward(req, res);
+			}
 }
 
 if("Show_all".equals(action)) {
@@ -565,7 +566,7 @@ if ("actall_ByCompositeQuery".equals(action)) { // 來自select_page.jsp的複�
 	// send the ErrorPage view.
 	req.setAttribute("errorMsgs", errorMsgs);
 
-//	try {
+	try {
 		
 		/***************************1.將輸入資料轉為Map**********************************/ 
 		//採用Map<String,String[]> getParameterMap()的方法 
@@ -589,16 +590,44 @@ if ("actall_ByCompositeQuery".equals(action)) { // 來自select_page.jsp的複�
 		successView.forward(req, res);
 		
 		/***************************其他可能的錯誤處理**********************************/
-//	} catch (Exception e) {
-//		errorMsgs.add(e.getMessage());
-//		RequestDispatcher failureView = req
-//				.getRequestDispatcher("/front-end/activity/joinactivity.jsp");
-//		failureView.forward(req, res);
-//	}
+	} catch (Exception e) {
+		errorMsgs.add(e.getMessage());
+		RequestDispatcher failureView = req
+				.getRequestDispatcher("/front-end/activity/joinactivity.jsp");
+		failureView.forward(req, res);
+	}
 		
 		
 }
 
+	if("chat_room".equals(action)) {
+		List<String> errorMsgs = new LinkedList<String>();
+		req.setAttribute("errorMsgs", errorMsgs);	
+		try {
+			/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+			String actNo = req.getParameter("actNo").trim();
+			System.out.println(actNo);
+			String memNo = req.getParameter("memNo").trim();
+			System.out.println(memNo);
+			
+			/***************************2.查詢資料**********************/
+			JoinActService joinactSvc = new JoinActService();
+			List<ChatRoomVO> listchat = joinactSvc.getchatmember(actNo);
+			ActivityService activitySvc = new ActivityService();
+			ActivityVO activityVO = activitySvc.getOneAct(actNo);
+			/***************************3.查詢完成,準備轉交(Send the Success view)************/
+			req.setAttribute("listchat", listchat);
+			req.setAttribute("activityVO", activityVO);
+			
+			RequestDispatcher successView = req.getRequestDispatcher("/front-end/activity/chat_room.jsp");
+			successView.forward(req, res);
+		}catch (Exception e) {
+			errorMsgs.add(e.getMessage());
+			RequestDispatcher failureView = req
+					.getRequestDispatcher("/front-end/activity/personact.jsp");
+			failureView.forward(req, res);
+		}
+}	
 }	
 	public static byte[] toByteArray(InputStream input) throws IOException {
 	    ByteArrayOutputStream output = new ByteArrayOutputStream();

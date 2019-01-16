@@ -12,7 +12,7 @@
 	          <li class="nav-item"><a href=<%=(memVO==null)? request.getContextPath()+"/front-end/index.jsp" : request.getContextPath()+"/front-end/member/member.do?action=getOne_For_Display&memno="+memVO.getMemNo() %> class="nav-link">個人設定</a></li>
 	          <li class="nav-item"><a href="food.html" class="nav-link">送餐專區</a></li>
 	          <li class="nav-item"><a href="<%=request.getContextPath() %>/doctoravailable/selectDoctorAvailable_page.jsp" class="nav-link">線上問診</a></li>
-	          <li class="nav-item"><a href="../impression/impsearch.jsp" class="nav-link">活動專區</a></li>
+	          <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/activity/joinactivity.jsp" class="nav-link">活動專區</a></li>
 	          <li class="nav-item cta"><a href="<%=request.getContextPath() %>/front-end/member/member.do?action=logout" class="nav-link" <%= (memVO==null)? "data-toggle='modal' data-target='#modalRequest'" :"" %>  ><span id="mylogin"><%= (memVO==null)? "登入/註冊" :"登出" %></span></a></li>
 	        </ul>
 	      </div>

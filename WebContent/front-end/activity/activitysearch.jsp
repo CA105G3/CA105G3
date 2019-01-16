@@ -9,26 +9,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/template/css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/template/css/animate.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/animate.css">
     
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/template/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/template/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/template/css/magnific-popup.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/magnific-popup.css">
 
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/template/css/aos.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/aos.css">
 
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/template/css/ionicons.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/ionicons.min.css">
 
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/template/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/template/css/jquery.timepicker.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/jquery.timepicker.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/template/css/spring.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/css/spring.css">
 
     
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/template/css/flaticon.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/template/css/icomoon.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/template/css/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/flaticon.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/activity/css/leftsidebar.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"></link>
@@ -73,12 +73,12 @@
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="<%=request.getContextPath()%>/template/index.html" class="nav-link">首頁</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/template/food.html" class="nav-link">送餐專區</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/template/doctors.html" class="nav-link">線上問診</a></li>
+	          <li class="nav-item active"><a href="<%=request.getContextPath()%>/front-end/index.html" class="nav-link">首頁</a></li>
+	          <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/food.html" class="nav-link">送餐專區</a></li>
+	          <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/doctors.html" class="nav-link">線上問診</a></li>
 	          <li class="nav-item"><a href="impsearch.jsp" class="nav-link">活動專區</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/template/contact.html" class="nav-link">聯繫我們</a></li>
-	          <li class="nav-item cta"><a href="<%=request.getContextPath()%>/template/contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest"><span>登入</span></a></li>
+	          <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/contact.html" class="nav-link">聯繫我們</a></li>
+	          <li class="nav-item cta"><a href="<%=request.getContextPath()%>/front-end/contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest"><span>登入</span></a></li>
 	        </ul>
 	      </div>
 	    </div>

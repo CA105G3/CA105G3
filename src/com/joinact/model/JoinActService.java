@@ -50,4 +50,9 @@ public class JoinActService {
 	public JoinActVO repeatact(String actNo,String memNo) {
 		 return dao.findrepeatact(actNo, memNo);
 	}
+	
+	public List<ChatRoomVO> getchatmember(String actNo) {
+		return dao.chatroomall(actNo);
+		
+	}
 }

@@ -13,5 +13,6 @@ public interface JoinActDAO_interface {
     public List<JoinActVO> getAll();
     public Set<PersonActVO> getAll(String memNo);
     public JoinActVO findrepeatact(String actNo,String memNo);
+    public List<ChatRoomVO> chatroomall(String actNo);
     
 }
