@@ -32,46 +32,46 @@
 
 
 <link rel="Shortcut Icon" type="image/x-icon"
-	href="<%=request.getContextPath()%>/front-end/doctor/template/images/favicon.ico">
+	href="<%=request.getContextPath()%>/front-end/images/favicon.ico">
 
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700"
 	rel="stylesheet">
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/doctor/template/css/open-iconic-bootstrap.min.css">
+	href="<%=request.getContextPath()%>/front-end/css/open-iconic-bootstrap.min.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/doctor/template/css/animate.css">
+	href="<%=request.getContextPath()%>/front-end/css/animate.css">
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/doctor/template/css/owl.carousel.min.css">
+	href="<%=request.getContextPath()%>/front-end/css/owl.carousel.min.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/doctor/template/css/owl.theme.default.min.css">
+	href="<%=request.getContextPath()%>/front-end/css/owl.theme.default.min.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/doctor/template/css/magnific-popup.css">
+	href="<%=request.getContextPath()%>/front-end/css/magnific-popup.css">
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/doctor/template/css/aos.css">
+	href="<%=request.getContextPath()%>/front-end/css/aos.css">
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/doctor/template/css/ionicons.min.css">
+	href="<%=request.getContextPath()%>/front-end/css/ionicons.min.css">
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/doctor/template/css/bootstrap-datepicker.css">
+	href="<%=request.getContextPath()%>/front-end/css/bootstrap-datepicker.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/doctor/template/css/jquery.timepicker.css">
+	href="<%=request.getContextPath()%>/front-end/css/jquery.timepicker.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/front-end/doctor/template/css/spring.css">
+	href="<%=request.getContextPath()%>/front-end/css/spring.css">
 
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/doctor/template/css/flaticon.css">
+	href="<%=request.getContextPath()%>/front-end/css/flaticon.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/doctor/template/css/icomoon.css">
+	href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/doctor/template/css/style.css">
+	href="<%=request.getContextPath()%>/front-end/css/style.css">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
 	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
@@ -124,7 +124,7 @@
 
 	<section class="home-slider owl-carousel">
 		<div class="slider-item"
-			style="background-image: url('<%=request.getContextPath()%>/front-end/doctor/template/images/bg_1.jpg');">
+			style="background-image: url('<%=request.getContextPath()%>/front-end/images/bg_1.jpg');">
 			<div class="overlay"></div>
 			<div class="container">
 				<div class="row slider-text align-items-center"
@@ -144,7 +144,7 @@
 		</div>
 
 		<div class="slider-item"
-			style="background-image: url('<%=request.getContextPath()%>/front-end/doctor/template/images/bg_2.jpg');">
+			style="background-image: url('<%=request.getContextPath()%>/front-end/images/bg_2.jpg');">
 			<div class="overlay"></div>
 			<div class="container">
 				<div class="row slider-text align-items-center"
@@ -270,7 +270,7 @@
 							<h2 class="ftco-heading-2">相關部落格</h2>
 							<div class="block-21 mb-4 d-flex">
 								<a class="blog-img mr-4"
-									style="background-image: url(<%=request.getContextPath()%>/front-end/doctor/template/images/image_1.jpg);"></a>
+									style="background-image: url(<%=request.getContextPath()%>/front-end/images/image_1.jpg);"></a>
 								<div class="text">
 									<h3 class="heading">
 										<a href="#">Even the all-powerful Pointing has no control
@@ -292,7 +292,7 @@
 							</div>
 							<div class="block-21 mb-4 d-flex">
 								<a class="blog-img mr-4"
-									style="background-image: url(<%=request.getContextPath()%>/front-end/doctor/template/images/image_2.jpg);"></a>
+									style="background-image: url(<%=request.getContextPath()%>/front-end/images/image_2.jpg);"></a>
 								<div class="text">
 									<h3 class="heading">
 										<a href="#">Even the all-powerful Pointing has no control
@@ -396,41 +396,41 @@
 
 
 		<script
-			src="<%=request.getContextPath()%>/front-end/doctor/template/js/jquery.min.js"></script>
+			src="<%=request.getContextPath()%>/front-end/js/jquery.min.js"></script>
 		<script
-			src="<%=request.getContextPath()%>/front-end/doctor/template/js/jquery-migrate-3.0.1.min.js"></script>
+			src="<%=request.getContextPath()%>/front-end/js/jquery-migrate-3.0.1.min.js"></script>
 		<script
-			src="<%=request.getContextPath()%>/front-end/doctor/template/js/popper.min.js"></script>
+			src="<%=request.getContextPath()%>/front-end/js/popper.min.js"></script>
 		<script
-			src="<%=request.getContextPath()%>/front-end/doctor/template/js/bootstrap.min.js"></script>
+			src="<%=request.getContextPath()%>/front-end/js/bootstrap.min.js"></script>
 		<script
-			src="<%=request.getContextPath()%>/front-end/doctor/template/js/jquery.easing.1.3.js"></script>
+			src="<%=request.getContextPath()%>/front-end/js/jquery.easing.1.3.js"></script>
 		<script
-			src="<%=request.getContextPath()%>/front-end/doctor/template/js/jquery.waypoints.min.js"></script>
+			src="<%=request.getContextPath()%>/front-end/js/jquery.waypoints.min.js"></script>
 		<script
-			src="<%=request.getContextPath()%>/front-end/doctor/template/js/jquery.stellar.min.js"></script>
+			src="<%=request.getContextPath()%>/front-end/js/jquery.stellar.min.js"></script>
 		<script
-			src="<%=request.getContextPath()%>/front-end/doctor/template/js/owl.carousel.min.js"></script>
+			src="<%=request.getContextPath()%>/front-end/js/owl.carousel.min.js"></script>
 		<script
-			src="<%=request.getContextPath()%>/front-end/doctor/template/js/jquery.magnific-popup.min.js"></script>
-		<script src="<%=request.getContextPath()%>/front-end/doctor/template/js/aos.js"></script>
+			src="<%=request.getContextPath()%>/front-end/js/jquery.magnific-popup.min.js"></script>
+		<script src="<%=request.getContextPath()%>/front-end/js/aos.js"></script>
 		<script
-			src="<%=request.getContextPath()%>/front-end/doctor/template/js/jquery.animateNumber.min.js"></script>
+			src="<%=request.getContextPath()%>/front-end/js/jquery.animateNumber.min.js"></script>
 		<script
-			src="<%=request.getContextPath()%>/front-end/doctor/template/js/bootstrap-datepicker.js"></script>
+			src="<%=request.getContextPath()%>/front-end/js/bootstrap-datepicker.js"></script>
 		<script
-			src="<%=request.getContextPath()%>/front-end/doctor/template/js/jquery.timepicker.min.js"></script>
+			src="<%=request.getContextPath()%>/front-end/js/jquery.timepicker.min.js"></script>
 		<script
-			src="<%=request.getContextPath()%>/front-end/doctor/template/js/scrollax.min.js"></script>
+			src="<%=request.getContextPath()%>/front-end/js/scrollax.min.js"></script>
 		<script
 			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 		<script
-			src="<%=request.getContextPath()%>/front-end/doctor/template/js/google-map.js"></script>
-		<script src="<%=request.getContextPath()%>/front-end/doctor/template/js/main.js"></script>
+			src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script>
+		<script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
 		<script
 			src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 		<script
-			src="<%=request.getContextPath()%>/front-end/doctor/template/js/index.js"></script>
+			src="<%=request.getContextPath()%>/front-end/js/index.js"></script>
 
 
 		<script src="https://code.jquery.com/jquery.js"></script>
