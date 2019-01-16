@@ -14,7 +14,13 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 	private static final String INSERT_STMT = 
 		"INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'), ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-		"SELECT menulistno,menuno,menudate,menutimeslot from menulist order by menulistno";
+			"SELECT DISTINCT FOODORDER.ORDERNO, MEMBERCHEF.CHEFREP, MENU.MAINCOURSE, MENULIST.MENUTIMESLOT, ORDERDETAIL.AMOUNT, ORDERDETAIL.UNITPRICE FROM FOODORDER" + 
+					"LEFT JOIN ORDERDETAIL ON FOODORDER.ORDERNO=ORDERDETAIL.ORDERNO LEFT JOIN MENULIST ON ORDERDETAIL.MENULISTNO=MENULIST.MENULISTNO" + 
+					"LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO";
+	private static final String GET_BY_MEMNO_STMT = 
+			"SELECT DISTINCT FOODORDER.ORDERNO, MEMBERCHEF.CHEFREP, MENU.MAINCOURSE, MENULIST.MENUTIMESLOT, ORDERDETAIL.AMOUNT, ORDERDETAIL.UNITPRICE FROM FOODORDER" + 
+			"LEFT JOIN ORDERDETAIL ON FOODORDER.ORDERNO=ORDERDETAIL.ORDERNO LEFT JOIN MENULIST ON ORDERDETAIL.MENULISTNO=MENULIST.MENULISTNO" + 
+			"LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE FOODORDER.MEMNO=?";
 	private static final String GET_BY_CHEFREP_STMT = 
 			"SELECT * FROM MENULIST LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE MEMBERCHEF.CHEFREP=?";
 	private static final String GET_BY_MENUTIMESLOT_STMT = 
@@ -140,6 +146,52 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 		}
 	}
 
+	public List<MenuListVO> findByMemno(String memno) {
+		List<MenuListVO> list = new ArrayList();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MenuListVO menulistVO = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_BY_MEMNO_STMT);
+			pstmt.setString(1, memno);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				menulistVO = new MenuListVO();				
+				menulistVO.setChefRep(rs.getString("chefRep"));
+				menulistVO.setMainCourse(rs.getString("mainCourse"));
+				menulistVO.setMenuTimeSlot(rs.getString("menuTimeSlot"));
+				menulistVO.setUnitPrice(rs.getInt("unitPrice"));
+				list.add(menulistVO);
+			}
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "+ e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "	+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
 	public List<MenuListVO> findByChefRep(String chefRep) {
 		List<MenuListVO> list = new ArrayList();
 		Connection con = null;
@@ -296,10 +348,11 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 			
 			while(rs.next()) {
 				menulistVO = new MenuListVO();
-				menulistVO.setMenuListNo(rs.getString(1));
-				menulistVO.setMenuNo(rs.getString(2));
-				menulistVO.setMenuDate(rs.getDate(3));
-				menulistVO.setMenuTimeSlot(rs.getString(4));
+				menulistVO.setChefRep(rs.getString("chefRep"));
+				menulistVO.setMainCourse(rs.getString("mainCourse"));
+				menulistVO.setMenuTimeSlot(rs.getString("menuTimeSlot"));
+				menulistVO.setAmount(rs.getInt("amount"));
+				menulistVO.setUnitPrice(rs.getInt("unitPrice"));
 				list.add(menulistVO);
 			}
 			
@@ -347,8 +400,8 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 //		// 刪除
 //		dao.delete("20181213-0003");
 		
-		// 用業者編號查詢
-		List<MenuListVO> list = dao.findByChefRep("三普");
+//		// 用會員編號查詢
+		List<MenuListVO> list = dao.findByMemno("M0001");
 		for(MenuListVO amenulistVO : list) {
 		System.out.print(amenulistVO.getChefRep() + " , ");
 		System.out.print(amenulistVO.getMainCourse() + " , ");
@@ -356,6 +409,16 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 		System.out.println(amenulistVO.getUnitPrice());
 		System.out.println("----------------------");
 		}
+		
+//		// 用業者編號查詢
+//		List<MenuListVO> list = dao.findByChefRep("三普");
+//		for(MenuListVO amenulistVO : list) {
+//		System.out.print(amenulistVO.getChefRep() + " , ");
+//		System.out.print(amenulistVO.getMainCourse() + " , ");
+//		System.out.print(amenulistVO.getMenuTimeSlot() + " , ");
+//		System.out.println(amenulistVO.getUnitPrice());
+//		System.out.println("----------------------");
+//		}
 		
 		// 用供餐時間查詢
 //		List<MenuListVO> list2 = dao.findByMenuTimeSlot("早");
@@ -378,10 +441,11 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 		// 查詢全部
 //		List<MenuListVO> list = dao.getAll();
 //		for(MenuListVO amenulistVO : list) {
-//			System.out.print(amenulistVO.getMenuListNo() + " , ");
-//			System.out.print(amenulistVO.getMenuNo() + " , ");
-//			System.out.print(amenulistVO.getMenuDate() + " , ");
-//			System.out.println(amenulistVO.getMenuTimeSlot() + " , ");
+//			System.out.print(amenulistVO.getChefNo() + " , ");
+//			System.out.print(amenulistVO.getMainCourse() + " , ");
+//			System.out.print(amenulistVO.getMenuTimeSlot() + " , ");
+//			System.out.println(amenulistVO.getAmount() + " , ");
+//			System.out.println(amenulistVO.getUnitPrice() + " , ");
 //			System.out.println("--------------------------------");
 //		}
 	}

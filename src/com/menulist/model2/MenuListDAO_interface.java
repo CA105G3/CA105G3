@@ -7,6 +7,7 @@ public interface MenuListDAO_interface {
 	public void update(MenuListVO menuListVO);
 	public void delete(String menuListNo);
 	
+	public List<MenuListVO> findByMemno(String memno);
 	public List<MenuListVO> findByChefRep(String chefRep);
 	public List<MenuListVO> findByMenuTimeSlot(String menuTimeSlot);
 	

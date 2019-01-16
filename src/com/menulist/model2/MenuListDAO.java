@@ -27,8 +27,23 @@ public class MenuListDAO implements MenuListDAO_interface{
 	
 	private static final String INSERT_STMT = 
 			"INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'), ?, ?, ?)";
-		private static final String GET_ALL_STMT = 
-			"SELECT menulistno,menuno,menudate,menutimeslot from menulist order by menulistno";
+	private static final String GET_ALL_STMT = 
+			"SELECT DISTINCT FOODORDER.ORDERNO, MEMBERCHEF.CHEFREP, MENU.MAINCOURSE, MENULIST.MENUTIMESLOT, ORDERDETAIL.AMOUNT, ORDERDETAIL.UNITPRICE FROM FOODORDER" + 
+					" LEFT JOIN ORDERDETAIL ON FOODORDER.ORDERNO=ORDERDETAIL.ORDERNO LEFT JOIN MENULIST ON ORDERDETAIL.MENULISTNO=MENULIST.MENULISTNO" + 
+					" LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO";
+	
+	
+//	private static final String GET_BY_MEMNO_STMT = 
+//			"SELECT FOODORDER.ORDERNO, MEMBERCHEF.CHEFREP, MENU.MAINCOURSE, MENULIST.MENUTIMESLOT, ORDERDETAIL.AMOUNT, ORDERDETAIL.UNITPRICE FROM FOODORDER" + 
+//			"LEFT JOIN ORDERDETAIL ON FOODORDER.ORDERNO=ORDERDETAIL.ORDERNO LEFT JOIN MENULIST ON ORDERDETAIL.MENULISTNO=MENULIST.MENULISTNO" + 
+//			"LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE FOODORDER.MEMNO=?";
+
+	
+	private static final String GET_BY_MEMNO_STMT = 
+			"SELECT DISTINCT ORDERDETAIL.ODNO, MEMBERCHEF.CHEFREP, MENU.MAINCOURSE, MENULIST.MENUTIMESLOT, ORDERDETAIL.AMOUNT, ORDERDETAIL.UNITPRICE"+ 
+			" FROM FOODORDER"+
+			" LEFT JOIN ORDERDETAIL ON FOODORDER.ORDERNO=ORDERDETAIL.ORDERNO LEFT JOIN MENULIST ON ORDERDETAIL.MENULISTNO=MENULIST.MENULISTNO"+
+			" LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE FOODORDER.MEMNO=? ORDER BY ORDERDETAIL.ODNO";
 		
 		private static final String GET_BY_CHEFREP_STMT = 
 				"SELECT * FROM MENULIST LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE MEMBERCHEF.CHEFREP=?";
@@ -144,6 +159,52 @@ public class MenuListDAO implements MenuListDAO_interface{
 		}
 	}
 
+	public List<MenuListVO> findByMemno(String memno) {
+		List<MenuListVO> list = new ArrayList();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MenuListVO menulistVO = null;
+		System.out.println(GET_BY_MEMNO_STMT+memno);
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_BY_MEMNO_STMT);
+			pstmt.setString(1, memno);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				menulistVO = new MenuListVO();			
+				menulistVO.setOdno(rs.getString("odno"));
+				menulistVO.setChefRep(rs.getString("chefRep"));
+				menulistVO.setMainCourse(rs.getString("mainCourse"));
+				menulistVO.setMenuTimeSlot(rs.getString("menuTimeSlot"));
+				menulistVO.setUnitPrice(rs.getInt("unitPrice"));
+				menulistVO.setAmount(rs.getInt("amount"));
+				list.add(menulistVO);
+			}
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "	+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}	
+	
 	public List<MenuListVO> findByChefRep(String chefRep) {
 		List<MenuListVO> list = new ArrayList();
 		Connection con = null;
@@ -288,10 +349,12 @@ public class MenuListDAO implements MenuListDAO_interface{
 			
 			while(rs.next()) {
 				menulistVO = new MenuListVO();
-				menulistVO.setMenuListNo(rs.getString(1));
-				menulistVO.setMenuNo(rs.getString(2));
-				menulistVO.setMenuDate(rs.getDate(3));
-				menulistVO.setMenuTimeSlot(rs.getString(4));
+				menulistVO.setMenuListNo(rs.getString("menuListNo"));
+				menulistVO.setChefRep(rs.getString("chefRep"));
+				menulistVO.setMainCourse(rs.getString("mainCourse"));
+				menulistVO.setMenuTimeSlot(rs.getString("menuTimeSlot"));
+				menulistVO.setAmount(rs.getInt("amount"));
+				menulistVO.setUnitPrice(rs.getInt("unitPrice"));
 				list.add(menulistVO);
 			}
 			

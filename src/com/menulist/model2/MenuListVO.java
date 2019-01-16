@@ -6,6 +6,7 @@ public class MenuListVO implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String menuListNo;
+	private String odno;
 	private String chefRep;
 	private String mainCourse;
 	private int amount;
@@ -15,12 +16,23 @@ public class MenuListVO implements java.io.Serializable{
 	private java.sql.Date menuDate;
 	private String menuTimeSlot;
 	
+	
+	
+	
+	public String getOdno() {
+		return odno;
+	}
+	public void setOdno(String odno) {
+		this.odno = odno;
+	}
 	public String getChefRep() {
 		return chefRep;
 	}
 	public void setChefRep(String chefRep) {
 		this.chefRep = chefRep;
 	}
+	
+	
 	public String getMainCourse() {
 		return mainCourse;
 	}
