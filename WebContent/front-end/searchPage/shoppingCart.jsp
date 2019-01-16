@@ -3,35 +3,24 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.menulist.model2.*" %>
 
-
 <html>
-<head>
-<meta charset="UTF-8">
-<title>購物車頁面</title>
-
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
-<style>
+<style type="text/css">
 table {
-  font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
+  box-shadow: 5px 5px #888888;
 }
-
+.button{
+	background-color: black;
+	border: none;
+	color: white;
+	text-align: center;
+	display: inline-block;
+	font-size: 16px;
+	font-weight: bold;
+	font-family: "微軟正黑體";
+	cursor: pointer;
+	}
 td, th {
   border: 1px solid #dddddd;
   text-align: left;
@@ -41,8 +30,7 @@ td, th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
-
-#font-type {
+font {
 	font-weight: bold;
 	font-family: "微軟正黑體";
 }
@@ -64,33 +52,82 @@ tr:nth-child(even) {
 	margin-top: -15px;
 }
 </style>
+<head>
+    <link rel="Shortcut Icon" type="image/x-icon" href="images/favicon.ico">
+    <title >Health PLUS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700" rel="stylesheet">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/open-iconic-bootstrap.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/animate.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/magnific-popup.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/aos.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/ionicons.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/bootstrap-datepicker.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/jquery.timepicker.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/flaticon.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
+	<link rel="stylesheet"  href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"  
+		  integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
-<body><br>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Plus      <i class="fas fa-plus-square"></i></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item "><a href="index.html" class="nav-link">回到首頁</a></li>
+                    <li class="nav-item"><a href="food.html" class="nav-link">送餐專區</a></li>
+                    <li class="nav-item"><a href="doctors.html" class="nav-link">線上問診</a></li>
+                    <li class="nav-item"><a href="activity.html" class="nav-link">活動專區</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">聯繫我們</a></li>
+                    <li class="nav-item cta"><a href="contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest"><span>登入</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END nav -->
+    <!--以下可改動-->
+    <section class="home-slider owl-carousel">
+        <div class="slider-item bread-item" style="background-image: url('<%=request.getContextPath()%>/front-end/searchPage/images/food1.1.JPG');" data-stellar-background-ratio="0.5">
+            <div class="overlay"></div>
+            <div class="container" data-scrollax-parent="true">
+                <div class="row slider-text align-items-end">
+                    <div class="col-md-7 col-sm-12 ftco-animate mb-5">
+                        <h1><font id="font-type">送餐專區</font></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 	<% @SuppressWarnings("unchecked")
 	   Vector<MenuListVO> buylist = (Vector<MenuListVO>) session.getAttribute("shoppingcart");
 	   System.out.print(buylist);
 	   %>
 	   
 	<%if (buylist != null && (buylist.size() > 0)) {%>
-
-	<img src="images/shopping-cart.png"><font size="+3">目前購物車的內容如下：（Cart.jsp）</font>
-	<table id="table-1">
-		<!--<img src="images/food_header.jpg">  -->
-		<tr><td>
-			<h3>餐飲業者餐點列表</h3>
-			<h4><a href="<%=request.getContextPath() %>/front-end/searchPage/select_page.jsp"><img src="<%=request.getContextPath() %>/front-end/searchPage/images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-		</td></tr>
-	</table>
+	<div class="container">
+	<font size="+3">購物餐車 <img src="<%=request.getContextPath()%>/front-end/searchPage/images/shoppingcart.jpg" width="100" height="80"></font>
+	
 	<form id="checkoutForm" action="<%=request.getContextPath() %>/shoppingCart.do" method="get">
-	<table border="1" rules="rows">
+	<table class="table">
+  	<thead class="thead-dark">
 		<tr>
-			<th width="90">業者</th>
-			<th width="140">餐點名稱</th>
-			<th width="130">供餐時段</th>
-			<th width="90">單價</th>
-			<th width="90">數量</th>
-			<th width="70">取消</th>
+			<th scope="col"><font>業者</font></th>
+			<th scope="col"><font>餐點名稱</font></th>
+			<th scope="col"><font>供餐時段</font></th>
+			<th scope="col"><font>單價</font></th>
+			<th scope="col"><font>數量</font></th>
+			<th scope="col"><font>取消</font></th>
 		</tr>
+	</thead>
 	<% 
 	 	 for (int index = 0; index < buylist.size(); index++) { 
 			 MenuListVO order = buylist.get(index); 
@@ -102,29 +139,166 @@ tr:nth-child(even) {
 			 int amount = order.getAmount();
 			 String menuListNo = order.getMenuListNo();
 	%>
+		<tbody>
 		<tr>
-				<td width="90"><div align="left"><%=chefRep%></div></td>
-				<td width="140"><div align="left"><%=mainCourse%></div></td>
-				<td width="130"><div align="left"><%=menuTimeSlot%></div></td>
-				<td width="90"><div align="left"><%=unitPrice%></div></td>
-				<td width="90"><div align="left"><input type="text" name="amount" size="3" value=<%=amount%>></div></td>
-				<td width="70">
+				<td scope="row"><div align="left"><%=chefRep%></div></td>
+				<td><div align="left"><%=mainCourse%></div></td>
+				<td><div align="left"><%=menuTimeSlot%></div></td>
+				<td><div align="left"><%=unitPrice%></div></td>
+				<td><div align="left"><input type="text" name="amount" size="3" value=<%=amount%>></div></td>
+				<td>
 				<a href='<%=request.getContextPath()%>/shoppingCart.do?action=DELETE&del=<%= index %>'>
 				<img src="<%=request.getContextPath()%>/front-end/searchPage/images/delete.png" width="20" height="20"></a></td>
 				<input type="hidden" name="menuListNo" value="${menuListVO.menuListNo}">
 				<input type="hidden" name="chefNo" value="${menuListVO.chefNo}">
 	         	
 			</tr><%}%>
-	</table> <%}%>
- 				<p> 送餐地址(可不填)：<input type="text" name="deliverAddr">
-</div>
+		</tbody>
+	</table> 
+ 				<br> 送餐地址(可不填)：<input type="text" name="deliverAddr">
 	<p>
-          
               <input type="hidden" name="action"  value="CHECKOUT"> 
-              <input type="submit" value="付款結帳" class="button">
+              <font></font><input type="submit" value="付款結帳" class="button">
           </form>
-
+    </p>
+    </div><%} else { %>
+<!--     	<div class="container"> -->
+<!--     	<p style="text-align:center;"> -->
+    		<center><h2><font>目前您的購物車是空的!</font><img src="<%=request.getContextPath()%>/front-end/searchPage/images/shock.png" width="35" height="35"></h2>
+    		<br><h5><font>請按下圖回到訂餐頁面</font></h5><br>
+    		<a href='<%=request.getContextPath()%>/front-end/searchPage/select_page.jsp'>
+    		<img src="<%=request.getContextPath()%>/front-end/searchPage/images/emptycart.jpg"></a></center>
+<!--     	</div> -->
+    <%} %>
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <!-- Modal -->
+    <div class="modal fade" id="modalRequest" tabindex="-1" role="dialog" aria-labelledby="modalRequestLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalRequestLabel">登入會員</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="#">
+                        <div class="form-group">
+                            <!-- <label for="appointment_name" class="text-black">Full Name</label> -->
+                            <input type="text" class="form-control" id="appointment_name" placeholder="使用者名稱">
+                        </div>
+                        <div class="form-group">
+                            <!-- <label for="appointment_email" class="text-black">Email</label> -->
+                            <input type="text" class="form-control" id="appointment_email" placeholder="密碼">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="登入" class="btn btn-primary">
+                            <a href="blog.html"><input type="button" value="註冊會員" class="btn btn-primary" ></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="<%=request.getContextPath()%>/front-end/js/jquery.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/js/popper.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/js/bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/js/jquery.easing.1.3.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/js/jquery.waypoints.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/js/jquery.stellar.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/js/owl.carousel.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/js/jquery.magnific-popup.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/js/aos.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/js/jquery.animateNumber.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/js/bootstrap-datepicker.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/js/jquery.timepicker.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
 </body>
-
+<!-- 以上為可動部分 -->
+<footer class="ftco-footer ftco-bg-dark ftco-section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-3">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Plus      <i class="fas fa-plus-square"></i></h2>
+                    <p>隨著老年人口日漸增加，青壯年人口隨著少子化議題逐漸縮減，照護人力明顯失衡，我們想藉由Live++這個平台提供年長族群有個可以彼此認識、交流的管道同時又提供生理及心理方面的照護。</p>
+                </div>
+                <ul class="ftco-footer-social list-unstyled float-md-left float-lft ">
+                    <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                    <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                    <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <div class="ftco-footer-widget mb-4 ml-md-5">
+                    <h2 class="ftco-heading-2">快速連結</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="py-2 d-block">關於我們</a></li>
+                        <li><a href="#" class="py-2 d-block">未來展望</a></li>
+                        <li><a href="#" class="py-2 d-block">發展計畫</a></li>
+                        <li><a href="#" class="py-2 d-block">部落格</a></li>
+                        <li><a href="#" class="py-2 d-block">聯絡我們</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 pr-md-4">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">相關部落格</h2>
+                    <div class="block-21 mb-4 d-flex">
+                        <a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
+                        <div class="text">
+                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a></h3>
+                            <div class="meta">
+                                <div><a href="#"><span class="icon-calendar"></span> Sept 15, 2018</a></div>
+                                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-21 mb-4 d-flex">
+                        <a class="blog-img mr-4" style="background-image: url(images/image_2.jpg);"></a>
+                        <div class="text">
+                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a></h3>
+                            <div class="meta">
+                                <div><a href="#"><span class="icon-calendar"></span> Sept 15, 2018</a></div>
+                                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Office</h2>
+                    <div class="block-23 mb-3">
+                        <ul>
+                            <li><span class="icon icon-map-marker"></span><span class="text">中央大學，工程二館，資策會CA105G3,中壢區，台灣</span></li>
+                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">30-3345678</span></a></li>
+                            <li><a href="#"><span class="icon icon-envelope"></span><span class="text">2018CA105G3@gmail.com</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <p>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>
+                    document.write(new Date().getFullYear());
+                    </script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
 
 </html>
