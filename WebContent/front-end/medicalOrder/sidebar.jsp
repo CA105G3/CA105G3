@@ -11,9 +11,9 @@
 		<a
 			class="list-group-item list-group-item-action bg-primary text-white">問診相關連結</a>
 		<a
-			class="list-group-item list-group-item-action list-group-item-primary"
+			class="list-group-item list-group-item-action list-group-item-light"
 			href="ScanDoctor.jsp">瀏覽所有醫生</a> <a
-			class="list-group-item list-group-item-action list-group-item-primary"
+			class="list-group-item list-group-item-action list-group-item-light"
 			href="getMedicalOrderFromMember.jsp">個人看診紀錄</a>
 		<form method="post" action="<%=request.getContextPath()%>/doctor.do">
 			<input type="hidden" name="memno" value="${memno}"> <input

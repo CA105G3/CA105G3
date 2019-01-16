@@ -3,91 +3,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.member.model.*" %>
-<%-- <jsp:useBean id="memberVO" scope="page" class="com.member.model.MemberVO" /> --%>
-<%-- <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService"/> --%>
+<jsp:useBean id="memVO" scope="session" class="com.member.model.MemberVO" />
 
 <%	
-//上線版
-	MemberVO memberVO = (MemberVO)session.getAttribute("memVO");
-	pageContext.setAttribute("memberVO", memberVO);
+	pageContext.setAttribute("memVO", memVO);
 
 %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-<link rel="Shortcut Icon" type="image/x-icon"
-	href="<%=request.getContextPath()%>/template/images/favicon.ico">
-<title>初診基本資料表</title>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<link	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700" rel="stylesheet">
-
-<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/open-iconic-bootstrap.min.css">
-<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/animate.css">
-
-<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/owl.carousel.min.css">
-<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/owl.theme.default.min.css">
-<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/magnific-popup.css">
-
-<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/aos.css">
-<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/ionicons.min.css">
-<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/bootstrap-datepicker.css">
-<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/jquery.timepicker.css">
-<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/flaticon.css">
-<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/icomoon.css">
-<link rel="stylesheet"	href="<%=request.getContextPath()%>/template/css/style.css">
-<link rel="stylesheet"	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
-	crossorigin="anonymous">
-<style>
-.btn {
-	border-radius: 0
-}
-</style>
+<title>basicRecord</title>
+<!-- include css -->
+<%@include file="/front-end/medicalOrder/includedfiles/css.file" %>
 
 </head>
 <body>
 
-	<nav
-		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-		id="ftco-navbar">
-		<div class="container">
-			<a class="navbar-brand"
-				href="<%=request.getContextPath()%>/template/index.html">Plus <i
-				class="fas fa-plus-square"></i></a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#ftco-nav" aria-controls="ftco-nav"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="oi oi-menu"></span> Menu
-			</button>
-
-			<div class="collapse navbar-collapse" id="ftco-nav">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item "><a
-						href="<%=request.getContextPath()%>/template/index.html"
-						class="nav-link">回到首頁</a></li>
-					<li class="nav-item"><a
-						href="<%=request.getContextPath()%>/template/food.html"
-						class="nav-link">送餐專區</a></li>
-					<li class="nav-item"><a
-						href="<%=request.getContextPath()%>/template/doctors.html"
-						class="nav-link">線上問診</a></li>
-					<li class="nav-item"><a href="../impression/impsearch.jsp"
-						class="nav-link">活動專區</a></li>
-					<li class="nav-item"><a
-						href="<%=request.getContextPath()%>/template/contact.html"
-						class="nav-link">聯繫我們</a></li>
-					<li class="nav-item cta"><a
-						href="<%=request.getContextPath()%>/template/contact.html"
-						class="nav-link" data-toggle="modal" data-target="#modalRequest"><span>登入</span></a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+	<!-- START nav -->
+	<%@include file="/front-end/medicalOrder/includedfiles/navbar.file" %>
 	<!-- END nav -->
 
 	<section class="home-slider owl-carousel">
@@ -132,16 +67,7 @@
 	</section>
 	<br>
 <!-- 幻燈片輪播 -->
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-<%-- 錯誤表列 --%>
+
 
 <div class="container-fluid"  style="width:85%;">
 	<div class="row">
@@ -151,6 +77,18 @@
 			</div>
 			
 			<div class="col-xs-12 col-sm-9  col-lg-6">
+			<%-- 錯誤表列 --%>
+<c:if test="${not empty errorMsgs}">
+	<font style="color:red">請修正以下錯誤:</font>
+	<ul>
+		<c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
+<%-- 錯誤表列 --%>
+<br>
+			
 				<h6 class="text-danger">*請確認病歷基本資料是否有需修正</h3>
 				<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do" name="form1">
 					
@@ -159,19 +97,19 @@
 						<label for="bloodType" class="col-sm-2 col-form-label">血型</label>
 						<div class="col-sm-10" name="bloodType">
 							<div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="bloodType" id="bloodTypeA" value="A" ${(memberVO.bloodType=="A") ? 'CHECKED' : ''}>
+							  <input class="form-check-input" type="radio" name="bloodType" id="bloodTypeA" value="A" ${(memVO.bloodType=="A") ? 'CHECKED' : ''}>
 							  <label class="form-check-label" for="inlineRadio1">A</label>
 							</div>
 							<div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="bloodType" id="bloodTypeB" value="B" ${(memberVO.bloodType=="B") ? 'CHECKED' : ''}>
+							  <input class="form-check-input" type="radio" name="bloodType" id="bloodTypeB" value="B" ${(memVO.bloodType=="B") ? 'CHECKED' : ''}>
 							  <label class="form-check-label" for="inlineRadio2">B</label>
 							</div>
 							<div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="bloodType" id="bloodTypeO" value="O" ${(memberVO.bloodType=="O") ? 'CHECKED' : ''}>
+							  <input class="form-check-input" type="radio" name="bloodType" id="bloodTypeO" value="O" ${(memVO.bloodType=="O") ? 'CHECKED' : ''}>
 							  <label class="form-check-label" for="inlineRadio3">O</label>
 							</div>
 							<div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="bloodType" id="bloodTypeAB" value="AB" ${(memberVO.bloodType=="AB") ? 'CHECKED' : ''}>
+							  <input class="form-check-input" type="radio" name="bloodType" id="bloodTypeAB" value="AB" ${(memVO.bloodType=="AB") ? 'CHECKED' : ''}>
 							  <label class="form-check-label" for="inlineRadio3">AB</label>
 							</div>
 						</div>
@@ -182,11 +120,11 @@
 						<label for="smoking" class="col-sm-2 col-form-label">抽菸習慣</label>
 						<div class="col-sm-10" name="smoking">
 							<div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="smoking" id="smokingYes" value="有" ${(memberVO.smoking=="有") ? 'CHECKED' : ''}>
+							  <input class="form-check-input" type="radio" name="smoking" id="smokingYes" value="有" ${(memVO.smoking=="有") ? 'CHECKED' : ''}>
 							  <label class="form-check-label" for="inlineRadio1">有</label>
 							</div>
 							<div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="smoking" id="smokingNo" value="沒有" ${(memberVO.smoking=="沒有") ? 'CHECKED' : ''}>
+							  <input class="form-check-input" type="radio" name="smoking" id="smokingNo" value="沒有" ${(memVO.smoking=="沒有") ? 'CHECKED' : ''}>
 							  <label class="form-check-label" for="inlineRadio2">沒有</label>
 							</div>
 						</div>
@@ -196,7 +134,7 @@
 						<label for="allergy" class="col-sm-2 col-form-label">藥物過敏</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="allergy" name="allergy"
-								value="${(memberVO.allergy != null) ? memberVO.allergy : '' }">
+								value="${(memVO.allergy != null) ? memVO.allergy : '' }">
 							請填寫會過敏的藥物，若無請填寫「無」
 						</div>
 					</div>
@@ -204,7 +142,7 @@
 						<label for="medHistory" class="col-sm-2 col-form-label">過往病史</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="medHistory" name="medHistory"
-							value="${(memberVO.medHistory != null) ? memberVO.medHistory : '' }">
+							value="${(memVO.medHistory != null) ? memVO.medHistory : '' }">
 							請填寫過去曾進行過的手術以及慢性疾病，若無請填寫「無」
 						</div>
 					</div>
@@ -212,7 +150,7 @@
 						<label for="famHistory" class="col-sm-2 col-form-label">家族病史</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="famHistory" name="famHistory"
-							value="${(memberVO.famHistory != null) ? memberVO.famHistory : '' }">
+							value="${(memVO.famHistory != null) ? memVO.famHistory : '' }">
 							請填寫家族病史，若無請填寫「無」
 						</div>
 					</div>

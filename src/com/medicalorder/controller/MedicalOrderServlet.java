@@ -311,7 +311,7 @@ public class MedicalOrderServlet extends HttpServlet {
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/			
 
 			String memId = req.getParameter("memId");	//整合版
-//			String memId = "David";	//測試版
+
 			MemberVO memberVO = (MemberVO)session.getAttribute("memVO");
 		
 			String bloodType = req.getParameter("bloodType");
@@ -330,12 +330,12 @@ public class MedicalOrderServlet extends HttpServlet {
 			}
 			
 			String medHistory = req.getParameter("medHistory");
-			if (allergy == null || allergy.trim().length() == 0) {
+			if (medHistory == null || medHistory.trim().length() == 0) {
 				errorMsgs.add("請填寫是否有過往病史，若無請填寫「無」");
 			}
 			
 			String famHistory = req.getParameter("famHistory");
-			if (allergy == null || allergy.trim().length() == 0) {
+			if (famHistory == null || famHistory.trim().length() == 0) {
 				errorMsgs.add("請填寫是否有家族病史，若無請填寫「無」");
 			}
 			
