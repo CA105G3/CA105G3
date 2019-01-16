@@ -416,8 +416,10 @@ public class MemberServlet extends HttpServlet {
 					errorMsgs.add("會員郵遞區號: 請勿空白");
 				} else if(!getlocno.trim().matches(locnoReg)) { //以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("會員郵遞區號: 只能是數字 , 且長度必需為5內");
+	            }else {
+	            	locno=Integer.valueOf(getlocno);
 	            }
-				locno=Integer.valueOf(getlocno);
+				
 				//地址
 				String addr=req.getParameter("addr");
 				String addrReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]{1,60}$";

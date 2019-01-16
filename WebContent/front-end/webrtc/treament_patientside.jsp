@@ -9,6 +9,7 @@
 <html>
     <head>
         <title>SimpleWebRTC Demo</title>
+        <%@include file="/front-end/member/includedfiles/css.file" %>
         <style>
             .videoContainer {
                 position: relative;
@@ -17,7 +18,7 @@
             }
             .videoContainer_remotes {
                 position: relative;
-                width: 640px;
+                width: 540px;
                 height: 360px;
             }
             .videoContainer video {
@@ -34,40 +35,93 @@
                 background-color: #12acef;
             }
             #remotes{
+            	position: absolute;
+            	top: 800px;
+            	left: 100px;
             	width:640px;
             	height:360px;
             }
+            #localVideo{
+                position: absolute;
+            	top: 1140px;
+            	left: 100px;
+            	width:150px;
+            	height:160px;
+            	z-index: 999;
+            }
             #ppt{
+            	position: absolute;
+            	top: 800px;
+            	left: 800px;
             	width:480px;
-            	height:320px;
+            	height:360px;
             }
         </style>
     </head>
     <body onload="connect();" onunload="disconnect();">
-        <h1 id="title">Start a room</h1>
-        My name is <%=memVO.getMemName()%>
-        <button id="screenShareButton"></button>
-        <p id="subTitle"></p>
-        <form id="createRoom">
-            <input id="sessionInput"/>
-            <button type="submit">Create it!</button>
-        </form>
-        <table>
-        <tr>
-        <td>
-         <div class="videoContainer">
-            <video id="localVideo" style="height: 150px;" oncontextmenu="return false;"></video>
-            <div id="localVolume" class="volume_bar"></div>
+    
+    <%@include file="/front-end/member/includedfiles/nav.file" %>
+    <section class="home-slider owl-carousel">
+      <div class="slider-item" style="background-image: url('<%=request.getContextPath() %>/front-end/member/images/bg_1.jpg');">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row slider-text align-items-center" data-scrollax-parent="true">
+            <div class="col-md-6 col-sm-12 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+              <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">舒適的問診體驗</h1>
+              <p class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">輕鬆簡單的方式，讓您在家也能體驗醫療的好處</p>
+              <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><a href="doctors.html" class="btn btn-primary px-4 py-3">立即預約</a></p>
+            </div>
+          </div>
         </div>
-        </td>
-        <td>
-        <div id="remotes"></div>
-        </td>
-<%--         <td><img src="<%=request.getContextPath()%>/ppt/pptImg.do?pptno=${pptVO.pptno}"></td> --%>
-       <td><img src="<%=request.getContextPath()%>/ppt/pptImg.do?pptno=P0001" id="ppt"></td>
-        </tr>
-        </table>
-       
+      </div>
+
+      <div class="slider-item" style="background-image: url('<%=request.getContextPath() %>/front-end/member/images/bg_2.jpg');">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row slider-text align-items-center" data-scrollax-parent="true">
+            <div class="col-md-6 col-sm-12 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+              <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">專業的醫療服務</h1>
+              <p class="mb-4">為家中不方便的患者所提供的線上諮詢，您一定不能錯過!!</p>
+              <p><a href="#" class="btn btn-primary px-4 py-3">線上預約</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <br><br>
+    	<section>
+    		<div class="container-fluid">
+        		<video id="localVideo" oncontextmenu="return false;"></video>
+        		<div id="localVolume" class="volume_bar"></div>
+       			<div id="remotes"></div>
+				<img src="<%=request.getContextPath()%>/ppt/pptImg.do?pptno=P0001" id="ppt">
+  				<div class="row">
+  					<div class="col-lg-9"></div>
+  					<div class="col-lg-3">
+  		 			<button type="button" class="btn btn-danger" id="stop">結束</button>
+  					</div>
+  				</div>
+        	</div>
+        </section>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+<!--     	<div class="row"> -->
+<!--     		<div class="col-lg-2"> -->
+<!-- 	            	<video id="localVideo" style="height: 150px;" oncontextmenu="return false;"></video> -->
+<!-- 	            	<div id="localVolume" class="volume_bar"></div> -->
+<!-- 	        </div> -->
+<!--         	<div class="col-lg-6"> -->
+<!--         		<div id="remotes"></div> -->
+<!--         	</div> -->
+<!--         	<div class="col-lg-4"> -->
+<%-- 				<img src="<%=request.getContextPath()%>/ppt/pptImg.do?pptno=P0001" id="ppt"> --%>
+<!--         	</div> -->
+<!--   		</div> -->
+            
+       <%@include file="/front-end/member/includedfiles/footer.file" %>
+       <%@include file="/front-end/member/includedfiles/js.file" %>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="simplewebrtc.bundle.js"></script>
         <script>
@@ -142,7 +196,7 @@
             // Since we use this twice we put it here
             function setRoom(name) {
                 $('form').remove();
-                $('h1').text(name);
+                //$('h2').text(name);
                 $('#subTitle').text('Link to join: ' + location.href);
                 $('body').addClass('active');
             }
@@ -166,7 +220,6 @@
                     return false;          
                 });
             }
-
             var button = $('#screenShareButton'),
                 setButton = function (bool) {
                     button.text(bool ? 'share screen' : 'stop sharing');
@@ -174,9 +227,7 @@
             webrtc.on('localScreenStopped', function () {
                 setButton(true);
             });
-
             setButton(true);
-
             button.click(function () {
                 if (webrtc.getLocalScreen()) {
                     webrtc.stopScreenShare();
@@ -196,7 +247,7 @@
 <!--         	以下是WebSocket -->
         
         <script>
-//	    var MyPoint = "/MyEchoServer/peter/<%=memVO.getMemName()%>";
+//	    var MyPoint = "/MyEchoServer/peter/";
       	var MyPoint="/MyEchoServer/peter/20190102-0001";//未來導入問診紀錄編號
 	    var host = window.location.host;
 	    var path = window.location.pathname;
@@ -235,6 +286,13 @@
 		function disconnect () {
 			
 		}
+		$("#stop").click(function(){
+			var jsonObj = {"userName" : userName, "message" : "stop"};
+	        webSocket.send(JSON.stringify(jsonObj));
+			webSocket.onclose();
+			window.location.replace("http://localhost:8081/CA105G3/front-end/index.jsp");
+			window.alert("tttt");
+		});
 		</script>
 	</body>
 </html>

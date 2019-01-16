@@ -93,7 +93,7 @@
 					<tr>
 						<th><p>會員照片</p></th>
 						<td>
-						<img src=<%=(memVO.getMemPic()==null)?request.getContextPath()+"/front-end/images/person_1.jpg": request.getContextPath()+"/front-end/member/membergetpic.do?memno="+memVO.getMemNo()%> id="myPic" width="180" height="160">
+						<img src=<%=(memVO.getMemPic()==null)?request.getContextPath()+"/front-end/images/deafult_pic.jpg": request.getContextPath()+"/front-end/member/membergetpic.do?memno="+memVO.getMemNo()%> id="myPic" width="180" height="160">
 						</td>
 					</tr>
 					<tr>
@@ -175,12 +175,6 @@
 						</td>
 					</tr>
 					<tr>
-<!-- 						<td><p>會員狀態:</p></td> -->
-<!-- 						<td><select name="memstatus" disabled="disabled"> -->
-<%-- 							<option value="正常" ${(memVO.memStatus=='正常')?'selected':''}>正常</option> --%>
-<%-- 							<option value="停用" ${(memVO.memStatus=='停用')?'selected':''}>停用</option> --%>
-<!-- 							</select> -->
-<!-- 						</td> -->
 						<td><p>會員狀態:</p></td>
 						<td><input name="memstatus" readonly value="<%=memVO.getMemStatus()%>"></td>
 					</tr>

@@ -81,6 +81,13 @@ private static final Set<Session> allSessions = Collections.synchronizedSet(new 
 					session.getAsyncRemote().sendText(pptvo.getPptno());
 				}
 			}
+		if(message2.equals("stop")) {
+			System.out.println("leave");
+			for (Session session : allSessions) {
+				if (session.isOpen())
+					session.getAsyncRemote().sendText("患者已離開診間");
+				}
+		}
 	}
 	
 	@OnError

@@ -3,14 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.ppttool.model.*" %>
 <%@ page import="java.util.*" %>
+<%@ page import="com.member.model.*" %>
+<% MemberVO memVO=(MemberVO)session.getAttribute("memVO"); %>
 <!DOCTYPE html>
 <html>
     <head>
         <title>SimpleWebRTC Demo</title>
-    </head>
-    <body onload="connect();" onunload="disconnect();">
-        <h1 id="title">Start a room</h1>
-        <style>
+        <%@include file="/front-end/member/includedfiles/css.file" %>
+         <style>
             .videoContainer {
                 position: relative;
                 width: 200px;
@@ -18,7 +18,7 @@
             }
             .videoContainer_remotes {
                 position: relative;
-                width: 640px;
+                width: 540px;
                 height: 360px;
             }
             .videoContainer video {
@@ -35,41 +35,86 @@
                 background-color: #12acef;
             }
             #remotes{
+            	position: absolute;
+            	top: 800px;
+            	left: 100px;
             	width:640px;
             	height:360px;
             }
+            #localVideo{
+                position: absolute;
+            	top: 1140px;
+            	left: 100px;
+            	width:150px;
+            	height:160px;
+            	z-index: 999;
+            }
             #ppt{
+            	position: absolute;
+            	top: 800px;
+            	left: 800px;
             	width:480px;
-            	height:320px;
+            	height:360px;
             }
         </style>
-        <button id="screenShareButton"></button>
-        <p id="subTitle"></p>
-        <form id="createRoom">
-            <input id="sessionInput"/>
-            <button type="submit">Create it!</button>
-        </form>
-        <table>
-        <tr>
-        <td>
-         <div class="videoContainer">
-            <video id="localVideo" style="height: 150px;" oncontextmenu="return false;"></video>
-            <div id="localVolume" class="volume_bar"></div>
+    </head>
+    <body onload="connect();" onunload="disconnect();">
+    <%@include file="/front-end/member/includedfiles/nav.file" %>
+    
+    <section class="home-slider owl-carousel">
+      <div class="slider-item" style="background-image: url('<%=request.getContextPath() %>/front-end/member/images/bg_1.jpg');">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row slider-text align-items-center" data-scrollax-parent="true">
+            <div class="col-md-6 col-sm-12 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+              <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">舒適的問診體驗</h1>
+              <p class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">輕鬆簡單的方式，讓您在家也能體驗醫療的好處</p>
+              <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><a href="doctors.html" class="btn btn-primary px-4 py-3">立即預約</a></p>
+            </div>
+          </div>
         </div>
-        </td>
-        <td>
-        <div id="remotes"></div>
-        </td>
-<%--         <td><img src="<%=request.getContextPath()%>/ppt/pptImg.do?pptno=${pptVO.pptno}"></td> --%>
-       <td><img src="<%=request.getContextPath()%>/ppt/pptImg.do?pptno=P0001" id="ppt"></td>
-        </tr>
-		<tr>
-        <td></td><td></td>
-        <td><button onclick="back()">上一頁</button></td>
-        <td><button onclick="next()">下一頁</button></td>
-		</tr>
-        </table>
+      </div>
+
+      <div class="slider-item" style="background-image: url('<%=request.getContextPath() %>/front-end/member/images/bg_2.jpg');">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row slider-text align-items-center" data-scrollax-parent="true">
+            <div class="col-md-6 col-sm-12 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+              <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">專業的醫療服務</h1>
+              <p class="mb-4">為家中不方便的患者所提供的線上諮詢，您一定不能錯過!!</p>
+              <p><a href="#" class="btn btn-primary px-4 py-3">線上預約</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+        
+        <br><br>
+        <section>
+    		<div class="container-fluid">
+        		<video id="localVideo" oncontextmenu="return false;"></video>
+        		<div id="localVolume" class="volume_bar"></div>
+       			<div id="remotes"></div>
+				<img src="<%=request.getContextPath()%>/ppt/pptImg.do?pptno=P0001" id="ppt">
+  				<div class="row">
+  					<div class="col-lg-8"></div>
+  					<div class="col-lg-4">
+  					<button type="button" class="btn btn-primary" onclick="back()">上一頁</button>
+        			<button type="button" class="btn btn-primary" onclick="next()">下一頁</button>
+  		 			<button type="button" class="btn btn-danger" id="stop">結束</button>
+  					</div>
+  				</div>
+        	</div>
+        </section>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        
+		
+        
+        
+		
        
+        <%@include file="/front-end/member/includedfiles/footer.file" %>
+        <%@include file="/front-end/member/includedfiles/js.file" %>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="simplewebrtc.bundle.js"></script>
         <script>
@@ -144,7 +189,7 @@
             // Since we use this twice we put it here
             function setRoom(name) {
                 $('form').remove();
-                $('h1').text(name);
+               // $('h1').text(name);
                 $('#subTitle').text('Link to join: ' + location.href);
                 $('body').addClass('active');
             }
@@ -199,7 +244,7 @@
         
         <script>
 //	    var MyPoint = "/MyEchoServer/peter/309";
-		var MyPoint="/MyEchoServer/peter/20190102-0001";//未來導入問診紀錄編號
+		var MyPoint="/MyEchoServer/johnny/20190102-0002";//未來導入問診紀錄編號
 	    var host = window.location.host;
 	    var path = window.location.pathname;
 	    var webCtx = path.substring(0, path.indexOf('/', 1));

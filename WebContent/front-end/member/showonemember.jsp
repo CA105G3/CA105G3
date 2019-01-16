@@ -89,7 +89,7 @@
 			<tr>
 				<th><p>會員照片</p></th>
 				<td>
-				<img src=<%=(memVO.getMemPic()==null)?request.getContextPath()+"/front-end/images/person_1.jpg": request.getContextPath()+"/front-end/member/membergetpic.do?memno="+memVO.getMemNo()%> width="180" height="160">
+				<img src=<%=(memVO.getMemPic()==null)?request.getContextPath()+"/front-end/images/deafult_pic.jpg": request.getContextPath()+"/front-end/member/membergetpic.do?memno="+memVO.getMemNo()%> width="180" height="160">
 				</td>
 			</tr>
 			<tr>
@@ -154,6 +154,8 @@
 			<td><input type="hidden" name="memno" value=<%=memVO.getMemNo()%>></td>
 			<td><button type="submit" class="btn btn-primary">修改</button></td>
 			</tr>
+			
+		
 			</table>
 			</form>
 			</div>

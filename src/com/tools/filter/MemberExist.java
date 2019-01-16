@@ -46,10 +46,11 @@ public class MemberExist implements Filter {
 			
 			errorMsgs.add("請先登入會員");
 			session.setAttribute("accessfail", errorMsgs);
+//			request.setAttribute("accessfail", errorMsgs);
 //			request.setAttribute("loginerrorMsgs", errorMsgs);
 			
 			response.sendRedirect(request.getContextPath()+"/front-end/index.jsp");
-//			RequestDispatcher failacess =request.getRequestDispatcher(request.getServletPath());
+//			RequestDispatcher failacess =request.getRequestDispatcher("/front-end/index.jsp");
 //			RequestDispatcher failacess = request.getServletContext().getRequestDispatcher("/front-end/member/index.jsp"); 
 //			RequestDispatcher failacess =request.getRequestDispatcher("/front-end/member/index.jsp");
 //			failacess.forward(request, response);
