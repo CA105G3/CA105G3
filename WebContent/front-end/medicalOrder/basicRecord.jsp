@@ -8,13 +8,9 @@
 
 <%	
 //上線版
-	MemberVO brMemberVO = (MemberVO)session.getAttribute("memberVO");
-// 	if(memVO!=null){
-// 	request.getSession().setAttribute("memno",memVO.getMemNo());
-// 	}
-	//測試版
-// 	memberVO = (MemberVO)memberSvc.getOneMember("M0001");
-// 	session.getAttribute("memberVO",memberVO);
+	MemberVO memberVO = (MemberVO)session.getAttribute("memVO");
+	pageContext.setAttribute("memberVO", memberVO);
+
 %>
 
 <!DOCTYPE html>
@@ -147,12 +143,14 @@
 </c:if>
 <%-- 錯誤表列 --%>
 
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12 col-sm-3">
-				
+<div class="container-fluid"  style="width:85%;">
+	<div class="row">
+			
+			<div class="col-xs-12 col-sm-3 col-lg-3">
+				<%@ include file="sidebar.jsp" %>
 			</div>
-			<div class="col-xs-12 col-sm-6">
+			
+			<div class="col-xs-12 col-sm-9  col-lg-6">
 				<h6 class="text-danger">*請確認病歷基本資料是否有需修正</h3>
 				<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do" name="form1">
 					
@@ -232,16 +230,11 @@
 						</div>
 					</div>
 
-				</form>
-				
-				
-				
+				</form>	
 			</div>
-			<div class="col-xs-12 col-sm-3">
-				
-			</div>
-		</div>
+
 	</div>
+</div>
 		
 
 

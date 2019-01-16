@@ -1,18 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="java.util.HashMap"%>
-<%@page import="com.doctor.model.DoctorVO"%>
-<%@page import="com.member.model.MemberVO"%>
+<%@page import="java.util.*"%>
+<%@page import="com.doctor.model.*"%>
+<%@page import="com.member.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:useBean id="doctorVO" scope="page" class="com.doctor.model.DoctorVO" />
 <jsp:useBean id="doctorSvc" scope="page" class="com.doctor.model.DoctorService" />
 <jsp:useBean id="memberVO" scope="page" class="com.member.model.MemberVO" />
 <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService"/>
 <%
-	HashMap reserveMap = (HashMap)request.getAttribute("reserveMap");
-	pageContext.setAttribute("reserveMap", reserveMap);	
+	HashMap reserveMap = (HashMap)session.getAttribute("reserveMap");
+	pageContext.setAttribute("reserveMap", reserveMap);
+	System.out.print(reserveMap);
+// 	MemberService memberSvc = new MemberService();
+// 	pageContext.setAttribute("memberSvc", memberSvc);
+	
 %>
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <link rel="Shortcut Icon" type="image/x-icon"
@@ -101,8 +104,21 @@
 	<br>
 <!-- 幻燈片輪播 -->
 
-<div class="container">
+<div class="container"  style="width:85%;">
 	<div class="row">
+		
+		<!-- 		左方問診管理		 -->
+		<div class="col-xs-12 col-sm-3 col-lg-3">
+			<%@ include file="sidebar.jsp" %>
+<%-- 			${memberSvc.getOneMember(doctorSvc.getOneDoctor(reserveMap.drno).memno).memname} --%>
+<%-- 			${doctorSvc.getOneDoctor(reserveMap.drno).memno} --%>
+<%-- 			${memberSvc.getOneMember(doctorSvc.getOneDoctor(reserveMap.drno).memno).memName} --%>
+<%-- 		${memberSvc.getOneMember('M0020')} --%>
+			<%=memberSvc.getOneMember("M0020").getMemName()%>
+			
+		</div>
+		
+		<div class="col-xs-12 col-sm-9" >
 		<table class="table table-striped table-bordered">
 		    <thead>
 			    <tr  align='center'>
@@ -138,6 +154,7 @@
 </form>   
 </table>
 	</div>
+	</div>
 </div>
 <!-- <table> -->
 <!--      <tr> -->
@@ -170,7 +187,7 @@
 <!--     </tr> -->
 <!--   </tbody> -->
 <!-- </table> -->
-	
+
 
 
 	<br>

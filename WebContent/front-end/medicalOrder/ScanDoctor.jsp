@@ -129,7 +129,7 @@
 	<br>
 <!-- 幻燈片輪播 -->
 
-<div class="container-fluid">
+<div class="container-fluid"  style="width:85%;">
     <div class="row">
 
 
