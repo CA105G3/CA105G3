@@ -1,11 +1,14 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="com.member.model.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.activity.model.*"%>
 <%@ page import="java.util.*" %>
-<%  String memNo="M0001";
-	pageContext.setAttribute("memNo", memNo);
-
+<%
+MemberVO memVO = (MemberVO)session.getAttribute("memVO");
+String memNo=memVO.getMemNo();
+pageContext.setAttribute("memNo", memNo);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,25 +57,7 @@
   </head>
   <body>
     
-	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
-	      <a class="navbar-brand" href="<%=request.getContextPath()%>/template/index.html">Plus      <i class="fas fa-plus-square"></i></a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
-
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="<%=request.getContextPath()%>/template/index.html" class="nav-link">首頁</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/template/food.html" class="nav-link">送餐專區</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/template/doctors.html" class="nav-link">線上問診</a></li>
-	          <li class="nav-item"><a href="impsearch.jsp" class="nav-link">活動專區</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/template/contact.html" class="nav-link">聯繫我們</a></li>
-	          <li class="nav-item cta"><a href="<%=request.getContextPath()%>/template/contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest"><span>登入</span></a></li>
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
+	  <%@include file="/front-end/member/includedfiles/nav.file" %>
     <!-- END nav -->
 
 	
@@ -518,15 +503,7 @@ console.log(dist);
 	                       '<input type="hidden" name="actNo" value="<%=actVO.getActNo()%>">'+
 	                       '<input type="submit" class="btn btn-info" value="查詢活動內容">'+
 	               		   '</FORM>';
-// 						  '<input type="button" value=""class="iw-title">'+
-<%-- 					  			'<a href="<%=request.getContextPath()%>/activity/activity.do?action=findByPrimaryKey&actNo=<%=actVO.getActNo()%>">'+ --%>
-<%-- 					  				'<%=actVO.getActName()%>'+ --%>
-// 				  				'</a>'+
-// 			  				'</div>'+
-// 			  				'<div style="padding:5px 5px 0px 5px;">'+
-// 			  					'<i class="glyphicon glyphicon-user" style="padding-right:5px"></i>'+
-<%-- 			  					'<%=actVO.getActLoc()%>'+ --%>
-// 	  						'</div>';
+
 					  infowindow.setContent(msg);
 				      infowindow.open(map, this);
 					});
