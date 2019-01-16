@@ -158,19 +158,17 @@
 <br>
 <br>
 
-<div class="container-fluid">
+<div class="container-fluid" style="width:85%;">
     <div class="row">
 
 
 <!-- 		左方問診管理		 -->
-		<div class="col-xs-12 col-sm-3">
+		<div class="col-xs-12 col-sm-3 col-lg-3">
 			<%@ include file="sidebar.jsp" %>
 		</div>
 
-
-<p>&nbsp;</p>
-	<div class="row d-flex">
-		<div class="col-lg-8 ">
+<div class="col-xs-12 col-sm-3 col-lg-9">
+		<div class="">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<c:if test="${dvo.isonline == '線上'}">
@@ -179,47 +177,50 @@
                     
                     <c:if test="${dvo.isonline != '線上'}">
                     	<span aria-label="目前離線" style="background: rgb(128, 128, 128); border-radius: 50%; display: inline-block; height: 6px; margin-left: 4px; width: 6px;"></span> 
-                    </c:if>
-					
-					
+                    </c:if>			
 					<%=dvo.getIsonline()%>
 				</div>
 				<!-- /.panel-heading -->
 				<div class="panel-body">
 
-					<table width="100%" border="0" cellpadding="2" cellspacing="0"> 
-						<tr>
-							<td class="content-loader" valign="top"><img width="170" height="200"
-								src="<%=request.getContextPath()%>/doctor/doctorImg.do?drno=${dvo.drno}"></td>
-							<td class="content-loader align-top" align="left" >
+<!-- 					<table width="50%" border="0" cellpadding="2" cellspacing="0">  -->
+<!-- 						<tr> -->
+							<div class="row">
+							<div class="col-lg-2">
+							<div class="content-loader" valign="top"><img height="300"
+								src="<%=request.getContextPath()%>/doctor/doctorImg.do?drno=${dvo.drno}"></div>
+<!-- 							<td class="content-loader align-top" align="left" > -->
+							</div>
+							<div class="col-lg-10">
 								<table
 									class="table table-striped table-borderedtable table-hover"
 									width="100%" border="0" cellpadding="2" cellspacing="0" >
 									<tr>
-										<td align="left" valign="top" class="Content-text-bold">姓名:</td>
-										<td class="Content-text">
+										<td width="8%" align="left" valign="top">姓名:</td>
+										<td width="92%">
 											<c:forEach var="memVO" items="${memSvc.all}">
 												<c:if test="${memVO.memNo==dvo.memno}">${memVO.memName}醫師</c:if>
 											</c:forEach></td>
 									</tr>
 									<tr>
-										<td align="left" valign="top" class="Content-text-bold">科別:</td>
-										<td class="Content-text"><%=dvo.getMajor()%></td>
+										<td width="8%"  align="left" valign="top">科別:</td>
+										<td width="92%" ><%=dvo.getMajor()%></td>
 									</tr>
 									<tr>
-										<td align="left" valign="top" class="Content-text-bold">診療費用:</td>
-										<td class="Content-text">NT$<%=dvo.getFee()%>/次</td>
+										<td width="8%"  align="left" valign="top">診療費用:</td>
+										<td width="92%">NT$<%=dvo.getFee()%>/次</td>
 									</tr>
 									<tr>
-										<td width="117" align="left" valign="top"
-											class="Content-text-bold" style="word-break: break-all;width:60%x`">經歷:</td>
-										<td width="618" class="Content-text"><%=dvo.getResume()%>
+										<td width="8%"  align="left" valign="top">經歷:</td>
+										<td width="92%"><%=dvo.getResume()%>
 										</td>
 									</tr>
 								</table>
+								</div>
 							</td>
-						</tr>
-					</table>
+							</div>
+<!-- 						</tr> -->
+<!-- 					</table> -->
 				</div>
 				<!-- /.panel-body -->
 			</div>
@@ -228,7 +229,7 @@
 
 	</div>		
 </div>		
-		
+</div>		
 <!-- include的片段		 -->
 <div class="container-fluid">
 		<div>

@@ -338,10 +338,6 @@ public class MedicalOrderServlet extends HttpServlet {
 			if (allergy == null || allergy.trim().length() == 0) {
 				errorMsgs.add("請填寫是否有家族病史，若無請填寫「無」");
 			}
-
-System.out.println();			
-			
-			
 			
 			memberVO.setBloodType(bloodType);
 			memberVO.setSmoking(smoking);
