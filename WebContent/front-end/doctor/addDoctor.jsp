@@ -1,5 +1,8 @@
+<%@page import="java.util.LinkedList"%>
+<%@page import="java.util.List"%>
+<%@page import="com.member.model.MemberVO"%>
 <%@page import="com.doctor.model.DoctorVO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -8,7 +11,21 @@
 	String memno = (String) request.getParameter("memno");
 %>
 
-<%=dvo == null%>
+<%-- <%=dvo == null%> --%>
+
+<%
+	MemberVO memVO=null;
+	memVO = (MemberVO)session.getAttribute("memVO");
+	
+	if(memVO!=null){
+		request.getSession().setAttribute("memno",memVO.getMemNo());
+	}
+	 
+
+	  
+%>
+
+
 
 
 <html>
@@ -124,33 +141,7 @@ th, td {
 </head>
 <body>
 
-	<nav
-		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-		id="ftco-navbar">
-		<div class="container">
-			<a class="navbar-brand" href="index.html">Plus <i
-				class="fas fa-plus-square"></i></a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#ftco-nav" aria-controls="ftco-nav"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="oi oi-menu"></span> Menu
-			</button>
-
-			<div class="collapse navbar-collapse" id="ftco-nav">
-				<ul class="navbar-nav ml-auto">
-
-					<li class="nav-item"><a href="food.html" class="nav-link">送餐專區</a></li>
-					<li class="nav-item"><a href="doctors.html" class="nav-link">線上問診</a></li>
-					<li class="nav-item"><a href="../impression/impsearch.jsp"
-						class="nav-link">活動專區</a></li>
-					<li class="nav-item"><a href="contact.html" class="nav-link">聯繫我們</a></li>
-					<li class="nav-item cta"><a href="contact.html"
-						class="nav-link" data-toggle="modal" data-target="#modalRequest"><span>登入</span></a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-
+<%@include file="/front-end/member/includedfiles/nav.file" %>
 	<section class="home-slider owl-carousel">
 		<div class="slider-item"
 			style="background-image: url('<%=request.getContextPath()%>/front-end/images/bg_1.jpg');">

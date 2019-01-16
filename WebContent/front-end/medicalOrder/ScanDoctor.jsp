@@ -19,7 +19,22 @@
 <!-- included css  -->
 <title >ScanDoctor</title>
 <%@include file="/front-end/medicalOrder/includedfiles/css.file" %>
-
+<style type="text/css">
+#drbtn {
+	color: #fff !important;
+	background: #31b0d5;
+	border: none !important;
+	padding-top: 0.5rem !important;
+	padding-bottom: .5rem !important;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin-top: 6px !important;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	-ms-border-radius: 30px;
+	border-radius: 30px;
+}
+</style>
 </head>
 <body>
 	<!-- START nav -->
@@ -77,19 +92,6 @@
 		<div class="col-xs-12 col-sm-3">
 			<%@ include file="sidebar.jsp" %>
 
-<c:forEach var="doctorVO" items="${doctorSvc.all}">
-	<c:if test="${memVO.getMemNo()==doctorVO.memno}">
-<!-- 			<div class="list-group"> -->
-<!-- 				<a class="list-group-item list-group-item-action list-group-item-primary" href="#" >我是醫療人員</a> -->
-<!-- 			</div> -->
-				<form method="post" action="<%=request.getContextPath()%>/doctor.do">
-					<input type="hidden" name="memno" value="M0020"> 
-					<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>"> 
-					<input type="hidden" name="action" value="enter_dr_admin">
-					<input type="submit" value="我是醫療人員"  class="btn btn-info">
-				</form>
-	</c:if>
-</c:forEach>
 
 		</div>
 		

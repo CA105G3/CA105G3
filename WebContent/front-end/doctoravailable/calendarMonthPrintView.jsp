@@ -1,3 +1,4 @@
+<%@page import="com.member.model.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="com.doctoravailable.controller.Month,java.util.*,java.io.*,java.sql.*"%>
@@ -8,6 +9,7 @@
 
 
 <%
+	MemberVO memVO = (MemberVO)session.getAttribute("memVO");
 	String drno = request.getParameter("drno");
 	pageContext.setAttribute("drno", drno);
 %>

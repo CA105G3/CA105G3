@@ -1,3 +1,4 @@
+<%@page import="com.member.model.MemberVO"%>
 <%@page import="com.doctor.model.DoctorService"%>
 <%@page import="com.doctor.model.DoctorVO"%>
 <%@page import="com.medicalorder.model.MedicalOrderVO"%>
@@ -13,6 +14,8 @@
 %>
 
 <% 
+	MemberVO memVO = (MemberVO)session.getAttribute("memVO");
+
 	String drno = (String)session.getAttribute("drno");
 	MedicalOrderService ms = new MedicalOrderService();
 	List<MedicalOrderVO> todayList = ms.getByDrnoToday(drno);

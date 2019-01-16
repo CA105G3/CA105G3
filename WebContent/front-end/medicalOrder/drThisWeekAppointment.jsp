@@ -1,3 +1,4 @@
+<%@page import="com.member.model.MemberVO"%>
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -7,6 +8,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%
+	MemberVO memVO = (MemberVO)session.getAttribute("memVO");
 // 	String drno = request.getParameter("drno");
 	String drno = (String)session.getAttribute("drno");
 	MedicalOrderService mSvc = new MedicalOrderService();
@@ -133,7 +135,7 @@ th, td {
 					<!-- /.panel-heading -->
 					<!-- 					<div class="panel-body"> -->
 
-					<table class="table table-striped table-borderedtable table-hover"
+					<table class="table table-striped table-borderedtable table-hover "
 						id="dataTables-example">
 						<tr>
 							<th>看診單編號</th>
@@ -159,7 +161,7 @@ th, td {
 								<td>${mvo.moTime}</td>
 								<td>${mvo.moHour}:00~${mvo.moHour + 3}:00</td>
 								<td id="canceltd${s.index}">
-									<form method="post"
+									<form method="post" 
 										action="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do">
 										<input type="hidden" name="moNo" value="${mvo.moNo}">
 										<input type="hidden" name="action" value="cancle_medicalorder_ByDr">

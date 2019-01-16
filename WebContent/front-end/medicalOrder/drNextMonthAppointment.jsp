@@ -1,3 +1,4 @@
+<%@page import="com.member.model.MemberVO"%>
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -7,6 +8,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%
+	MemberVO memVO = (MemberVO)session.getAttribute("memVO");
 	String drno = (String)session.getAttribute("drno");
 	MedicalOrderService mSvc = new MedicalOrderService();
 	List<MedicalOrderVO> list = mSvc.getByDrnoNextMonth(drno);

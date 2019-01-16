@@ -1,3 +1,4 @@
+<%@page import="com.member.model.MemberVO"%>
 <%@page import="java.util.List"%>
 <%@ page import="com.doctor.model.DoctorVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -7,6 +8,7 @@
 
 
 <%
+	MemberVO memVO = (MemberVO)session.getAttribute("memVO");
 	// 	DoctorVO dvo = (DoctorVO) request.getAttribute("dvo");
 	// 	String drno = (String) request.getParameter("drno");
 	String drno = (String) session.getAttribute("drno");

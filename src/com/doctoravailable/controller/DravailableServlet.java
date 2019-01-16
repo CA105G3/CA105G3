@@ -239,8 +239,11 @@ public class DravailableServlet extends HttpServlet {
 				
 				
 				String dravano = req.getParameter("dravano");
+				System.out.println(dravano);
 				int index = Integer.parseInt(req.getParameter("index"));
+				System.out.println(index);
 				String vx = req.getParameter("vx");
+				System.out.println(vx);
 				//判斷一下如果點擊的時間如果是當天的話，有沒有超過該時段開始的時間
 				int clock = Integer.valueOf(req.getParameter("clock")); //點到的時段
 				

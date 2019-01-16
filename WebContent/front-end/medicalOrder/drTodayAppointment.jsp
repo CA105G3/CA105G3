@@ -1,3 +1,4 @@
+<%@page import="com.member.model.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,6 +7,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%
+	MemberVO memVO = (MemberVO)session.getAttribute("memVO");
 	String drno = (String)session.getAttribute("drno");
 	MedicalOrderService mSvc = new MedicalOrderService();
 	List<MedicalOrderVO> list = mSvc.getByDrnoToday(drno);
@@ -146,7 +148,7 @@ th, td {
 						<c:forEach var="mvo" items="${list}" begin="<%=pageIndex%>"
 							end="<%=pageIndex+rowsPerPage-1%>">
 							<tr>
-								<td><a href="">${mvo.moNo}</a></td>
+								<td><a href="<%=request.getContextPath()%>\front-end\webrtc\treament_doctorside.jsp?moNO=${mvo.moNo}">${mvo.moNo}</a></td>
 								<td><c:forEach var="memVO" items="${memSvc.all}">
 										<c:if test="${memVO.memNo==mvo.memNo}">
 	                    	${memVO.memName}
@@ -157,7 +159,7 @@ th, td {
 								<td>${mvo.moTime}</td>
 								<td>${mvo.moHour}:00~${mvo.moHour + 3}:00</td>
 								<td id="canceltd${s.index}">
-									<form method="post"
+									<form method="post" 
 										action="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do">
 										<input type="hidden" name="moNo" value="${mvo.moNo}">
 										<input type="hidden" name="action" value="cancle_medicalorder_ByDr">
