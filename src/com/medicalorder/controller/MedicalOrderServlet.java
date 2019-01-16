@@ -164,7 +164,7 @@ public class MedicalOrderServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 				//接收請求參數
-				MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+				MemberVO memberVO = (MemberVO)session.getAttribute("memVO");
 				String memNo = memberVO.getMemNo();		
 				String drNo = req.getParameter("drno");
 				String moStatus = "等待問診";
@@ -192,6 +192,12 @@ public class MedicalOrderServlet extends HttpServlet {
 					}
 				
 				String moIntro = req.getParameter("moIntro");
+				if (moIntro == null || moIntro.trim().length() == 0) {
+					errorMsgs.add("請填寫病況說明");
+				}
+				
+				
+				
 				String moCancelReason = null;
 				byte[] moVideo = null;
 				String moText = null;
@@ -211,7 +217,7 @@ public class MedicalOrderServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("medicalOrderVO", medicalOrderVO);
 					RequestDispatcher failureData = req
-							.getRequestDispatcher("/front-end/medicalOrder/addMedicalOrder.jsp");
+							.getRequestDispatcher("/front-end/medicalOrder/checkReserve.jsp");
 					failureData.forward(req, res);
 					return;
 			}
