@@ -1,9 +1,9 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
 <head>
-<title>À\¶¼index</title>
+<title>é¤é£²index</title>
 
 <style>
   table#img1 {
@@ -21,13 +21,13 @@
 
 <table>
   <tr><td id="img1" style="background-image: url('/images/food_header.JPG')" >
-  		<font size="20" color="white"><b>À\¶¼¬d¸ß</b></font></td></tr>
-<!--   <div class="centered"><font color="white" size="50">À\¶¼¬d¸ß</font></div> -->
+  		<font size="20" color="white"><b>é¤é£²æŸ¥è©¢</b></font></td></tr>
+<!--   <div class="centered"><font color="white" size="50">é¤é£²æŸ¥è©¢</font></div> -->
 </table>
 	
-<%-- ¿ù»~ªí¦C --%>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ð­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 	    <c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -35,22 +35,22 @@
 	</ul>
 </c:if>
 
-<p><h3>À\ÂI¬d¸ß</h3></p>
+<p><h3>é¤é»žæŸ¥è©¢</h3></p>
 <ul> 
   <li>
      <FORM METHOD="post" ACTION="<%=request.getContextPath() %>/shoppingCart.do" >
-         ¨Ì·~ªÌ¦WºÙ¬d¸ß (¦p "¤T´¶"):
+         ä¾æ¥­è€…åç¨±æŸ¥è©¢ (å¦‚ "ä¸‰æ™®"):
         <input type="text" name="chefRep">
         <input type="hidden" name="action" value="getMenu_by_chefRep">
-        <input type="submit" value="°e¥X">
+        <input type="submit" value="é€å‡º">
     </FORM>
   </li>
  <li>
      <FORM METHOD="post" ACTION="<%=request.getContextPath() %>/shoppingCart.do" >
-         ¨Ì¨ÑÀ\®É¬q¬d¸ß (¦p "¦­"):
+         ä¾ä¾›é¤æ™‚æ®µæŸ¥è©¢ (å¦‚ "æ—©"):
         <input type="text" name="menuTimeSlot">
         <input type="hidden" name="action" value="getMenu_by_menuTimeSlot">
-        <input type="submit" value="°e¥X">
+        <input type="submit" value="é€å‡º">
     </FORM>
   </li>
 </ul>

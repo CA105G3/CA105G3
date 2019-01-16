@@ -44,6 +44,10 @@ public class MenuListService {
 		dao.delete(menuListNo);
 	}
 
+	public List<MenuListVO> findByMemno(String memno){
+		return dao.findByMemno(memno);
+	}
+	
 	public List<MenuListVO> findByChefRep(String chefRep){
 		return dao.findByChefRep(chefRep);
 	}

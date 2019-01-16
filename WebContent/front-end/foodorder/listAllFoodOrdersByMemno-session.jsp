@@ -5,11 +5,18 @@
 <%@ page import="com.menulist.model2.*" %>
 <%@ page import="com.member.model.*" %>
 
-
+<% 
+  MemberVO memVO = (MemberVO)session.getAttribute("memVO");
+%>
 <%	
-	FoodOrderService foodOrderSvc = new FoodOrderService();
-	List<FoodOrderVO> list = foodOrderSvc.getAll();
-	pageContext.setAttribute("list", list);
+FoodOrderService foodOrderSvc = new FoodOrderService();
+List<FoodOrderVO> foodOrderVOList = (List<FoodOrderVO>) foodOrderSvc.findBy_Memno(memVO.getMemNo());
+pageContext.setAttribute("foodOrderVOList", foodOrderVOList);
+%>
+<%	
+// 	FoodOrderService foodOrderSvc = new FoodOrderService();
+// 	List<FoodOrderVO> list = foodOrderSvc.getAll();
+// 	pageContext.setAttribute("list", list);
 %>
 <jsp:useBean id="menuListSvc" scope="page" class="com.menulist.model2.MenuListService" />
 
@@ -51,8 +58,7 @@
 </style>
 </head>
 <body>
-
-<font color=red><b>${param.memno}</b></font>
+	
 <table id="table-1">
 	<!--<img src="images/food_header.jpg">  -->
 	<tr><td>
@@ -60,7 +66,6 @@
 		<h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
-
 
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤：</font>
@@ -70,25 +75,25 @@
 		</c:forEach>
 	</ul>
 </c:if>
-
-
-
+<%-- <font color=red><b>${param.memno}</b></font> --%>
 <table>
 	<tr>
+		<th>訂單明細編號</th>
 		<th>餐飲業者</th>
 		<th>餐點名稱</th>
 		<th>供餐時段</th>
 		<th>單價</th>
 		<th>數量</th>
 	</tr>
-	<c:forEach var="foodOrderVO" items="${foodOrderVOList}">
-		<c:forEach var="menuListVO" items="${menuListSvc.findByMemno(foodOrderVO.memno)}">
+<%-- 	<c:forEach var="foodOrderVO" items="${foodOrderVOList}"> --%>
+		<c:forEach var="menuListVO" items="${menuListSvc.findByMemno(memVO.memNo)}">
 		<tr>
+		 <td>${menuListVO.odno}</td>
 		 <td>${menuListVO.chefRep}</td>
 		 <td>${menuListVO.mainCourse}</td>
 		 <td>${menuListVO.menuTimeSlot}</td>
 		 <td>${menuListVO.unitPrice}</td>
-		 <td>${menuListVO.unitPrice}</td>
+		 <td>${menuListVO.amount}</td>
 
 <%-- 			<td>${menuListSvc.findByMemno(foodOrderVO.memno).getChefRep()}</td> --%>
 <%-- 			<td>${menuListSvc.findByMemno(foodOrderVO.memno).mainCourse}</td> --%>
@@ -97,7 +102,7 @@
 <%-- 			<td>${menuListSvc.findByMemno(foodOrderVO.memno).amount}</td> --%>
 		</tr>
 		 </c:forEach>
-	</c:forEach>
+<%-- 	</c:forEach> --%>
 </table>
 
 </body>

@@ -113,7 +113,7 @@ font {
 		<th scope="col"><font>業者</font></th>
 		<th scope="col"><font>餐點名稱</font></th>
 		<th scope="col"><font>供餐時段</font></th>
-		<th scope="col"><font>單價</font>/th>
+		<th scope="col"><font>單價</font></th>
 		<th scope="col"><font>數量</font></th>
 	</tr>
 	</thead>
