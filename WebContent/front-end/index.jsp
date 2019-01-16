@@ -57,7 +57,7 @@
             <div class="col-md-6 col-sm-12 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
               <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">舒適的問診體驗</h1>
               <p class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">輕鬆簡單的方式，讓您在家也能體驗醫療的好處</p>
-              <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><a href="doctors.html" class="btn btn-primary px-4 py-3">立即預約</a></p>
+              <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><a href="<%=request.getContextPath()%>/front-end/medicalOrder/ScanDoctor.jsp" class="btn btn-primary px-4 py-3">立即預約</a></p>
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@
             <div class="col-md-6 col-sm-12 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
               <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">專業的醫療服務</h1>
               <p class="mb-4">為家中不方便的患者所提供的線上諮詢，您一定不能錯過!!</p>
-              <p><a href="#" class="btn btn-primary px-4 py-3">線上預約</a></p>
+              <p><a href="<%=request.getContextPath()%>/front-end/medicalOrder/ScanDoctor.jsp" class="btn btn-primary px-4 py-3">線上預約</a></p>
             </div>
           </div>
         </div>
