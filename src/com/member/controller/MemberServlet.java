@@ -3,7 +3,6 @@ package com.member.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -11,19 +10,16 @@ import java.util.Set;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import com.administrator.model.AdministratorService;
-import com.administrator.model.AdministratorVO;
+import com.doctor.model.DoctorService;
 import com.license.model.LicenseVO;
-import com.member.model.*;
-import com.ppttool.model.PPTToolService;
-import com.tools.mail.Verifymail;
+import com.member.model.MemberService;
+import com.member.model.MemberVO;
 import com.tools.transImage.TranslateImage;
 
 
@@ -579,7 +575,9 @@ public class MemberServlet extends HttpServlet {
 		        MemberService memSvc = new MemberService();
 			  	MemberVO memVO=memSvc.getOneMemberByAccount(account,lastlogin);
 		        session.setAttribute("memVO", memVO);   //*工作1: 才在session內做已經登入過的標識
-
+		        String memno  = memVO.getMemNo();
+		        DoctorService ds = new DoctorService();
+		        ds.UpdateIsonline("線上", memno);
 		         try {                                                        
 		           String location = (String) session.getAttribute("location");
 		           if (location != null) {
@@ -595,6 +593,10 @@ public class MemberServlet extends HttpServlet {
 	
 		if("logout".equals(action)) {
 			HttpSession session = req.getSession();
+			MemberVO memVO =(MemberVO)session.getAttribute("memVO");
+	        String memno  = memVO.getMemNo();
+	        DoctorService ds = new DoctorService();
+	        ds.UpdateIsonline("離線", memno);
 			session.removeAttribute("memno");
 			session.removeAttribute("memVO");
 			res.sendRedirect(req.getContextPath()+"/front-end/index.jsp");

@@ -18,6 +18,7 @@
 	List<MedicalOrderVO> todayList = ms.getByDrnoToday(drno);
 	List<MedicalOrderVO> thisWeekList = ms.getByDrnoThisWeek(drno);
 	List<MedicalOrderVO> thisMonthDoneList = ms.getByDrnoThisMonthDone(drno);
+	List<MedicalOrderVO> thisMonthWaitList = ms.getByDrnoThisMonth(drno);
 	int monthRevenue = 0;
 	for(MedicalOrderVO mvo : thisMonthDoneList){
 		monthRevenue += mvo.getMoCost();
@@ -111,7 +112,7 @@
             </div>
             <!-- /.row -->
             <div class="row">
-   <div class="container">
+<!--    <div class="container"> -->
                 <div class="col-lg-5 col-md-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
@@ -159,8 +160,8 @@
                         </a>
                     </div>
                 </div>
- </div>
-                <div class="col-lg-4 col-md-6">
+<!--  </div> -->
+                <div class="col-lg-5 col-md-6">
                     <div class="panel panel-yellow">
                         <div class="panel-heading">
                             <div class="row">
@@ -184,20 +185,21 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-5 col-md-6">
                     <div class="panel panel-red">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-support fa-5x"></i>
+<!--                                     <i class="fa fa-support fa-5x"></i> -->
+                                    <i class="fas fa-calendar fa-10x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">13</div>
-                                    <div>Support Tickets!</div>
+                                    <div class="huge"><%=thisMonthWaitList.size()%></div>
+                                    <div>本月剩餘預約數</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="<%=request.getContextPath()%>/front-end/medicalOrder/drThisMonthAppointment.jsp">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

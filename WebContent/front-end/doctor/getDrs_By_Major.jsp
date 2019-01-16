@@ -79,7 +79,7 @@ th, td {
 			</td>
 			<td>
 				<form method="post" action="<%=request.getContextPath()%>/doctor.do">
-					<input type="hidden" name="memno" value="M0020"> 
+					<input type="hidden" name="memno" value="M0002"> 
 					<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>"> 
 					<input type="hidden" name="action" value="enter_dr_admin">
 					<input type="submit" value="我是醫療人員"  class="btn btn-info">
