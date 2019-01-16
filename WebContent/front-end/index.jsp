@@ -2,6 +2,7 @@
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.member.model.*"%>
+<%@ page import="com.memberchef.model.*"%>  
 <%@ page import="java.util.*" %>
 <%
 	MemberVO memVO=null;
@@ -181,6 +182,12 @@
       </div>
     </section>
 
+<%
+    MemberChefService chefSvc = new MemberChefService();
+    List<MemberChefVO> list = chefSvc.getAll();
+    pageContext.setAttribute("list",list);
+%>
+
     <section class="ftco-section">
       <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
@@ -189,62 +196,33 @@
             <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-4 ftco-animate">
+        <div class="row owl-carousel owl-theme" id="carousel-id">
+          <c:forEach var="chefVO" items="${list}">
+          <div class="col-md-4 ftco-animate item">
             <div class="blog-entry">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_1.jpg');">
+              <a href="blog-single.html" class="block-20" style="background-image: url('<%=request.getContextPath()%>/front-end/memberchef/memberchefImg.do?chefNo=${chefVO.chefNo}');">
               </a>
               <div class="text d-flex py-4">
-                <div class="meta mb-3">
-                  <div><a href="#">Sep. 20, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
+
                 <div class="desc pl-3">
-	                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+	                <h3 class="heading">${chefVO.chefStoreName}</h3>
+	                <div>${chefVO.chefDescrip}</div>
+	                <div class="container">
+						<div class="row">
+							<div class="col-xs-12 col-sm-4" style="margin-top: 10px; padding-right: 0px;">廚師：</div>
+							<div class="col-xs-12 col-sm-8" style="padding-left: 0px; padding-right: 0px;"><h4>${chefVO.chefName}</h4></div>
+						</div>
+					</div>
 	              </div>
               </div>
             </div>
           </div>
-          <div class="col-md-4 ftco-animate">
-            <div class="blog-entry" data-aos-delay="100">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_2.jpg');">
-              </a>
-              <div class="text d-flex py-4">
-                <div class="meta mb-3">
-                  <div><a href="#">Sep. 20, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <div class="desc pl-3">
-	                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-	              </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 ftco-animate">
-            <div class="blog-entry" data-aos-delay="200">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_3.jpg');">
-              </a>
-              <div class="text d-flex py-4">
-                <div class="meta mb-3">
-                  <div><a href="#">Sep. 20, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <div class="desc pl-3">
-	                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-	              </div>
-              </div>
-            </div>
-          </div>
+          </c:forEach>
+          
         </div>
       </div>
     </section>
 
-    
-    
-  
 
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
@@ -508,6 +486,30 @@ $("#zipcode3").twzipcode({
 "districtName": "town" // 指定地區 select name
 });
 </script>
+
+<script src="<%=request.getContextPath()%>/front-end/memberchef/js/jquery-3.3.1.min.js"></script>
+<script src="<%=request.getContextPath()%>/front-end/memberchef/js/owl.carousel.min.js"></script>
+  
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.owl-carousel2').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:true,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:3
+            },
+            1000:{
+                items:5
+            }
+        }
+    })  
+  });  
+  </script>
 </body>
 
   <!-- 以上為可動部分 -->

@@ -135,7 +135,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>MemberChefServlet</servlet-name>
-    <url-pattern>/memberchef/memberchef.do</url-pattern>
+    <url-pattern>/front-end/memberchef/memberchef.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>MemberChefImgServlet</servlet-name>
@@ -143,7 +143,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>MemberChefImgServlet</servlet-name>
-    <url-pattern>/memberchef/memberchefImg.do</url-pattern>
+    <url-pattern>/front-end/memberchef/memberchefImg.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>MenuServlet</servlet-name>
@@ -281,4 +281,23 @@
     <servlet-name>MemberImgServlet</servlet-name>
     <url-pattern>/front-end/member/membergetpic.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>FoodOrderServlet2</servlet-name>
+    <servlet-class>com.foodorder2.controller.FoodOrderServlet2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FoodOrderServlet2</servlet-name>
+    <url-pattern>/front-end/foodOrder2/foodorder2.do</url-pattern>
+  </servlet-mapping>
+      <servlet>
+    <servlet-name>FoodOrderImgServlet2</servlet-name>
+    <servlet-class>com.foodorder2.controller.FoodOrderImgServlet2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FoodOrderImgServlet2</servlet-name>
+    <url-pattern>/front-end/foodOrder2/foodorderImg2.do</url-pattern>
+  </servlet-mapping>
+  
+  
 </web-app>
