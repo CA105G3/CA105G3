@@ -22,7 +22,6 @@
 <table>
   <tr><td id="img1" style="background-image: url('/images/food_header.JPG')" >
   		<font size="20" color="white"><b>餐飲查詢</b></font></td></tr>
-<!--   <div class="centered"><font color="white" size="50">餐飲查詢</font></div> -->
 </table>
 	
 <%-- 錯誤表列 --%>

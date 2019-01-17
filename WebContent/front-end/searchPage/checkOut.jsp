@@ -50,9 +50,10 @@ font {
     <title >Health PLUS</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+ 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
   
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700" rel="stylesheet">
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/open-iconic-bootstrap.min.css">
@@ -103,20 +104,20 @@ font {
             </div>
         </div>
     </section>
-<img src="images/foodorder2.png"> <font size="+3">訂餐內容</font>
-<hr><p>
 <div class="container">
-<%-- <form id="checkoutForm" action="<%=request.getContextPath() %>/shoppingCart.do" method="get"> --%>
-	<table class="table">
-  	<thead class="thead-dark">
-	<tr>
-		<th scope="col"><font>業者</font></th>
-		<th scope="col"><font>餐點名稱</font></th>
-		<th scope="col"><font>供餐時段</font></th>
-		<th scope="col"><font>單價</font></th>
-		<th scope="col"><font>數量</font></th>
-	</tr>
-	</thead>
+	<h2><font>訂餐項目</font></h2>
+	<hr><p>
+	<%-- <form id="checkoutForm" action="<%=request.getContextPath() %>/shoppingCart.do" method="get"> --%>
+		<table class="table">
+	  	<thead class="thead-dark">
+		<tr>
+			<th scope="col"><font>業者</font></th>
+			<th scope="col"><font>餐點名稱</font></th>
+			<th scope="col"><font>供餐時段</font></th>
+			<th scope="col"><font>單價</font></th>
+			<th scope="col"><font>數量</font></th>
+		</tr>
+		</thead>
 
 	<%  @SuppressWarnings("unchecked")
 		Vector<MenuListVO> buylist = (Vector<MenuListVO>) session.getAttribute("shoppingcart");
@@ -134,36 +135,37 @@ font {
 			int unitPrice = order.getUnitPrice();
 			int amount = order.getAmount();
 	%>
-	<tbody>
-	<tr>
-		<td scope="row"><%=chefRep%>     </td>
-		<td><%=mainCourse%>   </td>
-		<td><%=menuTimeSlot%></td>
-		<td><%=unitPrice%>    </td>
-		<td><%=amount%> </td>
-	</tr>
+		<tbody>
+		<tr>
+			<td scope="row"><%=chefRep%>     </td>
+			<td><%=mainCourse%>   </td>
+			<td><%=menuTimeSlot%></td>
+			<td><%=unitPrice%>    </td>
+			<td><%=amount%> </td>
+		</tr>
 	<%
 		}
 	%>
-	<tr>
-		<td scope="row" colspan="5" style="text-align:right;"> 
-		   <h4><font size="+2">總金額： $${total} </font></h4>
-	    </td>
-	</tr> 
-</table>
-       <p>
-   <h4><font>送餐地址:<%=deliverAddr%></font></h4>
+		<tr>
+			<td scope="row" colspan="5" style="text-align:right;"> 
+			   <h4><font size="+2">總金額： $${total} </font></h4>
+		    </td>
+		</tr> 
+	</table>
+	<br><br>
+    <h4><font>送餐地址:</font><%=deliverAddr%></h4>
 <!-- </form> -->
-<form name="new_order" action="<%=request.getContextPath()%>/shoppingCart.do" method="POST">
-	   <input type="hidden" name="chefNo" value="CHEF0001">
-   	   <input type="hidden" name="memno" value="M0001">
-   	   <input type="hidden" name="deliverAddr" value="<%=deliverAddr%>">
-   	   <input type="hidden" name="orderStatus" value="接受">
-   	   <input type="hidden" name="total" value="<%=total%>">
-   	   <input type="hidden" name="menuListNo" value="${menuListVO.menuListNo}">   		       
-       <input type="hidden" name="action"  value="insert"> 
-       <input type="submit" value="完成結帳" class="btn btn-success btn-lg">
-</form>
+		<form name="new_order" action="<%=request.getContextPath()%>/shoppingCart.do" method="POST">
+			   <input type="hidden" name="chefNo" value="CHEF0001">
+		   	   <input type="hidden" name="memno" value="M0001">
+		   	   <input type="hidden" name="deliverAddr" value="<%=deliverAddr%>">
+		   	   <input type="hidden" name="orderStatus" value="接受">
+		   	   <input type="hidden" name="total" value="<%=total%>">
+		   	   <input type="hidden" name="menuListNo" value="${menuListVO.menuListNo}">   		       
+		       <input type="hidden" name="action"  value="insert"> 
+		       <input type="submit" value="完成結帳" class="btn btn-dark">
+		</form>
+	</div>
 </div>
 <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
             <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
