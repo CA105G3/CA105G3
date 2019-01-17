@@ -283,14 +283,14 @@
 				//註冊一個onclick,觸發無法預約的提醒
 				element.onclick = function(){
 					var element = this;
-					if(element.id < <%=(currentDayInt - 1) * 3%>){ //還沒處理完當天時間
-						Swal(
-							'非可預約時間',
-							'請選擇可預約時段',
-							'warning'
-								)
-						return;
-					}
+<%-- 					if(element.id < <%=(currentDayInt - 1) * 3%>){ //還沒處理完當天時間 --%>
+// 						Swal(
+// 							'非可預約時間',
+// 							'請選擇可預約時段',
+// 							'warning'
+// 								)
+// 						return;
+// 					}
 					if (element.getAttribute('data-value') != "V"){
 						Swal(
 							'非可預約時間',

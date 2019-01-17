@@ -46,15 +46,15 @@
 	<br>
 <!-- 幻燈片輪播 -->
 
-<div class="container-fluid">
+<div class="container-fluid"">
 	<div class="row">
 		
 		<!-- 		左方問診管理		 -->
-		<div class="col-xs-12 col-sm-3 col-lg-3">
+		<div class="col-xs-12 col-sm-3 col-xl-3">
 			<%@ include file="sidebar.jsp" %>			
 		</div>
 		
-		<div class="col-xs-12 col-sm-9 col-lg-9">
+		<div class="col-xs-12 col-sm-9 col-xl-9">
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -84,7 +84,7 @@
 			      <td scope="col" class="text-center">${reserveMap.year}/${reserveMap.month}/${reserveMap.date}</td>
 			      <td scope="col" class="text-center">${reserveMap.hour}</td>
 			      <td scope="col" class="text-center">${doctorSvc.getOneDoctor(reserveMap.drno).fee}</td>
-			      <td scope="col"><input type="text" name="moIntro" size="70"></td>
+			      <td scope="col"><input type="text" name="moIntro" size="50"></td>
 			      <td scope="col"> 	
 					<input type="hidden" name="drno" value="${reserveMap.drno}">  
 					<input type="hidden" name="year" value="${reserveMap.year}"> 
@@ -99,9 +99,10 @@
 		      	</tr>
 		    </tbody>
 </form>   
-</table>
+		</table>
 	
-	</div>
+		</div>
+		
 	</div>
 </div>
 
