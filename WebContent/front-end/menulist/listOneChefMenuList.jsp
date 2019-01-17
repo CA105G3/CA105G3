@@ -5,7 +5,7 @@
 <%@ page import="com.menu.model.*"%>    
 <%@ page import="com.menulist.model.*"%>  
 <%  
-String chefNo = (String)request.getAttribute("chefNo");
+String chefNo = (String)session.getAttribute("chefNo");
 List<MenuVO> menu = (List<MenuVO>)request.getAttribute("menu");
 List<MenuListVO> menuList = (List<MenuListVO>)request.getAttribute("menuList");
 %>
@@ -38,6 +38,7 @@ List<MenuListVO> menuList = (List<MenuListVO>)request.getAttribute("menuList");
     
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/flaticon.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
+<%--     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css"> --%>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/activity/css/leftsidebar.css">
@@ -214,9 +215,6 @@ h4 {
         </div>
       </li><!-- Smaller devices menu END -->
       
-    </ul>
-  </div>
-</nav><!-- NavBar END -->
 
 
 <!-- Bootstrap row -->
@@ -232,25 +230,25 @@ h4 {
                 <small>基本選單</small>
             </li>
             <!-- Menu with submenu -->
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
+            <a href="<%=request.getContextPath()%>/front-end/memberchef/memberchef.jsp" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-user fa-fw mr-3"></span>
                     <span class="menu-collapsed">基本資料</span>
                 </div>
             </a>            
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
+            <a href="<%=request.getContextPath()%>/front-end/menu/menu.jsp" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fas fa-calendar-alt fa-fw mr-3"></span>
                     <span class="menu-collapsed">基本菜單管理</span>
                 </div>
             </a>            
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
+            <a href="<%=request.getContextPath()%>/front-end/menulist/menulist.do?action=For_Display" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-calendar fa-fw mr-3"></span>
                     <span class="menu-collapsed">上架菜單管理</span>
                 </div>
             </a>            
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
+            <a href="<%=request.getContextPath()%>/front-end/memberchef/chefOrder.do?action=getOrder" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fas fa-list fa-fw mr-3"></span>
                     <span class="menu-collapsed">訂單管理</span>
@@ -270,8 +268,8 @@ h4 {
 			        <button type="submit" class="btn btn-default" aria-label="Left Align" name="PREV">
 			        	<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 			        </button>
-			        <input type="hidden" name="chefNo" value="CHEF0001">
-			        <input type="hidden" name="action" value="For_Update">
+			        <input type="hidden" name="chefNo" value="<%=chefNo%>">
+			        <input type="hidden" name="action" value="For_Display">
 			        <input type="hidden" name="month" value="<%=prevMonth%>">
 			        <input type="hidden" name="year" value="<%=prevYear%>">
 			      </form>
@@ -288,8 +286,8 @@ h4 {
 			        <button type="submit" class="btn btn-default" aria-label="Left Align" name="NEXT">
 			        	<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 			        </button>
-			        <input type="hidden" name="chefNo" value="CHEF0001">
-			        <input type="hidden" name="action" value="For_Update">
+			        <input type="hidden" name="chefNo" value="<%=chefNo%>">
+			        <input type="hidden" name="action" value="For_Display">
 			        <input type="hidden" name="month" value="<%=nextMonth%>">
 			        <input type="hidden" name="year" value="<%=nextYear%>">
 			      </form>
@@ -1062,7 +1060,7 @@ h4 {
 	
   </body>
   <!-- 以上為可動部分 -->
-  <footer class="ftco-footer ftco-bg-dark ftco-section">
+  <footer class="ftco-footer ftco-bg-dark ftco-section" style="margin-top: 75px;">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-3">

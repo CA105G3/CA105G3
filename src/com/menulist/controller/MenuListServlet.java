@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.menu.model.MenuService;
 import com.menu.model.MenuVO;
@@ -29,16 +30,18 @@ public class MenuListServlet extends HttpServlet {
 	@SuppressWarnings("null")
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
+		HttpSession session = req.getSession();
+		String chefNo = (String)session.getAttribute("chefNo");
 		String action = req.getParameter("action");
 
-        if ("For_Display".equals(action)) { // 來自updateAllMenuList.jsp的請求
+        if (chefNo != null && !chefNo.equals("") && "For_Display".equals(action)) { // 來自updateAllMenuList.jsp的請求
 			
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-				String chefNo = req.getParameter("chefNo");
+//				String chefNo = req.getParameter("chefNo");
 				String month = req.getParameter("month");
 				String year = req.getParameter("year");
 				
@@ -85,7 +88,7 @@ public class MenuListServlet extends HttpServlet {
 				req.setAttribute("menuList", menuList);
 				req.setAttribute("month", month);
 				req.setAttribute("year", year);
-				req.setAttribute("chefNo", chefNo);
+//				req.setAttribute("chefNo", chefNo);
 				String url = "/front-end/menulist/listOneChefMenuList.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交getAllMenuList.jsp
 				successView.forward(req, res);				
@@ -108,7 +111,7 @@ public class MenuListServlet extends HttpServlet {
 
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-				String chefNo = req.getParameter("chefNo");
+//				String chefNo = req.getParameter("chefNo");
 				
 				/***************************2.開始修改資料***************************************/
 				MenuService menuSvc = new MenuService();
@@ -174,7 +177,7 @@ public class MenuListServlet extends HttpServlet {
 
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-				String chefNo = req.getParameter("chefNo");
+//				String chefNo = req.getParameter("chefNo");
 				String month = req.getParameter("month");
 				String year = req.getParameter("year");
 				
@@ -210,7 +213,7 @@ public class MenuListServlet extends HttpServlet {
 				req.setAttribute("menuList", menuList);
 				req.setAttribute("month", month);
 				req.setAttribute("year", year);
-				req.setAttribute("chefNo", chefNo);
+//				req.setAttribute("chefNo", chefNo);
 				String url = "/front-end/menulist/updateOneChefMenuList.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交getAllMenuList.jsp
 				successView.forward(req, res);				

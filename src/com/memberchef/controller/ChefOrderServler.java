@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.foodorder2.model.*;
 import com.member.model.MemberService;
@@ -26,6 +27,8 @@ public class ChefOrderServler extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
+		HttpSession session = req.getSession();
+		String chefNo = (String)session.getAttribute("chefNo");
 		String action = req.getParameter("action");
 		
 		if ("getOrder".equals(action)) { 
@@ -34,7 +37,7 @@ public class ChefOrderServler extends HttpServlet {
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 				
-				String chefNo = req.getParameter("chefNo");
+//				String chefNo = req.getParameter("chefNo");
 				
 				
 				/***************************2.開始查詢資料***************************************/
@@ -56,7 +59,7 @@ public class ChefOrderServler extends HttpServlet {
 				List<MemberVO> member = memSvc.getAll();
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)***********/
-				req.setAttribute("chefNo", chefNo); 
+//				req.setAttribute("chefNo", chefNo); 
 				req.setAttribute("FOlist", FOlist); 
 				req.setAttribute("ODlist", ODlist); 
 				req.setAttribute("menu", menu); 

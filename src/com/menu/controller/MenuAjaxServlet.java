@@ -64,8 +64,8 @@ public class MenuAjaxServlet extends HttpServlet {
 				menuSvc.addMenu(chefNo, Integer.parseInt(unitPrice), mainCourse, menuPic, deliverable, menuIntro);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				res.setContentType("text/plain");
-				res.setCharacterEncoding("UTF-8");
+//				res.setContentType("text/plain");
+//				res.setCharacterEncoding("UTF-8");
 				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
@@ -93,11 +93,13 @@ public class MenuAjaxServlet extends HttpServlet {
 				String filename = part.getSubmittedFileName();
 
 				if (filename != "") {
+					System.out.println("有圖");
 					InputStream in = part.getInputStream();
 					menuPic = new byte[in.available()];
 					in.read(menuPic);
 					in.close();
 				} else {
+					System.out.println("舊圖");
 					MenuService menuSvc = new MenuService();
 					menuPic = menuSvc.getOneMenu(menuNo).getMenuPic();
 				}
@@ -106,15 +108,17 @@ public class MenuAjaxServlet extends HttpServlet {
 				System.out.println(chefNo);
 				System.out.println(mainCourse);
 				System.out.println(unitPrice);
+				System.out.println(menuIntro);
 				System.out.println(deliverable);
 				
 				/***************************2.開始更新資料***************************************/
 				MenuService menuSvc = new MenuService();
+				System.out.println("1");
 				menuSvc.updateMenu(Integer.parseInt(unitPrice), mainCourse, menuPic, deliverable, menuIntro, menuNo);
-				
+				System.out.println("2");
 				/***************************3.更新完成,準備轉交(Send the Success view)***********/
-				res.setContentType("text/plain");
-				res.setCharacterEncoding("UTF-8");
+//				res.setContentType("text/plain");
+//				res.setCharacterEncoding("UTF-8");
 				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {

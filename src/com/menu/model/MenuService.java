@@ -29,7 +29,7 @@ public class MenuService {
 	}
 	
 	public MenuVO updateMenu(int unitPrice, String mainCourse, byte[] menuPic,
-			String deliverable, String menuNo, String menuIntro) {
+			String deliverable, String menuIntro, String menuNo) {
 		MenuVO menuVO = new MenuVO();
 		menuVO.setUnitPrice(unitPrice);
 		menuVO.setMainCourse(mainCourse);

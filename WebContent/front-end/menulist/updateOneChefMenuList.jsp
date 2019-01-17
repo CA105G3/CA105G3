@@ -5,7 +5,7 @@
 <%@ page import="com.menu.model.*"%>    
 <%@ page import="com.menulist.model.*"%>  
 <%  
-String chefNo = (String)request.getAttribute("chefNo");
+String chefNo = (String)session.getAttribute("chefNo");
 List<MenuVO> menu = (List<MenuVO>)request.getAttribute("menu");
 List<MenuListVO> menuList = (List<MenuListVO>)request.getAttribute("menuList");
 %>
@@ -338,9 +338,6 @@ h5 {
         </div>
       </li><!-- Smaller devices menu END -->
       
-    </ul>
-  </div>
-</nav><!-- NavBar END -->
 
 
 <!-- Bootstrap row -->
@@ -356,25 +353,25 @@ h5 {
                 <small>基本選單</small>
             </li>
             <!-- Menu with submenu -->
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
+            <a href="<%=request.getContextPath()%>/front-end/memberchef/memberchef.jsp" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-user fa-fw mr-3"></span>
                     <span class="menu-collapsed">基本資料</span>
                 </div>
             </a>            
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
+            <a href="<%=request.getContextPath()%>/front-end/menu/menu.jsp" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fas fa-calendar-alt fa-fw mr-3"></span>
                     <span class="menu-collapsed">基本菜單管理</span>
                 </div>
             </a>            
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
+            <a href="<%=request.getContextPath()%>/front-end/menulist/menulist.do?action=For_Display" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-calendar fa-fw mr-3"></span>
                     <span class="menu-collapsed">上架菜單管理</span>
                 </div>
             </a>            
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
+            <a href="<%=request.getContextPath()%>/front-end/memberchef/chefOrder.do?action=getOrder" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fas fa-list fa-fw mr-3"></span>
                     <span class="menu-collapsed">訂單管理</span>
