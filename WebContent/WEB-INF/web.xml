@@ -201,7 +201,8 @@
   </filter>
   <filter-mapping>
     <filter-name>Acess_Filter</filter-name>
-    <url-pattern>/doctoravailable/selectDoctorAvailable_page.jsp</url-pattern>
+    <url-pattern>/doctor.do</url-pattern>
+    <url-pattern>/front-end/medicalOrder/getMedicalOrderFromMember.jsp</url-pattern>
   </filter-mapping>
   <servlet>
     <servlet-name>ImpressionServlet</servlet-name>
