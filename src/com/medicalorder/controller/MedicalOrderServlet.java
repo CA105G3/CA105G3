@@ -3,29 +3,29 @@ package com.medicalorder.controller;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.print.attribute.standard.RequestingUserName;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 
 import com.doctor.model.DoctorService;
 import com.doctor.model.DoctorVO;
 import com.doctoravailable.controller.HandleDravailable;
-import com.medicalorder.model.MedicalOrderDAO;
 import com.medicalorder.model.MedicalOrderService;
 import com.medicalorder.model.MedicalOrderVO;
-import com.member.model.*;
+import com.member.model.MemberService;
+import com.member.model.MemberVO;
+
+import sendMail.MailService;
 
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
@@ -708,6 +708,61 @@ System.out.println("333333333333333333333333");
 				failureView.forward(req, res);
 			}
 		}
+		
+		
+		
+		//===============================================================================================		
+		
+				if ("cancle_medicalorder_ByDr".equals(action)) { 
+					List<String> errorMsgs = new LinkedList<String>();
+					// Store this set in the request scope, in case we need to
+					// send the ErrorPage view.
+					req.setAttribute("errorMsgs", errorMsgs);
+					String requestURL = req.getParameter("requestURL");
+					try {
+						/***************************1.接收請求參數***************************************/
+						String moNo = req.getParameter("moNo");
+						
+						MedicalOrderService moSvc = new MedicalOrderService();
+						moSvc.cancelByDr(moNo, "取消問診");
+						MedicalOrderVO medvo =  moSvc.getOneMedicalOrder(moNo);
+						System.out.println("medvo = " + medvo);
+						String memno = medvo.getMemNo();
+						System.out.println("memno = " + memno);
+						Date moTime = medvo.getMoTime();
+						System.out.println("moTime = " + moTime);
+						int moHour = medvo.getMoHour();
+						System.out.println("moHour = " + moHour);
+						
+						MemberService ms = new MemberService();
+						MemberVO mvo = ms.getOneMember(memno);
+						String memName = mvo.getMemName();
+						System.out.println("memName = " + memName);
+						String to = mvo.getEmail();
+						System.out.println("to = " + mvo.getEmail());
+						String subject = "看診單編號 : " + moNo + " 醫生取消看診";
+						String messageText = "Dear " + memName + ":  \n"
+								+ "您於" + moTime + "  " + moHour + ":00 ~ " + (moHour + 3) + ":00  時段的預約由於醫生個人因素而取消， \n"
+								+ "診療費用將於近日退還給您，造成您的不便，還請見諒。";
+						MailService mailSvc = new MailService();
+						mailSvc.sendMail(to, subject, messageText);
+						RequestDispatcher successView = req.getRequestDispatcher(requestURL);
+						successView.forward(req, res);
+						
+						/***************************其他可能的錯誤處理**********************************/
+					} catch (Exception e) {
+						errorMsgs.add("取消預約失敗:"+e.getMessage());
+						RequestDispatcher failureView = req
+								.getRequestDispatcher(requestURL);
+						failureView.forward(req, res);
+					}
+				}
+				
+				if ("cancle_medicalorder_ByDrAjax".equals(action)) {
+					System.out.println("test");
+				}
+
+//		============================================================	
 
 	}
 
