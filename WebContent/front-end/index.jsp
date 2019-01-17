@@ -4,6 +4,14 @@
 <%@ page import="com.member.model.*"%>
 <%@ page import="com.memberchef.model.*"%>  
 <%@ page import="java.util.*" %>
+
+<!-- 顯示首頁醫生訊息 -->
+<%@ page import="com.doctor.model.*"%> 
+<jsp:useBean id="doctorVO" scope="page" class="com.doctor.model.DoctorVO" />
+<jsp:useBean id="doctorSvc" scope="page" class="com.doctor.model.DoctorService" />
+<jsp:useBean id="memberVO" scope="page" class="com.member.model.MemberVO" />
+<jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService"/>
+
 <%
 	MemberVO memVO=null;
 	memVO = (MemberVO)session.getAttribute("memVO");
@@ -118,14 +126,13 @@
         <div class="row">
         	<div class="col-lg-3 col-md-6 d-flex mb-sm-4 ftco-animate">
         		<div class="staff">
-      				<div class="img mb-4" style="background-image: url(images/tomcat.gif);"></div>
+      				<div class="img mb-4" style="background-image: url(<%=request.getContextPath()%>/doctor/doctorImg.do?drno=${doctorSvc.getOneDoctor("D0001").drno});"></div>
       				<div class="info text-center">
-      					<h3><a href="teacher-single.html">Tom cat</a></h3>
-      					<span class="position">軟體治療師</span>
+      					<h3>${memberSvc.getOneMember(doctorSvc.getOneDoctor("D0001").memno).memName}</h3>
+      					<span class="position">${doctorSvc.getOneDoctor("D0001").major}</span>
       					<div class="text">
-	        				<p>Far far away, behind the word mountains, far from the countries Vokalia</p>
 	        				<ul class="ftco-social">
-			              <li class="ftco-animate"><button type="button" class="btn btn-primary"><a href="about.html">前往</button></a></li>
+			              <li class="ftco-animate"><button type="button" class="btn btn-primary"><a href="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do?action=findDr&&drno=D0001">前往</button></a></li>
 			            </ul>
 	        			</div>
       				</div>
@@ -133,14 +140,13 @@
         	</div>
         	<div class="col-lg-3 col-md-6 d-flex mb-sm-4 ftco-animate">
         		<div class="staff">
-      				<div class="img mb-4" style="background-image: url(images/dragon.jpg);"></div>
+      				<div class="img mb-4" style="background-image: url(<%=request.getContextPath()%>/doctor/doctorImg.do?drno=${doctorSvc.getOneDoctor("D0002").drno});"></div>
       				<div class="info text-center">
-      					<h3><a href="teacher-single.html">Mark KO P</a></h3>
-      					<span class="position">藍綠心理分析師</span>
+      					<h3>${memberSvc.getOneMember(doctorSvc.getOneDoctor("D0002").memno).memName}</h3>
+      					<span class="position">${doctorSvc.getOneDoctor("D0002").major}</span>
       					<div class="text">
-	        				<p>Far far away, behind the word mountains, far from the countries Vokalia</p>
 	        				<ul class="ftco-social">
-			              <li class="ftco-animate"><button type="button" class="btn btn-primary"><a href="about.html">前往</button></a></li>
+			              <li class="ftco-animate"><button type="button" class="btn btn-primary"><a href="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do?action=findDr&&drno=D0002">前往</button></a></li>
 			            </ul>
 	        			</div>
       				</div>
@@ -148,14 +154,13 @@
         	</div>
         	<div class="col-lg-3 col-md-6 d-flex mb-sm-4 ftco-animate">
         		<div class="staff">
-      				<div class="img mb-4" style="background-image: url(images/eason.jpg);"></div>
+      				<div class="img mb-4" style="background-image: url(<%=request.getContextPath()%>/doctor/doctorImg.do?drno=${doctorSvc.getOneDoctor("D0003").drno});"></div>
       				<div class="info text-center">
-      					<h3><a href="teacher-single.html">Patrick Eason</a></h3>
-      					<span class="position">Ear治療師</span>
+      					<h3>${memberSvc.getOneMember(doctorSvc.getOneDoctor("D0003").memno).memName}</h3>
+      					<span class="position">${doctorSvc.getOneDoctor("D0003").major}</span>
       					<div class="text">
-	        				<p>Far far away, behind the word mountains, far from the countries Vokalia</p>
 	        				<ul class="ftco-social">
-			              <li class="ftco-animate"><button type="button" class="btn btn-primary"><a href="about.html">前往</button></a></li>
+			              <li class="ftco-animate"><button type="button" class="btn btn-primary"><a href="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do?action=findDr&&drno=D0003">前往</button></a></li>
 			            </ul>
 	        			</div>
       				</div>
@@ -163,14 +168,13 @@
         	</div>
         	<div class="col-lg-3 col-md-6 d-flex mb-sm-4 ftco-animate">
         		<div class="staff">
-      				<div class="img mb-4" style="background-image: url(images/black.jpg);"></div>
+      				<div class="img mb-4" style="background-image: url(<%=request.getContextPath()%>/doctor/doctorImg.do?drno=${doctorSvc.getOneDoctor("D0004").drno});"></div>
       				<div class="info text-center">
-      					<h3><a href="teacher-single.html">Ivan Black</a></h3>
-      					<span class="position">無照醫師</span>
+      					<h3>${memberSvc.getOneMember(doctorSvc.getOneDoctor("D0004").memno).memName}</h3>
+      					<span class="position">${doctorSvc.getOneDoctor("D0003").major}</span>
       					<div class="text">
-	        				<p>Far far away, behind the word mountains, far from the countries Vokalia</p>
 	        				<ul class="ftco-social">
-			              <li class="ftco-animate"><button type="button" class="btn btn-primary"><a href="about.html">前往</button></a></li>
+			              <li class="ftco-animate"><button type="button" class="btn btn-primary"><a href="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do?action=findDr&&drno=D0004">前往</button></a></li>
 			            </ul>
 	        			</div>
       				</div>
