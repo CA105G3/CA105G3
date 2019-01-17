@@ -744,8 +744,14 @@ System.out.println("333333333333333333333333");
 						String messageText = "Dear " + memName + ":  \n"
 								+ "您於" + moTime + "  " + moHour + ":00 ~ " + (moHour + 3) + ":00  時段的預約由於醫生個人因素而取消， \n"
 								+ "診療費用將於近日退還給您，造成您的不便，還請見諒。";
-						MailService mailSvc = new MailService();
-						mailSvc.sendMail(to, subject, messageText);
+						Thread mailThread = new Thread() {
+						    public void run() {
+						    	MailService mailSvc = new MailService();
+						    	mailSvc.sendMail(to, subject, messageText);
+						    }
+						};
+						mailThread.start();
+						
 						RequestDispatcher successView = req.getRequestDispatcher(requestURL);
 						successView.forward(req, res);
 						
