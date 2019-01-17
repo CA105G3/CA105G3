@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"
 	import="com.doctoravailable.controller.*,java.util.*,java.io.*,java.sql.*"%>
 <%-- <%@page import="com.doctoravailable.model.DravailableService"%> --%>
 <%-- <%@page import="com.doctoravailable.model.DravailableVO"%> --%>
@@ -18,8 +17,8 @@
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 <title>設定可預約時間</title>
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> -->
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" >
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet" >
+<!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" > -->
+<!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet" > -->
 <!--[if lt IE 9]>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -78,6 +77,26 @@
 	background: none;
 	border: 1px solid transparent;
 }
+.navbar {
+    min-height: 50px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+}
+
+.mybutton{
+  background-color: #9ACD32; /* Green */
+  border: 1px;
+  border-radius: 5px;
+  color: white;
+  padding: 1px 8px;
+  text-align: center;
+/*   text-decoration: none; */
+  display: inline-block;
+  font-size: 10px;
+}
+
+
+
 </style>
 
 <!-- Custom Fonts -->
@@ -109,7 +128,7 @@
 					<input type="hidden" name="month" value="<%=nextMonth%>">
 					<input type="hidden" name="year" value="<%=nextYear%>">
 					<input type="hidden" name="drno" value="<%=drno%>">
-					<input type="submit" value="下個月" class="btn btn-info">
+					<input type="submit" value="下個月" class="btn btn-success">
 				</form>
 			</tr>
 		</table>
@@ -168,11 +187,11 @@
 						<div style="text-align: left" "data-index="310" id=<%=morning%>
 							data-value="${morningMap['可否預約']}">
 							<form action="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do">
-								<strong>09:00~12:00 可預約時段
+								<strong>09:00~12:00 看診時段
 <c:choose><c:when test="${morningMap['可否預約']  =='V' && (IntNowday < day)}">
-								<input type="submit" value="預約" ></c:when></c:choose>
+								<button class="mybutton" type="submit" value="預約" >預約</button></c:when></c:choose>
 <c:choose><c:when test="${morningMap['可否預約']  =='V' && (IntNowday == day && IntNowHour < 12)}">
-								<input type="submit" value="預約" ></c:when></c:choose>
+								<button class="mybutton" type="submit" value="預約" >預約</button></c:when></c:choose>
 								</strong> 							
 								<input type="hidden" class="dravano" name="dravano" value="${morningMap['dravano']}">
 								<input type="hidden" name="drno" value="${morningMap['drno']}">
@@ -189,11 +208,11 @@
 						<div style="text-align: left" data-index="310" id=<%=afternoon%>
 							name="test" data-value="${afternoonMap['可否預約']}">
 							<form action="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do">
-								<strong>13:00~16:00 可預約時段
+								<strong>13:00~16:00 看診時段
 <c:choose><c:when test="${afternoonMap['可否預約']  =='V' && (IntNowday < day)}">
-								<input type="submit" value="預約" ></c:when></c:choose>
+								<button class="mybutton" type="submit" value="預約" >預約</button></c:when></c:choose>
 <c:choose><c:when test="${afternoonMap['可否預約']  =='V' && (IntNowday == day && IntNowHour < 16)}">
-								<input type="submit" value="預約" ></c:when></c:choose>
+								<button class="mybutton" type="submit" value="預約" >預約</button></c:when></c:choose>
 								</strong> 						
 								<input type="hidden" class="dravano" name="dravano" value="${morningMap['dravano']}">
 								<input type="hidden" name="drno" value="${afternoonMap['drno']}">
@@ -210,11 +229,11 @@
 						<div style="text-align: left" data-index="310" id=<%=night%>
 							data-value="${nightMap['可否預約']}">
 							<form action="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do">
-							 	<strong>17:00~20:00 可預約時段
+							 	<strong>17:00~20:00 看診時段
 <c:choose><c:when test="${nightMap['可否預約']  =='V' && (IntNowday < day)}">
-								<input type="submit" value="預約" ></c:when></c:choose>
+								<button class="mybutton" type="submit" value="預約" >預約</button></c:when></c:choose>
 <c:choose><c:when test="${nightMap['可否預約']  =='V' && (IntNowday == day && IntNowHour < 20)}">
-								<input type="submit" value="預約" ></c:when></c:choose>
+								<button class="mybutton" type="submit" value="預約" >預約</button></c:when></c:choose>
 							 	</strong>
 								<input type="hidden" class="dravano" name="dravano" value="${nightMap['dravano']}">
 								<input type="hidden" name="drno" value="${nightMap['drno']}">
@@ -244,9 +263,9 @@
 
 
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> -->
 <script src="https://code.jquery.com/jquery.js"></script>
-<script	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <script	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 <script>
 		window.onload = function() {
 			for (var i = 0; i < <%=daysInCurrentMonth%> * 3; i++) {
@@ -288,16 +307,22 @@
 				//註冊一個onclick,觸發無法預約的提醒
 				element.onclick = function(){
 					var element = this;
-					if(element.id < <%=(currentDayInt - 1) * 3%>){ //還沒處理完當天時間
-						window.alert("無法預約過去日期");
+					if(element.id <= nowHourId){ //還沒處理完當天時間
+						Swal(
+							'已是過去時間',
+							'請選擇可預約時段',
+							'warning'
+								)
 						return;
 					}
 					if (element.getAttribute('data-value') != "V"){
-						window.alert("無法進行預約");
+						Swal(
+							'非可預約時間',
+							'請選擇可預約時段',
+							'warning'
+									)
 						return;
-					} else {
-// 						$('#myModal').modal('show')
-					}	
+					}
 				}
 			}
 			var days = document.getElementsByClassName("day_cell");

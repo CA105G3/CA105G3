@@ -1,5 +1,5 @@
 <%@page import="com.doctor.model.DoctorVO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.doctoravailable.model.DravailableService"%>
 <%@page import="com.doctoravailable.model.DravailableVO"%>
@@ -31,14 +31,20 @@
 <head>
 <title>displayDrInfo</title>
 <!-- include css -->
-<%@include file="/front-end/medicalOrder/includedfiles/css.file" %>
+<%@include file="/front-end/member/includedfiles/css.file" %>
 
 <!-- ===================================== -->
 
 
 <style>
 .content-loader tr td {
-    white-space: nowrap;
+    white-space: nowrap; 
+}
+.navbar {
+position:;
+    min-height: 50px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
 }
 </style>
 
@@ -46,9 +52,10 @@
 
 <body>
 	<!-- START nav -->
-	<%@include file="/front-end/medicalOrder/includedfiles/navbar.file" %>
+<%@include file="/front-end/member/includedfiles/nav.file" %>
 	<!-- END nav -->
-	
+
+<!-- 	幻燈片START	 -->
 	<section class="home-slider owl-carousel">
 		<div class="slider-item"
 			style="background-image: url('<%=request.getContextPath()%>/template/images/bg_1.jpg');">
@@ -89,14 +96,14 @@
 			</div>
 		</div>
 	</section>
-
+<!-- 	幻燈片START	 --
 
 
 	<!-- ====================================== -->
 <br>
 <br>
 
-<div class="container-fluid" style="width:85%;">
+<div class="container-fluid">
     <div class="row">
 
 
@@ -106,7 +113,10 @@
 		</div>
 
 <div class="col-xs-12 col-sm-3 col-lg-9">
-		<div class="">
+		
+<p>&nbsp;</p>
+	<div class="row d-flex">
+		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<c:if test="${dvo.isonline == '線上'}">
@@ -115,58 +125,63 @@
                     
                     <c:if test="${dvo.isonline != '線上'}">
                     	<span aria-label="目前離線" style="background: rgb(128, 128, 128); border-radius: 50%; display: inline-block; height: 6px; margin-left: 4px; width: 6px;"></span> 
-                    </c:if>			
+                    </c:if>
+					
+					
 					<%=dvo.getIsonline()%>
 				</div>
 				<!-- /.panel-heading -->
 				<div class="panel-body">
 
-<!-- 					<table width="50%" border="0" cellpadding="2" cellspacing="0">  -->
-<!-- 						<tr> -->
-							<div class="row">
-							<div class="col-lg-2">
-							<div class="content-loader" valign="top"><img height="300"
-								src="<%=request.getContextPath()%>/doctor/doctorImg.do?drno=${dvo.drno}"></div>
-<!-- 							<td class="content-loader align-top" align="left" > -->
-							</div>
-							<div class="col-lg-10">
+					<table width="100%" border="0" cellpadding="2" cellspacing="0" class="col-lg-12"> 
+						<tr>
+							<td class="content-loader" valign="top"><img width="170" height="200"
+								src="<%=request.getContextPath()%>/doctor/doctorImg.do?drno=${dvo.drno}"></td>
+<!-- 							<td width="20" align="left" valign="top"><img -->
+<%-- 								src="<%=request.getContextPath()%>/WebContent/front-end/doctor/blank.gif" --%>
+<!-- 								alt="" width="20" height="5" /></td> -->
+							<td class="content-loader align-top" align="left" >
 								<table
 									class="table table-striped table-borderedtable table-hover"
-									width="100%" border="0" cellpadding="2" cellspacing="0" >
+									width="100%" border="0" cellpadding="2" cellspacing="0">
 									<tr>
-										<td width="8%" align="left" valign="top">姓名:</td>
-										<td width="92%">
-											<c:forEach var="memVO" items="${memSvc.all}">
-												<c:if test="${memVO.memNo==dvo.memno}">${memVO.memName}醫師</c:if>
+										<td align="left" valign="top" class="Content-text-bold">姓
+											名:</td>
+										<td class="Content-text"><c:forEach var="memVO"
+												items="${memSvc.all}">
+												<c:if test="${memVO.memNo==dvo.memno}">
+	                    							<pre>${memVO.memName}醫師</pre>
+                    							</c:if>
 											</c:forEach></td>
 									</tr>
 									<tr>
-										<td width="8%"  align="left" valign="top">科別:</td>
-										<td width="92%" ><%=dvo.getMajor()%></td>
+										<td align="left" valign="top" class="Content-text-bold">科
+											別:</td>
+										<td class="Content-text"><pre><%=dvo.getMajor()%></pre></td>
 									</tr>
 									<tr>
-										<td width="8%"  align="left" valign="top">診療費用:</td>
-										<td width="92%">NT$<%=dvo.getFee()%>/次</td>
+										<td align="left" valign="top" class="Content-text-bold">診療費用:</td>
+										<td class="Content-text"><pre>NT$<%=dvo.getFee()%>/次</pre></td>
 									</tr>
 									<tr>
-										<td width="8%"  align="left" valign="top">經歷:</td>
-										<td width="92%"><%=dvo.getResume()%>
+										<td width="117" align="left" valign="top"
+											class="Content-text-bold">經 歷:</td>
+										<td width="618" class="Content-text"><pre><%=dvo.getResume()%></pre>
 										</td>
 									</tr>
 								</table>
-								</div>
 							</td>
-							</div>
-<!-- 						</tr> -->
-<!-- 					</table> -->
+						</tr>
+					</table>
 				</div>
 				<!-- /.panel-body -->
 			</div>
 			<!-- /.panel -->
 		</div>
+	</div>
+</div>		
 
 	</div>		
-</div>		
 </div>		
 <!-- include醫生月曆		 -->
 <div class="container-fluid">
@@ -225,7 +240,8 @@
 				</div>
 			</div>
 		</div>
-		
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.33.1/dist/sweetalert2.all.min.js"></script>	
 <!-- include js -->
 <%@ include file="/front-end/medicalOrder/includedfiles/javascript.file" %>
 </body>

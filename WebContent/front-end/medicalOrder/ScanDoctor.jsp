@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.doctor.model.*"%>
 <%@ page import="com.member.model.*"%>
@@ -18,7 +18,7 @@
 <head>
 <!-- included css  -->
 <title >ScanDoctor</title>
-<%@include file="/front-end/medicalOrder/includedfiles/css.file" %>
+<%@include file="/front-end/member/includedfiles/css.file" %>
 <style type="text/css">
 #drbtn {
 	color: #fff !important;
@@ -38,7 +38,7 @@
 </head>
 <body>
 	<!-- START nav -->
-	<%@include file="/front-end/medicalOrder/includedfiles/navbar.file" %>
+	<%@include file="/front-end/member/includedfiles/nav.file" %>
 	<!-- END nav -->
 
 	<section class="home-slider owl-carousel">
@@ -84,7 +84,7 @@
 	<br>
 <!-- 幻燈片輪播 -->
 
-<div class="container-fluid"  style="width:85%;">
+<div class="container-fluid">
     <div class="row">
 
 
@@ -127,7 +127,7 @@
 
 	<br>
 <!-- 	include javascript -->
-<%@ include file="/front-end/medicalOrder/includedfiles/javascript.file" %>
+<%@ include file="/front-end/member/includedfiles/js.file" %>
 	<!--以下可改動-->
 </body>
 <!-- include footer -->

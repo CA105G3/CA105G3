@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@page import="java.util.*"%>
 <%@page import="com.doctor.model.*"%>
 <%@page import="com.member.model.*"%>
@@ -18,14 +18,14 @@
 <head>
 <title>checkReserve</title>
 <!-- include css -->
-<%@include file="/front-end/medicalOrder/includedfiles/css.file" %>
+<%@include file="/front-end/member/includedfiles/css.file" %>
 </style>
 
 </head>
 <body>
 
 	<!-- START nav -->
-	<%@include file="/front-end/medicalOrder/includedfiles/navbar.file" %>
+	<%@include file="/front-end/member/includedfiles/nav.file" %>
 	<!-- END nav -->
 
 	<section class="home-slider owl-carousel">
@@ -46,7 +46,7 @@
 	<br>
 <!-- 幻燈片輪播 -->
 
-<div class="container"  style="width:85%;">
+<div class="container-fluid">
 	<div class="row">
 		
 		<!-- 		左方問診管理		 -->
@@ -54,7 +54,7 @@
 			<%@ include file="sidebar.jsp" %>			
 		</div>
 		
-		<div class="col-xs-12 col-sm-9" >
+		<div class="col-xs-12 col-sm-9 col-lg-9">
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -100,6 +100,7 @@
 		    </tbody>
 </form>   
 </table>
+	
 	</div>
 	</div>
 </div>
@@ -107,7 +108,7 @@
 
 	<br>
 <!-- include js -->
-<%@ include file="/front-end/medicalOrder/includedfiles/javascript.file" %>
+<%@ include file="/front-end/member/includedfiles/js.file" %>
 	<!--以下可改動-->
 </body>
 <!-- include footer -->

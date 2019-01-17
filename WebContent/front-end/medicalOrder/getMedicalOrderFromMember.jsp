@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.medicalorder.model.*"%>
 <%@ page import="com.doctor.model.*"%>
@@ -23,13 +23,13 @@
 <head>
 <title>會員病例歷史紀錄</title>
 <!-- include css -->
-<%@include file="/front-end/medicalOrder/includedfiles/css.file" %>
+<%@include file="/front-end/member/includedfiles/css.file" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 
 	<!-- START nav -->
-	<%@include file="/front-end/medicalOrder/includedfiles/navbar.file" %>
+	<%@include file="/front-end/member/includedfiles/nav.file" %>
 	<!-- END nav -->
 
 
@@ -106,7 +106,7 @@
 			    <tr>
 			      <td scope="col" class="text-center">
 			      <c:if test="${moVO.moStatus == '等待問診'  || moVO.moStatus == '等待審核'}">	
-			      	<a href="<%=request.getContextPath()%>/front-end/webrtc/treament_patientside.jsp?${moVO.moNo}">${moVO.moNo}</a>
+			      	<a href="<%=request.getContextPath()%>/front-end/webrtc/treament_patientside.jsp?moNO=${moVO.moNo}">${moVO.moNo}</a>
 			      </c:if>
 			       <c:if test="${moVO.moStatus == '問診完成'  || moVO.moStatus == '取消問診'}">	
 			      	${moVO.moNo}
@@ -186,7 +186,7 @@
 	</script>	
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.33.1/dist/sweetalert2.all.min.js"></script>
 <!-- include js -->
-<%@ include file="/front-end/medicalOrder/includedfiles/javascript.file" %>
+<%@ include file="/front-end/member/includedfiles/js.file" %>
 	<!--以下可改動-->
 </body>
 <!-- include footer -->

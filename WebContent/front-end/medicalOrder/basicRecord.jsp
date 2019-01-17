@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.member.model.*" %>
@@ -21,7 +20,7 @@
 <body>
 
 	<!-- START nav -->
-	<%@include file="/front-end/medicalOrder/includedfiles/navbar.file" %>
+	<%@include file="/front-end/member/includedfiles/nav.file" %>
 	<!-- END nav -->
 
 	<section class="home-slider owl-carousel">
@@ -182,7 +181,7 @@
 
 	<br>
 <!-- include js -->
-<%@ include file="/front-end/medicalOrder/includedfiles/javascript.file" %>
+<%@ include file="/front-end/member/includedfiles/js.file" %>
 	<!--以下可改動-->
 </body>
 <!-- include footer -->
