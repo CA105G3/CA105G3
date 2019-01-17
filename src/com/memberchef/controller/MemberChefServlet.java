@@ -292,10 +292,11 @@ public class MemberChefServlet extends HttpServlet {
 				
 				/***************************2.開始新增資料***************************************/
 				MemberChefService chefSvc = new MemberChefService();
-				chefSvc.addMemberChef(chefName, chefStoreName, chefPic, chefDescrip, "啓用", chefPhone, chefAddr, chefRep);
+				MemberChefVO chefVO = chefSvc.addMemberChef(chefName, chefStoreName, chefPic, chefDescrip, "啓用", chefPhone, chefAddr, chefRep);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/front\u002dend/memberchef/listAllChef.jsp";
+				req.setAttribute("chefVO", chefVO); // 資料庫取出的chefVO物件,存入req
+				String url = "/front\u002dend/memberchef/memberchef.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				
