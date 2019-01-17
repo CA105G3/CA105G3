@@ -46,6 +46,12 @@ position:;
     margin-bottom: 20px;
     border: 1px solid transparent;
 }
+img{
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;	
+}
 </style>
 
 </head>
@@ -135,7 +141,7 @@ position:;
 
 					<table width="100%" border="0" cellpadding="2" cellspacing="0" class="col-lg-12"> 
 						<tr>
-							<td class="content-loader" valign="top"><img width="170" height="200"
+							<td class="content-loader" valign="top"><img
 								src="<%=request.getContextPath()%>/doctor/doctorImg.do?drno=${dvo.drno}"></td>
 <!-- 							<td width="20" align="left" valign="top"><img -->
 <%-- 								src="<%=request.getContextPath()%>/WebContent/front-end/doctor/blank.gif" --%>

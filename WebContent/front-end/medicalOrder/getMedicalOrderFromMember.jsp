@@ -109,7 +109,7 @@
 <%-- 			      	<a href="<%=request.getContextPath()%>/front-end/webrtc/treament_patientside.jsp?moNO=${moVO.moNo}">${moVO.moNo}</a> --%>
 					<form action="<%=request.getContextPath()%>/front-end/webrtc/treament_patientside.jsp" method="post">
 					<input type="hidden" name="moNO" value="${moVO.moNo}">
-					<input type="submit" value="進入問診">
+					<input class="btn btn-success"type="submit" value="進入問診">
 					</form>
 			      </c:if>
 			       <c:if test="${moVO.moStatus == '問診完成'  || moVO.moStatus == '取消問診'}">	
