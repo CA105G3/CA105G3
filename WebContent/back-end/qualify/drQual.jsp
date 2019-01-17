@@ -46,7 +46,7 @@
 <body bgcolor='white'>
 
 <h4>我是drQual</h4>
-<Form>
+<form METHOD="post" action="<%=request.getContextPath()%>/license/license.do" style="margin-bottom: 0px;">
 <table id="table-2">
 	<tr><td>
 		 <h3>資格驗證 - qual_by_lic.jsp</h3>
@@ -77,7 +77,7 @@
 	</tr>
 	
 <c:forEach var="qualifyVO" items="${qual_by_lic}" >
-	<form METHOD="post" action="<%=request.getContextPath()%>/license/license.do" style="margin-bottom: 0px;">
+	
 		<tr>
 			<td>${qualifyVO.licNo}</td>
 			<td>${qualifyVO.memNo}</td>
@@ -150,11 +150,10 @@
 			     	<input type="hidden" name="licNo"  value="${qualifyVO.licNo}">
 			     	<input type="hidden" name="memNo"  value="${qualifyVO.memNo}">
 			     	<input type="hidden" name="licStatus"  value="${qualifyVO.licStatus}">
-			     	<input type="hidden" name="action"	value="getOne_For_Update">
+			     	<input type="hidden" name="action"	value="drLicStatusChange">
 			
 			</td>
 		</tr>
-	</form>	
 	</c:forEach>
 </table>
 </Form>

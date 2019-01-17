@@ -81,7 +81,6 @@ public class LicenseServlet extends HttpServlet{
 			}
 			
 	if ("getOne_For_Update".equals(action)) { // 來自actall.jsp的請求
-
 				List<String> errorMsgs = new LinkedList<String>();
 				// Store this set in the request scope, in case we need to
 				// send the ErrorPage view.
@@ -441,6 +440,26 @@ public class LicenseServlet extends HttpServlet{
 //		} catch (Exception e) {
 //			throw new ServletException(e);
 //		}
+	}
+	
+	if ("update".equals(action)) {
+		List<String> errorMsgs = new LinkedList<String>();
+		req.setAttribute("errorMsgs", errorMsgs);
+		
+		
+		try {
+			/***************************1.接收請求參數****************************************/
+			String licNo = req.getParameter("licNo");
+			System.out.println(licNo);
+			String memNo = req.getParameter("memNo");
+			System.out.println(memNo);
+			String licStatus = req.getParameter("licStatus");
+			System.out.println(licStatus);
+			String ident = req.getParameter("ident");
+			System.out.println(ident);
+		
+		}catch(Exception e) {
+		}
 	}
 //	==================addBy彥廷===============================================
 	}	
