@@ -13,6 +13,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+    	<meta http-equiv="X-UA-Compatible" content="IE=8"></meta>
         <title>SimpleWebRTC Demo</title>
         <%@include file="/front-end/member/includedfiles/css.file" %>
          <style>
@@ -61,6 +62,7 @@
             	width:480px;
             	height:360px;
             }
+            
         </style>
     </head>
     <body onload="connect();" onunload="disconnect();">
@@ -106,25 +108,26 @@
   					<div class="col-lg-4">
   					<button type="button" class="btn btn-primary" onclick="back()">上一頁</button>
         			<button type="button" class="btn btn-primary" onclick="next()">下一頁</button>
-  		 			<button type="button" class="btn btn-danger" data-toggle='modal' data-target='#modalRecord'  id="stop">結束</button>
+  		 			<button type="button" class="btn btn-danger" data-toggle="modal" data-target='#modalRecord' id="stop">結束</button>
   					</div>
   				</div>
         	</div>
         </section>
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        
+   
 		<!-- Modal -->
-  <div class="modal fade" id="modalRecord" tabindex="-1" role="dialog" aria-labelledby="modalRequestLabel" aria-hidden="true">
+  <div class="modal fade" id="modalRecord" tabindex="-1" role="dialog" aria-labelledby="modalRecord" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="modalRequestLabel">醫囑紀錄</h5>
+          <h5 class="modal-title" id="modalrecordLabel">醫囑紀錄</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true" id="loghide">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form action="<%=request.getContextPath() %>/front-end/medicalOrder/medicalOrderServlet.do" method="post">
+<%--           <form action="<%=request.getContextPath() %>/front-end/medicalOrder/medicalOrderServlet.do" method="post"> --%>
+<%--             <FORM action="<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do" method="post"> --%>
             <div class="form-group">
               <!-- <label for="appointment_name" class="text-black">Full Name</label> -->
              <textarea class="form-control" rows="7" id="medicalrecord" name="medicalrecord"></textarea>
@@ -132,26 +135,24 @@
              <div class="form-group">
               <input type="hidden" name="moNo" value="<%=moNO%>">
               <input type="hidden" name="action" value="submitrecord">
-              <input type="submit" value="確定" class="btn btn-primary">
+<!--               <input type="submit" value="確定" class="btn btn-primary"> -->
+              <button id="submit" class="btn btn-primary">送出</button>
               <input type="reset" value="清除" class="btn btn-primary">
             </div>
-          </form>
+<!--           </FORM> -->
         </div>
       </div>
     </div>
-  </div>
-        
-        
-		
-       
-        <%@include file="/front-end/member/includedfiles/footer.file" %>
-        <%@include file="/front-end/member/includedfiles/js.file" %>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="simplewebrtc.bundle.js"></script>
-        <script>
+  </div> 
+    
+  <%@include file="/front-end/member/includedfiles/footer.file" %>
+  <%@include file="/front-end/member/includedfiles/js.file" %>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="simplewebrtc.bundle.js"></script>
+  <script>
             // grab the room from the URL
-            var room = location.search && location.search.split('?')[1];
-
+            //var room = location.search && location.search.split('?')[1];
+            var room="<%=moNO%>";
             // create our webrtc connection
             var webrtc = new SimpleWebRTC({
                 // the id/element dom element that will hold "our" video
@@ -271,8 +272,8 @@
                 }
             });
         </script>
-<!--         	以下是WebSocket -->
-        
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!--         	以下是WebSocket --> 
         <script>
 //	    var MyPoint = "/MyEchoServer/peter/309";
 		var roomno="<%=moNO%>";
@@ -326,6 +327,23 @@
 		function disconnect () {
 			
 		}
+		
+		$(document).ready(function(){
+		       $('#submit').click(function(){
+		    	   var motext=$('#medicalrecord').val();
+		          $.ajax({
+		                url:'<%=request.getContextPath()%>/front-end/medicalOrder/medicalOrderServlet.do',
+		                type:'post',
+		                data: "moNo=<%=moNO%>&action=submitrecord&medicalrecord="+motext,
+		                success : function(response) {
+		                    swal('醫囑新增成功').then(() =>{
+		                    	window.location.href = "<%=request.getContextPath()%>/front-end/medicalOrder/getMoByDrno.jsp";
+		                	});
+		                    
+		                }
+		            });
+		       });
+		    });
 		</script>
 	</body>
 </html>

@@ -807,7 +807,8 @@ System.out.println("333333333333333333333333");
 				if("submitrecord".equals(action)) {
 					String moNo = req.getParameter("moNo");
 					String record=req.getParameter("medicalrecord");
-					
+					System.out.println("test "+moNo);
+					System.out.println("test "+record);
 					if(record.length()==0||record.trim().length()==0) {
 						record="以下皆無";
 					}

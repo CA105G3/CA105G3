@@ -127,8 +127,8 @@
         <script src="simplewebrtc.bundle.js"></script>
         <script>
             // grab the room from the URL
-            var room = location.search && location.search.split('?')[1];
-
+            //var room = location.search && location.search.split('?')[1];
+			var room="<%=moNO%>";
             // create our webrtc connection
             var webrtc = new SimpleWebRTC({
                 // the id/element dom element that will hold "our" video
