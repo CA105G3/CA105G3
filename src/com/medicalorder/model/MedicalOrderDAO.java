@@ -55,6 +55,9 @@ public class MedicalOrderDAO implements MedicalOrder_interface{
 			+ "AND TO_CHAR(MOTIME, 'YYMMDD') >= TO_CHAR(SYSDATE, 'YYMMDD') ORDER BY MOTIME, MOHOUR, MONO";
 	private static final String CANCEL_BY_DR = "UPDATE MEDICALORDER SET MOSTATUS=? WHERE MONO=?";
 	//========================================================================		
+	//問診結束後新增醫囑
+		private static final String UPDATE_MOTEXT="UPDATE MEDICALORDER SET MOTEXT=? WHERE MONO=?";
+	
 	
 	@Override
 	public void insert(MedicalOrderVO medicalOrderVO) {
@@ -792,5 +795,34 @@ public List<MedicalOrderVO> getByDrnoThisMonthDone(String drno) {
 		
 	}
 //==================================================================
-	
+
+	@Override
+	public void updatemotext(String mono, String motext) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_MOTEXT);
+			pstmt.setString(1, motext);
+			pstmt.setString(2, mono);
+			pstmt.executeUpdate();	
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured." + e.getMessage());
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}	
+	}	
 }

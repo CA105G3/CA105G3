@@ -110,6 +110,10 @@ public class MedicalOrderService {
 	public List<MedicalOrderVO> getByDrnoThisMonthDone(String drno){
 		return dao.getByDrnoThisMonthDone(drno);
 	}
+	
+	public void addMotext(String moNo,String record) {
+		dao.updatemotext(moNo, record);
+	}
 }
 
 

@@ -61,30 +61,40 @@ private static final Set<Session> allSessions = Collections.synchronizedSet(new 
 			if(a>=t)
 				a=0;
 			PPTToolVO pptvo=pptlist.get(a);
+			System.out.println(roomno);
+			System.out.println(pptvo.getPptno());
 			sendInfo.accumulate("roomno", roomno);
 			sendInfo.accumulate("pptno", pptvo.getPptno());
-			
+			System.out.println("test: "+sendInfo.toString());
 			for (Session session : allSessions) {
 					if (session.isOpen())
-						session.getBasicRemote().sendText(sendInfo.toString());
+						session.getAsyncRemote().sendText(sendInfo.toString());
 				}	
 		}
 		if(message2.equals("back")) {
+			JSONObject sendInfo = new JSONObject();
 			System.out.println("back");
 			a--;
 			if(a<0)
 				a=pptlist.size()-1;
 			PPTToolVO pptvo=pptlist.get(a);
+			sendInfo.accumulate("roomno", roomno);
+			sendInfo.accumulate("pptno", pptvo.getPptno());
 			for (Session session : allSessions) {
 				if (session.isOpen())
-					session.getAsyncRemote().sendText(pptvo.getPptno());
-				}
+					session.getAsyncRemote().sendText(sendInfo.toString());
 			}
+		}
 		if(message2.equals("stop")) {
+			JSONObject sendInfo = new JSONObject();
 			System.out.println("leave");
+			String leaveMessage="患者已離開診間";
+			sendInfo.accumulate("roomno", roomno);
+			sendInfo.accumulate("pptno", null);
+			sendInfo.accumulate("leavemessage", leaveMessage);
 			for (Session session : allSessions) {
 				if (session.isOpen())
-					session.getAsyncRemote().sendText("患者已離開診間");
+					session.getAsyncRemote().sendText(sendInfo.toString());
 				}
 		}
 	}

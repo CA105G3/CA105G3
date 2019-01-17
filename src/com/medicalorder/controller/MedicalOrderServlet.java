@@ -803,6 +803,17 @@ System.out.println("333333333333333333333333");
 					System.out.println("test");
 				}
 				
+				
+				if("submitrecord".equals(action)) {
+					String moNo = req.getParameter("moNo");
+					String record=req.getParameter("medicalrecord");
+					
+					if(record.length()==0||record.trim().length()==0) {
+						record="以下皆無";
+					}
+					MedicalOrderService moSvc = new MedicalOrderService();
+					moSvc.addMotext(moNo, record);		
+				}
 //		============================================================	
 
 	}

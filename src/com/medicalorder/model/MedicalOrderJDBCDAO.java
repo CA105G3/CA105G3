@@ -729,6 +729,12 @@ public List<MedicalOrderVO> getByDrnoThisMonthDone(String drno) {
 
 //=========================================================
 	
+	@Override
+public void updatemotext(String mono, String motext) {
+	// TODO Auto-generated method stub
+	
+}
+
 	public static void main(String[] args) {
 		
 		MedicalOrderJDBCDAO dao = new MedicalOrderJDBCDAO();

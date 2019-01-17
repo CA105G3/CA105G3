@@ -4,8 +4,12 @@
 <%@ page import="com.ppttool.model.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.member.model.*" %>
+<%@ page import="com.doctor.model.*" %>
 <% MemberVO memVO=(MemberVO)session.getAttribute("memVO"); %>
 <%String moNO=request.getParameter("moNO");%>
+<% DoctorService docSvc = new DoctorService(); 
+	DoctorVO docVO=docSvc.getDrno(memVO.getMemNo());
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -102,14 +106,40 @@
   					<div class="col-lg-4">
   					<button type="button" class="btn btn-primary" onclick="back()">上一頁</button>
         			<button type="button" class="btn btn-primary" onclick="next()">下一頁</button>
-  		 			<button type="button" class="btn btn-danger" id="stop">結束</button>
+  		 			<button type="button" class="btn btn-danger" data-toggle='modal' data-target='#modalRecord'  id="stop">結束</button>
   					</div>
   				</div>
         	</div>
         </section>
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         
-		
+		<!-- Modal -->
+  <div class="modal fade" id="modalRecord" tabindex="-1" role="dialog" aria-labelledby="modalRequestLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalRequestLabel">醫囑紀錄</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" id="loghide">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="<%=request.getContextPath() %>/front-end/medicalOrder/medicalOrderServlet.do" method="post">
+            <div class="form-group">
+              <!-- <label for="appointment_name" class="text-black">Full Name</label> -->
+             <textarea class="form-control" rows="7" id="medicalrecord" name="medicalrecord"></textarea>
+            </div>
+             <div class="form-group">
+              <input type="hidden" name="moNo" value="<%=moNO%>">
+              <input type="hidden" name="action" value="submitrecord">
+              <input type="submit" value="確定" class="btn btn-primary">
+              <input type="reset" value="清除" class="btn btn-primary">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
         
         
 		
@@ -245,18 +275,20 @@
         
         <script>
 //	    var MyPoint = "/MyEchoServer/peter/309";
-		var MyPoint="/MyEchoServer/johnny/20190102-0002";//未來導入問診紀錄編號
+		var roomno="<%=moNO%>";
+		var userName="<%=docVO.getDrno()%>";
+		var MyPoint="/MyEchoServer/doctor/"+roomno;//未來導入問診紀錄編號
 	    var host = window.location.host;
 	    var path = window.location.pathname;
 	    var webCtx = path.substring(0, path.indexOf('/', 1));
 	    var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
-	    var roomno="20190102-0002";
+	    
 	    
 	    
 	    console.log("webCtx:"+webCtx+" path:"+path+" host:"+host);
 	    console.log(endPointURL);
 		var webSocket;
-		var userName="D0001";
+		
 		
 		function connect() {
 			// 建立 websocket 物件
@@ -269,8 +301,13 @@
 				var jsonObj = JSON.parse(event.data);
 				var roomno2=jsonObj.roomno;
 				var pptno=jsonObj.pptno;
+				console.log(event.data);
 				if(roomno2==roomno){
-					$('#ppt').attr('src',"<%=request.getContextPath()%>/ppt/pptImg.do?pptno="+pptno);
+					if(pptno==null){
+						alert(jsonObj.leavemessage);
+					}else{
+					$('#ppt').attr('src',"<%=request.getContextPath()%>/ppt/pptImg.do?pptno="+pptno);						
+					}
 				}
 			};
 			webSocket.onclose = function(event) {

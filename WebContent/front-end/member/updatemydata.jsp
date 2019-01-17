@@ -88,7 +88,7 @@
 						</c:forEach>
 					</ul>
 				</c:if>
-				<FORM METHOD="post" ACTION="member.do" name="form1" enctype='multipart/form-data'>
+				<FORM id="myform" METHOD="post" ACTION="member.do" name="form1" enctype='multipart/form-data'>
 				<table>
 					<tr>
 						<th><p>會員照片</p></th>
@@ -98,7 +98,7 @@
 					</tr>
 					<tr>
 						<th><p>上傳照片</p></th>
-						<td><input type="file" name="memPic" onchange="loadFile(event)"/></td>
+						<td><input type="file" class="custom-file-input" name="memPic" onchange="loadFile(event)"/></td>
 					</tr>
 					<tr>
 						<td><p>會員編號:</p></td>
@@ -237,7 +237,23 @@
     };
     reader.readAsDataURL(event.target.files[0]);
   };
-</script>       
+</script>  
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript">
+
+$(window).load(function () {
+    var submit = false;
+    $("#myform").submit(function(e) {
+    	e.preventDefault();
+    	swal("確定修改資料!")
+    	.then(() =>{
+    		submit = true;
+    		$("#myform").unbind("submit").submit();
+    	});
+    });
+});
+</script>
+     
   <!-- 以上為可動部分 -->
   <%@include file="includedfiles/footer.file" %>
 </html>

@@ -5,6 +5,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="com.member.model.*" %>
 <% MemberVO memVO=(MemberVO)session.getAttribute("memVO"); %>
+<%String moNO=request.getParameter("moNO");%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -248,12 +249,12 @@
         
         <script>
 //	    var MyPoint = "/MyEchoServer/peter/";
-      	var MyPoint="/MyEchoServer/peter/20190102-0001";//未來導入問診紀錄編號
+		var roomno="<%=moNO%>";
+      	var MyPoint="/MyEchoServer/peter/"+roomno;//未來導入問診紀錄編號
 	    var host = window.location.host;
 	    var path = window.location.pathname;
 	    var webCtx = path.substring(0, path.indexOf('/', 1));
 	    var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
-	    var roomno="20190102-0001";
 	    
 	    console.log("webCtx:"+webCtx+" path:"+path+" host:"+host);
 	    console.log(endPointURL);
@@ -271,10 +272,14 @@
 				var jsonObj = JSON.parse(event.data);
 				var roomno2=jsonObj.roomno;
 				var pptno=jsonObj.pptno;
+				console.log(event.data);
 				if(roomno2==roomno){
-					$('#ppt').attr('src',"<%=request.getContextPath()%>/ppt/pptImg.do?pptno="+pptno);
+					if(pptno==null){
+						alert("您將離開診間");
+					}else{
+						$('#ppt').attr('src',"<%=request.getContextPath()%>/ppt/pptImg.do?pptno="+pptno);						
+					}
 				}
-				//$('#ppt').attr('src',"<%=request.getContextPath()%>/ppt/pptImg.do?pptno="+event.data);
 			};
 			webSocket.onclose = function(event) {
 			};
@@ -293,7 +298,7 @@
 			
 		}
 		$("#stop").click(function(){
-			var jsonObj = {"userName" : userName, "message" : "stop"};
+			var jsonObj = {"userName" : userName, "message" : "stop","roomno":roomno};
 	        webSocket.send(JSON.stringify(jsonObj));
 			webSocket.onclose();
 			window.location.replace("http://localhost:8081/CA105G3/front-end/index.jsp");
