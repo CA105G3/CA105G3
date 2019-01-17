@@ -3,7 +3,8 @@
 <%@ page import="com.activity.model.*"%>
 
 <%
-	String memNo="M0001";
+String memNo=(String)session.getAttribute("memno");
+pageContext.setAttribute("memNo", memNo);
 	ActivityVO activityVO = (ActivityVO) request.getAttribute("activityVO");
 %>
 
@@ -40,6 +41,8 @@ body {
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
+    color:#00DDDD;
+    font-weight:bold;
   }
 #map {
 		height: 400px;  /* The height is 400 pixels */

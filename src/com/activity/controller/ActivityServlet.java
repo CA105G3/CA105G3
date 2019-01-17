@@ -376,6 +376,7 @@ if ("insert".equals(action)) { // 來自addact.jsp的請求
 				/***************************2.開始新增資料***************************************/
 				ActivityService activitySvc = new ActivityService();
 				activityVO = activitySvc.addAct(memNo, actName, actLoc, actTime, actStatus, actMax, actLimit, timeCheck,actDesc, actPic,latiTude,longtiTude);
+				JoinActService joinactSvc = new JoinActService();
 				
 				List<ActivityVO> actVO = activitySvc.startact(actStatus);
 				if (actVO == null) {
@@ -386,7 +387,7 @@ if ("insert".equals(action)) { // 來自addact.jsp的請求
 				req.setAttribute("actVO", actVO);
 				String url = "/front-end/activity/join_actall2.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
-				successView.forward(req, res);				
+				successView.forward(req, res);			
 				
 				/***************************其他可能的錯誤處理**********************************/
 //			} catch (Exception e) {
@@ -436,7 +437,8 @@ if("Show__join_act".equals(action)) {
 				if(actNo==null||(actNo.trim()).length()==0) {
 					errorMsgs.add("請輸入活動編號");
 				}
-				
+				String remaining = req.getParameter("remaining");
+				System.out.println(remaining);
 				/***************************2.開始查詢資料*****************************************/
 				ActivityService activitySvc = new ActivityService();
 				ActivityVO activityVO = activitySvc.getOneAct(actNo);
@@ -452,7 +454,8 @@ if("Show__join_act".equals(action)) {
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("activityVO", activityVO); // 資料庫取出的impressionVO物件,存入req
+				req.setAttribute("activityVO", activityVO);
+				req.setAttribute("remaining", remaining);
 				String url = "/front-end/activity/joinpage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneImp.jsp
 				successView.forward(req, res);

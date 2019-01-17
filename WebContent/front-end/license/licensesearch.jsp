@@ -158,7 +158,7 @@
    
    <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService"/>
   <li>
-     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/member/member.do" >
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/member.do" >
        <b>選擇會員編號:</b>
        <select size="1" name="memNo">
          <c:forEach var="memberVO" items="${memberSvc.all}" >

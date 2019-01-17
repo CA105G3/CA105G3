@@ -5,10 +5,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.activity.model.*"%>
 <%@ page import="java.util.*" %>
-<%
-MemberVO memVO = (MemberVO)session.getAttribute("memVO");
-String memNo=memVO.getMemNo();
-pageContext.setAttribute("memNo", memNo);
+
+<%  String memNo=(String)session.getAttribute("memno");
+	pageContext.setAttribute("memNo", memNo);
+	MemberVO memVO=null;
+	memVO = (MemberVO)session.getAttribute("memVO");
+	if(memVO!=null){
+		request.getSession().setAttribute("memno",memVO.getMemNo());
+	}
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -216,7 +220,7 @@ pageContext.setAttribute("memNo", memNo);
     <!-- MAIN -->
     
     
-    <div class="col">
+<div class="col">
         
         
 <%-- 錯誤表列 --%>
@@ -265,19 +269,22 @@ pageContext.setAttribute("memNo", memNo);
 </div>
 	
    
-        <div class="form-group">
-			<label for="setRadius">搜尋距離</label>
-			<div class="input-group" style="width:20%">
-				<input type="text" id="setRadius" value="20000" class="form-control">
-				<div class="input-group-addon">公尺</div>
-				<div class="input-group-btn">
-					<button class="btn btn-info" type="button" id="setRadiusBtn" onclick="initMap()">
-						<i class="glyphicon glyphicon-search">確定</i>
-					</button>
-				</div>
-			</div>
-		</div>
+        <div class="container">
+        	<div><b>搜尋附近活動</b></div>
+
+					<div class="input-group" style="width:30%">
+						<input type="text" id="setRadius" value="20000" class="form-control" placeholder="輸入距離" padding:"15px";>
+							<div class="input-group-append">
+						 		<span class="input-group-text">公尺</span>
+								<button class="btn btn-info" type="button" id="setRadiusBtn" onclick="initMap()">
+								<i class="glyphicon glyphicon-search">確定</i>
+								</button>
+							</div>
+					</div>
+				
+  		</div>
 		<div id="map"></div>
+</div>
 
 <!--         <div class="form-inline"> -->
 <!--         <div class="card"> -->
@@ -503,7 +510,6 @@ console.log(dist);
 	                       '<input type="hidden" name="actNo" value="<%=actVO.getActNo()%>">'+
 	                       '<input type="submit" class="btn btn-info" value="查詢活動內容">'+
 	               		   '</FORM>';
-
 					  infowindow.setContent(msg);
 				      infowindow.open(map, this);
 					});

@@ -6,10 +6,11 @@
 <%@ page import="com.joinact.model.*"%>
 
 <% 
-	String memNo="M0001";
-	JoinActService joinActSvc = new JoinActService();
-	Set<PersonActVO> personactSet = joinActSvc.getAll(memNo);
-	pageContext.setAttribute("personactSet", personactSet);
+String memNo=(String)session.getAttribute("memno");
+pageContext.setAttribute("memNo", memNo);
+JoinActService joinActSvc = new JoinActService();
+Set<PersonActVO> personactSet = joinActSvc.getAll(memNo);
+pageContext.setAttribute("personactSet", personactSet);
 %>
 
 <html>

@@ -31,7 +31,7 @@ public class JoinActService {
 		return joinActVO;
 	}
 	
-	public JoinActVO getOneAct(String actNo) {
+	public List<JoinActVO> getOneAct(String actNo) {
 		return dao.findByPrimaryKey(actNo);
 	}
 	
@@ -54,5 +54,8 @@ public class JoinActService {
 	public List<ChatRoomVO> getchatmember(String actNo) {
 		return dao.chatroomall(actNo);
 		
+	}
+	public List<PersonActVO> getoff(String memNo){
+		return dao.findoffact(memNo);
 	}
 }

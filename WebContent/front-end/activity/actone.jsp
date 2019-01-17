@@ -4,7 +4,8 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.activity.model.*"%>
 
-<%  String memNo="M0001";
+<%  String memNo=(String)session.getAttribute("memno");
+pageContext.setAttribute("memNo", memNo);
 	ActivityService actSvc = new ActivityService();
 	List<ActivityVO> activitylist = actSvc.findmyact(memNo);
 	pageContext.setAttribute("activitylist", activitylist);

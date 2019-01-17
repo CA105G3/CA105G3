@@ -6,14 +6,13 @@
 <%@ page import="com.member.model.*"%>
 
 <% 
-	String memNo = "M0001";
-	pageContext.setAttribute("memNo", memNo);
-	ActivityVO activityVO = (ActivityVO)request.getAttribute("activityVO");
+String memNo=(String)session.getAttribute("memno");
+pageContext.setAttribute("memNo", memNo);
+ActivityVO activityVO = (ActivityVO)request.getAttribute("activityVO");
 %>
 
 <html>
 <head>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/template/css/style.css">
 <title>活動資料-actone.jsp</title>
 <style>
   table#table-1 {
@@ -50,6 +49,10 @@
     text-align: center;
   }
 </style>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+ 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 </head>
 
@@ -107,9 +110,9 @@
 
 			<td>
 				<form METHOD="post" action="<%=request.getContextPath()%>/activity/activity.do" style="margin-bottom: 0px;">
-					<input type="submit" class="btn btn-primary" value="參加">
+					<input type="submit" class="btn btn-primary" value="參加" id="sumbit">
 					<input type="hidden" name="actNo"  value="${activityVO.actNo}">
-			     	<input type="hidden" name="memNo"  value="${ memNo}">
+			     	<input type="hidden" name="memNo"  value="${memNo}">
 			     	<input type="hidden" name="actStatus"  value="${activityVO.actStatus}">
 			     	<input type="hidden" name="action"	value="Join_act">
 				</form>
@@ -117,7 +120,15 @@
 
 		</tr>
 </table>
-
+<script type="text/javascript">
+var remaining = ${remaining};
+console.log(remaining);
+	$(function(){
+		if(remaining===0){
+			$('#sumbit').attr('disabled',true).css('opacity',0.3);
+	 	}
+	})
+</script>
 
 </body>
 </html>

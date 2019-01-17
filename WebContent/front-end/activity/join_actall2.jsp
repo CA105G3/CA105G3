@@ -31,18 +31,17 @@
   }
 
 
-
 </style>
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/activity/css/normalize.css"/>
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/activity/css/default.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/activity/css/styles.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/activity/css/zebra.css">
 	<script src="<%=request.getContextPath()%>/template/js/bootstrap.min.js"></script>
 	<script src="<%=request.getContextPath()%>/template/js/jquery.min.js"></script>
 </head>
 <body style="background-image:url('<%=request.getContextPath()%>/front-end/activity/img/bridge.jpg');background-attachment: fixed;
     background-position: center;
     background-size: cover;">
-
 <table>
 	<tr><td>
 		 <h3>所有募集中活動 - join_actall2.jsp</h3>
@@ -61,12 +60,12 @@
 </c:if>
 
 		<div class="wall">
-<c:forEach var="actlist" items="${actlist}" >		
+<c:forEach var="actlist" items="${actlist}" >
 <!-- 		  <a class="article"> -->
 <%-- 		    <img src="<%= request.getContextPath()%>/activity/activityPic.do?actNo=${actlist.actNo}" /> --%>
 <%-- 		    <h2>${actlist.actName}</h2> --%>
 <!-- 		  </a> -->
-
+			
 		  <div class="article">
 		    <c:choose>
 				<c:when test="${(actlist.actPic)!=null}">
@@ -81,11 +80,41 @@
 				</c:otherwise>
 			</c:choose>
 		    <h2>${actlist.actName}</h2>
+<jsp:useBean id="getmem" scope="page" class="com.joinact.model.JoinActService" ></jsp:useBean>
+<c:set var="zebra" scope="request" value="${getmem.getOneAct(actlist.actNo).size()}"/>
+<c:set var="total" scope="request" value="${(zebra/actlist.actMax)*100}"/>
+<c:set var="remaining" scope="request" value="${actlist.actMax-zebra}"/>
+		    	<div class="container">
+  					<div class="row">
+            			<div class="col-md-offset-3 col-md-6">
+            				<c:choose>
+            					<c:when test="${actlist.actMax-zebra ==0 }">
+									<h3 class="progress-title">已經額滿囉</h3>
+										<div class="progress">
+              								<div class="progress-bar progress-bar-danger progress-bar-striped bg-danger" style="width:${total}%">
+              								</div>
+        								</div>
+       			 				</c:when>
+       			 				<c:otherwise>	
+       			 					<h3 class="progress-title">還有${actlist.actMax-zebra}個名額</h3>
+       			 						<div class="progress">
+              								<div class="progress-bar progress-bar-danger progress-bar-striped active" style="width:${total}%">
+              								</div>
+        								</div>
+       			 				</c:otherwise>
+       			 			</c:choose>		
+        							
+        							
+        				</div>
+        			</div>	
+		    	</div>
+
 		    <div>
 		    	<form method="post" action="<%= request.getContextPath()%>/activity/activity.do">
 			     	<input type="hidden" name="actNo"  value="${actlist.actNo}">
 			     	<input type="hidden" name="memNo"  value="${memNo}">
 			     	<input type="hidden" name="actStatus"  value="${actlist.actStatus}">
+			     	<input type="hidden" name="remaining"  value="${remaining}">			     	
 			     	<input type="hidden" name="action"	value="Show__join_act">
 					<button id="particpate" type="submit" value="" class="btn btn-info" >查看詳情</button>
 				</form>	
@@ -115,6 +144,14 @@ $(function(){
 	 }
 	
 })
+$(function(){
+	 if(action===0){
+		 $('#particpate').attr('disabled',true);
+		 <%pageContext.setAttribute("action",1);%>
+	 }
+	
+})
+
 </script>
 <script type="text/javascript">
   document.querySelector('#sortable').sortablejs()

@@ -9,10 +9,10 @@ public interface JoinActDAO_interface {
 	public void insert(JoinActVO joinactVO);
     public void update(JoinActVO joinactVO);
     public void delete(String actNo, String memNo);
-    public JoinActVO findByPrimaryKey(String actNo);
+    public List<JoinActVO> findByPrimaryKey(String actNo);
     public List<JoinActVO> getAll();
     public Set<PersonActVO> getAll(String memNo);
     public JoinActVO findrepeatact(String actNo,String memNo);
     public List<ChatRoomVO> chatroomall(String actNo);
-    
+    public List<PersonActVO> findoffact(String memNo);
 }

@@ -58,6 +58,9 @@ private static DataSource ds = null;
 	//查詢參加活動的會員名稱
 	private static final String FIND_NAME_IN_CHAT = 
 			"SELECT joinact.memno,joinact.actno,member.memname from joinact,member where joinact.memno = member.memno and actNo =?";
+	private static final String FIND_OFF_ACT =
+			"select joinact.memno,joinact.actno,activity.actname,activity.actloc,activity.acttime,activity.actpic,activity.actdesc "
+			+ "from joinact join activity on joinact.actno=activity.actno where joinact.memno=? and activity.actstatus='已結束' order by joinact.actno";
 	@Override
 	public void insert(JoinActVO joinactVO) {
 		Connection con = null;
@@ -162,11 +165,13 @@ private static DataSource ds = null;
 	}
 
 	@Override
-	public JoinActVO findByPrimaryKey(String actNo) {
+	public List<JoinActVO> findByPrimaryKey(String actNo) {
 		JoinActVO joinactVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		List<JoinActVO> list = new ArrayList<JoinActVO>();
+		
 		
 		try {
 			con=ds.getConnection();
@@ -181,7 +186,8 @@ private static DataSource ds = null;
 				
 				joinactVO.setActNo(rs.getString("actNo"));
 				joinactVO.setMemNo(rs.getString("Memno"));
-
+				
+				list.add(joinactVO);
 			}
 		}catch(SQLException se) {
 			throw new RuntimeException("Couldn't load database driver." +se.getMessage());
@@ -208,7 +214,7 @@ private static DataSource ds = null;
 				}
 			}
 		}
-		return joinactVO;
+		return list;
 	}
 
 	@Override
@@ -444,6 +450,59 @@ public List<ChatRoomVO> chatroomall(String actNo) {
 				con.close();
 			} catch (Exception e) {
 				e.printStackTrace(System.err);
+			}
+		}
+	}
+	return list;
+}
+
+@Override
+public List<PersonActVO> findoffact(String memNo) {
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	List<PersonActVO> list = new ArrayList<PersonActVO>();
+	PersonActVO personActVO = null;
+	
+	try {
+		con=ds.getConnection();
+		pstmt = con.prepareStatement(FIND_JOIN_ACT);
+		pstmt.setString(1, memNo);
+		rs = pstmt.executeQuery();
+		
+		while(rs.next()) {
+			personActVO = new PersonActVO();
+			personActVO.setMemNo(rs.getString(1));
+			personActVO.setActNo(rs.getString(2));
+			personActVO.setActName(rs.getString(3));
+			personActVO.setActLoc(rs.getString(4));
+			personActVO.setActTime(rs.getDate(5));
+			personActVO.setActPic(rs.getBytes(6));
+			personActVO.setActDesc(rs.getString(7));
+			list.add(personActVO);
+		}
+	} catch (SQLException se) {
+		throw new RuntimeException("A database error occured. "	+ se.getMessage());
+	}finally {
+		if(rs != null){
+			try {
+				rs.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if(pstmt != null) {
+			try {
+				pstmt.close();
+			}catch(SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if(con != null) {
+			try {
+				pstmt.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
 			}
 		}
 	}

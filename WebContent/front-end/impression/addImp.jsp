@@ -1,11 +1,17 @@
+<%@page import="com.joinact.model.*"%>
+<%@page import="java.util.List"%>
+<%@page import="com.joinact.model.JoinActService"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.impression.model.*"%>
 
 <%
-	String memNo = "M0001";
-	pageContext.setAttribute("memNo", memNo);
-	ImpressionVO impressionVO = (ImpressionVO) request.getAttribute("impressionVO");
+String memNo=(String)session.getAttribute("memno");
+pageContext.setAttribute("memNo", memNo);
+JoinActService joinactSvc = new JoinActService();
+List<PersonActVO> listjoinact = joinactSvc.getoff(memNo);
+pageContext.setAttribute("listjoinact", listjoinact);
+ImpressionVO impressionVO = (ImpressionVO) request.getAttribute("impressionVO");
 %>
 
 
@@ -75,7 +81,14 @@
 <table>
 	<tr>
 		<td>活動編號:</td>
-		<td><input type="TEXT" name="actNo" size="45" value="<%= (impressionVO==null)? "ACT0001" : impressionVO.getActNo()%>" /></td>
+		<td>
+		<select size="1" name="actNo">
+         <c:forEach var="list" items="${listjoinact}" >
+          <option value="${list.actNo}"}>${list.actName}</option>
+         </c:forEach>   
+       </select>
+<%-- 		<input type="TEXT" name="actNo" size="45" value="<%= (impressionVO==null)? "" : impressionVO.getActNo()%>" /> --%>
+		</td>
 	</tr>
 	<tr>
 		<td>心得主旨:</td>
@@ -127,6 +140,8 @@
 
 </table>
 <br>
+
+
 <input type="hidden" name="action" value="insert">
 <input type="submit" value="送出新增"></FORM>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

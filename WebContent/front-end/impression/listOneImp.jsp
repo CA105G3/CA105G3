@@ -6,7 +6,8 @@
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-	String memNo="M0001";
+	String memNo=(String)session.getAttribute("memno");
+	pageContext.setAttribute("memNo", memNo);
 	ImpressionService impSvc = new ImpressionService();
 	List<ImpressionVO> list = impSvc.myimpression(memNo);
 	System.out.println(list);

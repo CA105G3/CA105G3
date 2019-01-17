@@ -231,7 +231,7 @@ public class ImpressionServlet extends HttpServlet{
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			try {
+//			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 				
 				String actno = new String(req.getParameter("actNo").trim());
@@ -281,8 +281,7 @@ public class ImpressionServlet extends HttpServlet{
 				impressionVO.setImpCon(impcon);
 				impressionVO.setRecVideo(recvideo);
 				impressionVO.setRecPic(recpic);
-				impressionVO.setImpField(impfield);
-
+				impressionVO.setImpField(impfield);				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("impressionVO", impressionVO); // 資料庫取出的impressionVO物件,存入req
@@ -302,12 +301,12 @@ public class ImpressionServlet extends HttpServlet{
 				successView.forward(req, res);				
 				
 				/***************************其他可能的錯誤處理**********************************/
-			} catch (Exception e) {
-				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/impression/addImp.jsp");
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				errorMsgs.add(e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/front-end/impression/addImp.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 		
 		

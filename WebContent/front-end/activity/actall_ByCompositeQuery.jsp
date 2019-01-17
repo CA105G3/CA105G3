@@ -1,3 +1,4 @@
+<%@page import="com.member.model.MemberVO"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.activity.model.*"%>
@@ -6,8 +7,8 @@
 <%-- 此頁只作為複合查詢時之結果練習，可視需要再增加分頁、送出修改、刪除之功能--%>
 
 <% 
-	String memNo = "M0001";
-	pageContext.setAttribute("memNo", memNo);
+String memNo=(String)session.getAttribute("memno");
+pageContext.setAttribute("memNo", memNo);
 %>
 <jsp:useBean id="actall_ByCompositeQuery" scope="request" type="java.util.List<ActivityVO>" /> <!-- 於EL此行可省略 -->
 
