@@ -183,11 +183,10 @@ th, td {
 	<div class="row d-flex justify-content-center">
 		<div class="col-lg-9 ">
 			<div class="panel panel-default">
-				<div class="panel-heading">醫療人員資料新增</div>
+				<div class="panel-heading">醫療人員資上傳證照</div>
 
 				<!-- /.panel-heading -->
 				<div class="panel-body">
-
 
 
 
@@ -196,27 +195,26 @@ th, td {
 						name="form1" enctype="multipart/form-data">
 						<table class="table table-striped table-borderedtable table-hover"
 							id="dataTables-example">
-							<tr>
-								<td>會員編號:</td>
-								<td>
-<!-- 									<input type="TEXT" name="memNo" size="45" -->
-<%-- 										value="<%=(licenseVO == null) ? "M" : licenseVO.getMemNo()%>" /> --%>
-										${memno}
-									
-								</td>
-							</tr>
-							<tr>
-								<td>證照狀態:</td>
-								<td><input type="TEXT" name="licStatus" size="45"
-									value="<%=(licenseVO == null) ? "審核中" : licenseVO.getLicStatus()%>" /></td>
-							</tr>
+<!-- 							<tr> -->
+<!-- 								<td>證照狀態:</td> -->
+<!-- 								<td><input type="TEXT" name="licStatus" size="45" -->
+<%-- 									value="<%=(licenseVO == null) ? "審核中" : licenseVO.getLicStatus()%>" /></td> --%>
+<!-- 							</tr> -->
 							<tr>
 								<td>證照描述:</td>
 								<td><input type="TEXT" name="licDesc" size="45"
-									value="<%=(licenseVO == null) ? "" : licenseVO.getLicDesc()%>" /></td>
+									value="<%=(licenseVO == null) ? "" : licenseVO.getLicDesc()%>" />
+<!-- 									<select size="1" name="major"> -->
+<%-- 										<option value="家醫科" ${(dvo.major=="家醫科")? 'selected':'' }>家醫科 --%>
+<%-- 										<option value="外科" ${(dvo.major=="外科")? 'selected':'' }>外科 --%>
+<%-- 										<option value="耳鼻喉科" ${(dvo.major=="耳鼻喉科")? 'selected':'' }>耳鼻喉科 --%>
+<%-- 										<option value="皮膚科" ${(dvo.major=="皮膚科")? 'selected':'' }>皮膚科 --%>
+<%-- 										<option value="心理諮商" ${(dvo.major=="心理諮商")? 'selected':'' }>心理諮商 --%>
+<!-- 									</select> -->
+								</td>
 							</tr>
 							<tr>
-								<td>證照時效:</td>
+								<td>證照到期日:</td>
 								<td><input id="f_date1" name="licDue" size="45"
 									value="<%=(licenseVO == null) ? "" : licenseVO.getLicDue()%>" />
 								</td>
@@ -225,8 +223,8 @@ th, td {
 							<tr>
 								<td>證照上傳:</td>
 								<td><img
-									src="<%=request.getContextPath()%>/front-end/license/img/nopic.jpg"
-									id="output" width=50% height=60% /> <input type="file"
+									src="<%=request.getContextPath()%>/Imgs/Doctor/No-Image-Basic.png"
+									id="output" height="300px" width="400px" /> <input type="file"
 									name="licData" size="45" onchange="loadFile(event)"></td>
 
 							</tr>
@@ -234,8 +232,9 @@ th, td {
 
 						</table>
 						<br> 
-						<input type="hidden" name="action" value="insert">
-						<input type="hidden" name="" value="insert">
+						<input type="hidden" name="action" value="insertByDr">
+						<input type="hidden" name="memNo" value="${memno}">
+						<input type="hidden" name="licStatus" value="審核中">
 						<input type="submit" value="送出新增">
 					</FORM>
 

@@ -336,6 +336,113 @@ public class LicenseServlet extends HttpServlet{
 			throw new ServletException(e);
 		}
 	}
+	
+//	==================addBy彥廷===============================================
+	if ("insertByDr".equals(action)) {    
+		
+		List<String> errorMsgs = new LinkedList<String>();
+		// Store this set in the request scope, in case we need to
+		// send the ErrorPage view.
+		req.setAttribute("errorMsgs", errorMsgs);
+	
+		try {
+			/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+			
+			String memNo = req.getParameter("memNo").trim();
+			System.out.println(memNo);
+			if (memNo == null || memNo.trim().length() == 0) {
+				errorMsgs.add("會員編號請勿空白");
+			}
+			
+			byte[] licData = null;
+			Part part = req.getPart("licData");
+			InputStream in = part.getInputStream();
+			licData = toByteArray(in);
+			System.out.println("321");
+			
+			String licStatus = req.getParameter("licStatus").trim();
+				if (licStatus == null || licStatus.trim().length() == 0) {
+					errorMsgs.add("證照狀態請勿空白");
+				}
+			String licDesc = req.getParameter("licDesc").trim();				
+				if (licDesc == null || licDesc.trim().length() == 0) {
+					errorMsgs.add("證照描述請勿空白");
+				}
+				
+			java.sql.Date licDue = null;
+				try {
+					licDue = java.sql.Date.valueOf(req.getParameter("licDue").trim());
+				} catch (IllegalArgumentException e) {
+					licDue = new java.sql.Date(System.currentTimeMillis());
+					errorMsgs.add("請輸入日期!");
+				}
+			
+			
+			
+
+			LicenseVO licenseVO = new LicenseVO();
+			licenseVO.setMemNo(memNo);
+			licenseVO.setLicData(licData);
+			licenseVO.setLicStatus(licStatus);
+			licenseVO.setLicDesc(licDesc);
+			licenseVO.setLicDue(licDue);
+	
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("licenseVO", licenseVO); // 資料庫取出的activityVO物件,存入req
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/license/addlic.jsp");
+				failureView.forward(req, res);
+				return;
+			}
+			
+			/***************************2.開始新增資料***************************************/
+			LicenseService licenseSvc = new LicenseService();
+			licenseVO = licenseSvc.addLic(memNo, licData, licStatus, licDesc, licDue);				
+			/***************************3..新增完成,準備轉交(Send the Success view)***********/
+			String url = "/front-end/doctor/admin/pages/dr_admin.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 
+			successView.forward(req, res);				
+			
+			/***************************其他可能的錯誤處理**********************************/
+		} catch (Exception e) {
+			errorMsgs.add(e.getMessage());
+			RequestDispatcher failureView = req
+					.getRequestDispatcher("/front-end/license/addlic.jsp");
+			failureView.forward(req, res);
+		}
+	}
+	
+	
+	
+	if ("drCheck_qualify".equals(action)) {
+
+		List<String> errorMsgs = new LinkedList<String>();
+		req.setAttribute("errorMsgs", errorMsgs);
+
+//		try {
+			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ****************************************/
+			String licStatus = new String(req.getParameter("licStatus"));
+			System.out.println(licStatus);
+
+			/*************************** 2.開始查詢資料****************************************/
+			LicenseService licenseSvc = new LicenseService();
+			Set<QualifyVO> set = licenseSvc.getChange(licStatus);
+
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+			req.setAttribute("qual_by_lic", set);    // 資料庫取出的impressionVO物件,存入req
+			System.out.println(set);
+			String url = "/back-end/qualify/drQual.jsp";        // 成功轉交 act_imp.jsp
+			
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+
+			/*************************** 其他可能的錯誤處理 ***********************************/
+//		} catch (Exception e) {
+//			throw new ServletException(e);
+//		}
+	}
+//	==================addBy彥廷===============================================
 	}	
 		public static byte[] toByteArray(InputStream input) throws IOException {
 		    ByteArrayOutputStream output = new ByteArrayOutputStream();

@@ -14,6 +14,9 @@
 	List<MedicalOrderVO> list = mSvc.getByDrno(drno);
 	pageContext.setAttribute("list", list);
 %>
+<%=drno %>
+<%=list %>
+
 <jsp:useBean id="memSvc" scope="page"
 	class="com.member.model.MemberService" />
 
