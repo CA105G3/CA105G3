@@ -333,9 +333,15 @@ public class DoctorServlet extends HttpServlet {
 				DoctorService ds = new DoctorService();
 //				StringBuffer sb = new StringBuffer(resume);
 //				resume = sb.insert(0, "<pre>").append("</pre>").toString();
-				dvo = ds.addDoctor(memno, resume, isonline, status, major, fee, photo);  //為什麼要寫dvo=
+				ds.addDoctor(memno, resume, isonline, status, major, fee, photo);  
+				dvo = ds.getDrno(memno);
+				String drno = dvo.getDrno();
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/front-end/doctor/listAllDoctor.jsp";
+//				String url = "/front-end/doctor/listAllDoctor.jsp";
+				String url ="/front-end/doctor/admin/pages/dr_admin.jsp";
+//				String url = "/front-end/license/drAddlic.jsp";
+				HttpSession session = req.getSession();
+				session.setAttribute("drno", drno);
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				/***************************其他可能的錯誤處理**********************************/
