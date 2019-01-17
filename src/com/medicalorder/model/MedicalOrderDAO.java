@@ -56,7 +56,7 @@ public class MedicalOrderDAO implements MedicalOrder_interface{
 	private static final String CANCEL_BY_DR = "UPDATE MEDICALORDER SET MOSTATUS=? WHERE MONO=?";
 	//========================================================================		
 	//問診結束後新增醫囑
-		private static final String UPDATE_MOTEXT="UPDATE MEDICALORDER SET MOTEXT=? WHERE MONO=?";
+		private static final String UPDATE_MOTEXT="UPDATE MEDICALORDER SET MOTEXT=? ,MOSTATUS = '問診完成'  WHERE MONO=?";
 	
 	
 	@Override

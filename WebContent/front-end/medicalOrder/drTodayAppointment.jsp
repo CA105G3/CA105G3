@@ -152,7 +152,7 @@ th, td {
 <%-- 								<a href="<%=request.getContextPath()%>\front-end\webrtc\treament_doctorside.jsp?moNO=${mvo.moNo}">${mvo.moNo}</a> --%>
 									<form method="post" 
 										action="<%=request.getContextPath()%>\front-end\webrtc\treament_doctorside.jsp">
-										<input type="hidden" name="moNo" value="${mvo.moNo}">
+										<input type="hidden" name="moNO" value="${mvo.moNo}">
 										<input type="hidden" name="drno" value="${drno}">
 										<input type="submit" class="btn btn-primary" value="進入問診">
 									</form>

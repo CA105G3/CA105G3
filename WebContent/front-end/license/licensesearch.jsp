@@ -175,8 +175,31 @@
 
 <ul>
   <li><a href="<%=request.getContextPath()%>/front-end/license/addlic.jsp">Add</a> a new License.</li>
-</ul>    
- 
+</ul> 
+
+
+
+
+
+
+
+<!-- ==============addBY彥廷========================================== -->
+  <jsp:useBean id="ds" scope="page" class="com.doctor.model.DoctorService"/>
+  <ul>
+	   <li>
+	     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/license/license.do" >
+	       <b>醫療人員證照:</b>
+	       <select size="1" name="licStatus">
+	          <option value="生效中">生效中
+	          <option value="已失效">已失效
+	          <option value="審核中" selected>審核中
+	       </select>
+	       <input type="hidden" name="action" value="drCheck_qualify">
+	       <input type="submit" value="送出">
+	    </FORM>
+	  </li> 
+  </ul>  
+<!-- ===============addBY彥廷====================================================== -->
   
 
   <!-- Modal -->
