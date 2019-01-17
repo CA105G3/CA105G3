@@ -253,6 +253,7 @@
 	    var path = window.location.pathname;
 	    var webCtx = path.substring(0, path.indexOf('/', 1));
 	    var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+	    var roomno="20190102-0001";
 	    
 	    console.log("webCtx:"+webCtx+" path:"+path+" host:"+host);
 	    console.log(endPointURL);
@@ -267,8 +268,13 @@
 				console.log("Open a WebSocket!");
 			};
 			webSocket.onmessage = function(event) {
-				console.log(event.data);
-				$('#ppt').attr('src',"<%=request.getContextPath()%>/ppt/pptImg.do?pptno="+event.data);
+				var jsonObj = JSON.parse(event.data);
+				var roomno2=jsonObj.roomno;
+				var pptno=jsonObj.pptno;
+				if(roomno2==roomno){
+					$('#ppt').attr('src',"<%=request.getContextPath()%>/ppt/pptImg.do?pptno="+pptno);
+				}
+				//$('#ppt').attr('src',"<%=request.getContextPath()%>/ppt/pptImg.do?pptno="+event.data);
 			};
 			webSocket.onclose = function(event) {
 			};
@@ -291,7 +297,6 @@
 	        webSocket.send(JSON.stringify(jsonObj));
 			webSocket.onclose();
 			window.location.replace("http://localhost:8081/CA105G3/front-end/index.jsp");
-			window.alert("tttt");
 		});
 		</script>
 	</body>

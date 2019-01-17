@@ -5,6 +5,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="com.member.model.*" %>
 <% MemberVO memVO=(MemberVO)session.getAttribute("memVO"); %>
+<%String moNO=request.getParameter("moNO");%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -249,6 +250,8 @@
 	    var path = window.location.pathname;
 	    var webCtx = path.substring(0, path.indexOf('/', 1));
 	    var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+	    var roomno="20190102-0002";
+	    
 	    
 	    console.log("webCtx:"+webCtx+" path:"+path+" host:"+host);
 	    console.log(endPointURL);
@@ -263,19 +266,23 @@
 				console.log("Open a WebSocket!");
 			};
 			webSocket.onmessage = function(event) {
-				console.log(event.data);
-				$('#ppt').attr('src',"<%=request.getContextPath()%>/ppt/pptImg.do?pptno="+event.data);
+				var jsonObj = JSON.parse(event.data);
+				var roomno2=jsonObj.roomno;
+				var pptno=jsonObj.pptno;
+				if(roomno2==roomno){
+					$('#ppt').attr('src',"<%=request.getContextPath()%>/ppt/pptImg.do?pptno="+pptno);
+				}
 			};
 			webSocket.onclose = function(event) {
 			};
 		}
 		
 		function back(){
-			var jsonObj = {"userName" : userName, "message" : "back"};
+			var jsonObj = {"userName" : userName, "message" : "back","roomno":roomno};
 	        webSocket.send(JSON.stringify(jsonObj));
 		}
 		function next(){
-			var jsonObj = {"userName" : userName, "message" : "next"};
+			var jsonObj = {"userName" : userName, "message" : "next","roomno":roomno};
 	        webSocket.send(JSON.stringify(jsonObj));
 		}
 		

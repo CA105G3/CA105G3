@@ -17,6 +17,7 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnError;
 import javax.websocket.OnClose;
 import javax.websocket.CloseReason;
+import javax.websocket.EncodeException;
 
 @ServerEndpoint("/MyEchoServer/{myName}/{myRoom}")
 public class MyEchoServer {
@@ -38,37 +39,35 @@ private static final Set<Session> allSessions = Collections.synchronizedSet(new 
 
 	
 	@OnMessage
-	public void onMessage(Session userSession, String message) throws JSONException {
+	public void onMessage(Session userSession, String message) throws JSONException, IOException, EncodeException {
 
 		System.out.println("Message received: " + message);
-		
 		getInfo=new JSONObject(message);
 		String username=getInfo.getString("userName");
 		String message2=getInfo.getString("message");
+		String roomno=getInfo.getString("roomno");
 		
 		ArrayList<PPTToolVO> pptlist = new ArrayList<PPTToolVO>();
 		list.stream().filter(ppt->ppt.getDrno().equals(username)).forEach(ppt->pptlist.add(ppt));
 		
-//		for(int i=0;i<list.size();i++) {
-//			PPTToolVO pptvo=list.get(i);
-//			if(pptvo.getDrno().equals(username)) {
-//				pptlist.add(pptvo);
-//			}
-//		}
+		
+		
 		int t=pptlist.size();
-//		int t=list.size();
+		
 		if(message2.equals("next")) {
+			JSONObject sendInfo = new JSONObject();
 			System.out.println("next");
 			a++;
 			if(a>=t)
 				a=0;
-			
 			PPTToolVO pptvo=pptlist.get(a);
-//			PPTToolVO pptvo=list.get(a);
+			sendInfo.accumulate("roomno", roomno);
+			sendInfo.accumulate("pptno", pptvo.getPptno());
+			
 			for (Session session : allSessions) {
-				if (session.isOpen())
-					session.getAsyncRemote().sendText(pptvo.getPptno());
-				}
+					if (session.isOpen())
+						session.getBasicRemote().sendText(sendInfo.toString());
+				}	
 		}
 		if(message2.equals("back")) {
 			System.out.println("back");
