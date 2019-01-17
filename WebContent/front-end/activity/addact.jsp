@@ -32,7 +32,7 @@ pageContext.setAttribute("memNo", memNo);
   }
 
 body {
-  	background-image:url('<%=request.getContextPath()%>/front-end/activity/img/bridge.jpg');
+  	background-image:url('<%=request.getContextPath()%>/front-end/activity/img/mountain.jpg');
 	opacity:1;
 	filter:alpha(opacity=80);
 	background-repeat: no-repeat;
@@ -68,96 +68,85 @@ body {
 </c:if>
 
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/activity/activity.do" name="form1" enctype="multipart/form-data">
-  <div class="container-fluid">
-  <div class="row">
-  <div class="col-xs-12 col-sm-6">
-  <div class="form-column">
-    <div class="row">
-    <div class="form-group col-md-12">
-      <label for="inputEmail4">活動名稱:</label>
-      <input type="text" class="form-control" name="actName" placeholder="請填入該活動名稱" value="<%= (activityVO==null)?"": activityVO.getActName()%>">
-    </div>
-    <div class="form-group col-md-12">
-      <label for="inputPassword4">主辦人會員編號:</label>
-      <input type="text" class="form-control" name="memNo" placeholder="EX:M0001" value="<%=memNo%>" readonly>
-    </div>
-    
-<!--   <div class="form-group col-md-12"> -->
-<!--     <label for="inputAddress">活動位置:</label> -->
-<%--     <input type="text" class="form-control" name="actLoc" placeholder="1234 Main St" value="<%= (activityVO==null)?"": activityVO.getActLoc()%>"> --%>
-<!--   	<input id="address" type="text" size="50" value="">   <input type="button" value="查經緯度並在地圖上顯示" onClick="initMap()"> -->
-
-  <div class="form-group col-md-12">
-    <label for="inputAddress">活動位置:</label>
-  	<input id="address" type="text" size="50" class="form-control" name="actLoc" value="<%= (activityVO==null)?"": activityVO.getActLoc()%>">   
-  	<input type="button" value="查經緯度並在地圖上顯示" id="submit">
-  	<input type="hidden" name="latiTude" id="lat" value="<%= (activityVO==null)?"": activityVO.getLatiTude()%>">
-	<input type="hidden" name="longtiTude" id="long" value="<%= (activityVO==null)?"": activityVO.getLongtiTude()%>">
-<%-- 	<input type="text" name="latiTude" id="lat" value="<%= (activityVO==null)?"": activityVO.getLatiTude()%>"> --%>
-<%-- 	<input type="text" name="longtiTude" id="long" value="<%= (activityVO==null)?"": activityVO.getLongtiTude()%>"> --%>
-		
-	<div id="map"></div>
-  </div>
-  
-  <div class="form-group col-md-12">
-    <label for="inputAddress2">活動時間:</label>
-    <input type="text" class="form-control" name="actTime" placeholder="請選擇日期" id="f_date1" value="<%= (activityVO==null)? "" : activityVO.getActTime()%>">
-  </div>
-    <div class="form-group col-md-12">
-      <label for="inputCity">活動狀態:</label>
-      <input type="text" class="form-control" name="actStatus" value="<%= (activityVO==null)?"募集中": activityVO.getActStatus()%>" readonly>
-    </div>
-  </div>
-    <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="inputState">活動人數上限:</label>
-      <input type="text" class="form-control" name="actMax" placeholder="至少為1人" value="<%= (activityVO==null)? "" : activityVO.getActMax()%>">
-    </div>
-    <div class="form-group col-md-6">
-      <label for="inputZip">活動人數下限:</label>
-      <input type="text" class="form-control" name="actLimit" placeholder="至少為1人" value="<%= (activityVO==null)? "" : activityVO.getActLimit()%>">
-    </div>
-  </div>
-  </div>
-</div>
-<div class="col-xs-12 col-sm-6">
-  <div class="form-group col-md-12">
-    <div class="row">
-      <label for="inputZip">活動確認時間:</label>
-      <input type="text" class="form-control" name="timeCheck" placeholder="至少為1天" value="<%= (activityVO==null)? "" : activityVO.getTimeCheck()%>">
-  </div>
-  </div>
-  <div class="form-column">
-    <div class="row">
-      <div class="form-group col-md-12">
-        <label for="inputZip">圖片檔案:</label>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-12">
-      <img src="<%= request.getContextPath() %>/front-end/activity/img/nopic.jpg" id="output" width=80% height=60%/>
-      <input type="file" name="actPic" size="45" onchange="loadFile(event)">
-    </div>
-  </div>
-<div class="form-row">
-    <div class="form-group col-md-12">
-      <label for="inputState">活動敘述:</label>
-      <input type="text" class="form-control" name="actDesc" placeholder="請填入活動敘述" value="<%= (activityVO==null)? "" : activityVO.getActDesc()%>">
-    </div>    
-</div>
-    
-    <div class="form-row">
-    	<div class="form-group col-md-10">
-    	</div>
-    		<div class="form-group col-md-2">
-      			<div class="row">
-      				<input type="hidden" name="action" value="insert">
-      				<button type="submit" class="btn btn-success">新增</button>
-    			</div>
-    		</div>
-  	</div>
-</div>
-</div>
-</div>
+	<div class="container-fluid">
+		<div class="row">
+  			<div class="col-xs-12 col-sm-6">
+  				<div class="form-column">
+    				<div class="row">
+    					<div class="form-group col-md-12">
+      						<label for="inputEmail4">活動名稱:</label>
+      						<input type="text" class="form-control" name="actName" placeholder="請填入該活動名稱" value="<%= (activityVO==null)?"": activityVO.getActName()%>">
+    					</div>
+    					<div class="form-group col-md-12">
+      						<label for="inputPassword4">主辦人會員編號:</label>
+      						<input type="text" class="form-control" name="memNo" placeholder="EX:M0001" value="<%=memNo%>" readonly>
+    					</div>
+						<div class="form-group col-md-12">
+    						<label for="inputAddress">活動位置:</label>
+						  	<input id="address" type="text" size="50" class="form-control" name="actLoc" value="<%= (activityVO==null)?"": activityVO.getActLoc()%>">   
+						  	<input type="button" value="查經緯度並在地圖上顯示" id="submit">
+						  	<input type="hidden" name="latiTude" id="lat" value="<%= (activityVO==null)?"": activityVO.getLatiTude()%>">
+							<input type="hidden" name="longtiTude" id="long" value="<%= (activityVO==null)?"": activityVO.getLongtiTude()%>">
+							<div id="map"></div>
+  						</div>
+  						<div class="form-group col-md-12">
+						    <label for="inputAddress2">活動時間:</label>
+						    <input type="text" class="form-control" name="actTime" placeholder="請選擇日期" id="f_date1" value="<%= (activityVO==null)? "" : activityVO.getActTime()%>">
+  						</div>
+					    <div class="form-group col-md-12">
+					    	<label for="inputCity">活動狀態:</label>
+					      	<input type="text" class="form-control" name="actStatus" value="<%= (activityVO==null)?"募集中": activityVO.getActStatus()%>" readonly>
+					    </div>
+					  	</div>
+			    	<div class="form-row">
+				    	<div class="form-group col-md-6">
+							<label for="inputState">活動人數上限:</label>
+							<input type="text" class="form-control" name="actMax" placeholder="至少為1人" value="<%= (activityVO==null)? "" : activityVO.getActMax()%>">
+						</div>
+						<div class="form-group col-md-6">
+					    	<label for="inputZip">活動人數下限:</label>
+					    	<input type="text" class="form-control" name="actLimit" placeholder="至少為1人" value="<%= (activityVO==null)? "" : activityVO.getActLimit()%>">
+						</div>
+		  			</div>
+  				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6">
+				<div class="form-group col-md-12">
+			    	<div class="row">
+			      		<label for="inputZip">活動確認時間:</label>
+			      		<input type="text" class="form-control" name="timeCheck" placeholder="至少為1天" value="<%= (activityVO==null)? "" : activityVO.getTimeCheck()%>">
+			  		</div>
+			  	</div>
+				<div class="form-column">
+					<div class="row">
+						<div class="form-group col-md-12">
+							<label for="inputZip">圖片檔案:</label>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-12">
+							<img src="<%= request.getContextPath() %>/front-end/activity/img/nopic.jpg" id="output" width=80% height=60%/>
+							<input type="file" name="actPic" size="45" onchange="loadFile(event)">
+						</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12">
+					    <label for="inputState">活動敘述:</label>
+					    <input type="text" class="form-control" name="actDesc" placeholder="請填入活動敘述" value="<%= (activityVO==null)? "" : activityVO.getActDesc()%>">
+					</div>    
+				</div>   
+				<div class="form-row">
+					<div class="form-group col-md-10">
+					</div>
+					<div class="form-group col-md-2">
+						<div class="row">
+							<input type="hidden" name="action" value="insert">
+						    <button type="submit" class="btn btn-success">新增</button>
+						</div>
+    				</div>
+  				</div>
+			</div>
+		</div>
+	</div>
 </form>
 
 <script>

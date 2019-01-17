@@ -38,7 +38,7 @@ ImpressionVO impressionVO = (ImpressionVO) request.getAttribute("impressionVO");
   }
 
 body {
-  	background-image:url('<%=request.getContextPath()%>/front-end/activity/img/beauti.gif');
+  	background-image:url('<%=request.getContextPath()%>/front-end/activity/img/mountain.jpg');
 	opacity:1;
 	filter:alpha(opacity=80);
 	background-repeat: no-repeat;

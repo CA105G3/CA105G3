@@ -30,7 +30,6 @@
     display: inline;
   }
 
-
 </style>
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/activity/css/normalize.css"/>
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/activity/css/default.css">
@@ -39,9 +38,9 @@
 	<script src="<%=request.getContextPath()%>/template/js/bootstrap.min.js"></script>
 	<script src="<%=request.getContextPath()%>/template/js/jquery.min.js"></script>
 </head>
-<body style="background-image:url('<%=request.getContextPath()%>/front-end/activity/img/bridge.jpg');background-attachment: fixed;
-    background-position: center;
-    background-size: cover;">
+<body style="background-image:url('<%=request.getContextPath()%>/front-end/activity/img/bridge.jpg');background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;background-size: cover;">
 <table>
 	<tr><td>
 		 <h3>所有募集中活動 - join_actall2.jsp</h3>
@@ -70,7 +69,7 @@
 		    <c:choose>
 				<c:when test="${(actlist.actPic)!=null}">
 			<td>
-				<img src="<%= request.getContextPath()%>/activity/activityPic.do?actNo=${actlist.actNo}" height=50% weight=50%/>
+				<img src="<%= request.getContextPath()%>/activity/activityPic.do?actNo=${actlist.actNo}" height=50% width=50%/>
 			</td>
 				</c:when>
 				<c:otherwise>

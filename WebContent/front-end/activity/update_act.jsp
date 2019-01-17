@@ -10,51 +10,51 @@
 <head>
 
 <title>活動資料修改-update_act.jsp</title>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+TC">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+ 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ 	
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.css" />
+	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.full.js"></script>
 <style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
+ h3.title{
+ 	text-align:center;
+ }
   h4 {
-    color: blue;
+    color: #FF0088;
     display: inline;
   }
-  #map {
+
+body {
+  	background-image:url('<%=request.getContextPath()%>/front-end/activity/img/mountain.jpg');
+	opacity:1;
+	filter:alpha(opacity=80);
+	background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    color:#00DDDD;
+    font-weight:bold;
+  }
+#map {
 		height: 400px;  /* The height is 400 pixels */
-		width: 50%;  /* The width is the width of the web page */
+		width: 100%;  /* The width is the width of the web page */
 	}
 </style>
 
-<style>
-  table {
-	width: 100%;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
-</style>
-
+<title>活動資料修改-update_act.jsp</title>
 </head>
-<body bgcolor='white'>
-
-<table id="table-1">
-	<tr><td>
-		 <h3>活動資料修改-update_act.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><img src="<%=request.getContextPath()%>/front-end/impression/img/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+<body>
+	<div>
+		<div><h3 class="title">活動資料修改-update_act.jsp</h3></div>
+		<div><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><img src="<%= request.getContextPath() %>/front-end/activity/img/back1.gif" width="100" height="100" border="0">回首頁</a></div>
+	</div>
 
 <h3>資料修改:</h3>
 
@@ -69,105 +69,106 @@
 </c:if>
 
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/activity/activity.do" name="form1" enctype="multipart/form-data">
-<table>
-	<tr>
-		<td>活動編號:</td>
-		<td><%=activityVO.getActNo()%></td>
-	</tr>
-	<tr>
-		<td>舉辦人編號:</td>
-		<td><input type="TEXT" name="memNo" size="45" 
-			 value="<%=activityVO.getMemNo()%>" readonly="true" /></td>
-	</tr>
-	<tr>
-		<td>活動名稱:</td>
-		<td><input type="TEXT" name="actName" size="45" 
-			 value="<%=activityVO.getActName()%>" />
-		</td>
-	</tr>
-	<tr>
-		<td>活動位置:</td>
-		<td>
-			<input id="address" type="text" size="50" class="form-control" name="actLoc" value="<%=activityVO.getActLoc()%>">   
-	  		<input type="button" value="查經緯度並在地圖上顯示" id="submit" >
-	  		<input type="hidden" name="latiTude" id="lat" value="<%=activityVO.getLatiTude()%>">
-			<input type="hidden" name="longtiTude" id="long" value="<%=activityVO.getLongtiTude()%>">
-				
-				<div id="map"></div>
-		</td>
-	</tr>
-	<tr>
-		<td>活動時間:</td>
-		<td><input type="TEXT" name="actTime" size="45" id="f_date1"
-			 value="<%= (activityVO==null)? "" : activityVO.getActTime()%>"/></td>
-	</tr>
-	<tr>
-		<td>活動狀態:</td>
-		<td>
-		<select name="actStatus">
-		<option value="募集中" ${('募集中'==activityVO.actStatus)? 'selected':'' } >募集中</option>
-		<option value="已結束" ${('已結束'==activityVO.actStatus)? 'selected':'' }>已結束</option>
-		<option value="已取消" ${('已取消'==activityVO.actStatus)? 'selected':'' }>已取消</option>
-		</select>
-		</td>
-	</tr>
-	<tr>
-		<td>活動人數上限:</td>
-		<td><input type="TEXT" name="actMax" size="45"
-			 value="<%= (activityVO==null)? " " : activityVO.getActMax()%>" /></td>
-	</tr>
-	<tr>
-		<td>活動人數下限:</td>
-		<td><input type="TEXT" name="actLimit" size="45"
-			 value="<%= (activityVO==null)? " " : activityVO.getActLimit()%>" /></td>
-	</tr>
-	<tr>
-		<td>活動確認時間:</td>
-		<td><input type="TEXT" name="timeCheck" size="45"
-		value="<%= (activityVO==null)? " " : activityVO.getActLimit()%>" /></td>	
-	</tr>
-	<tr>
-		<td>活動敘述:</td>
-		<td><input type="TEXTAREA" name="actDesc" size="45"
-		value="<%= (activityVO==null)? " " : activityVO.getActDesc()%>" /></td>	
-	</tr>
-	<tr>
-		<td>照片上傳:</td>
-		
-		<c:choose>
-				<c:when test="${(activityVO.actPic)!=null}">
-			<td>
-				<img src="<%= request.getContextPath()%>/activity/activityPic.do?actNo=${activityVO.actNo}" id="output" height=50% width=40%/>
-				<input type="file" name="actPic" size="45" onchange="loadFile(event)"/>
-			</td>
-				</c:when>
-				<c:otherwise >
-			<td>
-			<img src="<%= request.getContextPath()%>/front-end/activity/img/nopic.jpg" id="output2" width=50% height=40%>
-			<input type="file" name="actPic" size="45" onchange="loadFile2(event)"/>
-			</td>
-				</c:otherwise>
-			</c:choose>
-		
-	</tr>
-	
-	
-</table>
-<br>
-<input type="hidden" name="action" value="update">
-<input type="hidden" name="actNo" value="<%= activityVO.getActNo()%>">
-<input type="submit" value="送出修改"></FORM>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6">
+				<div class="form-column">
+    				<div class="row">
+    					<div class="form-group col-md-12">
+      						<label for="inputEmail4">活動編號:</label>
+      						<input type="text" class="form-control" name="actNo" value="${activityVO.actNo}" readonly/>
+    					</div>
+						<div class="form-group col-md-12">
+      						<label for="inputEmail4">舉辦人編號:</label>
+      						<input type="text" class="form-control" name="memNo" value="${activityVO.memNo}" readonly/>
+    					</div>
+						<div class="form-group col-md-12">
+      						<label for="inputEmail4">活動名稱:</label>
+      						<input type="text" class="form-control" name="actName" value="${activityVO.actName}"/>
+    					</div>
+    					<div class="form-group col-md-12">
+      						<label for="inputEmail4">活動時間:</label>
+      						<input type="text" class="form-control" name="actTime" value="${activityVO.actTime}"/>
+    					</div>
+    					<div class="form-group col-md-12">
+      						<label for="inputEmail4">活動人數下限:</label>
+      						<input type="text" class="form-control" name="actLimit" value="${activityVO.actLimit}"/>
+    					</div>
+    					<div class="form-group col-md-12">
+      						<label for="inputEmail4">活動人數上限:</label>
+      						<input type="text" class="form-control" name="actMax" value="${activityVO.actMax}"/>
+    					</div>
+    					<div class="form-group col-md-12">
+      						<label for="inputEmail4">活動確認時間:</label>
+      						<input type="text" class="form-control" name="timeCheck" value="${activityVO.timeCheck}"/>
+    					</div>
+    					<div class="form-group col-md-12">
+    						<label for="inputEmail4">活動狀態:</label>
+      						<select name="actStatus" class="form-control">
+								<option value="募集中" ${('募集中'==activityVO.actStatus)? 'selected':'' } >募集中</option>
+								<option value="已結束" ${('已結束'==activityVO.actStatus)? 'selected':'' }>已結束</option>
+								<option value="已取消" ${('已取消'==activityVO.actStatus)? 'selected':'' }>已取消</option>
+							</select>
+    					</div>
+    					<div class="form-group col-md-12">
+      						<label for="inputEmail4">活動敘述:</label>
+      						<textarea name="actDesc" class="form-control" rows="8" cols="50" ><%= (activityVO==null)? "" : activityVO.getActDesc()%></textarea>
+    					</div>
+					</div>
+				</div>
+			</div>
+<!-- 右半邊 -->
+			<div class="col-xs-12 col-sm-6">
+				<div class="form-group col-md-12">
+					<label for="inputAddress">活動位置:</label>
+      				<input id="address" type="text" size="50" class="form-control" name="actLoc" value="<%=activityVO.getActLoc()%>">   
+	  				<input type="button" value="查經緯度並在地圖上顯示" id="submit" >
+	  				<input type="hidden" name="latiTude" id="lat" value="<%=activityVO.getLatiTude()%>">
+					<input type="hidden" name="longtiTude" id="long" value="<%=activityVO.getLongtiTude()%>">				
+					<div id="map"></div>
+    			</div>
+				<div class="form-column">
+    				<div class="row">
+      					<div class="form-group col-md-12">
+        					<label for="inputZip">圖片檔案:</label>
+      					</div>
+    				</div>
+    					<div class="col-xs-12 col-sm-12">
+      						<c:choose>
+								<c:when test="${(activityVO.recPic)!=null}">
+									<td>
+										<img src="<%= request.getContextPath()%>/activity/activityPic.do?actNo=${activityVO.actNo}" id="output2" height=50% width=50%/>
+										<input type="file" name="actPic" size="45" onchange="loadFile(event)"/>
+									</td>
+								</c:when>
+								<c:otherwise>
+									<td>
+										<img src="<%= request.getContextPath()%>/front-end/activity/img/nopic.jpg" id="output2" width=50% height=50%>
+										<input type="file" name="actPic" size="45" onchange="loadFile(event)"/>
+									</td>
+								</c:otherwise>
+							</c:choose>
+    					</div>
+  				</div>
+  				<div class="form-row">
+    				<div class="form-group col-md-10">
+    				</div>
+    				<div class="form-group col-md-2">
+      					<div class="row">
+      						<input type="hidden" name="action" value="update">
+							<input type="hidden" name="actNo" value="<%= activityVO.getActNo()%>">
+							<input type="submit" value="送出修改" class="btn btn-success">
+    					</div>
+    				</div>
+  				</div>
+			</div>
+		</div>
+	</div>
+</FORM>
+
+
 <script>
   var loadFile = function(event) {
-    var reader = new FileReader();
-    reader.onload = function(){
-      var output = document.getElementById("output");
-      output.src = reader.result;
-    };
-    reader.readAsDataURL(event.target.files[0]);
-  };
-  
-  var loadFile2 = function(event) {
     var reader = new FileReader();
     reader.onload = function(){
       var output = document.getElementById("output2");
@@ -187,7 +188,6 @@
 	   actTime = new java.sql.Date(System.currentTimeMillis());
    }
 %>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.full.js"></script>
 

@@ -30,7 +30,7 @@ ImpressionVO impressionVO = (ImpressionVO) request.getAttribute("impressionVO");
   }
 
 body {
-  	background-image:url('<%=request.getContextPath()%>/front-end/activity/img/beauti.gif');
+  	background-image:url('<%=request.getContextPath()%>/front-end/activity/img/mountain.jpg');
 	opacity:1;
 	filter:alpha(opacity=80);
 	background-repeat: no-repeat;
@@ -46,7 +46,7 @@ body {
 	}
 </style>
 
-<title>新增活動-addact.jsp</title>
+<title>心得資料修改 - update_imp_input.jsp</title>
 </head>
 <body>
 	<div>
@@ -74,7 +74,7 @@ body {
     				<div class="row">
     					<div class="form-group col-md-12">
       						<label for="inputEmail4">心得主旨:</label>
-      						<input type="text" class="form-control" name="actName" value="${impressionVO.impName}"/>
+      						<input type="text" class="form-control" name="impName" value="${impressionVO.impName}"/>
     					</div>
 						<div class="form-group col-md-12">
       						<label for="inputEmail4">心得編號:</label>
@@ -90,7 +90,7 @@ body {
     					</div>
     					<div class="form-group col-md-12">
       						<label for="inputEmail4">會員編號:</label>
-      						<input type="text" class="form-control" name="getMemNo" value="${impressionVO.memNo}" readonly/>
+      						<input type="text" class="form-control" name="memNo" value="${impressionVO.memNo}" readonly/>
     					</div>
     					<div class="form-group col-md-12">
       						<label for="inputEmail4">心得內容:</label>
@@ -114,7 +114,7 @@ body {
 										<input type="file" name="recPic" size="45" onchange="loadFile(event)"/>
 									</td>
 								</c:when>
-								<c:otherwise >
+								<c:otherwise>
 									<td>
 										<img src="<%= request.getContextPath()%>/front-end/impression/img/nopic.jpg" id="output2" width=50% height=50%>
 										<input type="file" name="recPic" size="45" onchange="loadFile(event)"/>
