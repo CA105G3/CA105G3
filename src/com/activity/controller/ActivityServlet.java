@@ -375,16 +375,14 @@ if ("insert".equals(action)) { // 來自addact.jsp的請求
 				
 				/***************************2.開始新增資料***************************************/
 				ActivityService activitySvc = new ActivityService();
-				activityVO = activitySvc.addAct(memNo, actName, actLoc, actTime, actStatus, actMax, actLimit, timeCheck,actDesc, actPic,latiTude,longtiTude);
-				JoinActService joinactSvc = new JoinActService();
-				
-				List<ActivityVO> actVO = activitySvc.startact(actStatus);
-				if (actVO == null) {
+				activityVO = activitySvc.addAct(memNo, actName, actLoc, actTime, actStatus, actMax, actLimit, timeCheck,actDesc, actPic,latiTude,longtiTude);				
+				List<ActivityVO> actlist = activitySvc.startact(actStatus);
+				if (actlist == null) {
 					errorMsgs.add("查無資料");
 				}
 				
 				/***************************3..新增完成,準備轉交(Send the Success view)***********/
-				req.setAttribute("actVO", actVO);
+				req.setAttribute("actlist", actlist);
 				String url = "/front-end/activity/join_actall2.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);			
