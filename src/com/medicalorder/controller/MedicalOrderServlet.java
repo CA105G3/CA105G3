@@ -150,7 +150,42 @@ public class MedicalOrderServlet extends HttpServlet {
 		//永續層存取
 		MedicalOrderService medicalOrderService = new MedicalOrderService();
 		medicalOrderService.cancelMedicalOrder(moNo, moCancelReason);
-			
+		
+		//寄Eami告知醫生取消預約
+//		String moNo = req.getParameter("moNo");
+		
+		//取得取消預約的預約單單號、時間、幾點
+		MedicalOrderVO moVO =  medicalOrderService.getOneMedicalOrder(moNo);
+		String memno = moVO.getMemNo();
+System.out.println("memno = " + memno);
+		Date moTime = moVO.getMoTime();
+System.out.println("moTime = " + moTime);
+		int moHour = moVO.getMoHour();
+System.out.println("moHour = " + moHour);
+		
+		//取出對應醫生的會員物件
+		DoctorService drSvc = new DoctorService();
+		MemberService memSvc = new MemberService();
+		MemberVO memberVO = memSvc.getOneMember((drSvc.getOneDoctor(moVO.getDrNo()).getMemno()));
+
+		
+		String drName = memberVO.getMemName();
+		
+		String to = memberVO.getEmail();
+		String subject = drName +"醫生您好，看診單編號" + moNo + "取消預約";
+		String messageText = 
+							drName + "醫生您好： \n " +  
+							memno + "會員於"+ moTime + " "+ moHour + ":00 ~ " + (moHour + 3) +
+							":00的線上預約看診由於個人因素而取消預約，造成您的不便敬請見諒。";
+
+		Thread mailThread = new Thread() {
+		    public void run() {
+		    	MailService mailSvc = new MailService();
+		    	mailSvc.sendMail(to, subject, messageText);
+		    }
+		};
+		mailThread.start();
+		
 		//修改成功回原本頁面
 		String url = "/front-end/medicalOrder/getMedicalOrderFromMember.jsp";
 		RequestDispatcher successData = req.getRequestDispatcher(url);
@@ -772,14 +807,5 @@ System.out.println("333333333333333333333333");
 
 	}
 
-	public static byte[] readFully(InputStream input) throws IOException {
-		byte[] buffer = new byte[8192];
-		int bytesRead;
-		ByteArrayOutputStream output = new ByteArrayOutputStream();
-		while ((bytesRead = input.read(buffer)) != -1) {
-			output.write(buffer, 0, bytesRead);
-		}
-		return output.toByteArray();
-	}
 
 }
