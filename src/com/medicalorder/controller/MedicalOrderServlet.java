@@ -25,6 +25,7 @@ import com.medicalorder.model.MedicalOrderVO;
 import com.member.model.MemberService;
 import com.member.model.MemberVO;
 
+import Message_timer.Send;
 import sendMail.MailService;
 
 
@@ -39,6 +40,8 @@ public class MedicalOrderServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html;charset=UTF-8");
+		
 		String action = req.getParameter("action");
 		//測試存Session
 		HttpSession session = req.getSession();
@@ -185,6 +188,18 @@ System.out.println("moHour = " + moHour);
 		    }
 		};
 		mailThread.start();
+		
+		//寄簡訊
+		String drPhoneNumber = memberVO.getPhone();
+		String message = drName + "醫生您好：" +
+						 memno + "會員於"+ moTime + " "+ moHour + ":00 ~ " + (moHour + 3) +
+						 ":00的線上預約看診由於個人因素而取消預約，造成您的不便敬請見諒。";
+		Send se = new Send();
+	 	String[] tel ={drPhoneNumber};	 	
+	 	se.sendMessage(tel , message);
+		
+		
+		
 		
 		//修改成功回原本頁面
 		String url = "/front-end/medicalOrder/getMedicalOrderFromMember.jsp";
