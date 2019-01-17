@@ -308,4 +308,51 @@
     <servlet-name>FoodOrderImgServlet2</servlet-name>
     <url-pattern>/front-end/foodOrder2/foodorderImg2.do</url-pattern>
   </servlet-mapping>
+  
+  
+   <servlet>
+		<servlet-name>AndroidMemberServlet</servlet-name>
+		<servlet-class>Android.member.controller.AndroidMemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidMemberServlet</servlet-name>
+		<url-pattern>/AndroidMemberServlet</url-pattern>
+	</servlet-mapping>
+	
+	 <servlet>
+		<servlet-name>AndroidFoodOrderServlet</servlet-name>
+		<servlet-class>Android.foodorder.controller.AndroidFoodOrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidFoodOrderServlet</servlet-name>
+		<url-pattern>/AndroidFoodOrderServlet</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>AndroidMenuServlet</servlet-name>
+		<servlet-class>Android.menu.controller.AndroidMenuServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidMenuServlet</servlet-name>
+		<url-pattern>/AndroidMenuServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AndroidMemberChefServlet</servlet-name>
+		<servlet-class>Android.memberChef.controller.AndroidMemberChefServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidMemberChefServlet</servlet-name>
+		<url-pattern>/AndroidMemberChefServlet</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>AndroidActivityServlet</servlet-name>
+		<servlet-class>Android.activity.controller.AndroidActivityServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidActivityServlet</servlet-name>
+		<url-pattern>/AndroidActivityServlet</url-pattern>
+	</servlet-mapping>
 </web-app>
