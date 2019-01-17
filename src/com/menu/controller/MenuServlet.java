@@ -133,90 +133,90 @@ public class MenuServlet extends HttpServlet {
         
 //				=============================================================================
 
-        if ("update".equals(action)) { // 來自updateAllMenu.jsp的請求
-			
-			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			
-
-			try {
-				/***********************1.接收請求參數 & 新增修改資料******************************/
-				
-				MenuVO menuVO = new MenuVO();
-				MenuService menuSvc = new MenuService();
-				
-				String[] mainCourseList = req.getParameterValues("mainCourse");
-				String[] unitPriceList = req.getParameterValues("unitPrice");
+//        if ("update".equals(action)) { // 來自updateAllMenu.jsp的請求
+//			
+//			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+//			req.setAttribute("errorMsgs", errorMsgs);
+//			
+//
+//			try {
+//				/***********************1.接收請求參數 & 新增修改資料******************************/
+//				
+//				MenuVO menuVO = new MenuVO();
+//				MenuService menuSvc = new MenuService();
+//				
+//				String[] mainCourseList = req.getParameterValues("mainCourse");
+//				String[] unitPriceList = req.getParameterValues("unitPrice");
 //				String[] deliverableList = req.getParameterValues("deliverable");
-				String[] menuNoList = req.getParameterValues("menuNo");
-				String[] chefNoList = req.getParameterValues("chefNo");
-				Collection<Part> menuPicPart = req.getParts();
-				
+//				String[] menuNoList = req.getParameterValues("menuNo");
+//				String[] chefNoList = req.getParameterValues("chefNo");
+//				Collection<Part> menuPicPart = req.getParts();
+//				
 //				for(Part part : menuPicPart) {
 //					System.out.println(part);
 //				}
-				
-				List<byte[]> menuPicList = new LinkedList<byte[]>();
-				int count = 0;
-				for(Part part : menuPicPart) {
-					
-					if("menuPic".equals(part.getName())) {
-						byte[] pic = null;
-						String filename = part.getSubmittedFileName();
-						if (filename != "") {
-							InputStream in = part.getInputStream();
-							pic = new byte[in.available()];
-							in.read(pic);
-							in.close();
-							menuPicList.add(pic);
-							count++;
-						} else {
-							pic = menuSvc.getOneMenu(menuNoList[count]).getMenuPic();
-							if(pic != null) {
-								menuPicList.add(pic);
-							} else {
-								InputStream inDefault = getServletContext().getResourceAsStream("/Imgs/Menu/nopic.jpg");
-								pic = new byte[inDefault.available()];
-								inDefault.read(pic);
-								inDefault.close();
-								menuPicList.add(pic);
-							}
-							count++;
-						}
-					}
-				}
-				
-				for(String a : mainCourseList) {
-					System.out.print(a + " ");
-				}
-				System.out.println("----------------------");
-				for(String a : unitPriceList) {
-					System.out.print(a + " ");
-				}
+//				
+//				List<byte[]> menuPicList = new LinkedList<byte[]>();
+//				int count = 0;
+//				for(Part part : menuPicPart) {
+//					
+//					if("menuPic".equals(part.getName())) {
+//						byte[] pic = null;
+//						String filename = part.getSubmittedFileName();
+//						if (filename != "") {
+//							InputStream in = part.getInputStream();
+//							pic = new byte[in.available()];
+//							in.read(pic);
+//							in.close();
+//							menuPicList.add(pic);
+//							count++;
+//						} else {
+//							pic = menuSvc.getOneMenu(menuNoList[count]).getMenuPic();
+//							if(pic != null) {
+//								menuPicList.add(pic);
+//							} else {
+//								InputStream inDefault = getServletContext().getResourceAsStream("/Imgs/Menu/nopic.jpg");
+//								pic = new byte[inDefault.available()];
+//								inDefault.read(pic);
+//								inDefault.close();
+//								menuPicList.add(pic);
+//							}
+//							count++;
+//						}
+//					}
+//				}
+//				
+//				for(String a : mainCourseList) {
+//					System.out.print(a + " ");
+//				}
+//				System.out.println("----------------------");
+//				for(String a : unitPriceList) {
+//					System.out.print(a + " ");
+//				}
 //				System.out.println("----------------------");
 //				for(String a : deliverableList) {
 //					System.out.print(a + " ");
 //				}
-				System.out.println("----------------------");
-				for(String a : menuNoList) {
-					System.out.print(a + " ");
-				}
-				System.out.println("----------------------");
-				for(String a : chefNoList) {
-					System.out.print(a + " ");
-				}
-				System.out.println("----------------------");
-				
-				
-				
-				System.out.println(chefNoList[1]);
-				System.out.println(menuPicPart.size());
-				System.out.println(menuPicList.size());
-				System.out.println(mainCourseList.length);
-				System.out.println(unitPriceList.length);
+//				System.out.println("----------------------");
+//				for(String a : menuNoList) {
+//					System.out.print(a + " ");
+//				}
+//				System.out.println("----------------------");
+//				for(String a : chefNoList) {
+//					System.out.print(a + " ");
+//				}
+//				System.out.println("----------------------");
+//				
+//				
+//				
+//				System.out.println(chefNoList[1]);
+//				System.out.println(menuPicPart.size());
+//				System.out.println(menuPicList.size());
+//				System.out.println(mainCourseList.length);
+//				System.out.println(unitPriceList.length);
 //				System.out.println(deliverableList.length);
-				System.out.println(menuNoList.length);
-				System.out.println(chefNoList.length);
+//				System.out.println(menuNoList.length);
+//				System.out.println(chefNoList.length);
 //
 //				menuVO = menuSvc.getOneMenu(menuNoList[1]);
 //				if(menuVO == null) {
@@ -225,38 +225,38 @@ public class MenuServlet extends HttpServlet {
 //					System.out.println("2");
 //				}
 //				
-				for(int i = 0; i < mainCourseList.length; i++) {
-					menuVO = menuSvc.getOneMenu(menuNoList[i]);
+//				for(int i = 0; i < mainCourseList.length; i++) {
+//					menuVO = menuSvc.getOneMenu(menuNoList[i]);
 //					byte[] menuPic = menuSvc.getOneMenu(menuNoList[i]).getMenuPic();
-					
-					if(menuVO == null) {
-						if(mainCourseList[i] != "") {
-							menuSvc.addMenu(chefNoList[0], Integer.parseInt(unitPriceList[i].trim()), mainCourseList[i], menuPicList.get(i), "可送餐");
-							System.out.println("add");
-						}
-					} else {
-						menuSvc.updateMenu(Integer.parseInt(unitPriceList[i].trim()), mainCourseList[i], menuPicList.get(i), "可送餐", menuNoList[i]);
-						System.out.println("up");
-					}
-				}
-				
-				List<MenuVO> list = menuSvc.getOneChefMenu(chefNoList[0]);
-				
-				/***************************3.修改完成,準備轉交(Send the Success view)***********/
-				req.setAttribute("list", list);
-				String url = "/front\u002dend/menu/menu.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交menu.jsp
-				successView.forward(req, res);				
-				
-				/***************************其他可能的錯誤處理**********************************/
-			} catch (Exception e) {
-				errorMsgs.put("Exception",e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front\u002dend/menu/select_page.jsp");
-				failureView.forward(req, res);
-			}
-        }
-        
+//					
+//					if(menuVO == null) {
+//						if(mainCourseList[i] != "") {
+//							menuSvc.addMenu(chefNoList[0], Integer.parseInt(unitPriceList[i].trim()), mainCourseList[i], menuPicList.get(i), "可送餐");
+//							System.out.println("add");
+//						}
+//					} else {
+//						menuSvc.updateMenu(Integer.parseInt(unitPriceList[i].trim()), mainCourseList[i], menuPicList.get(i), "可送餐", menuNoList[i]);
+//						System.out.println("up");
+//					}
+//				}
+//				
+//				List<MenuVO> list = menuSvc.getOneChefMenu(chefNoList[0]);
+//				
+//				/***************************3.修改完成,準備轉交(Send the Success view)***********/
+//				req.setAttribute("list", list);
+//				String url = "/front\u002dend/menu/menu.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交menu.jsp
+//				successView.forward(req, res);				
+//				
+//				/***************************其他可能的錯誤處理**********************************/
+//			} catch (Exception e) {
+//				errorMsgs.put("Exception",e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/front\u002dend/menu/select_page.jsp");
+//				failureView.forward(req, res);
+//			}
+//        }
+//        
 //		=============================================================================
         
 //        if ("insert".equals(action)) { // 來自updateAllMenu.jsp的請求

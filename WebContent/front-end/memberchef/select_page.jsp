@@ -43,10 +43,19 @@
   
   
   <li>
-    <FORM METHOD="post" ACTION="memberchef.do" >
+    <FORM METHOD="get" ACTION="memberchef.do" >
         <b>輸入廚師編號 (如CHEF0001):</b>
         <input type="text" name="chefNo">
         <input type="hidden" name="action" value="getOne_For_Display">
+        <input type="submit" value="送出">
+    </FORM>
+  </li>
+  
+  <li>
+    <FORM METHOD="post" ACTION="chefOrder.do" >
+        <b>查詢訂單：輸入廚師編號 (如CHEF0001):</b>
+        <input type="text" name="chefNo" value="CHEF0001">
+        <input type="hidden" name="action" value="getOrder">
         <input type="submit" value="送出">
     </FORM>
   </li>

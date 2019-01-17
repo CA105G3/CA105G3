@@ -99,8 +99,8 @@ public class MenuListAjaxServlet extends HttpServlet {
 				menuListSvc.updateMenuList(menuListNo, menuNo, menuDate, menuTimeSlot);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-//				res.setContentType("text/plain");
-//				res.setCharacterEncoding("UTF-8");
+				res.setContentType("text/plain");
+				res.setCharacterEncoding("UTF-8");
 				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
@@ -123,8 +123,8 @@ public class MenuListAjaxServlet extends HttpServlet {
 				menuListSvc.deleteMenuList(menuListNo);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-//				res.setContentType("text/plain");
-//				res.setCharacterEncoding("UTF-8");
+				res.setContentType("text/plain");
+				res.setCharacterEncoding("UTF-8");
 				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {

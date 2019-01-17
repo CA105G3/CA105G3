@@ -25,17 +25,17 @@ public class MenuDAO implements MenuDAO_interface{
 	}
 	
 	private static final String INSERT_STMT = 
-		"INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),?, ?, ?, ?, ?)";
+		"INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-		"SELECT menuno,chefno,unitprice,maincourse,menupic,deliverable from menu order by menuno";
+		"SELECT menuno,chefno,unitprice,maincourse,menupic,deliverable,menuintro from menu order by menuno";
 	private static final String GET_ONE_STMT = 
-		"SELECT menuno,chefno,unitprice,maincourse,menupic,deliverable from menu where menuno=?";
+		"SELECT menuno,chefno,unitprice,maincourse,menupic,deliverable,menuintro from menu where menuno=?";
 	private static final String GET_MENU_STMT = 
-		"SELECT menuno,chefno,unitprice,maincourse,menupic,deliverable from menu where chefno=?";
+		"SELECT menuno,chefno,unitprice,maincourse,menupic,deliverable,menuintro from menu where chefno=?";
 	private static final String DELETE = 
 		"DELETE FROM menu where menuno = ?";
 	private static final String UPDATE = 
-		"UPDATE menu set unitprice=?, maincourse=?, menupic=?, deliverable=? where menuno=?";
+		"UPDATE menu set unitprice=?, maincourse=?, menupic=?, deliverable=?, menuintro=? where menuno=?";
 	
 	@Override
 	public void insert(MenuVO menuVO) {
@@ -51,6 +51,7 @@ public class MenuDAO implements MenuDAO_interface{
 			pstmt.setString(3, menuVO.getMainCourse());
 			pstmt.setBytes(4, menuVO.getMenuPic());
 			pstmt.setString(5, menuVO.getDeliverable());
+			pstmt.setString(6, menuVO.getMenuIntro());
 			
 			pstmt.executeUpdate();
 			
@@ -87,7 +88,9 @@ public class MenuDAO implements MenuDAO_interface{
 			pstmt.setString(2, menuVO.getMainCourse());
 			pstmt.setBytes(3, menuVO.getMenuPic());
 			pstmt.setString(4, menuVO.getDeliverable());
-			pstmt.setString(5, menuVO.getMenuNo());
+			pstmt.setString(5, menuVO.getMenuIntro());
+			pstmt.setString(6, menuVO.getMenuNo());
+			
 			
 			pstmt.executeUpdate();
 			
@@ -166,6 +169,7 @@ public class MenuDAO implements MenuDAO_interface{
 				menuVO.setMainCourse(rs.getString(4));
 				menuVO.setMenuPic(rs.getBytes(5));
 				menuVO.setDeliverable(rs.getString(6));
+				menuVO.setMenuIntro(rs.getString(7));
 			}
 			
 		} catch (SQLException se) {
@@ -210,6 +214,7 @@ public class MenuDAO implements MenuDAO_interface{
 				menuVO.setMainCourse(rs.getString(4));
 				menuVO.setMenuPic(rs.getBytes(5));
 				menuVO.setDeliverable(rs.getString(6));
+				menuVO.setMenuIntro(rs.getString(7));
 				list.add(menuVO);
 			}
 			
@@ -256,6 +261,7 @@ public class MenuDAO implements MenuDAO_interface{
 				menuVO.setMainCourse(rs.getString(4));
 				menuVO.setMenuPic(rs.getBytes(5));
 				menuVO.setDeliverable(rs.getString(6));
+				menuVO.setMenuIntro(rs.getString(7));
 				list.add(menuVO);
 			}
 			

@@ -188,7 +188,7 @@
     pageContext.setAttribute("list",list);
 %>
 
-    <section class="ftco-section">
+    <section class="ftco-section" id="menuTarget">
       <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 text-center heading-section ftco-animate">
@@ -200,7 +200,9 @@
           <c:forEach var="chefVO" items="${list}">
           <div class="col-md-4 ftco-animate item">
             <div class="blog-entry">
-              <a href="blog-single.html" class="block-20" style="background-image: url('<%=request.getContextPath()%>/front-end/memberchef/memberchefImg.do?chefNo=${chefVO.chefNo}');">
+              <a href="<%=request.getContextPath()%>/front-end/foodOrder2/foodorder2.do?action=getMenusByChefno&chefno=${chefVO.chefNo}" class="block-20" 
+              		style="background-image: url('<%=request.getContextPath()%>/front-end/memberchef/memberchefImg.do?chefNo=${chefVO.chefNo}');">
+              
               </a>
               <div class="text d-flex py-4">
 

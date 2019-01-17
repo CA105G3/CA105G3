@@ -9,6 +9,7 @@ public class MenuVO implements java.io.Serializable{
 	private String mainCourse;
 	private byte[] menuPic;
 	private String deliverable;
+	private String menuIntro;
 	
 	public String getMenuNo() {
 		return menuNo;
@@ -45,5 +46,11 @@ public class MenuVO implements java.io.Serializable{
 	}
 	public void setDeliverable(String deliverable) {
 		this.deliverable = deliverable;
+	}
+	public String getMenuIntro() {
+		return menuIntro;
+	}
+	public void setMenuIntro(String menuIntro) {
+		this.menuIntro = menuIntro;
 	}
 }

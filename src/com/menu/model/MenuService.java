@@ -11,13 +11,14 @@ public class MenuService {
 	}
 	
 	public MenuVO addMenu(String chefNo, int unitPrice, String mainCourse, byte[] menuPic,
-			String deliverable) {
+			String deliverable, String menuIntro) {
 		MenuVO menuVO = new MenuVO();
 		menuVO.setChefNo(chefNo);
 		menuVO.setUnitPrice(unitPrice);
 		menuVO.setMainCourse(mainCourse);
 		menuVO.setMenuPic(menuPic);
 		menuVO.setDeliverable(deliverable);
+		menuVO.setMenuIntro(menuIntro);
 		dao.insert(menuVO);
 		
 		return menuVO;
@@ -28,12 +29,13 @@ public class MenuService {
 	}
 	
 	public MenuVO updateMenu(int unitPrice, String mainCourse, byte[] menuPic,
-			String deliverable, String menuNo) {
+			String deliverable, String menuNo, String menuIntro) {
 		MenuVO menuVO = new MenuVO();
 		menuVO.setUnitPrice(unitPrice);
 		menuVO.setMainCourse(mainCourse);
 		menuVO.setMenuPic(menuPic);
 		menuVO.setDeliverable(deliverable);
+		menuVO.setMenuIntro(menuIntro);
 		menuVO.setMenuNo(menuNo);
 		dao.update(menuVO);
 		

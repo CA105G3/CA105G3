@@ -14,8 +14,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import com.member.model.MemberVO;
 import com.memberchef.model.MemberChefService;
 import com.memberchef.model.MemberChefVO;
 
@@ -31,6 +33,15 @@ public class MemberChefServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		HttpSession session = req.getSession();
+//		String chefNo = req.getParameter("chefNo");
+//		if(chefNo != null && !chefNo.equals("")) {
+//			session.setAttribute("chefNo", chefNo);
+//		}
+		
+//		MemberVO memVO =  (MemberVO) session.getAttribute("memVO");
+//		MemberChefService chefSvc = new MemberChefService();
+//		String chefNo = chefSvc.getOneChefByMemNo(memVO.getMemNo()).getChefNo();
 
         if ("getOne_For_Display".equals(action)) { // 來自*.jsp的請求  
 			
@@ -39,6 +50,7 @@ public class MemberChefServlet extends HttpServlet {
 
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+				
 				String chefNo = req.getParameter("chefNo");
 				String chefNoReg = "^CHEF[0-9]{4}";
 				if (chefNo == null || chefNo.trim().length() == 0) {
@@ -124,6 +136,7 @@ public class MemberChefServlet extends HttpServlet {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 				String chefNo = req.getParameter("chefNo");
 				String memNo = req.getParameter("memNo");
+//				String memNo = memVO.getMemNo();
 				
 				String chefName = req.getParameter("chefName").trim();
 				if (chefName == null || chefName.trim().length() == 0) {
@@ -181,7 +194,7 @@ public class MemberChefServlet extends HttpServlet {
 				chefVO.setChefPhone(chefPhone);
 				chefVO.setChefAddr(chefAddr);
 				chefVO.setChefRep(chefRep);
-
+				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("/front\u002dend/memberchef/updateChef.jsp");

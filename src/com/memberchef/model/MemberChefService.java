@@ -63,6 +63,10 @@ public class MemberChefService {
 		return dao.findByPrimaryKey(chefNo);
 	}
 
+	public MemberChefVO getOneChefByMemNo(String memNo) {
+		return dao.findByMemNo(memNo);
+	}
+	
 	public List<MemberChefVO> getAll() {
 		return dao.getAll();
 	}

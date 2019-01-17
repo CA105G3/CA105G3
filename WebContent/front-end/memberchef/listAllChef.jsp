@@ -22,7 +22,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<link rel="stylesheet" href="css/animate.css">
+<!-- <link rel="stylesheet" href="css/animate.css"> -->
 <link rel="stylesheet" href="css/owl.carousel.min.css">
 <link rel="stylesheet" href="css/owl.theme.default.min.css">
 <link rel="stylesheet" href="css/style.css">
@@ -52,8 +52,8 @@
     </div>
   </div>
 
-	<script src="<%=request.getContextPath()%>/front-end/memberchef/js/jquery-3.3.1.min.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/memberchef/js/owl.carousel.min.js"></script>
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
   
   <script type="text/javascript">
   $(document).ready(function(){
@@ -69,13 +69,13 @@
                 items:3
             },
             1000:{
-                items:5
+                items:3
             }
         }
     })  
   });  
   </script>
 	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </body>
 </html>
