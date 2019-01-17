@@ -14,6 +14,18 @@ ActivityVO activityVO = (ActivityVO)request.getAttribute("activityVO");
 <html>
 <head>
 <title>活動資料-actone.jsp</title>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+TC">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+ 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ 	
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.css" />
+	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.full.js"></script>
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -38,35 +50,38 @@ ActivityVO activityVO = (ActivityVO)request.getAttribute("activityVO");
   table {
 	width: container-fluid;
 	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	
   }
   table, th, td {
     border: 1px solid #CCCCFF;
   }
+  th{
+  	text-align: center;
+  }
   th, td {
     padding: 5px;
-    text-align: center;
   }
+  img{
+		 max-height:300px;
+		 max-width: 300px; 
+		 vertical-align:middle;
+	 }
 </style>
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
- 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
- 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
- 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
+	
 </head>
 
-<body bgcolor='white'>
-
-<table id="table-1">
-	<tr><td>
-		 <h3>員工資料 - actone.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><img src="<%=request.getContextPath()%>/front-end/activity/img/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+<body>
+	<header style="background-image:url('<%=request.getContextPath()%>/front-end/activity/img/mountain.jpg'); height:150px;">
+		<div>
+		 	<h3 style="display:inline">活動詳情-joinpage.jsp</h3>
+			<h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><img src="<%=request.getContextPath()%>/front-end/activity/img/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		</div>
+	</header>
 
 <table>
-	<tr>
+	<tr style="background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);">
 		<th>活動編號</th>
 		<th>舉辦人編號</th>
 		<th>活動名稱</th>
@@ -76,8 +91,8 @@ ActivityVO activityVO = (ActivityVO)request.getAttribute("activityVO");
 		<th>活動最多人數</th>
 		<th>活動最少人數</th>
 		<th>活動成立判定時間</th>
-		<th>活動照片</th>
 		<th>活動敘述</th>	
+		<th>活動照片</th>
 		<th>參加活動</th>	
 	
 		
@@ -110,7 +125,7 @@ ActivityVO activityVO = (ActivityVO)request.getAttribute("activityVO");
 
 			<td>
 				<form METHOD="post" action="<%=request.getContextPath()%>/activity/activity.do" style="margin-bottom: 0px;">
-					<input type="submit" class="btn btn-primary" value="參加" id="sumbit">
+					<input type="submit" class="btn btn-info" value="參加" id="sumbit">
 					<input type="hidden" name="actNo"  value="${activityVO.actNo}">
 			     	<input type="hidden" name="memNo"  value="${memNo}">
 			     	<input type="hidden" name="actStatus"  value="${activityVO.actStatus}">

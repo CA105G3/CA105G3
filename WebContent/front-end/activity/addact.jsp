@@ -15,9 +15,7 @@ pageContext.setAttribute("memNo", memNo);
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+TC">
-<!-- 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIhqiPHeOg_usCkMxjSCUD0CJgzTs2egw&callback=initMap" async defer></script> -->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!--   	<link rel="stylesheet" href="/resources/demos/style.css"> -->
  	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
  	
@@ -34,7 +32,7 @@ pageContext.setAttribute("memNo", memNo);
   }
 
 body {
-  	background-image:url('<%=request.getContextPath()%>/front-end/activity/img/mountain.jpg');
+  	background-image:url('<%=request.getContextPath()%>/front-end/activity/img/bridge.jpg');
 	opacity:1;
 	filter:alpha(opacity=80);
 	background-repeat: no-repeat;
@@ -148,15 +146,15 @@ body {
 </div>
     
     <div class="form-row">
-    <div class="form-group col-md-10">
-    </div>
-    <div class="form-group col-md-2">
-      <div class="row">
-      <input type="hidden" name="action" value="insert">
-      <button type="submit" class="btn btn-success">新增</button>
-    </div>
-    </div>
-  </div>
+    	<div class="form-group col-md-10">
+    	</div>
+    		<div class="form-group col-md-2">
+      			<div class="row">
+      				<input type="hidden" name="action" value="insert">
+      				<button type="submit" class="btn btn-success">新增</button>
+    			</div>
+    		</div>
+  	</div>
 </div>
 </div>
 </div>

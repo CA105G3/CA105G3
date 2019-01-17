@@ -812,7 +812,10 @@ System.out.println("333333333333333333333333");
 						record="以下皆無";
 					}
 					MedicalOrderService moSvc = new MedicalOrderService();
-					moSvc.addMotext(moNo, record);		
+					moSvc.addMotext(moNo, record);	
+					
+					RequestDispatcher successView = req.getRequestDispatcher("/front-end/medicalOrder/getMoByDrno.jsp");
+					successView.forward(req, res);
 				}
 //		============================================================	
 

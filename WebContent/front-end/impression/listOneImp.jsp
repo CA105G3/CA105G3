@@ -17,14 +17,23 @@
 <html>
 <head>
 <title>我的心得 - listOneImp.jsp</title>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+TC">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+ 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ 	
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.css" />
+	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.full.js"></script>
 <style>
   table#table-1 {
-	width:container-fluid;
 	background-color: #CCCCFF;
     border: 2px solid black;
     text-align: center;
-    table-layout:fixed;
   }
   table#table-1 h4 {
     color: red;
@@ -42,33 +51,40 @@
 
 <style>
   table {
-	width:container-fluid;
-	table-layout:fixed;
-	word-break:break-all;
+	width: container-fluid;
+	background-color: white;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	
   }
   table, th, td {
     border: 1px solid #CCCCFF;
   }
+  th{
+  	text-align: center;
+  }
   th, td {
     padding: 5px;
-    text-align: center;
   }
-
+  img{
+		 max-height:300px;
+		 max-width: 300px; 
+		 vertical-align:middle;
+	 }
 </style>
-
+	
 </head>
-<body bgcolor='white'>
 
-<h4>此頁暫練習採用 Script 的寫法取值:</h4>
-<table id="table-1">
-	<tr><td>
-		 <h3>我的心得- ListOneImp.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><img src="<%=request.getContextPath()%>/front-end/impression/img/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+<body>
+	<header style="background-image:url('<%=request.getContextPath()%>/front-end/activity/img/mountain.jpg'); height:150px;">
+		<div>
+		 	<h3 style="display:inline">我的心得-listoneImp.jsp</h3>
+			<h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><img src="<%=request.getContextPath()%>/front-end/activity/img/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		</div>
+	</header>
 
 <table>
-	<tr>
+	<tr style="background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);">
 		<th>心得編號</th>
 		<th>心得時間</th>
 		<th>心得主旨</th>
@@ -77,7 +93,7 @@
 		<th>心得內容</th>
 		<th>影片</th>
 		<th>照片</th>
-		<th>分類標籤</th>
+		<th>修改</th>
 	</tr>
 	
 	<%@ include file="page1.file" %> 
@@ -117,11 +133,11 @@
 					</td>
 				</c:otherwise>
 				</c:choose> 
-			<td>${list.impField}</td>
 			<td>
 				<form METHOD="post" action="<%=request.getContextPath()%>/impression/impression.do" style="margin-bottom: 0px;">
 					<input type="submit" value="修改">
 			     	<input type="hidden" name="impNo"  value="${list.impNo}">
+			     	<input type="hidden" name="impField"  value="${list.impField}">			     	
 			     	<input type="hidden" name="action"	value="getOne_For_Update">
 				</form>
 			</td>

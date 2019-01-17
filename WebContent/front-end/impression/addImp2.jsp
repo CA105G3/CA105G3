@@ -38,7 +38,7 @@ ImpressionVO impressionVO = (ImpressionVO) request.getAttribute("impressionVO");
   }
 
 body {
-  	background-image:url('<%=request.getContextPath()%>/front-end/activity/img/beauti.gif');
+  	background-image:url('<%=request.getContextPath()%>/front-end/activity/img/mountain.jpg');
 	opacity:1;
 	filter:alpha(opacity=80);
 	background-repeat: no-repeat;
@@ -110,7 +110,7 @@ body {
   </div>
     <div class="form-group col-md-12">
       <label for="inputCity">心得內容:</label>
-      <textarea name="impCon" class="form-control" rows="8" cols="50" value="<%= (impressionVO==null)? "心得" : impressionVO.getImpCon()%>"></textarea>
+      <input type="TEXTAREA" name="impCon" class="form-control" value="<%= (impressionVO==null)? "心得" : impressionVO.getImpCon()%>" />
     </div>
   </div>
   </div>

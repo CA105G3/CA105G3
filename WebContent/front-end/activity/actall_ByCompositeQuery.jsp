@@ -16,7 +16,18 @@ pageContext.setAttribute("memNo", memNo);
 
 <html>
 <head><title>複合查詢 - actall_ByCompositeQuery.jsp</title>
-
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+TC">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+ 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ 	
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.css" />
+	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.full.js"></script>
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -32,40 +43,47 @@ pageContext.setAttribute("memNo", memNo);
     color: blue;
     display: inline;
   }
+  word-wrap{
+   word-break: break-all;
+  }
 </style>
 
 <style>
   table {
-	width: 800px;
+	width: container-fluid;
 	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	
   }
   table, th, td {
     border: 1px solid #CCCCFF;
   }
+  th{
+  	text-align: center;
+  }
   th, td {
     padding: 5px;
-    text-align: center;
   }
+  img{
+		 max-height:300px;
+		 max-width: 300px; 
+		 vertical-align:middle;
+	 }
 </style>
-
+	
 </head>
-<body bgcolor='white'>
 
-<h4>
-☆萬用複合查詢  - 可由客戶端 select_page.jsp 隨意增減任何想查詢的欄位<br>
-☆此頁作為複合查詢時之結果練習，<font color=red>已增加分頁、送出修改、刪除之功能</font></h4>
-<table id="table-1">
-	<tr><td>
-		 <h3>查詢活動 - actall_ByCompositeQuery.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><img src="<%=request.getContextPath()%>/front-end/activity/img/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
-
-
+<body>
+	<header style="background-image:url('<%=request.getContextPath()%>/front-end/activity/img/mountain.jpg'); height:150px;">
+		<div>
+		 	<h3 style="display:inline">複合查詢結果 - actall_ByCompositeQuery.jsp</h3>
+			<h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><img src="<%=request.getContextPath()%>/front-end/activity/img/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		</div>
+	</header>
+	
 <table>
-	<tr>
+	<tr style="background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);">
 		<th>活動編號</th>
 		<th>舉辦人編號</th>
 		<th>活動名稱</th>
@@ -109,7 +127,7 @@ pageContext.setAttribute("memNo", memNo);
 			
 			<td>
 				<form METHOD="post" action="<%=request.getContextPath()%>/activity/activity.do" style="margin-bottom: 0px;">
-					<input type="submit" value="參加">
+					<input type="submit" value="參加" class="btn btn-info">
 			     	<input type="hidden" name="actNo"  value="${actVO.actNo}">
 			     	<input type="hidden" name="memNo"  value="${memNo}">
 			     	<input type="hidden" name="actStatus"  value="${actVO.actStatus}">
@@ -123,10 +141,6 @@ pageContext.setAttribute("memNo", memNo);
 	</c:forEach>
 </table>
 <%@ include file="page2_ByCompositeQuery.file" %>
-
-<br>本網頁的路徑:<br><b>
-   <font color=blue>request.getServletPath():</font> <%=request.getServletPath()%><br>
-   <font color=blue>request.getRequestURI(): </font> <%=request.getRequestURI()%> </b>
 
 </body>
 </html>
