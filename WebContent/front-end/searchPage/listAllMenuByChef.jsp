@@ -65,7 +65,7 @@
 <table>
 	<c:forEach var="menuListVO" items="${menuListVOList}"> 
 		<tr>
-		<form name="menuForm" action="/CA105G3/shoppingCart.do" method="POST">
+		<form name="menuForm" action="<%=request.getContextPath() %>/shoppingCart.do" method="POST">
 			<td width="90"><div align="center">${menuListVO.chefRep}</div></td>
 			<td width="140"><div align="center">${menuListVO.mainCourse}</div></td>
 			<td width="130"><div align="center">${menuListVO.menuTimeSlot}</div></td>
@@ -86,7 +86,6 @@
  		
 
 <form name="myShoppingCart" action="<%=request.getContextPath()%>/front-end/searchPage/shoppingCart.jsp" method="POST">
-<!--       <input type="hidden" name="action"  value="myShoppingCart">  -->
       <input type="submit" value="查看我的購物車" class="button">
 </form>
 	

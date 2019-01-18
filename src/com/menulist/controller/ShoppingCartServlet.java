@@ -28,6 +28,8 @@ public class ShoppingCartServlet extends HttpServlet {
 		@SuppressWarnings("unchecked")
 		List<MenuListVO> buylist = (Vector<MenuListVO>) session.getAttribute("shoppingcart");
 		String action = req.getParameter("action");
+		System.out.println("action==="+action);
+		
 		
 		//以業者名稱查詢
 		if ("getMenu_by_chefRep".equals(action)) {
@@ -105,6 +107,7 @@ public class ShoppingCartServlet extends HttpServlet {
 			}
 			session.setAttribute("shoppingcart", buylist);
 
+//			String url = "/front-end/menulist/menulist.do?action=For_Display&"+req.getParameter("chefNo");
 			String url = "/shoppingCart.do?action=getMenu_by_chefRep&"+req.getParameter("chefRep");
 			RequestDispatcher successView = req.getRequestDispatcher(url); 
 			successView.forward(req, res);
@@ -123,6 +126,7 @@ public class ShoppingCartServlet extends HttpServlet {
 
 		// 結帳，計算購物車中訂餐價錢總數
 		if (action.equals("CHECKOUT")) {
+			String chefNo = req.getParameter("chefNo");
 			String orderStatus = req.getParameter("orderStatus");
 			String deliverAddr = req.getParameter("deliverAddr");
 			String[] amountArray = req.getParameterValues("amount");
@@ -298,7 +302,8 @@ public class ShoppingCartServlet extends HttpServlet {
 		String chefRep = req.getParameter("chefRep");
 		String mainCourse = req.getParameter("mainCourse");
 		String menuTimeSlot = req.getParameter("menuTimeSlot");
-		int amount = Integer.valueOf(req.getParameter("amount"));
+		int amount = 1;
+//		int amount = Integer.valueOf(req.getParameter("amount"));
 		int unitPrice = Integer.valueOf(req.getParameter("unitPrice"));
 		String chefNo = req.getParameter("chefNo");
 		String menuListNo = req.getParameter("menuListNo");

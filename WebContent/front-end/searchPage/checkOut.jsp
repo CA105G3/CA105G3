@@ -2,6 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.menulist.model2.*" %>
+<%@ page import="com.member.model.*" %>
+
+<% 
+  MemberVO memVO = (MemberVO)session.getAttribute("memVO");
+%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -121,13 +126,14 @@ font {
 
 	<%  @SuppressWarnings("unchecked")
 		Vector<MenuListVO> buylist = (Vector<MenuListVO>) session.getAttribute("shoppingcart");
+		String chefNo = (String) request.getAttribute("chefNo");
 		String total =  (String) request.getAttribute("total");
 		String[] amountArray = request.getParameterValues("amount");
 		String deliverAddr=(String)request.getAttribute("deliverAddr");
 	%>
 	<%	for (int i = 0; i < buylist.size(); i++) {
 		MenuListVO order = buylist.get(i);
-			String chefNo = order.getChefNo();
+// 			chefNo = order.getChefNo();
 			String chefRep = order.getChefRep();
 			String mainCourse = order.getMainCourse();
 			String menuTimeSlot = order.getMenuTimeSlot();
@@ -150,14 +156,15 @@ font {
 			<td scope="row" colspan="5" style="text-align:right;"> 
 			   <h4><font size="+2">總金額： $${total} </font></h4>
 		    </td>
-		</tr> 
+		</tr>
+		</tbody>
 	</table>
 	<br><br>
     <h4><font>送餐地址:</font><%=deliverAddr%></h4>
 <!-- </form> -->
 		<form name="new_order" action="<%=request.getContextPath()%>/shoppingCart.do" method="POST">
-			   <input type="hidden" name="chefNo" value="CHEF0001">
-		   	   <input type="hidden" name="memno" value="M0001">
+			   <input type="hidden" name="memno" value="<%=memVO.getMemNo() %>">
+			   <input type="hidden" name="chefNo" value="<%=chefNo%>">
 		   	   <input type="hidden" name="deliverAddr" value="<%=deliverAddr%>">
 		   	   <input type="hidden" name="orderStatus" value="接受">
 		   	   <input type="hidden" name="total" value="<%=total%>">
