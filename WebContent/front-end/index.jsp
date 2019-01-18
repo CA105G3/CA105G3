@@ -88,31 +88,7 @@
 
 
 
-    <div class="container">
-      <div class="row justify-content-center" >
-        <div class="col-md-7 text-center heading-section ftco-animate mb-5 pb-5">
-            <h2 class="mb-3">活動專區</h2>
-            <p>為您的生活添加樂趣，與其他人一起參與吧!</p>
-          </div>
-        </div>
-      <div class="row">
-        <div class="col-xs-4 col-sm-4">
-          <div class="xxx">
-            <img src="https://api.fnkr.net/testimg/350x400/00CED1/FFF/?text=img+placeholder">
-          </div>
-        </div>
-        <div class="col-xs-4 col-sm-4">
-          <div class="xxx">
-            <img src="https://api.fnkr.net/testimg/350x400/00CED1/FFF/?text=img+placeholder">
-          </div>  
-        </div>
-        <div class="col-xs-4 col-sm-4">
-          <div class="xxx">
-            <img src="https://api.fnkr.net/testimg/350x400/00CED1/FFF/?text=img+placeholder">
-          </div>  
-        </div>
-      </div>  
-    </div>
+ 
 
 
     <section class="ftco-section">

@@ -442,7 +442,7 @@ public class LicenseServlet extends HttpServlet{
 //		}
 	}
 	
-	if ("update".equals(action)) {
+	if ("drLicStatusChange".equals(action)) {
 		List<String> errorMsgs = new LinkedList<String>();
 		req.setAttribute("errorMsgs", errorMsgs);
 		

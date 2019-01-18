@@ -23,7 +23,7 @@
 				</a>
 			
 				<ul class="dropdown-menu dropdown-messages">
-					<li><a href="<%=request.getContextPath()%>/front-end/index.jsp">
+					<li><a href="<%=request.getContextPath() %>/front-end/memberchef/listAllChef.jsp">
 							<div>
 								<strong>送餐專區</strong> <span class="pull-right text-muted">
 								</span>
