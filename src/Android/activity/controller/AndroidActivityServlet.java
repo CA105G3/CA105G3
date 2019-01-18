@@ -69,6 +69,7 @@ public class AndroidActivityServlet extends HttpServlet {
 			
 			
 		if("allActivityInfo".equals(action)) {
+			String memNo = jsonObject.get("memNo").getAsString();
 			List<ActivityVO> activityVOList = new ArrayList<>();
 			activityVOList = activityDAO.getAll();
 			
@@ -94,13 +95,19 @@ public class AndroidActivityServlet extends HttpServlet {
 				List<JoinActVO> filter = joinactDAO.getAllByActNo(activityVOforIt.getActNo());
 				Iterator<JoinActVO> itf = filter.iterator();
 				JoinActVO joinActVo;
+				boolean check=false;
 				while(itf.hasNext()) {
+					
 					joinActVo =  itf.next();
 					if(joinActVo.getJoinStatus()==0) {
 						itf.remove();
+					}else if(memNo.equals(joinActVo.getMemNo())){
+						check = true;
 					}
 				}
-				activityVOV2List.add(new ActivityVOV2(activityVOforIt,filter.size()));
+				ActivityVOV2 activityVOV2 = new ActivityVOV2(activityVOforIt,filter.size());
+				activityVOV2.setJoined(check);
+				activityVOV2List.add(activityVOV2);
 			}
 			
 			
