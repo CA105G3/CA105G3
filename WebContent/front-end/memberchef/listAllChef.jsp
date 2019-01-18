@@ -2,8 +2,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*" %>
+<%@ page import="com.member.model.*"%>
 <%@ page import="com.memberchef.model.*"%>    
-<%  
+<%
+MemberVO memVO = (MemberVO)session.getAttribute("memVO");
+java.sql.Date regDate = null;
+try {
+	    regDate = memVO.getRegDate();
+ } catch (Exception e) {
+	   regDate = new java.sql.Date(System.currentTimeMillis());
+ }
+java.sql.Timestamp stayTime = null;
+try{
+	  stayTime=memVO.getStayTime();
+}catch(Exception e){
+	  stayTime=new java.sql.Timestamp(System.currentTimeMillis());
+}
+
 MemberChefService chefSvc = new MemberChefService();
 List<MemberChefVO> list = chefSvc.getAll();
 pageContext.setAttribute("list",list);
@@ -49,19 +64,18 @@ pageContext.setAttribute("list",list);
     
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="<%=request.getContextPath()%>/template/index.html">Plus      <i class="fas fa-plus-square"></i></a>
+	      <a class="navbar-brand" href="<%=request.getContextPath() %>/front-end/index.jsp">Plus<i class="fas fa-plus-square"></i></a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
+	        <span class="oi oi-menu"></span>Menu
 	      </button>
-
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="<%=request.getContextPath()%>/template/index.html" class="nav-link">首頁</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/template/food.html" class="nav-link">送餐專區</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/template/doctors.html" class="nav-link">線上問診</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/index.jsp#menuTarget" class="nav-link">活動專區</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/template/contact.html" class="nav-link">聯繫我們</a></li>
-	          <li class="nav-item cta"><a href="<%=request.getContextPath()%>/template/contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest"><span>登入</span></a></li>
+	          <li class="nav-item"><a href="food.html" class="nav-link"><%= (memVO==null)? "訪客" :memVO.getMemName() %> 您好!</a></li>
+	          <li class="nav-item"><a href=<%=(memVO==null)? request.getContextPath()+"/front-end/index.jsp" : request.getContextPath()+"/front-end/member/member.do?action=getOne_For_Display&memno="+memVO.getMemNo() %> class="nav-link">個人設定</a></li>
+	          <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/memberchef/listAllChef.jsp" class="nav-link">送餐專區</a></li>
+	          <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/medicalOrder/ScanDoctor.jsp" class="nav-link">線上問診</a></li>
+	          <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/activity/joinactivity.jsp" class="nav-link">活動專區</a></li>
+	          <li class="nav-item cta"><a href="<%=request.getContextPath() %>/front-end/member/member.do?action=logout" class="nav-link" <%= (memVO==null)? "data-toggle='modal' data-target='#modalRequest'" :"" %>  ><span id="mylogin"><%= (memVO==null)? "登入/註冊" :"登出" %></span></a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -140,7 +154,7 @@ pageContext.setAttribute("list",list);
       <div class="owl-carousel owl-theme" id="carousel-id">
       	<c:forEach var="chefVO" items="${list}">
 	        <div class="item ">
-	          <div class="card" onclick="location.href='<%=request.getContextPath()%>/shoppingCart.do?action=getMenu_by_chefRep&chefRep=${chefVO.chefRep}';" style="width: 300px;">
+	          <div class="card" onclick="location.href='<%=request.getContextPath()%>/front-end/foodOrder2/foodorder2.do?action=getMenusByChefno&chefno=${chefVO.chefNo}';" style="width: 300px;">
 	            <img class="card-img-top img-fluid" src="<%=request.getContextPath()%>/front-end/memberchef/memberchefImg.do?chefNo=${chefVO.chefNo}" alt="Card image cap">
 	            <div class="card-body">
 	              <h4 class="card-title">${chefVO.chefStoreName}</h4>
