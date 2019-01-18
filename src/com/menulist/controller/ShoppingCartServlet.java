@@ -1,6 +1,7 @@
 package com.menulist.controller;
 
 import java.io.*;
+import java.lang.management.MemoryNotificationInfo;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -11,6 +12,7 @@ import javax.websocket.Session;
 
 import com.foodorder.model.FoodOrderService;
 import com.foodorder.model.FoodOrderVO;
+import com.member.model.MemberVO;
 import com.menulist.model2.*;
 import com.orderdetail.model.OrderDetailVO;
 
@@ -24,7 +26,9 @@ public class ShoppingCartServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		HttpSession session = req.getSession();
-
+		
+		
+		
 		@SuppressWarnings("unchecked")
 		List<MenuListVO> buylist = (Vector<MenuListVO>) session.getAttribute("shoppingcart");
 		String action = req.getParameter("action");
@@ -155,17 +159,19 @@ public class ShoppingCartServlet extends HttpServlet {
 		}
 			
 			
+		MemberVO memVO = (MemberVO)session.getAttribute("memVO");
+		String memNo = memVO.getMemNo();
+		System.out.println("memNo===="+memNo);
 			
-			
-			if ("insert".equals(action)) {
+			if (memNo!=null  && "insert".equals(action)) {
 				List<String> errorMsgs = new LinkedList<String>();
 				req.setAttribute("errorMsgs", errorMsgs);
 	System.out.println("action : "+ action);
 				try {
-					String memno = req.getParameter("memno");
-					if(memno == null || memno.trim().length() == 0) {
-						errorMsgs.add("會員編號不可空白");
-					}
+//					String memno = req.getParameter("memno");
+//					if(memno == null || memno.trim().length() == 0) {
+//						errorMsgs.add("會員編號不可空白");
+//					}
 					String deliverAddr = req.getParameter("deliverAddr");
 					String total = req.getParameter("total");
 					System.out.println("-----" + total);
@@ -195,8 +201,8 @@ public class ShoppingCartServlet extends HttpServlet {
 					
 					
 					FoodOrderVO foodOrderVO = new FoodOrderVO();
-					foodOrderVO.setMemno(memno);
-	System.out.println(memno);
+					foodOrderVO.setMemno(memNo);
+	System.out.println(memNo);
 					foodOrderVO.setDeliverAddr(deliverAddr);
 					foodOrderVO.setChefno(chefno);
 					foodOrderVO.setOrderStatus(orderStatus);
@@ -210,7 +216,7 @@ public class ShoppingCartServlet extends HttpServlet {
 						failureView.forward(req, res);
 						return;
 					}
-					
+					System.out.println("1111111111");
 					
 					/***************************2.開始新增資料***************************************/
 					FoodOrderService foodOrderSvc = new FoodOrderService();
@@ -218,18 +224,19 @@ public class ShoppingCartServlet extends HttpServlet {
 					
 					System.out.println("新增成功");
 					
-					
+					System.out.println("2222222");
 					/************************3.新增完成,準備轉交(Send the Success view)***********/
 				
 					String url = "/front-end/foodorder/listAllFoodOrders.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);
+					System.out.println("333333");
 					successView.forward(req, res);
 					session.removeAttribute("shoppingcart");
 					return;
 				} catch (Exception e) {
 					errorMsgs.add(e.getMessage());
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/searchPage/checkOut.jsp");
+							.getRequestDispatcher("/front-end/index.jsp");
 					failureView.forward(req, res);
 				}
 			}
