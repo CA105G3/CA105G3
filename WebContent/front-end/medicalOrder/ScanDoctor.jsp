@@ -11,6 +11,18 @@
 
 <%	
 	MemberVO memVO = (MemberVO)session.getAttribute("memVO");
+java.sql.Date regDate = null;
+try {
+	    regDate = memVO.getRegDate();
+ } catch (Exception e) {
+	   regDate = new java.sql.Date(System.currentTimeMillis());
+ }
+java.sql.Timestamp stayTime = null;
+try{
+	  stayTime=memVO.getStayTime();
+}catch(Exception e){
+	  stayTime=new java.sql.Timestamp(System.currentTimeMillis());
+}
 %>
 
 <!DOCTYPE html>
@@ -123,7 +135,7 @@
 	</div>
 </div>
 
-
+<%@include file="/front-end/medicalOrder/includedfiles/modal.file" %>
 
 	<br>
 <!-- 	include javascript -->

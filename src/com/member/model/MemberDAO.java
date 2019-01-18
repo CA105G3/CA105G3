@@ -114,7 +114,7 @@ public class MemberDAO implements MemberDAO_interface{
 			String subject="線上醫療會員註冊驗證信件";
 			String messageText="親愛的會員 "+memberVO.getMemName()+"您好"+"\n"
 			+"感謝您註冊本網站，以下是您的驗證網址，請點擊通過驗證，謝謝!"+"\n"
-			+"http://localhost:8081/CA105G3/front-end/member/member.do?action=verify&memno="+next_memno;
+			+"http://10.120.26.10:8081/CA105G3/front-end/member/member.do?action=verify&memno="+next_memno;
 			sendmail.sendMail(memberVO.getEmail(), subject, messageText);
 		}catch(SQLException se) {
 			throw new RuntimeException("A database error occured. "

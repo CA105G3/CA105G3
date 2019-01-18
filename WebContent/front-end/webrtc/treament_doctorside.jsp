@@ -102,7 +102,7 @@
         		<video id="localVideo" oncontextmenu="return false;"></video>
         		<div id="localVolume" class="volume_bar"></div>
        			<div id="remotes"></div>
-				<img src="<%=request.getContextPath()%>/ppt/pptImg.do?pptno=P0001" id="ppt">
+				<img src="<%=request.getContextPath()%>/Imgs/Ppttool/medicaldeafult.png" id="ppt">
   				<div class="row">
   					<div class="col-lg-8"></div>
   					<div class="col-lg-4">

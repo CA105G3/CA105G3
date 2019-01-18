@@ -1,0 +1,176 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<div class="modal fade" id="modalRequest" tabindex="-1" role="dialog" aria-labelledby="modalRequestLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalRequestLabel">登入會員</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" id="loghide">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="<%=request.getContextPath() %>/front-end/member/member.do" method="post">
+            <div class="form-group">
+              <!-- <label for="appointment_name" class="text-black">Full Name</label> -->
+              <input type="text" class="form-control" id="appointment_name" placeholder="帳號" NAME="account">
+            </div>
+            <div class="form-group">
+              <!-- <label for="appointment_email" class="text-black">Email</label> -->
+              <input type="password" class="form-control" id="appointment_email" placeholder="密碼" NAME="password">
+            </div>
+             <div class="form-group">
+              <input type="hidden" name="action" value="authorization">
+              <input type="submit" value="登入" class="btn btn-primary">
+              <input type="reset" value="清除" class="btn btn-primary">
+<!--               <a href="signup.jsp" data-toggle="modal" data-target="#modalRequest2" id="signup"><input type="button" value="註冊會員" class="btn btn-primary" onclick="signup()" ></a> -->
+            	<a href="signup.jsp" data-toggle="modal" data-target="#modalRequest2" id="signup"><input type="button" value="註冊會員" class="btn btn-primary" onclick="signup()" id="signup2"></a>
+            </div>
+          </form>
+          
+          <c:if test="${not empty loginerrorMsgs}">
+			<font style="color:red">請修正以下錯誤:</font>
+			<ul>
+			<c:forEach var="message" items="${loginerrorMsgs}">
+			<li style="color:red">${message}</li>
+	        </c:forEach>
+			</ul>
+		  </c:if>
+		  <c:if test="${not empty accessfail}">
+			<font style="color:red">請修正以下錯誤:</font>
+			<ul>
+			<c:forEach var="message" items="${accessfail}">
+			<li style="color:red">${message}</li>
+	        </c:forEach>
+			</ul>
+		  </c:if>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  <div class="modal fade" id="modalRequest2" tabindex="-1" role="dialog" aria-labelledby="modalRequestLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalRequestLabel">會員註冊</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="<%=request.getContextPath()%>/front-end/member/member.do" method="post">
+            <div class="form-group">
+              <!-- <label for="appointment_name" class="text-black">Full Name</label> -->
+              <input type="text" class="form-control" id="sign_account" placeholder="使用者名稱(必填)" NAME="memid">
+            </div>
+            <div class="form-group">
+              <!-- <label for="appointment_email" class="text-black">Email</label> -->
+              <input type="password" class="form-control" id="sign_password" placeholder="密碼(必填)" NAME="mempsw">
+            </div>
+            <div class="form-group">
+              <!-- <label for="appointment_email" class="text-black">Email</label> -->
+              <input type="text" class="form-control" id="sign_name" placeholder="姓名(必填)" NAME="memname">
+            </div>
+            <div class="form-group">
+              <!-- <label for="appointment_email" class="text-black">Email</label> -->
+              <p>性別</p>
+              <select name="gender">
+			  <option value="男" selected="selected">男</option>
+			  <option value="女">女</option>
+			</select>
+            </div>
+            <div class="form-group">
+              <!-- <label for="appointment_email" class="text-black">Email</label> -->
+               <p>生日</p>
+              <input name="birth" id="birth_date">
+            </div>
+            <div class="form-group">
+              <!-- <label for="appointment_email" class="text-black">Email</label> -->
+              <p>血型</p>
+              <select name="bloodtype">
+			  <option value="A" selected="selected">A</option>
+			  <option value="B">B</option>
+			  <option value="O">O</option>
+			  <option value="AB">AB</option>
+			  </select>
+            </div>
+            <div class="form-group">
+              <!-- <label for="appointment_email" class="text-black">Email</label> -->
+              <input type="text" class="form-control" id="sign_email" placeholder="E-mail(必填)" NAME="email">
+            </div>
+            
+            <div class="form-group">
+              <!-- <label for="appointment_email" class="text-black">Email</label> -->
+              <input type="text" class="form-control" id="sign_phone" placeholder="電話(必填)" NAME="phone">
+            </div>
+           
+<!--            <div class="form-group"> -->
+<!--               <label for="appointment_email" class="text-black">Email</label> -->
+<!--               <input type="text" class="form-control" id="sign_locno" placeholder="郵遞區號" NAME="locno"> -->
+<!--             </div> -->
+           
+           <div class="form-group">
+            <div id="twzipcode">
+		     <div class="form-control" data-role="county" data-style="Style Name"></div>
+		     <div class="form-control" data-role="district" data-style="Style Name"></div>
+		     <div class="form-control" data-role="zipcode" data-style="Style Name"></div>
+		    </div>
+           </div>
+           <div class="form-group">
+              <!-- <label for="appointment_email" class="text-black">Email</label> -->
+             
+              <input type="text" class="form-control" id="sign_address" placeholder="地址(必填)" NAME="addr">
+            </div>
+           
+           <div class="form-group">
+              <!-- <label for="appointment_email" class="text-black">Email</label> -->
+              <input type="text" class="form-control" id="sign_medhistory" placeholder="過去病史(必填)" NAME="medhistory">
+            </div>
+           
+           <div class="form-group">
+              <!-- <label for="appointment_email" class="text-black">Email</label> -->
+              <input type="text" class="form-control" id="sign_famhistory" placeholder="家族病史(必填)" NAME="famhistory">
+            </div>
+           
+           <div class="form-group">
+              <!-- <label for="appointment_email" class="text-black">Email</label> -->
+              <input type="text" class="form-control" id="sign_allergy" placeholder="過敏記錄(必填)" NAME="allergy">
+            </div>
+           
+           <div class="form-group">
+              <!-- <label for="appointment_email" class="text-black">Email</label> -->
+            <p>是否抽菸</p>
+            <select name="smoking">
+			<option value="有" selected="selected">有</option>
+			<option value="沒有">沒有</option>
+		    </select>
+            </div>
+           
+            <div class="form-group">
+            <input type="hidden" name="action" value="insert">
+              <input type="submit" value="註冊" class="btn btn-primary">
+              <input type="reset" value="清除" class="btn btn-primary">
+              <input type="hidden" name="memStatus" value="停用">
+			  <input type="hidden" name="ident" value="一般會員">
+			  <input type="hidden" name="regdate" value="<%=regDate%>">
+			  <input type="hidden" name="staytime" value="<%=stayTime%>">
+            </div>
+          </form>
+          
+          <c:if test="${not empty errorMsgs}">
+			<font style="color:red">請修正以下錯誤:</font>
+			
+			<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+	      </c:forEach>
+			</ul>
+		  </c:if>
+        </div>
+      </div>
+    </div>
+  </div>

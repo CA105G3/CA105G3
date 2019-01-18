@@ -276,15 +276,15 @@
           <form action="<%=request.getContextPath()%>/front-end/member/member.do" method="post">
             <div class="form-group">
               <!-- <label for="appointment_name" class="text-black">Full Name</label> -->
-              <input type="text" class="form-control" id="sign_account" placeholder="使用者名稱" NAME="memid">
+              <input type="text" class="form-control" id="sign_account" placeholder="使用者名稱(必填)" NAME="memid">
             </div>
             <div class="form-group">
               <!-- <label for="appointment_email" class="text-black">Email</label> -->
-              <input type="password" class="form-control" id="sign_password" placeholder="密碼" NAME="mempsw">
+              <input type="password" class="form-control" id="sign_password" placeholder="密碼(必填)" NAME="mempsw">
             </div>
             <div class="form-group">
               <!-- <label for="appointment_email" class="text-black">Email</label> -->
-              <input type="text" class="form-control" id="sign_name" placeholder="姓名" NAME="memname">
+              <input type="text" class="form-control" id="sign_name" placeholder="姓名(必填)" NAME="memname">
             </div>
             <div class="form-group">
               <!-- <label for="appointment_email" class="text-black">Email</label> -->
@@ -311,12 +311,12 @@
             </div>
             <div class="form-group">
               <!-- <label for="appointment_email" class="text-black">Email</label> -->
-              <input type="text" class="form-control" id="sign_email" placeholder="E-mail" NAME="email">
+              <input type="text" class="form-control" id="sign_email" placeholder="E-mail(必填)" NAME="email">
             </div>
             
             <div class="form-group">
               <!-- <label for="appointment_email" class="text-black">Email</label> -->
-              <input type="text" class="form-control" id="sign_phone" placeholder="電話" NAME="phone">
+              <input type="text" class="form-control" id="sign_phone" placeholder="電話(必填)" NAME="phone">
             </div>
            
 <!--            <div class="form-group"> -->
@@ -334,22 +334,22 @@
            <div class="form-group">
               <!-- <label for="appointment_email" class="text-black">Email</label> -->
              
-              <input type="text" class="form-control" id="sign_address" placeholder="地址" NAME="addr">
+              <input type="text" class="form-control" id="sign_address" placeholder="地址(必填)" NAME="addr">
             </div>
            
            <div class="form-group">
               <!-- <label for="appointment_email" class="text-black">Email</label> -->
-              <input type="text" class="form-control" id="sign_medhistory" placeholder="過去病史" NAME="medhistory">
+              <input type="text" class="form-control" id="sign_medhistory" placeholder="過去病史(必填)" NAME="medhistory">
             </div>
            
            <div class="form-group">
               <!-- <label for="appointment_email" class="text-black">Email</label> -->
-              <input type="text" class="form-control" id="sign_famhistory" placeholder="家族病史" NAME="famhistory">
+              <input type="text" class="form-control" id="sign_famhistory" placeholder="家族病史(必填)" NAME="famhistory">
             </div>
            
            <div class="form-group">
               <!-- <label for="appointment_email" class="text-black">Email</label> -->
-              <input type="text" class="form-control" id="sign_allergy" placeholder="過敏記錄" NAME="allergy">
+              <input type="text" class="form-control" id="sign_allergy" placeholder="過敏記錄(必填)" NAME="allergy">
             </div>
            
            <div class="form-group">
