@@ -54,7 +54,7 @@ public class MemberServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/member/index.jsp");
+							.getRequestDispatcher("/front-end/index.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -68,7 +68,7 @@ public class MemberServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/member/index.jsp");
+							.getRequestDispatcher("/front-end/index.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -82,7 +82,7 @@ public class MemberServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/member/index.jsp");
+							.getRequestDispatcher("/front-end/index.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -560,7 +560,7 @@ public class MemberServlet extends HttpServlet {
 		    
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/member/index.jsp");
+						.getRequestDispatcher("/front-end/index.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -568,7 +568,7 @@ public class MemberServlet extends HttpServlet {
 		    if (!allowUser(account,password)) {          //【帳號 , 密碼無效時】
 		    	errorMsgs.add("帳號或密碼錯誤");
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/member/index.jsp");
+						.getRequestDispatcher("/front-end/index.jsp");
 				failureView.forward(req, res);
 		      }else {                                       //【帳號 , 密碼有效時, 才做以下工作】
 		        HttpSession session = req.getSession();
