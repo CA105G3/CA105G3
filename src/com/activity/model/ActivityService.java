@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.impression.model.ImpressionVO;
+import com.joinact.model.JoinActVO;
 
 public class ActivityService {
 	
@@ -82,6 +83,8 @@ public class ActivityService {
 		return dao.getactall(map);
 	}
 	
-	
+	public void insertjoinact(ActivityVO activityVO) {
+		dao.insertwithjoinact(activityVO);
+	}
 	
 }

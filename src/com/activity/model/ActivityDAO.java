@@ -18,6 +18,8 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.impression.model.ImpressionVO;
+import com.joinact.model.JoinActDAO;
+import com.joinact.model.JoinActVO;
 import com.member.model.MemberJDBCDAO;
 import com.member.model.MemberVO;
 
@@ -544,5 +546,88 @@ public class ActivityDAO implements ActivityDAO_interface{
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public void insertwithjoinact(ActivityVO activityVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			
+			// 1●設定於 pstm.executeUpdate()之前
+    		con.setAutoCommit(false);
+			
+    		// 先新增活動
+			String cols[] = {"actNo"};
+			pstmt = con.prepareStatement(INSERT_STMT , cols);
+			pstmt.setString(1,activityVO.getMemNo());
+			pstmt.setString(2,activityVO.getActName());
+			pstmt.setString(3,activityVO.getActLoc());
+			pstmt.setDate(4,activityVO.getActTime());
+			pstmt.setString(5,activityVO.getActStatus());
+			pstmt.setInt(6, activityVO.getActMax());
+			pstmt.setInt(7,activityVO.getActLimit());
+			pstmt.setInt(8,activityVO.getTimeCheck());
+			pstmt.setString(9, activityVO.getActDesc());
+			pstmt.setBytes(10,activityVO.getActPic());
+			pstmt.setString(11, activityVO.getLatiTude());
+			pstmt.setString(12, activityVO.getLongtiTude());
+			pstmt.executeUpdate();
+			//掘取對應的自增主鍵值
+			String next_actNo = null;
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+				next_actNo = rs.getString(1);
+				System.out.println("自增主鍵值= " + next_actNo +"(剛新增成功的活動編號)");
+			} else {
+				System.out.println("未取得自增主鍵值");
+			}
+			rs.close();
+			// 再同時新增活動會員
+			JoinActDAO dao = new JoinActDAO();
+			JoinActVO joinactVO = new JoinActVO();
+				joinactVO.setActNo(next_actNo);
+				joinactVO.setMemNo(activityVO.getMemNo());
+				dao.insert2(joinactVO,con);
+
+			// 2●設定於 pstm.executeUpdate()之後
+			con.commit();
+			con.setAutoCommit(true);
+			
+			// Handle any driver errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-activity");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}	
 	}
 }

@@ -126,7 +126,7 @@ pageContext.setAttribute("memNo", memNo);
 				<form METHOD="post" action="<%=request.getContextPath()%>/activity/activity.do" style="margin-bottom: 0px;">
 					<input type="submit" value="н╫зя" class="btn btn-info">
 			     	<input type="hidden" name="actNo"  value="${activityVO.actNo}">
-			     	<input type="hidden" name="actNo"  value="${activityVO.memNo}">
+			     	<input type="hidden" name="memNo"  value="${activityVO.memNo}">
 			     	<input type="hidden" name="action"	value="getOne_For_Update" >
 			     	
 				</form>

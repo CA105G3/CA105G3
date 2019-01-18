@@ -31,7 +31,7 @@ import com.joinact.model.PersonActVO;
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class ActivityServlet extends HttpServlet{
 	
-	public void doget(HttpServletRequest req, HttpServletResponse res) 
+	public void doGet(HttpServletRequest req, HttpServletResponse res) 
 		throws ServletException ,IOException{
 			doPost(req,res);
 		}
@@ -122,13 +122,14 @@ if ("getOne_For_Update".equals(action)) { // �來自actall.jsp的請求
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-			try {
+//			try {
 				/***************************1.接收請求參數****************************************/
 				String actNo = req.getParameter("actNo");
 				
 				/***************************2.開始查詢資料****************************************/
 				ActivityService activitySvc = new ActivityService();
 				ActivityVO activityVO = activitySvc.getOneAct(actNo);
+				System.out.println(activityVO);
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("activityVO", activityVO);         // 資料庫取出的activityVO物件,存入req
@@ -137,12 +138,12 @@ if ("getOne_For_Update".equals(action)) { // �來自actall.jsp的請求
 				successView.forward(req, res);
 		
 				/***************************其他可能的錯誤處理**********************************/
-			} catch (Exception e) {
-				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/activity/actall.jsp");
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/front-end/activity/actall.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 
 if ("update".equals(action)) { //來自update_imp_input.jsp的請
@@ -375,7 +376,7 @@ if ("insert".equals(action)) { // 來自addact.jsp的請求
 				
 				/***************************2.開始新增資料***************************************/
 				ActivityService activitySvc = new ActivityService();
-				activityVO = activitySvc.addAct(memNo, actName, actLoc, actTime, actStatus, actMax, actLimit, timeCheck,actDesc, actPic,latiTude,longtiTude);				
+				activitySvc.insertjoinact(activityVO);		
 				List<ActivityVO> actlist = activitySvc.startact(actStatus);
 				if (actlist == null) {
 					errorMsgs.add("查無資料");

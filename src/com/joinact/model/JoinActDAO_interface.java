@@ -15,4 +15,5 @@ public interface JoinActDAO_interface {
     public JoinActVO findrepeatact(String actNo,String memNo);
     public List<ChatRoomVO> chatroomall(String actNo);
     public List<PersonActVO> findoffact(String memNo);
+    public void insert2 (JoinActVO joinActVO , java.sql.Connection con); 
 }

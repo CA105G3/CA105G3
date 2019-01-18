@@ -16,7 +16,7 @@
 %>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <link rel="Shortcut Icon" type="image/x-icon" href="<%=request.getContextPath()%>/template/images/favicon.ico">
     <title >Health PLUS</title>
     <meta charset="utf-8">
@@ -48,101 +48,87 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.css" />
     <!-- 我跟你說這些link你可以全部存在一隻jsp，之後的網頁再去link後來的jsp，這樣畫面會比較乾淨 、script一樣-->
 
-    <style>
-
-  #owlpic { 
+<style>
+#owlpic { 
 	max-width:100%;
-  } 
-  #map {
-		height: 500px;  /* The height is 400 pixels */
-		width: 100%;  /* The width is the width of the web page */
-	}
+} 
+#map {
+	height: 500px;  /* The height is 400 pixels */
+	width: 100%;  /* The width is the width of the web page */
+}
 </style>
-  </head>
-  <body>
-    
-	  <%@include file="/front-end/member/includedfiles/nav.file" %>
-    <!-- END nav -->
-
-	
-
-    <section class="home-slider owl-carousel">
-      <div class="slider-item bread-item" id="owlpic" style="background-image: url('<%=request.getContextPath()%>/front-end/activity/img/beach.gif');"  data-stellar-background-ratio="0.5">
-        <div class="overlay"></div>
-        <div class="container" data-scrollax-parent="true">
-          <div class="row slider-text align-items-end">
-            <div class="col-md-7 col-sm-12 ftco-animate mb-5">
-              <h1 class="mb-3" data-scrollax=" properties: { translateY: '70%', opacity: .9}">活動專區</h1>
-            </div>
-          </div>
-        </div>
-      </div>
+</head>
+<body>
+<%@include file="/front-end/member/includedfiles/nav.file" %>
+<!-- END nav -->
+	<section class="home-slider owl-carousel">
+    	<div class="slider-item bread-item" id="owlpic" style="background-image: url('<%=request.getContextPath()%>/front-end/activity/img/beach.gif');"  data-stellar-background-ratio="0.5">
+       		<div class="overlay">
+       		</div>
+        		<div class="container" data-scrollax-parent="true">
+          			<div class="row slider-text align-items-end">
+            			<div class="col-md-7 col-sm-12 ftco-animate mb-5">
+            				<h1 class="mb-3" data-scrollax=" properties: { translateY: '70%', opacity: .9}">活動專區</h1>
+            			</div>
+          			</div>
+        		</div>
+      	</div>
+	<div class="slider-item bread-item" id="owlpic" style="background-image: url('<%=request.getContextPath()%>/front-end/activity/img/island.gif');" data-stellar-background-ratio="0.5">
+    	<div class="overlay">
+    	</div>
+        	<div class="container" data-scrollax-parent="true">
+          		<div class="row slider-text align-items-end">
+            		<div class="col-md-7 col-sm-12 ftco-animate mb-5">
+              			<h1 class="mb-3" data-scrollax=" properties: { translateY: '70%', opacity: .9}">活動專區</h1>
+            		</div>
+          		</div>
+        	</div>
+	</div>
       
-      <div class="slider-item bread-item" id="owlpic" style="background-image: url('<%=request.getContextPath()%>/front-end/activity/img/island.gif');" data-stellar-background-ratio="0.5">
-        <div class="overlay"></div>
-        <div class="container" data-scrollax-parent="true">
-          <div class="row slider-text align-items-end">
-            <div class="col-md-7 col-sm-12 ftco-animate mb-5">
-              <h1 class="mb-3" data-scrollax=" properties: { translateY: '70%', opacity: .9}">活動專區</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="slider-item bread-item" id="owlpic" style="background-image: url('<%=request.getContextPath()%>/front-end/activity/img/act1.gif');" data-stellar-background-ratio="0.5">
-        <div class="overlay"></div>
-        <div class="container" data-scrollax-parent="true">
-          <div class="row slider-text align-items-end">
-            <div class="col-md-7 col-sm-12 ftco-animate mb-5">
-              <h1 class="mb-3" data-scrollax=" properties: { translateY: '70%', opacity: .9}">活動專區</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-		
-	<!-- Bootstrap NavBar -->
-  
-      <!-- This menu is hidden in bigger devices with d-sm-none. 
-           The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
-      <li class="nav-item dropdown d-sm-block d-md-none">
-        <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Menu
-        </a>
-        <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
+    <div class="slider-item bread-item" id="owlpic" style="background-image: url('<%=request.getContextPath()%>/front-end/activity/img/act1.gif');" data-stellar-background-ratio="0.5">
+    	<div class="overlay"></div>
+        	<div class="container" data-scrollax-parent="true">
+          		<div class="row slider-text align-items-end">
+            		<div class="col-md-7 col-sm-12 ftco-animate mb-5">
+              			<h1 class="mb-3" data-scrollax=" properties: { translateY: '70%', opacity: .9}">活動專區</h1>
+            		</div>
+          		</div>
+        	</div>
+	</div>
+	</section>
+<!-- Bootstrap NavBar -->
+<!-- This menu is hidden in bigger devices with d-sm-none. 
+The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
+<li class="nav-item dropdown d-sm-block d-md-none">
+	<a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
+    	<div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
             <a class="dropdown-item" href="#">Dashboard</a>
             <a class="dropdown-item" href="#">Profile</a>
             <a class="dropdown-item" href="#">Tasks</a>
             <a class="dropdown-item" href="#">Etc ...</a>
         </div>
-      </li><!-- Smaller devices menu END -->
-      
-    </ul>
-  </div>
-</nav><!-- NavBar END -->
-
-
+</li>
+<!-- Smaller devices menu END -->
+<!-- NavBar END -->
 <!-- Bootstrap row -->
 <div class="row" id="body-row">
-    <!-- Sidebar -->
-    <div id="sidebar-container" class="sidebar-expanded d-none d-md-block"><!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
-        <!-- Bootstrap List Group -->
-        <ul class="list-group">
-            <!-- Separator with title -->
-            
-            <a href="<%= request.getContextPath()%>/front-end/activity/join_actall.jsp" class="bg-dark list-group-item list-group-item-action">
-            <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/activity/activity.do" name="form1" enctype="multipart/form-data">
+<!-- Sidebar -->
+	<div id="sidebar-container" class="sidebar-expanded d-none d-md-block"><!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+<!-- Bootstrap List Group -->
+		<ul class="list-group">
+<!-- Separator with title -->            
+        	<a href="<%= request.getContextPath()%>/front-end/activity/join_actall.jsp" class="bg-dark list-group-item list-group-item-action">
+            	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/activity/activity.do" name="form1" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="Show_all">
                     <input type="hidden" name="actStatus" value="募集中">
                     <input type="submit" class="btn btn-info" value="查詢募集中活動">
-               </FORM>
-            </a>
-            
-            <!-- /END Separator -->
-            <li class="list-group-item sidebar-separator-title text-light d-flex align-items-center menu-collapsed">
-                <small>活動管理</small>
+               	</FORM>
+            </a>            
+<!-- /END Separator -->
+			<li class="list-group-item sidebar-separator-title text-light d-flex align-items-center menu-collapsed">
+            	<small>活動管理</small>
             </li>
-            <!-- Menu with submenu -->
+<!-- Menu with submenu -->
             <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-dashboard fa-fw mr-3"></span> 
@@ -150,14 +136,14 @@
                     <span class="submenu-icon ml-auto"></span>
                 </div>
             </a>
-            <!-- Submenu content -->
+<!-- Submenu content -->
             <div id='submenu1' class="collapse sidebar-submenu">
-                	<a href="<%= request.getContextPath()%>/front-end/activity/actone.jsp"  class="list-group-item list-group-item-action bg-dark text-white">
-                    	<span class="menu-collapsed">查詢我建立的活動</span>
-                	</a>
-                	<a href="<%= request.getContextPath()%>/front-end/activity/personact.jsp" class="list-group-item list-group-item-action bg-dark text-white">
-                    	<span class="menu-collapsed">查詢已參加的活動</span>
-                	</a>	
+            	<a href="<%= request.getContextPath()%>/front-end/activity/actone.jsp"  class="list-group-item list-group-item-action bg-dark text-white">
+                	<span class="menu-collapsed">查詢我建立的活動</span>
+                </a>
+               	<a href="<%= request.getContextPath()%>/front-end/activity/personact.jsp" class="list-group-item list-group-item-action bg-dark text-white">
+                    <span class="menu-collapsed">查詢已參加的活動</span>
+                </a>	
                 <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
                     <span class="menu-collapsed">Tables</span>
                 </a>
@@ -169,7 +155,7 @@
                     <span class="submenu-icon ml-auto"></span>
                 </div>
             </a>
-            <!-- Submenu content -->
+<!-- Submenu content -->
             <div id='submenu2' class="collapse sidebar-submenu">
                 <a href="<%= request.getContextPath()%>/front-end/activity/addact.jsp" class="list-group-item list-group-item-action bg-dark text-white">
                     <span class="menu-collapsed">建立活動</span>
@@ -181,12 +167,11 @@
                     <span class="menu-collapsed">我的心得</span>
                 </a>
             </div>            
-            
-            <!-- Separator with title -->
+<!-- Separator with title -->
             <li class="list-group-item sidebar-separator-title text-light d-flex align-items-center menu-collapsed">
                 <small>參與活動查詢</small>
             </li>
-            <!-- /END Separator -->
+<!-- /END Separator -->
             <a href="<%= request.getContextPath()%>/front-end/impression/listAllImp.jsp" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-calendar fa-fw mr-3"></span>
@@ -199,9 +184,9 @@
                     <span class="menu-collapsed">Messages <span class="badge badge-pill badge-primary ml-2">5</span></span>
                 </div>
             </a>
-            <!-- Separator without title -->
+<!-- Separator without title -->
             <li class="list-group-item sidebar-separator menu-collapsed"></li>            
-            <!-- /END Separator -->
+<!-- /END Separator -->
             <a href="#" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-question fa-fw mr-3"></span>
@@ -214,15 +199,13 @@
                     <span id="collapse-text" class="menu-collapsed">Collapse</span>
                 </div>
             </a>
-            <!-- List Group END-->
-    </div><!-- sidebar-container END -->
-
-    <!-- MAIN -->
-    
-    
+<!-- List Group END-->
+    </div>
+<!-- sidebar-container END -->
+<!-- MAIN -->
+   
 <div class="col">
-        
-        
+
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -235,10 +218,9 @@
 <br>
 
 <div class="container">
-		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/activity/activity.do" name="form1">
-			
-			<div class="container">
-				<div><b>萬用複合查詢:</b></div>
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/activity/activity.do" name="form1">
+		<div class="container">
+			<div><b>複合查詢:</b></div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-2">
 						<b>輸入活動名稱:</b>
@@ -264,117 +246,78 @@
 					<div class="col-xs-12 col-sm-2">
 					</div>
 				</div>
-			</div>
-		</FORM>
+		</div>
+	</FORM>
 </div>
 	
    
-        <div class="container">
-        	<div><b>搜尋附近活動</b></div>
-
-					<div class="input-group" style="width:30%">
-						<input type="text" id="setRadius" value="20000" class="form-control" placeholder="輸入距離" padding:"15px";>
-							<div class="input-group-append">
-						 		<span class="input-group-text">公尺</span>
-								<button class="btn btn-info" type="button" id="setRadiusBtn" onclick="initMap()">
-								<i class="glyphicon glyphicon-search">確定</i>
-								</button>
-							</div>
-					</div>
-				
-  		</div>
-		<div id="map"></div>
+<div class="container">
+	<div><b>搜尋附近活動</b></div>
+		<div class="input-group" style="width:30%">
+			<input type="text" id="setRadius" value="20000" class="form-control" placeholder="輸入距離" padding:"15px";>
+				<div class="input-group-append">
+			 		<span class="input-group-text">公尺</span>
+						<button class="btn btn-info" type="button" id="setRadiusBtn" onclick="initMap()">
+							<i class="glyphicon glyphicon-search">確定</i>
+						</button>
+				</div>
+		</div>			
 </div>
-
-<!--         <div class="form-inline"> -->
-<!--         <div class="card"> -->
-<!--             <h4 class="card-header">Requirements</h4> -->
-<!--             <div class="card-body"> -->
-<!--                 <ul> -->
-<!--                     <li>JQuery</li> -->
-<!--                     <li>Bootstrap 4 beta-3</li> -->
-<!--                 </ul> -->
-<!--             </div> -->
-<!--         </div> -->
-        
-<!--        <div class="card"> -->
-<!--             <h4 class="card-header">Requirements</h4> -->
-<!--             <div class="card-body"> -->
-<!--                 <ul> -->
-<!--                     <li>JQuery</li> -->
-<!--                     <li>Bootstrap 4 beta-3</li> -->
-<!--                 </ul> -->
-<!--             </div> -->
-<!--         </div> -->
-        
-<!-- 		<div class="card"> -->
-<!--             <h4 class="card-header">Requirements</h4> -->
-<!--             <div class="card-body"> -->
-<!--                 <ul> -->
-<!--                     <li>JQuery</li> -->
-<!--                     <li>Bootstrap 4 beta-3</li> -->
-<!--                 </ul> -->
-<!--             </div> -->
-<!--         </div> -->
-
-<!--     </div>Main Col END -->
-    
-</div><!-- body-row END -->
-
-  <!-- Modal -->
-  <div class="modal fade" id="modalRequest" tabindex="-1" role="dialog" aria-labelledby="modalRequestLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalRequestLabel">登入會員</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="#">
-            <div class="form-group">
-              <!-- <label for="appointment_name" class="text-black">Full Name</label> -->
-              <input type="text" class="form-control" id="appointment_name" placeholder="使用者名稱">
-            </div>
-            <div class="form-group">
-              <!-- <label for="appointment_email" class="text-black">Email</label> -->
-              <input type="text" class="form-control" id="appointment_email" placeholder="密碼">
-            </div>
-            
-            <div class="form-inline">
-              <input type="submit" value="登入" class="btn btn-primary">
-              <a href="<%=request.getContextPath()%>/template/contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest2"><input type="button" value="註冊會員" class="btn btn-primary" ></a>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
+	<div id="map"></div>
+</div>
   
-  <script src="<%=request.getContextPath()%>/template/js/jquery.min.js"></script>
-  <script src="<%=request.getContextPath()%>/template/js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="<%=request.getContextPath()%>/template/js/popper.min.js"></script>
-  <script src="<%=request.getContextPath()%>/template/js/bootstrap.min.js"></script>
-  <script src="<%=request.getContextPath()%>/template/js/jquery.easing.1.3.js"></script>
-  <script src="<%=request.getContextPath()%>/template/js/jquery.waypoints.min.js"></script>
-  <script src="<%=request.getContextPath()%>/template/js/jquery.stellar.min.js"></script>
-  <script src="<%=request.getContextPath()%>/template/js/owl.carousel.min.js"></script>
-  <script src="<%=request.getContextPath()%>/template/js/jquery.magnific-popup.min.js"></script>
-  <script src="<%=request.getContextPath()%>/template/js/aos.js"></script>
-  <script src="<%=request.getContextPath()%>/template/js/jquery.animateNumber.min.js"></script>
-  <script src="<%=request.getContextPath()%>/template/js/bootstrap-datepicker.js"></script>
-  <script src="<%=request.getContextPath()%>/template/js/jquery.timepicker.min.js"></script>
-  <script src="<%=request.getContextPath()%>/template/js/scrollax.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb2lDof7yMn-TTXwt2hwVm4y92t1AqvyU&sensor=false&libraries=places&libraries=geometry">
-  </script>
-<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb2lDof7yMn-TTXwt2hwVm4y92t1AqvyU&callback=initMap&libraries=places&libraries=geometry" -->
+</div>
+<!-- body-row END -->
 
-  <script src="<%=request.getContextPath()%>/template/js/google-map.js"></script>
-  <script src="<%=request.getContextPath()%>/template/js/main.js"></script>
-  
-   <script>
+<!-- Modal -->
+	<div class="modal fade" id="modalRequest" tabindex="-1" role="dialog" aria-labelledby="modalRequestLabel" aria-hidden="true">
+    	<div class="modal-dialog" role="document">
+      		<div class="modal-content">
+        		<div class="modal-header">
+          			<h5 class="modal-title" id="modalRequestLabel">登入會員</h5>
+          			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            			<span aria-hidden="true">&times;</span>
+          			</button>
+        		</div>
+		<div class="modal-body">
+        	<form action="#">
+            	<div class="form-group">
+<!-- <label for="appointment_name" class="text-black">Full Name</label> -->
+              		<input type="text" class="form-control" id="appointment_name" placeholder="使用者名稱">
+            	</div>
+            	<div class="form-group">
+<!-- <label for="appointment_email" class="text-black">Email</label> -->
+              		<input type="text" class="form-control" id="appointment_email" placeholder="密碼">
+            	</div>            
+            	<div class="form-inline">
+              		<input type="submit" value="登入" class="btn btn-primary">
+              		<a href="<%=request.getContextPath()%>/template/contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest2"><input type="button" value="註冊會員" class="btn btn-primary" ></a>
+            	</div>
+          	</form>
+        </div>
+      		</div>
+    	</div>
+	</div>
+
+<script src="<%=request.getContextPath()%>/template/js/jquery.min.js"></script>
+<script src="<%=request.getContextPath()%>/template/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="<%=request.getContextPath()%>/template/js/popper.min.js"></script>
+<script src="<%=request.getContextPath()%>/template/js/bootstrap.min.js"></script>
+<script src="<%=request.getContextPath()%>/template/js/jquery.easing.1.3.js"></script>
+<script src="<%=request.getContextPath()%>/template/js/jquery.waypoints.min.js"></script>
+<script src="<%=request.getContextPath()%>/template/js/jquery.stellar.min.js"></script>
+<script src="<%=request.getContextPath()%>/template/js/owl.carousel.min.js"></script>
+<script src="<%=request.getContextPath()%>/template/js/jquery.magnific-popup.min.js"></script>
+<script src="<%=request.getContextPath()%>/template/js/aos.js"></script>
+<script src="<%=request.getContextPath()%>/template/js/jquery.animateNumber.min.js"></script>
+<script src="<%=request.getContextPath()%>/template/js/bootstrap-datepicker.js"></script>
+<script src="<%=request.getContextPath()%>/template/js/jquery.timepicker.min.js"></script>
+<script src="<%=request.getContextPath()%>/template/js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb2lDof7yMn-TTXwt2hwVm4y92t1AqvyU&sensor=false&libraries=places&libraries=geometry">
+</script>
+<script src="<%=request.getContextPath()%>/template/js/google-map.js"></script>
+<script src="<%=request.getContextPath()%>/template/js/main.js"></script>
+<script>
 // Hide submenus
    $('#body-row .collapse').collapse('hide'); 
 

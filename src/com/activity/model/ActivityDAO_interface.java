@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.impression.model.ImpressionVO;
+import com.joinact.model.JoinActVO;
 import com.member.model.MemberVO;
 
 public interface ActivityDAO_interface {
@@ -17,4 +18,5 @@ public interface ActivityDAO_interface {
     public List<ActivityVO> getact(String actStatus);
     public List<ActivityVO> getmyact(String memNo);
     public List<ActivityVO> getactall(Map<String,String[]>map);
+    public void insertwithjoinact(ActivityVO activityVO);
 }

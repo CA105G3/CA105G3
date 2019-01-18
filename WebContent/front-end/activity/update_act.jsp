@@ -135,7 +135,7 @@ body {
     				</div>
     					<div class="col-xs-12 col-sm-12">
       						<c:choose>
-								<c:when test="${(activityVO.recPic)!=null}">
+								<c:when test="${(activityVO.actPic)!=null}">
 									<td>
 										<img src="<%= request.getContextPath()%>/activity/activityPic.do?actNo=${activityVO.actNo}" id="output2" height=50% width=50%/>
 										<input type="file" name="actPic" size="45" onchange="loadFile(event)"/>
