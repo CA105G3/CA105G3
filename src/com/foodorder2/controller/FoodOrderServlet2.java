@@ -5,7 +5,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Enumeration;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -258,6 +260,21 @@ public class FoodOrderServlet2 extends HttpServlet {
 					}
 				}
 				req.setAttribute("showDatesToOrderFood", map);
+				
+				
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(list.get(0));
+				int weekDay = cal.get(Calendar.DAY_OF_WEEK)-1;
+				
+				req.setAttribute("weekDay", weekDay);
+				req.setAttribute("beginMonth", beginMonth);
+				req.setAttribute("beginDay", beginDay);
+				req.setAttribute("firstDayLong",list.get(0).getTime());
+				
+				System.out.println("weekDay"+weekDay);
+				System.out.println("beginMonth"+beginMonth);
+				System.out.println("beginDay"+beginDay);
+				
 				String url = "/front-end/foodOrder2/selectMenuList.jsp";
 				RequestDispatcher dispatcher = req.getRequestDispatcher(url);
 				dispatcher.forward(req, res);

@@ -12,7 +12,6 @@
 
 <style>
   table {
-	width: 800px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -42,26 +41,62 @@ Map<Long,LinkedHashMap<String,LinkedHashSet<MenuListVO>>> map
 <table>
 	<%Set<Map.Entry<Long,LinkedHashMap<String,LinkedHashSet<MenuListVO>>>> set = map.entrySet();
 		Iterator<Map.Entry<Long,LinkedHashMap<String,LinkedHashSet<MenuListVO>>>> it = set.iterator();%>
+	<%String[] timeslots ={"早","午","晚"}; %>
+	<%   int weekDay = (Integer)request.getAttribute("weekDay");
+			int beginMonth = (Integer)request.getAttribute("beginMonth");
+			int beginDay = (Integer)request.getAttribute("beginDay");
+			long firstDayLong = (Long)request.getAttribute("firstDayLong");
+			int dayInWeek=0;
+			%>
+		
 		
 	<tr>
-	<th>時間</th>
-	<th>早</th>
-	<th>中</th>
-	<th>晚</th>
+	<th width="1500">日</th>
+	<th width="1500">一</th>
+	<th width="1500">二</th>
+	<th width="1500">三</th>
+	<th width="1500">四</th>
+	<th width="1500">五</th>
+	<th width="1500">六</th>
 	</tr>
+	<tr>
+	
+	<%
+	for(int j=0;j<(weekDay%7);j++){ %>
+		<td></td>
+	<%}%>
+	
+	
+	
 	<%
 	while(it.hasNext()){
 		Map.Entry<Long,LinkedHashMap<String,LinkedHashSet<MenuListVO>>> entity  = it.next();
 	%>
 
-	<tr>
-		<% 
+	<%
 		SimpleDateFormat  sdf = new SimpleDateFormat ("yyyy-MM-dd");
 		java.util.Date date = new java.util.Date(entity.getKey());
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		int posiInWeek = cal.get(Calendar.DAY_OF_WEEK)-1;
+		if(posiInWeek==0 && firstDayLong!=date.getTime()){%>
+			<tr>
+	<%}%>
+	
+	
+	<td  valign="top">
+	<table>
+		<% 
 		String str  = sdf.format(date);
 		%>
-		<td width="400"><%=str%>									</td>
-		<td width="500">
+		<tr>
+		<td width="1500"><%=str%>									</td></tr>
+
+		
+		
+		
+		<tr>
+		<td width="1500" height="200px">
 		<%
 			Iterator<MenuListVO> itSetBreakfast = entity.getValue().get("早").iterator();
 		
@@ -69,28 +104,39 @@ Map<Long,LinkedHashMap<String,LinkedHashSet<MenuListVO>>> map
 			while(itSetBreakfast.hasNext()){
 				menuListVO = itSetBreakfast.next();
 		%>
+		
 		<%=MenuSvc.getOneMenu(menuListVO.getMenuNo()).getMainCourse()%>
-		<input type=" number" name="<%=menuListVO.getMenuListNo()%>">
-		<br>
+		<input type=" number"  name="<%=menuListVO.getMenuListNo()%>"  size="3"><br>
+
 		<%}%>
 		</td>
+		</tr>
 		
-		<td width="500">
+		
+		
+		
+		
+		
+		<tr>
+		<td width="1500"  height="200px">
 		<%
 			Iterator<MenuListVO> itSetLunch = entity.getValue().get("午").iterator();
 			while(itSetLunch.hasNext()){
 				menuListVO = itSetLunch.next();
 				menuListVO.getMenuListNo();
-				
 		%>
 		<%=MenuSvc.getOneMenu(menuListVO.getMenuNo()).getMainCourse()%>
-		<input type=" number" name="<%=menuListVO.getMenuListNo()%>">
-		<br>
+		<input type=" number" name="<%=menuListVO.getMenuListNo()%>"   size="3"><br>
 		<%}%>
 		</td>
+		</tr>
 		
 		
-		<td width="500">
+		
+		
+		
+		<tr>
+		<td width="1500" height="200px">
 		<%
 			Iterator<MenuListVO> itSetDinner = entity.getValue().get("晚").iterator();
 			while(itSetDinner.hasNext()){
@@ -99,22 +145,36 @@ Map<Long,LinkedHashMap<String,LinkedHashSet<MenuListVO>>> map
 				
 		%>
 		<%=MenuSvc.getOneMenu(menuListVO.getMenuNo()).getMainCourse()%>
-		<input type=" number" name="<%=menuListVO.getMenuListNo()%>">
-		<br>
+		<input type=" number" name="<%=menuListVO.getMenuListNo()%>"  size="3"><br>
 		<%}%>
 		</td>
+		</tr>
 		
 		
 		
 		
-		
-		
-		
-	</tr>
+	</table>
+	</td>
+	<%
+		if(posiInWeek==6){%>
+			</tr>
 	<%}%>
+		
+		
+	<%}%>
+	
+
+	
+	
 </table>
 <input type="submit" value="送出訂單" > 
-<input type="hidden" name="action" value="SendOrderDetail"></form>
+<input type="hidden" name="action" value="SendOrderDetail">
+
+
+
+
+
+</form>
 
 
 
