@@ -12,16 +12,15 @@
 
 <style>
   table {
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
+ 	background-color: white; 
+ 	margin-top: 5px; 
+ 	margin-bottom: 5px; 
   } 
   table, th, td {
-    border: 1px solid #CCCCFF;
+    border: 1px solid #CCCCFF; 
   }
   th, td {
-    padding: 5px;
-    text-align: center;
+     text-align: center;
   }
   
 </style>
@@ -47,10 +46,12 @@ Map<Long,LinkedHashMap<String,LinkedHashSet<MenuListVO>>> map
 			int beginDay = (Integer)request.getAttribute("beginDay");
 			long firstDayLong = (Long)request.getAttribute("firstDayLong");
 			int dayInWeek=0;
+			int dayToCount=0;
 			%>
 		
 		
 	<tr>
+	<th width="1500">    </th>
 	<th width="1500">日</th>
 	<th width="1500">一</th>
 	<th width="1500">二</th>
@@ -61,18 +62,32 @@ Map<Long,LinkedHashMap<String,LinkedHashSet<MenuListVO>>> map
 	</tr>
 	<tr>
 	
+<% if(dayToCount%7==0  &&  weekDay!=0){%>
+		<td  valign="top">
+			<table height="100%">
+				<tr><td>日期</td></tr>
+				<tr><td width="1500" height="200px">早</td></tr>
+				<tr><td width="1500" height="200px">午</td></tr>
+				<tr><td width="1500" height="200px">晚</td></tr>
+			</table>
+		</td>
+<%}%>
+	
+	
+	
+	
 	<%
-	for(int j=0;j<(weekDay%7);j++){ %>
+	for(int j=0;j<(weekDay%8);j++){ %>
 		<td></td>
-	<%}%>
+	<%dayToCount++;}%>
 	
 	
 	
 	<%
 	while(it.hasNext()){
 		Map.Entry<Long,LinkedHashMap<String,LinkedHashSet<MenuListVO>>> entity  = it.next();
-	%>
-
+		
+		%>
 	<%
 		SimpleDateFormat  sdf = new SimpleDateFormat ("yyyy-MM-dd");
 		java.util.Date date = new java.util.Date(entity.getKey());
@@ -82,10 +97,20 @@ Map<Long,LinkedHashMap<String,LinkedHashSet<MenuListVO>>> map
 		if(posiInWeek==0 && firstDayLong!=date.getTime()){%>
 			<tr>
 	<%}%>
+	<% if(dayToCount%7==0){%>
+		<td  valign="top">
+			<table height="100%">
+				<tr><td>日期</td></tr>
+				<tr><td width="1500" height="200px">早</td></tr>
+				<tr><td width="1500" height="200px">午</td></tr>
+				<tr><td width="1500" height="200px">晚</td></tr>
+			</table>
+		</td>
+	<%}%>
 	
 	
 	<td  valign="top">
-	<table>
+	<table height="100%">
 		<% 
 		String str  = sdf.format(date);
 		%>
@@ -98,8 +123,8 @@ Map<Long,LinkedHashMap<String,LinkedHashSet<MenuListVO>>> map
 		<tr>
 		<td width="1500" height="200px">
 		<%
-			Iterator<MenuListVO> itSetBreakfast = entity.getValue().get("早").iterator();
 		
+			Iterator<MenuListVO> itSetBreakfast = entity.getValue().get("早").iterator();
 			MenuListVO menuListVO;
 			while(itSetBreakfast.hasNext()){
 				menuListVO = itSetBreakfast.next();
@@ -137,6 +162,8 @@ Map<Long,LinkedHashMap<String,LinkedHashSet<MenuListVO>>> map
 		
 		<tr>
 		<td width="1500" height="200px">
+		
+		
 		<%
 			Iterator<MenuListVO> itSetDinner = entity.getValue().get("晚").iterator();
 			while(itSetDinner.hasNext()){
@@ -156,20 +183,26 @@ Map<Long,LinkedHashMap<String,LinkedHashSet<MenuListVO>>> map
 	</table>
 	</td>
 	<%
-		if(posiInWeek==6){%>
+		if(posiInWeek==7){%>
 			</tr>
 	<%}%>
 		
-		
+		<% dayToCount++;%>
 	<%}%>
 	
 
 	
 	
 </table>
-<input type="submit" value="送出訂單" > 
+
+<br>
+<br>
+
+<center>
+<input type="submit" value="送出訂單"  style="width:180px;height:60px;font-size:20px;"> 
 <input type="hidden" name="action" value="SendOrderDetail">
 
+</center>
 
 
 
