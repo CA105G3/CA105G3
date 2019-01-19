@@ -56,11 +56,16 @@
 	height: 500px;  /* The height is 400 pixels */
 	width: 100%;  /* The width is the width of the web page */
 }
+
+.form-control {
+	width:150px; 
+	height:38px !important;	
+}
 </style>
 </head>
 <body>
 <%@include file="/front-end/member/includedfiles/nav.file" %>
-<!-- END nav -->
+
 	<section class="home-slider owl-carousel">
     	<div class="slider-item bread-item" id="owlpic" style="background-image: url('<%=request.getContextPath()%>/front-end/activity/img/beach.gif');"  data-stellar-background-ratio="0.5">
        		<div class="overlay">
@@ -85,16 +90,16 @@
         	</div>
 	</div>
       
-    <div class="slider-item bread-item" id="owlpic" style="background-image: url('<%=request.getContextPath()%>/front-end/activity/img/act1.gif');" data-stellar-background-ratio="0.5">
-    	<div class="overlay"></div>
-        	<div class="container" data-scrollax-parent="true">
-          		<div class="row slider-text align-items-end">
-            		<div class="col-md-7 col-sm-12 ftco-animate mb-5">
-              			<h1 class="mb-3" data-scrollax=" properties: { translateY: '70%', opacity: .9}">活動專區</h1>
-            		</div>
-          		</div>
-        	</div>
-	</div>
+	    <div class="slider-item bread-item" id="owlpic" style="background-image: url('<%=request.getContextPath()%>/front-end/activity/img/act1.gif');" data-stellar-background-ratio="0.5">
+	    	<div class="overlay"></div>
+	        	<div class="container" data-scrollax-parent="true">
+	          		<div class="row slider-text align-items-end">
+	            		<div class="col-md-7 col-sm-12 ftco-animate mb-5">
+	              			<h1 class="mb-3" data-scrollax=" properties: { translateY: '70%', opacity: .9}">活動專區</h1>
+	            		</div>
+	          		</div>
+	        	</div>
+		</div>
 	</section>
 <!-- Bootstrap NavBar -->
 <!-- This menu is hidden in bigger devices with d-sm-none. 
@@ -178,27 +183,15 @@ The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep
                     <span class="menu-collapsed">查看所有心得</span>
                 </div>
             </a>
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-envelope-o fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Messages <span class="badge badge-pill badge-primary ml-2">5</span></span>
-                </div>
-            </a>
 <!-- Separator without title -->
             <li class="list-group-item sidebar-separator menu-collapsed"></li>            
-<!-- /END Separator -->
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-question fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Help</span>
-                </div>
-            </a>
             <a href="#" data-toggle="sidebar-colapse" class="bg-dark list-group-item list-group-item-action d-flex align-items-center">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span id="collapse-icon" class="fa fa-2x mr-3"></span>
                     <span id="collapse-text" class="menu-collapsed">Collapse</span>
                 </div>
             </a>
+        </ul>    
 <!-- List Group END-->
     </div>
 <!-- sidebar-container END -->
@@ -219,17 +212,42 @@ The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep
 
 <div class="container">
 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/activity/activity.do" name="form1">
-		<div class="container">
+		<div class="container">	
 			<div><b>複合查詢:</b></div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-2">
 						<b>輸入活動名稱:</b>
 						<input type="text" name="actName" value="" style="width:150px; height:30px;">
 					</div>
-					<div class="col-xs-12 col-sm-2"style="width:150px; height:20px;">
-						<b>輸入活動地點:</b>
-						<input type="text" name="actLoc" value="桃園" style="width:150px; height:30px;">
-					</div>
+					<div class="col-xs-12 col-sm-2"style="width:150px; height:30px;">
+						<b>選擇活動地點:</b>
+						<div class="row">
+							<select name="actLoc" class="form-control">
+								<option value="基隆市">基隆市</option>
+								<option value="台北市">台北市</option>
+								<option value="新北市">新北市</option>
+								<option value="桃園市">桃園市</option>
+								<option value="新竹縣">新竹縣</option>
+								<option value="新竹市">新竹市</option>
+								<option value="苗栗縣">苗栗縣</option>
+								<option value="台中市">台中市</option>
+								<option value="彰化縣">彰化縣</option>
+								<option value="南投縣">南投縣</option>
+								<option value="雲林縣">雲林縣</option>
+								<option value="嘉義縣">嘉義縣</option>
+								<option value="嘉義市">嘉義市</option>
+								<option value="台南市">台南市</option>
+								<option value="高雄市">高雄市</option>
+								<option value="屏東縣">屏東縣</option>
+								<option value="嘉義縣">嘉義縣</option>
+								<option value="宜蘭縣">宜蘭縣</option>
+								<option value="花蓮縣">花蓮縣</option>
+								<option value="台東縣">台東縣</option>
+								<option value="澎湖縣">澎湖縣</option>
+								<option value="澎湖縣">宜蘭縣</option>
+							</select>
+						</div>	
+ 					</div>
 					<div class="col-xs-12 col-sm-2"style="width:150px; height:20px;">
 						<b>起始時間:</b>
 						<input type="text" name="startTime" id="f_date1" style="width:150px; height:30px;">
@@ -253,8 +271,8 @@ The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep
    
 <div class="container">
 	<div><b>搜尋附近活動</b></div>
-		<div class="input-group" style="width:30%">
-			<input type="text" id="setRadius" value="20000" class="form-control" placeholder="輸入距離" padding:"15px";>
+		<div class="input-group" style="width:50%">
+			<input type="text" id="setRadius" value="20000" class="form-control" placeholder="輸入距離" style="border:5px #E3E3E3 solid;">
 				<div class="input-group-append">
 			 		<span class="input-group-text">公尺</span>
 						<button class="btn btn-info" type="button" id="setRadiusBtn" onclick="initMap()">
@@ -462,7 +480,7 @@ console.log(dist);
 </script>
   </body>
   <!-- 以上為可動部分 -->
-  <footer class="ftco-footer ftco-bg-dark ftco-section">
+  <footer class="ftco-footer ftco-bg-dark ftco-section" style="padding-top: 20px;padding-bottom: 0px;">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-3">

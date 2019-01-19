@@ -24,10 +24,12 @@
 <style>
    h3.title{
  	text-align:center;
+ 	font-family:Microsoft JhengHei;
+ 	font-size:200%;
  }
   h4 {
     color: #FF0088;
-    display: inline;
+    text-align:right;
   }
 
 </style>
@@ -41,12 +43,14 @@
 <body style="background-image:url('<%=request.getContextPath()%>/front-end/activity/img/bridge.jpg');background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;background-size: cover;">
-<table>
-	<tr><td>
-		 <h3>所有募集中活動 - join_actall2.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><img src="<%=request.getContextPath()%>/front-end/activity/img/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+    
+	<header style="background-image:url('<%=request.getContextPath()%>/front-end/activity/img/act1.gif'); height:150px;background-repeat: no-repeat;
+    background-attachment: fixed;background-position: center;background-size: cover;">
+		<span>&nbsp;</span><br>
+		<span>&nbsp;</span>
+			<h3 class="title"><span><b>所有募集中的活動</b></span></h3>
+			<h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><batton class="btn btn-Success" style="margin-right:20px;">回首頁</batton></a></h4>
+	</header>
 
 <!-- 錯誤列表 -->
 <c:if test="${not empty errorMsgs}">
@@ -57,7 +61,8 @@
 			</c:forEach>	
 		</ul>
 </c:if>
-
+<br>
+<br>
 		<div class="wall">
 <c:forEach var="actlist" items="${actlist}" >
 <!-- 		  <a class="article"> -->

@@ -1,3 +1,5 @@
+<%@page import="com.activity.model.ActivityService"%>
+<%@page import="com.activity.model.ActivityVO"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -85,8 +87,41 @@
       </div>
     </section>
 
+<%
+    ActivityService activitySvc = new ActivityService();
+    List<ActivityVO> actlist = activitySvc.getAll();
+    pageContext.setAttribute("actlist",actlist);
+%>
 
 
+<section class="ftco-section" id="menuTarget">
+	<div class="container">
+    	<div class="row justify-content-center mb-5 pb-3">
+        	<div class="col-md-7 text-center heading-section ftco-animate">
+            	<h2 class="mb-2">活動專區</h2>
+            	<p>歡迎在本站參與活動，與其他會員一起創造美好的記憶八!!</p>
+         	</div>
+       	</div>
+        	<div class="row owl-carousel owl-theme" id="carousel-id">
+          		<c:forEach var="actVO" items="${actlist}" begin="0" end="2">
+          			<div class="col-md-4 ftco-animate item">
+            			<div class="article" style="border:5px #FFAC55 solid;">
+              				<a href="<%=request.getContextPath()%>/activity/activity.do?action=Show__join_act&actNo=${actVO.actNo}" class="block-20" 
+              				style="background-image: url('<%=request.getContextPath()%>/activity/activityPic.do?actNo=${actVO.actNo}');">
+             				</a>
+					            <div class="text d-flex py-4">
+									<div class="desc pl-3">
+						            	<h3 class="heading">${actVO.actName}</h3>
+						                <div>${actVO.actDesc}</div>
+									</div>
+	        					</div>
+              			</div>
+            		</div>
+          		</c:forEach>
+          	</div>
+       	<input type="button" class="btn btn-primary" value="查看更多" onclick="location.href='<%=request.getContextPath() %>/front-end/activity/joinactivity.jsp'"></input>
+	</div>
+</section>
 
  
 

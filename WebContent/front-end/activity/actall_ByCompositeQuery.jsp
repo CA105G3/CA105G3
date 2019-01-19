@@ -11,9 +11,6 @@ String memNo=(String)session.getAttribute("memno");
 pageContext.setAttribute("memNo", memNo);
 %>
 <jsp:useBean id="actall_ByCompositeQuery" scope="request" type="java.util.List<ActivityVO>" /> <!-- 於EL此行可省略 -->
-
-
-
 <html>
 <head><title>複合查詢 - actall_ByCompositeQuery.jsp</title>
 <meta charset="utf-8">
@@ -29,23 +26,16 @@ pageContext.setAttribute("memNo", memNo);
 	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.full.js"></script>
 <style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
+   h3.title{
+ 	text-align:center;
+ 	font-family:Microsoft JhengHei;
+ 	font-size:200%;
+ }
   h4 {
-    color: blue;
-    display: inline;
+    color: #FF0088;
+    text-align:right;
   }
-  word-wrap{
-   word-break: break-all;
-  }
+
 </style>
 
 <style>
@@ -75,11 +65,12 @@ pageContext.setAttribute("memNo", memNo);
 </head>
 
 <body>
-	<header style="background-image:url('<%=request.getContextPath()%>/front-end/activity/img/mountain.jpg'); height:150px;">
-		<div>
-		 	<h3 style="display:inline">複合查詢結果 - actall_ByCompositeQuery.jsp</h3>
-			<h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><img src="<%=request.getContextPath()%>/front-end/activity/img/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-		</div>
+	<header style="background-image:url('<%=request.getContextPath()%>/front-end/activity/img/act1.gif'); height:150px;background-repeat: no-repeat;
+    background-attachment: fixed;background-position: center;background-size: cover;">
+		<span>&nbsp;</span><br>
+		<span>&nbsp;</span>
+			<h3 class="title"><span><b>募集中的活動</b></span></h3>
+			<h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><batton class="btn btn-Success" style="margin-right:20px;">回首頁</batton></a></h4>
 	</header>
 	
 <table>

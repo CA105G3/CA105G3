@@ -14,7 +14,7 @@
 
 <html>
 <head>
-<title>所有員工資料 - listAllImp.jsp</title>
+<title>所有心得</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
@@ -27,23 +27,15 @@
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.css" />
 	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.full.js"></script>
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
+  <style>
+   h3.title{
+ 	text-align:center;
+ 	font-family:Microsoft JhengHei;
+ 	font-size:200%;
+ }
   h4 {
-    color: blue;
-    display: inline;
-  }
-  word-wrap{
-   word-break: break-all;
+    color: #FF0088;
+    text-align:right;
   }
 </style>
 
@@ -74,11 +66,12 @@
 </head>
 
 <body>
-	<header style="background-image:url('<%=request.getContextPath()%>/front-end/activity/img/mountain.jpg'); height:150px;">
-		<div>
-		 	<h3 style="display:inline">所有心得-listallImp.jsp</h3>
-			<h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><img src="<%=request.getContextPath()%>/front-end/activity/img/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-		</div>
+	<header style="background-image:url('<%=request.getContextPath()%>/front-end/activity/img/act1.gif'); height:150px;background-repeat: no-repeat;
+    background-attachment: fixed;background-position: center;background-size: cover;">
+		<span>&nbsp;</span><br>
+		<span>&nbsp;</span>
+			<h3 class="title"><span><b>所有心得</b></span></h3>
+			<h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><batton class="btn btn-Success" style="margin-right:20px;">回首頁</batton></a></h4>
 	</header>
 
 <%-- 錯誤表列 --%>
@@ -119,14 +112,14 @@
 				<c:when test="${(impressionVO.recVideo)!=null}">
 			<td>
 				<video width="400" controls>
-				<source src="<%= request.getContextPath() %>/impression/impressionVideo.do?impNo=${impressionVO.impNo} " type="video/mp4"/>
+					<source src="<%= request.getContextPath() %>/impression/impressionVideo.do?impNo=${impressionVO.impNo} " type="video/mp4"/>
 				</video>
 			</td>
 				</c:when>
 				<c:otherwise >
-			<td>
-			<img src="<%=request.getContextPath()%>/front-end/impression/img/no-video.png">
-			</td>
+					<video width="400" controls poster="<% request.getContextPath();%>img/novideojpg.jpg">
+						<source src="<%= request.getContextPath() %>/impression/impressionVideo.do?impNo=${impressionVO.impNo} " id="video_here">
+					</video>
 				</c:otherwise>
 			</c:choose>
 <!--照片 -->

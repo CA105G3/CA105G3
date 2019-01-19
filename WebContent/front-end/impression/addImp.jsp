@@ -29,12 +29,14 @@ ImpressionVO impressionVO = (ImpressionVO) request.getAttribute("impressionVO");
 	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.full.js"></script>
 <style>
- h3.title{
+   h3.title{
  	text-align:center;
+ 	font-family:Microsoft JhengHei;
+ 	font-size:200%;
  }
   h4 {
     color: #FF0088;
-    display: inline;
+    text-align:right;
   }
 
 body {
@@ -45,7 +47,7 @@ body {
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
-    color:#00DDDD;
+    color:#B8860B;
     font-weight:bold;
   }
 #map {
@@ -57,14 +59,12 @@ body {
 </head>
 <body>
 
-	<table id="table-1">
-		<tr><td>
-			 <h3>心得資料新增 - addImp.jsp</h3></td><td>
-			 <h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><img src="img/lu.jpg" width="100" height="100" border="0">回首頁</a></h4>
-		</td></tr>
-	</table>
-
-	<h3>資料新增:</h3>
+	<header>
+		<span>&nbsp;</span><br>
+		<span>&nbsp;</span>
+			<h3 class="title"><span><b>建立心得</b></span></h3>
+			<h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><batton class="btn btn-Success" style="margin-right:20px;">回首頁</batton></a></h4>
+	</header>
 
 <%-- 錯誤表列 --%>
 		<c:if test="${not empty errorMsgs}">
@@ -77,84 +77,81 @@ body {
 		</c:if>
 
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/impression/impression.do" name="form1" enctype="multipart/form-data">
-  <div class="container-fluid">
-  <div class="row">
-  <div class="col-xs-12 col-sm-6">
-  <div class="form-column">
-    <div class="row">
-    <div class="form-group col-md-12">
-      <label>活動編號:</label>
-      <select size="1" name="actNo" class="form-control">
-         <c:forEach var="list" items="${listjoinact}" >
-          <option value="${list.actNo}"}>${list.actName}</option>
-         </c:forEach>   
-       </select>
-    </div>
-    <div class="form-group col-md-12">
-      <label for="inputPassword4">心得主旨:</label>
-      <input type="TEXT" class="form-control" name="impName" value="<%= (impressionVO==null)? "" : impressionVO.getImpName()%>" />
-    </div>
-
-  <div class="form-group col-md-12">
-    <label for="inputAddress">會員編號:</label>
-  	<input type="TEXT" name="memNo" class="form-control" value="${memNo}" readonly="true"/>
-  </div>
-  
-  <div class="form-group col-md-12">
-    <label for="inputAddress2">分類標籤:</label>
-    <select name="impField" class="form-control">
-		<option value="文字心得" ${('文字心得'==impressionVO.impField)? 'selected':'' } >文字心得</option>
-		<option value="影片" ${('影片'==impressionVO.impField)? 'selected':'' }>影片</option>
-		<option value="照片" ${('照片'==impressionVO.impField)? 'selected':'' }>照片</option>
-		</select>
-  </div>
-    <div class="form-group col-md-12">
-      <label for="inputCity">心得內容:</label>
-      <textarea name="impCon" class="form-control" rows="8" cols="50" value="<%= (impressionVO==null)? "心得" : impressionVO.getImpCon()%>"></textarea>
-    </div>
-  </div>
-  </div>
-</div>
-<div class="col-xs-12 col-sm-6">
-
-  <div class="form-column">
-    <div class="row">
-      <div class="form-group col-md-12">
-        <label for="inputZip">影片檔案:</label>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-12">
-      <video width="400" controls >
-				<source src="<%= request.getContextPath() %>/impression/impressionVideo.do?impNo=${impressionVO.impNo} " id="video_here">
-			</video>
-				<input type="file" name="recVideo" class="file_multi_video" accept="video/*" class="form-control">
-    </div>
-  </div>
-  <div class="form-column">
-    <div class="row">
-      <div class="form-group col-md-12">
-        <label for="inputZip">圖片檔案:</label>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-12">
-      <img src="<% request.getContextPath();%>img/nopic.jpg" id="output2" width=50% height=40%/>
-				<input type="file" name="recPic" onchange="loadFile2(event)" class="form-control" size="40"/>
-    </div>
-  </div>
-    
-    <div class="form-row">
-    <div class="form-group col-md-10">
-    </div>
-    <div class="form-group col-md-2">
-      <div class="row">
-     <input type="hidden" name="action" value="insert">
-<input type="submit" value="送出新增">
-    </div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6">
+  				<div class="form-column">
+    				<div class="row">
+    					<div class="form-group col-md-12">
+      						<label>活動編號:</label>
+      							<select size="1" name="actNo" class="form-control">
+         							<c:forEach var="list" items="${listjoinact}" >
+								    	<option value="${list.actNo}"}>${list.actName}</option>
+								    </c:forEach>   
+								</select>
+    					</div>
+    					<div class="form-group col-md-12">
+					    	<label for="inputPassword4">心得主旨:</label>
+					    		<input type="TEXT" class="form-control" name="impName" value="<%= (impressionVO==null)? "" : impressionVO.getImpName()%>" />
+					    </div>
+					
+					  	<div class="form-group col-md-12">
+					    	<label for="inputAddress">會員編號:</label>
+					  			<input type="TEXT" name="memNo" class="form-control" value="${memNo}" readonly="true"/>
+					  	</div>					  
+					  	<div class="form-group col-md-12">
+					    	<label for="inputAddress2">分類標籤:</label>
+					    		<select name="impField" class="form-control">
+									<option value="文字心得" ${('文字心得'==impressionVO.impField)? 'selected':'' } >文字心得</option>
+									<option value="影片" ${('影片'==impressionVO.impField)? 'selected':'' }>影片</option>
+									<option value="照片" ${('照片'==impressionVO.impField)? 'selected':'' }>照片</option>
+								</select>
+					  	</div>
+					    <div class="form-group col-md-12">
+					      	<label for="inputCity">心得內容:</label>
+					      		<textarea name="impCon" class="form-control" rows="8" cols="50" value="<%= (impressionVO==null)? "心得" : impressionVO.getImpCon()%>"></textarea>
+					    </div>
+					  </div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6">		
+				<div class="form-column">
+					<div class="row">
+						<div class="form-group col-md-12">
+					    	<label for="inputZip">圖片檔案:</label>
+					    </div>
+					</div>
+					    <div class="col-xs-12 col-sm-12">
+					      	<img src="<% request.getContextPath();%>img/nopic.jpg" id="output2" width=50% height=40%/>
+								<input type="file" name="recPic" onchange="loadFile2(event)" class="form-control" size="40"/>
+					    </div>
+				</div>					    
+				<div class="form-column">
+					<div class="row">
+						<div class="form-group col-md-12">
+					    	<label for="inputZip">影片檔案:</label>
+					    </div>
+					</div>
+					    <div class="col-xs-12 col-sm-12">
+					      	<video width="400" controls poster="<% request.getContextPath();%>img/novideojpg.jpg">
+								<source src="<%= request.getContextPath() %>/impression/impressionVideo.do?impNo=${impressionVO.impNo} " id="video_here">
+							</video>
+								<input type="file" name="recVideo" class="file_multi_video" accept="video/*" class="form-control">
+					    </div>
+				</div>
+					<div class="form-row">
+						<div class="form-group col-md-10">
+					  	</div>
+					    <div class="form-group col-md-2">
+					    	<div class="row">
+					     		<input type="hidden" name="action" value="insert">
+								<input type="submit" value="送出新增">
+					    	</div>
+					    </div>
+					</div>
+			</div>
+		</div>
+	</div>
 </form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>

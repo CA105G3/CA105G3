@@ -23,12 +23,14 @@ pageContext.setAttribute("memNo", memNo);
 	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.full.js"></script>
 <style>
- h3.title{
+   h3.title{
  	text-align:center;
+ 	font-family:Microsoft JhengHei;
+ 	font-size:200%;
  }
   h4 {
     color: #FF0088;
-    display: inline;
+    text-align:right;
   }
 
 body {
@@ -39,7 +41,7 @@ body {
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
-    color:#00DDDD;
+    color:#B8860B;
     font-weight:bold;
   }
 #map {
@@ -51,11 +53,12 @@ body {
 <title>新增活動-addact.jsp</title>
 </head>
 <body>
-		 <div>
-		 <div><h3 class="title">活動資料新增 - addact.jsp</h3></div>
-		 <div><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><img src="<%= request.getContextPath() %>/front-end/activity/img/back1.gif" width="100" height="100" border="0">回首頁</a></div>
-		 </div>
-<h3>資料新增:</h3>
+	<header>
+		<span>&nbsp;</span><br>
+		<span>&nbsp;</span>
+			<h3 class="title"><span><b>建立活動</b></span></h3>
+			<h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><batton class="btn btn-Success" style="margin-right:20px;">回首頁</batton></a></h4>
+	</header>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -93,19 +96,15 @@ body {
 						    <label for="inputAddress2">活動時間:</label>
 						    <input type="text" class="form-control" name="actTime" placeholder="請選擇日期" id="f_date1" value="<%= (activityVO==null)? "" : activityVO.getActTime()%>">
   						</div>
-					    <div class="form-group col-md-12">
-					    	<label for="inputCity">活動狀態:</label>
-					      	<input type="text" class="form-control" name="actStatus" value="<%= (activityVO==null)?"募集中": activityVO.getActStatus()%>" readonly>
-					    </div>
 					  	</div>
 			    	<div class="form-row">
-				    	<div class="form-group col-md-6">
-							<label for="inputState">活動人數上限:</label>
-							<input type="text" class="form-control" name="actMax" placeholder="至少為1人" value="<%= (activityVO==null)? "" : activityVO.getActMax()%>">
-						</div>
 						<div class="form-group col-md-6">
 					    	<label for="inputZip">活動人數下限:</label>
 					    	<input type="text" class="form-control" name="actLimit" placeholder="至少為1人" value="<%= (activityVO==null)? "" : activityVO.getActLimit()%>">
+						</div>
+				    	<div class="form-group col-md-6">
+							<label for="inputState">活動人數上限:</label>
+							<input type="text" class="form-control" name="actMax" placeholder="至少為1人" value="<%= (activityVO==null)? "" : activityVO.getActMax()%>">
 						</div>
 		  			</div>
   				</div>
@@ -131,7 +130,7 @@ body {
 				<div class="form-row">
 					<div class="form-group col-md-12">
 					    <label for="inputState">活動敘述:</label>
-					    <input type="text" class="form-control" name="actDesc" placeholder="請填入活動敘述" value="<%= (activityVO==null)? "" : activityVO.getActDesc()%>">
+					    <textarea name="actDesc" class="form-control" rows="8" cols="50" ><%= (activityVO==null)? "" : activityVO.getActDesc()%></textarea>
 					</div>    
 				</div>   
 				<div class="form-row">
@@ -139,6 +138,7 @@ body {
 					</div>
 					<div class="form-group col-md-2">
 						<div class="row">
+							<input type="hidden" name="actStatus" value="募集中">
 							<input type="hidden" name="action" value="insert">
 						    <button type="submit" class="btn btn-success">新增</button>
 						</div>

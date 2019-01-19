@@ -29,23 +29,15 @@
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.css" />
 	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.full.js"></script>
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
+  <style>
+   h3.title{
+ 	text-align:center;
+ 	font-family:Microsoft JhengHei;
+ 	font-size:200%;
+ }
   h4 {
-    color: blue;
-    display: inline;
-  }
-  word-wrap{
-   word-break: break-all;
+    color: #FF0088;
+    text-align:right;
   }
 </style>
 
@@ -76,11 +68,12 @@
 </head>
 
 <body>
-	<header style="background-image:url('<%=request.getContextPath()%>/front-end/activity/img/mountain.jpg'); height:150px;">
-		<div>
-		 	<h3 style="display:inline">我的心得-listoneImp.jsp</h3>
-			<h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><img src="<%=request.getContextPath()%>/front-end/activity/img/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-		</div>
+	<header style="background-image:url('<%=request.getContextPath()%>/front-end/activity/img/act1.gif'); height:150px;background-repeat: no-repeat;
+    background-attachment: fixed;background-position: center;background-size: cover;">
+		<span>&nbsp;</span><br>
+		<span>&nbsp;</span>
+			<h3 class="title"><span><b>所有募集中的活動</b></span></h3>
+			<h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><batton class="btn btn-Success" style="margin-right:20px;">回首頁</batton></a></h4>
 	</header>
 
 <table>
@@ -135,10 +128,10 @@
 				</c:choose> 
 			<td>
 				<form METHOD="post" action="<%=request.getContextPath()%>/impression/impression.do" style="margin-bottom: 0px;">
-					<input type="submit" value="修改">
 			     	<input type="hidden" name="impNo"  value="${list.impNo}">
 			     	<input type="hidden" name="impField"  value="${list.impField}">			     	
 			     	<input type="hidden" name="action"	value="getOne_For_Update">
+					<button type="submit" class="btn btn-info">修改</button>
 				</form>
 			</td>
 	</tr>
