@@ -50,7 +50,7 @@ public class AndroidMemberServlet extends HttpServlet {
 		
 		
 		//--------------------------------------------------------------------------
-		MemberDAO_interface memberDao = new MemberJDBCDAO();
+		MemberDAO_interface memberDao = new MemberDAO();
 		if ("isMember".equals(action)) {
 			
 			String userId = jsonObject.get("userId").getAsString();

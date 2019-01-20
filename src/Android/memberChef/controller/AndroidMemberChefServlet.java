@@ -18,7 +18,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import Android.memberChef.modle.MemberChefDAO_interface;
-import Android.memberChef.modle.MemberChefJDBCDAO;
+import Android.memberChef.modle.MemberChefDAO;
 import Android.memberChef.modle.MemberChefVO;
 import Android.utilities.ImageUtil;
 
@@ -59,7 +59,7 @@ private final static String CONTENT_TYPE = "text/html;charset=UTF-8";
 		
 		
 		//------------------------------------------------------------------------
-		MemberChefDAO_interface memberChefDAO = new MemberChefJDBCDAO();
+		MemberChefDAO_interface memberChefDAO = new MemberChefDAO();
 		
 		if("allChefInfo".equals(action)) {
 			List<MemberChefVO> memberChefVOs = memberChefDAO.getAll();

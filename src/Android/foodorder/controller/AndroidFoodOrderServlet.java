@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.lang.reflect.Type;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,15 +17,14 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 
 import Android.foodorder.model.DetailInfo;
 import Android.foodorder.model.FoodList;
+import Android.foodorder.model.FoodOrderDAO;
 import Android.foodorder.model.FoodOrderDAO_Interface;
-import Android.foodorder.model.FoodOrderJDBCDAO;
 import Android.foodorder.model.FoodOrderVO;
+import Android.foodorder.model.OrderDetailDAO;
 import Android.foodorder.model.OrderDetailDAO_Interface;
-import Android.foodorder.model.OrderDetailJDBCDAO;
 import Android.foodorder.model.OrderDetailVO;
 import Android.foodorder.model.TransferOrderVO;
 import Android.utilities.ImageUtil;
@@ -90,8 +88,8 @@ public class AndroidFoodOrderServlet extends HttpServlet {
 		
 		
 		//------------------------------------------------------------------------
-		FoodOrderDAO_Interface foodOrderDAO = new FoodOrderJDBCDAO();
-		OrderDetailDAO_Interface orderDetailDAO = new OrderDetailJDBCDAO();
+		FoodOrderDAO_Interface foodOrderDAO = new FoodOrderDAO();
+		OrderDetailDAO_Interface orderDetailDAO = new OrderDetailDAO();
 
 		//使用自訂類別FoodList(FoodOrderVO,List<OrderListVO>)，將Order所需要的資料List<FoodList>送上Android
 		if("allOrderInfo".equals(action)) {

@@ -393,6 +393,11 @@ System.out.println(totalPrice);
 				
 				boolean check = foodOrderService.insertNewMutiOrder(collectByChefnoMap);
 				
+				
+				
+				
+				req.setAttribute("collectByChefnoMap", collectByChefnoMap);
+				req.setAttribute("totalPrice", totalPrice);
 				req.setAttribute("showOrderResult", check);
 				String url = "/front-end/foodOrder2/showOrderResult.jsp";
 				RequestDispatcher dispatcher = req.getRequestDispatcher(url);

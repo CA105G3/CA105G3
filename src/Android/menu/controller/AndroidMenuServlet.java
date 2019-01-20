@@ -18,19 +18,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
-import Android.foodorder.model.DetailInfo;
-import Android.foodorder.model.FoodList;
-import Android.foodorder.model.FoodOrderDAO_Interface;
-import Android.foodorder.model.FoodOrderJDBCDAO;
-import Android.foodorder.model.FoodOrderVO;
-import Android.foodorder.model.OrderDetailDAO_Interface;
-import Android.foodorder.model.OrderDetailJDBCDAO;
-import Android.foodorder.model.OrderDetailVO;
+
 import Android.menu.model.MenuAllInfo;
 import Android.menu.model.MenuDAO_interface;
-import Android.menu.model.MenuJDBCDAO;
+import Android.menu.model.MenuDAO;
 import Android.menu.model.MenuListDAO_interface;
-import Android.menu.model.MenuListJDBCDAO;
+import Android.menu.model.MenuListDAO;
 import Android.menu.model.MenuListVO;
 import Android.menu.model.MenuVO;
 import Android.utilities.ImageUtil;
@@ -72,8 +65,8 @@ public class AndroidMenuServlet extends HttpServlet {
 		
 		
 		//------------------------------------------------------------------------
-		MenuDAO_interface menuDAO = new MenuJDBCDAO();
-		MenuListDAO_interface menuListDAO = new MenuListJDBCDAO();
+		MenuDAO_interface menuDAO = new MenuDAO();
+		MenuListDAO_interface menuListDAO = new MenuListDAO();
 
 		//使用自訂類別FoodList(FoodOrderVO,List<OrderListVO>)，將Order所需要的資料List<FoodList>送上Android
 		if("allMenuInfo".equals(action)) {
