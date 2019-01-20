@@ -45,9 +45,9 @@ public class MenuListDAO implements MenuListDAO_interface{
 			" LEFT JOIN ORDERDETAIL ON FOODORDER.ORDERNO=ORDERDETAIL.ORDERNO LEFT JOIN MENULIST ON ORDERDETAIL.MENULISTNO=MENULIST.MENULISTNO"+
 			" LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE FOODORDER.MEMNO=? ORDER BY ORDERDETAIL.ODNO";
 		
-		private static final String GET_BY_CHEFREP_STMT = 
-				"SELECT DISTINCT MEMBERCHEF.CHEFREP, MENU.MAINCOURSE, MENULIST.MenuListNo,MENULIST.MENUTIMESLOT, MENU.MENUNO, MENU.UNITPRICE, MENULIST.MENUDATE, MENU.CHEFNO FROM MENULIST LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO "
-						+ "LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE MEMBERCHEF.CHEFREP=? ORDER BY MENULIST.MENUDATE";
+		private static final String GET_BY_CHEFNAME_STMT = 
+				"SELECT DISTINCT MEMBERCHEF.CHEFREP, MEMBERCHEF.CHEFNAME, MENU.MAINCOURSE, MENULIST.MenuListNo,MENULIST.MENUTIMESLOT, MENU.MENUNO, MENU.UNITPRICE, MENULIST.MENUDATE, MENU.CHEFNO FROM MENULIST LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO "
+						+ "LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE MEMBERCHEF.CHEFNAME=? ORDER BY MENULIST.MENUDATE";
 		private static final String GET_BY_MENUTIMESLOT_STMT = 
 				"SELECT * FROM MENULIST LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE MENULIST.MENUTIMESLOT=?";
 		
@@ -206,7 +206,7 @@ public class MenuListDAO implements MenuListDAO_interface{
 		return list;
 	}	
 	
-	public List<MenuListVO> findByChefRep(String chefRep) {
+	public List<MenuListVO> findByChefName(String chefName) {
 		List<MenuListVO> list = new ArrayList();
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -215,14 +215,15 @@ public class MenuListDAO implements MenuListDAO_interface{
 		
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_BY_CHEFREP_STMT);
-			pstmt.setString(1, chefRep);
+			pstmt = con.prepareStatement(GET_BY_CHEFNAME_STMT);
+			pstmt.setString(1, chefName);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				menulistVO = new MenuListVO();			
 				menulistVO.setMenuListNo(rs.getString("menuListNo"));
 				menulistVO.setChefRep(rs.getString("chefRep"));
+				menulistVO.setChefName(rs.getString("chefName"));
 				menulistVO.setChefNo(rs.getString("chefNo"));
 				menulistVO.setMenuDate(rs.getDate("menuDate"));
 				menulistVO.setMenuNo(rs.getString("menuNo"));

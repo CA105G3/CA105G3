@@ -37,13 +37,13 @@ public class ShoppingCartServlet extends HttpServlet {
 		
 		
 		//以業者名稱查詢
-		if ("getMenu_by_chefRep".equals(action)) {
+		if ("getMenu_by_chefName".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				String str = req.getParameter("chefRep");
+				String str = req.getParameter("chefName");
 				if (str == null || (str.trim()).length() == 0) {
 					errorMsgs.add("請輸入業者名稱進行查詢");
 				}
@@ -54,9 +54,9 @@ public class ShoppingCartServlet extends HttpServlet {
 					return;// 程式中斷
 				}
 
-				String chefRep = null;
+				String chefName = null;
 				try {
-					chefRep = new String(str);
+					chefName = new String(str);
 				} catch (Exception e) {
 					errorMsgs.add("業者名稱不正確");
 				}
@@ -69,9 +69,9 @@ public class ShoppingCartServlet extends HttpServlet {
 
 				/*************************** 2.開始查詢資料 *****************************************/
 				MenuListService menuListSvc = new MenuListService();
-				List<MenuListVO> menuListVOList = (List<MenuListVO>) menuListSvc.findByChefRep(chefRep);
+				List<MenuListVO> menuListVOList = (List<MenuListVO>) menuListSvc.findByChefName(chefName);
 	System.out.println("menuListVOList.size()="+menuListVOList.size()); 
-	System.out.println(chefRep); 
+	System.out.println(chefName); 
 				if (menuListVOList == null) {
 					errorMsgs.add("查無資料");
 				}
@@ -84,7 +84,7 @@ public class ShoppingCartServlet extends HttpServlet {
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("menuListVOList", menuListVOList); // 資料庫取出的foodOrderVO物件,存入req
-				req.setAttribute("chefRep", chefRep); // 資料庫取出的foodOrderVO物件,存入req
+				req.setAttribute("chefName", chefName); // 資料庫取出的foodOrderVO物件,存入req
 				
 				String url = "/front-end/searchPage/listAllMenuByChef.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
@@ -117,7 +117,7 @@ public class ShoppingCartServlet extends HttpServlet {
 			session.setAttribute("shoppingcart", buylist);
 
 //			String url = "/front-end/menulist/menulist.do?action=For_Display&"+req.getParameter("chefNo");
-			String url = "/shoppingCart.do?action=getMenu_by_chefRep&"+req.getParameter("chefRep");
+			String url = "/shoppingCart.do?action=getMenu_by_chefName&"+req.getParameter("chefName");
 			RequestDispatcher successView = req.getRequestDispatcher(url); 
 			successView.forward(req, res);
 
@@ -313,6 +313,7 @@ public class ShoppingCartServlet extends HttpServlet {
 
 	private MenuListVO getMenu(HttpServletRequest req) {
 		String chefRep = req.getParameter("chefRep");
+		String chefName = req.getParameter("chefName");
 		String mainCourse = req.getParameter("mainCourse");
 		String menuTimeSlot = req.getParameter("menuTimeSlot");
 		Date menuDate = java.sql.Date.valueOf(req.getParameter("menuDate"));
@@ -324,6 +325,7 @@ public class ShoppingCartServlet extends HttpServlet {
 		
 		MenuListVO menu = new MenuListVO();
 		menu.setChefRep(chefRep);
+		menu.setChefName(chefName);
 		menu.setMainCourse(mainCourse);
 		menu.setMenuDate(menuDate);
 		menu.setMenuTimeSlot(menuTimeSlot);

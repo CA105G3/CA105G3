@@ -15,10 +15,15 @@ public class MenuListVO implements java.io.Serializable{
 	private String menuNo;
 	private java.sql.Date menuDate;
 	private String menuTimeSlot;
+	private String chefName;
 	
 	
-	
-	
+	public String getChefName() {
+		return chefName;
+	}
+	public void setChefName(String chefName) {
+		this.chefName = chefName;
+	}
 	public String getOdno() {
 		return odno;
 	}

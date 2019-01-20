@@ -49,8 +49,8 @@ public class MenuListService {
 		return dao.findByMemno(memno);
 	}
 	
-	public List<MenuListVO> findByChefRep(String chefRep){
-		return dao.findByChefRep(chefRep);
+	public List<MenuListVO> findByChefName(String chefName){
+		return dao.findByChefName(chefName);
 	}
 	
 	public List<MenuListVO> findByMenuTimeSlot(String menuTimeSlot){

@@ -38,9 +38,9 @@
 <ul> 
   <li>
      <FORM METHOD="post" ACTION="<%=request.getContextPath() %>/shoppingCart.do" >
-         依業者名稱查詢 (如 "三普"):
-        <input type="text" name="chefRep">
-        <input type="hidden" name="action" value="getMenu_by_chefRep">
+         依業者名稱查詢 (如 "孫小美"):
+        <input type="text" name="chefName">
+        <input type="hidden" name="action" value="getMenu_by_chefName">
         <input type="submit" value="送出">
     </FORM>
   </li>

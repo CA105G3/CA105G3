@@ -148,7 +148,7 @@ font {
 		<tbody>
 		<tr>
 <%-- 				<td scope="row"><div align="left"><%=chefRep%></div></td> --%>
-				<td><div align="left"><%=mainCourse%></div></td>
+				<td scope="row"><div align="left"><%=mainCourse%></div></td>
 				<td><div align="left"><%=menuDate%> <%=menuTimeSlot%>餐</div></td>
 				<td><div align="left"><%=unitPrice%></div></td>
 				<td><div align="left"><input type="text" name="amount" size="3" value=<%=amount%>></div></td>
@@ -173,7 +173,7 @@ font {
 <!--     	<p style="text-align:center;"> -->
     		<center><h2><font>目前您的購物車是空的!</font><img src="<%=request.getContextPath()%>/front-end/searchPage/images/shock.png" width="35" height="35"></h2>
     		<br><h5><font>請按下圖回到訂餐頁面</font></h5><br>
-    		<a href='<%=request.getContextPath()%>/front-end/searchPage/select_page.jsp'>
+    		<a href='<%=request.getContextPath()%>/front-end/searchPage/listAllMenuByChef.jsp'>
     		<img src="<%=request.getContextPath()%>/front-end/searchPage/images/emptycart.jpg"></a></center>
 <!--     	</div> -->
     <%} %>

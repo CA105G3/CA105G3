@@ -21,9 +21,9 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 			"SELECT DISTINCT FOODORDER.ORDERNO, MEMBERCHEF.CHEFREP, MENU.MAINCOURSE, MENULIST.MENUTIMESLOT, ORDERDETAIL.AMOUNT, ORDERDETAIL.UNITPRICE FROM FOODORDER" + 
 			"LEFT JOIN ORDERDETAIL ON FOODORDER.ORDERNO=ORDERDETAIL.ORDERNO LEFT JOIN MENULIST ON ORDERDETAIL.MENULISTNO=MENULIST.MENULISTNO" + 
 			"LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE FOODORDER.MEMNO=?";
-	private static final String GET_BY_CHEFREP_STMT = 
-			"SELECT DISTINCT MEMBERCHEF.CHEFREP, MENU.MAINCOURSE, MENULIST.MenuListNo,MENULIST.MENUTIMESLOT, MENU.UNITPRICE, MENU.MENUNO, MENULIST.MENUDATE, MENU.CHEFNO FROM MENULIST LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO "
-			+ "LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE MEMBERCHEF.CHEFREP=? ORDER BY MENULIST.MENUDATE";
+	private static final String GET_BY_CHEFNAME_STMT = 
+			"SELECT DISTINCT MEMBERCHEF.CHEFNAME, MEMBERCHEF.CHEFREP, MENU.MAINCOURSE, MENULIST.MenuListNo,MENULIST.MENUTIMESLOT, MENU.UNITPRICE, MENU.MENUNO, MENULIST.MENUDATE, MENU.CHEFNO FROM MENULIST LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO "
+			+ "LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE MEMBERCHEF.CHEFNAME=? ORDER BY MENULIST.MENUDATE";
 	private static final String GET_BY_MENUTIMESLOT_STMT = 
 			"SELECT * FROM MENULIST LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE MENULIST.MENUTIMESLOT=?";
 	
@@ -193,7 +193,7 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 		return list;
 	}
 	
-	public List<MenuListVO> findByChefRep(String chefRep) {
+	public List<MenuListVO> findByChefName(String chefName) {
 		List<MenuListVO> list = new ArrayList();
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -203,8 +203,8 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_BY_CHEFREP_STMT);
-			pstmt.setString(1, chefRep);
+			pstmt = con.prepareStatement(GET_BY_CHEFNAME_STMT);
+			pstmt.setString(1, chefName);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -212,6 +212,7 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 				menulistVO.setMenuListNo(rs.getString("MenuListNo"));
 				menulistVO.setMenuDate(rs.getDate("MenuDate"));
 				menulistVO.setChefRep(rs.getString("chefRep"));
+				menulistVO.setChefName(rs.getString("chefName"));
 				menulistVO.setChefNo(rs.getString("chefNo"));
 				menulistVO.setMenuNo(rs.getString("menuNo"));
 				menulistVO.setMainCourse(rs.getString("mainCourse"));
@@ -415,9 +416,9 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 //		}
 		
 //		// 用業者編號查詢
-		List<MenuListVO> list = dao.findByChefRep("阿土伯");
+		List<MenuListVO> list = dao.findByChefName("孫小美");
 		for(MenuListVO amenulistVO : list) {
-		System.out.print(amenulistVO.getChefRep() + " , ");
+		System.out.print(amenulistVO.getChefName() + " , ");
 		System.out.print(amenulistVO.getMainCourse() + " , ");
 		System.out.print(amenulistVO.getMenuNo() + " , ");
 		System.out.print(amenulistVO.getMenuTimeSlot() + " , ");
