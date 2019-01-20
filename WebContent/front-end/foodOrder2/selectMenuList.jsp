@@ -45,6 +45,7 @@ Map<Long,LinkedHashMap<String,LinkedHashSet<MenuListVO>>> map
 			int beginMonth = (Integer)request.getAttribute("beginMonth");
 			int beginDay = (Integer)request.getAttribute("beginDay");
 			long firstDayLong = (Long)request.getAttribute("firstDayLong");
+			int maxColunmSize =(Integer)request.getAttribute("maxColunmSize");
 			int dayInWeek=0;
 			int dayToCount=0;
 			%>
@@ -66,9 +67,9 @@ Map<Long,LinkedHashMap<String,LinkedHashSet<MenuListVO>>> map
 		<td  valign="top">
 			<table height="100%">
 				<tr><td>日期</td></tr>
-				<tr><td width="1500" height="200px">早</td></tr>
-				<tr><td width="1500" height="200px">午</td></tr>
-				<tr><td width="1500" height="200px">晚</td></tr>
+				<tr><td width="1500" height="<%=maxColunmSize*23%>px">早</td></tr>
+				<tr><td width="1500" height="<%=maxColunmSize*23%>px">午</td></tr>
+				<tr><td width="1500" height="<%=maxColunmSize*23%>px">晚</td></tr>
 			</table>
 		</td>
 <%}%>
@@ -101,9 +102,9 @@ Map<Long,LinkedHashMap<String,LinkedHashSet<MenuListVO>>> map
 		<td  valign="top">
 			<table height="100%">
 				<tr><td>日期</td></tr>
-				<tr><td width="1500" height="200px">早</td></tr>
-				<tr><td width="1500" height="200px">午</td></tr>
-				<tr><td width="1500" height="200px">晚</td></tr>
+				<tr><td width="1500" height="<%=maxColunmSize*23%>px">早</td></tr>
+				<tr><td width="1500" height="<%=maxColunmSize*23%>px">午</td></tr>
+				<tr><td width="1500" height="<%=maxColunmSize*23%>px">晚</td></tr>
 			</table>
 		</td>
 	<%}%>
@@ -121,7 +122,7 @@ Map<Long,LinkedHashMap<String,LinkedHashSet<MenuListVO>>> map
 		
 		
 		<tr>
-		<td width="1500" height="200px">
+		<td width="1500" height="<%=maxColunmSize*23%>px">
 		<%
 		
 			Iterator<MenuListVO> itSetBreakfast = entity.getValue().get("早").iterator();
@@ -143,7 +144,7 @@ Map<Long,LinkedHashMap<String,LinkedHashSet<MenuListVO>>> map
 		
 		
 		<tr>
-		<td width="1500"  height="200px">
+		<td width="1500"  height="<%=maxColunmSize*23%>px">
 		<%
 			Iterator<MenuListVO> itSetLunch = entity.getValue().get("午").iterator();
 			while(itSetLunch.hasNext()){
@@ -161,7 +162,7 @@ Map<Long,LinkedHashMap<String,LinkedHashSet<MenuListVO>>> map
 		
 		
 		<tr>
-		<td width="1500" height="200px">
+		<td width="1500" height="<%=maxColunmSize*23%>px">
 		
 		
 		<%

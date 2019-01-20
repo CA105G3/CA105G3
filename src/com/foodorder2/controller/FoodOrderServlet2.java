@@ -261,6 +261,25 @@ public class FoodOrderServlet2 extends HttpServlet {
 				}
 				req.setAttribute("showDatesToOrderFood", map);
 				
+				Iterator<Map.Entry<Long, LinkedHashMap<String,LinkedHashSet<MenuListVO>>>> its = map.entrySet().iterator();
+				Map.Entry<Long, LinkedHashMap<String,LinkedHashSet<MenuListVO>>> mapsentrys;
+				int max = 0;
+				int pivot;
+				while(its.hasNext()) {
+					mapsentrys = its.next();
+					pivot = mapsentrys.getValue().get("早").size();
+					if(pivot>max) {
+						max=pivot;
+					}
+					pivot = mapsentrys.getValue().get("午").size();
+					if(pivot>max) {
+						max=pivot;
+					}
+					pivot = mapsentrys.getValue().get("晚").size();
+					if(pivot>max) {
+						max=pivot;
+					}
+				}
 				
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(list.get(0));
@@ -270,6 +289,7 @@ public class FoodOrderServlet2 extends HttpServlet {
 				req.setAttribute("beginMonth", beginMonth);
 				req.setAttribute("beginDay", beginDay);
 				req.setAttribute("firstDayLong",list.get(0).getTime());
+				req.setAttribute("maxColunmSize", max);
 				
 				System.out.println("weekDay"+weekDay);
 				System.out.println("beginMonth"+beginMonth);
@@ -306,40 +326,72 @@ public class FoodOrderServlet2 extends HttpServlet {
 				}
 				FoodOrderService foodOrderService = new FoodOrderService();
 				FoodOrderVO foodOrderVO = new FoodOrderVO();
-				Iterator<Map.Entry<String,String>>  itGetChefno = map.entrySet().iterator();
-				String menuListNo="";
+				
+				Map<String,Object[]> collectByChefnoMap = new HashMap<>();
+				List<MenuVO> menuVOList = (List<MenuVO>)session.getAttribute("shoppingCart");
+				Iterator<MenuVO> itGetChefno = menuVOList.iterator();
+				MenuVO menuVOForIt;
+				Object[] hm;
 				while(itGetChefno.hasNext()) {
-					menuListNo = itGetChefno.next().getKey();
-					break;
+					menuVOForIt = itGetChefno.next();
+					String chefno = menuVOForIt.getChefNo();
+					if(!collectByChefnoMap.containsKey(chefno)) {
+						hm = new Object[2];
+						
+						FoodOrderVO foodOrder= new FoodOrderVO();
+						foodOrder.setChefno(chefno);
+						foodOrder.setDeliverAddr(null);
+//						foodOrder.setMemno((String)session.getAttribute("memberno"));
+						foodOrder.setMemno("M0001");
+						foodOrder.setOrderStatus("接受");
+						java.sql.Date ordTIme = new java.sql.Date((new java.util.Date()).getTime());
+						foodOrder.setOrdTime(ordTIme);
+						
+						hm[0] = foodOrder;
+						hm[1] = new ArrayList<OrderDetailVO>();
+						collectByChefnoMap.put( chefno,hm);
+					}
 				}
+				
+				
 				MenuListService menuListService =new MenuListService();
 				MenuService menuService = new MenuService();
-				String menuno = menuListService.getOneMenuList(menuListNo).getMenuNo();
-				String chefno = menuService.getOneMenu(menuno).getChefNo();
-//				String memno = (String)session.getAttribute("memberno");
 				
-				foodOrderVO.setChefno(chefno);
-				foodOrderVO.setDeliverAddr(null);
-//				foodOrderVO.setMemno(memno);
-				foodOrderVO.setMemno("M0001");
-				foodOrderVO.setOrderStatus("接受");
-				java.sql.Date ordTIme = new java.sql.Date((new java.util.Date()).getTime());
-				foodOrderVO.setOrdTime(ordTIme);
+				int totalPrice = 0;
 				
 				List<OrderDetailVO> list = new ArrayList<>();
 				Iterator<Map.Entry<String,String>> itPutInfo = map.entrySet().iterator();
 				OrderDetailVO orderDetailVO ;
 				Map.Entry<String,String> mapEntry;
+				MenuVO menuVO;
+				Object[] objects;
 				while(itPutInfo.hasNext()) {
 					mapEntry = itPutInfo.next();
 					orderDetailVO = new OrderDetailVO();
 					orderDetailVO.setAmount(Integer.parseInt(mapEntry.getValue()));
 					orderDetailVO.setMenuListno(mapEntry.getKey());
 					orderDetailVO.setOdStatus(null);
-					orderDetailVO.setUnitPrice(menuService.getOneMenu(menuListService.getOneMenuList(mapEntry.getKey()).getMenuNo()).getUnitPrice());
-					list.add(orderDetailVO);
+					menuVO = menuService.getOneMenu(menuListService.getOneMenuList(mapEntry.getKey()).getMenuNo());
+					totalPrice += menuVO.getUnitPrice()*Integer.parseInt(mapEntry.getValue());
+					orderDetailVO.setUnitPrice(menuVO.getUnitPrice());
+					objects = collectByChefnoMap.get(menuVO.getChefNo());
+					((List<OrderDetailVO>)objects[1]).add(orderDetailVO);
 				}
-				boolean check = foodOrderService.insertNewOrder(foodOrderVO, list);
+				
+System.out.println(totalPrice);
+				
+				
+				Iterator<Map.Entry<String, Object[]>> itRemoveNullList = collectByChefnoMap.entrySet().iterator();
+				Map.Entry<String, Object[]> mapEntries;
+				while(itRemoveNullList.hasNext()) {
+					mapEntries = itRemoveNullList.next();
+					objects = mapEntries.getValue();
+					if(((List<OrderDetailVO>)objects[1]).size()==0) {
+						itRemoveNullList.remove();
+					}
+				}
+				
+				boolean check = foodOrderService.insertNewMutiOrder(collectByChefnoMap);
 				
 				req.setAttribute("showOrderResult", check);
 				String url = "/front-end/foodOrder2/showOrderResult.jsp";
