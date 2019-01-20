@@ -2,6 +2,7 @@ package Android.member.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import Android.member.model.*;
+import Android.utilities.ImageUtil;
 
 public class AndroidMemberServlet extends HttpServlet {
 	
@@ -58,6 +60,20 @@ public class AndroidMemberServlet extends HttpServlet {
 			writeText(res,	String.valueOf(memberDao.isMember(userId, password)));
 			
 		} 
+		else if ("getImage".equals(action)) {
+			OutputStream os = res.getOutputStream();
+			String isbn = jsonObject.get("isbn").getAsString();
+			int imageSize = jsonObject.get("imageSize").getAsInt();
+			byte[] image = memberDao.getImage(isbn);
+			if (image != null) {
+				// 縮圖 in server side
+				image = ImageUtil.shrink(image, imageSize);
+				res.setContentType("image/jpeg");
+				res.setContentLength(image.length);
+			}
+			os.write(image);
+		}
+		
 		else if ("isUserIdExist".equals(action)) {
 			
 			String userId = jsonObject.get("userId").getAsString();

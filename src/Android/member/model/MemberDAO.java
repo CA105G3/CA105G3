@@ -35,6 +35,8 @@ private static DataSource ds = null;
 	private static final String GET_ONE_STMT = 
 		"SELECT * from MEMBER WHERE memno=?";
 	
+	
+	
 	private static final String DELETE = 
 		"DELETE FROM MEMBER WHERE MEMno = ?";
 	
@@ -43,6 +45,61 @@ private static DataSource ds = null;
 	private static final String CHECK_ID_EXIST = "SELECT memId FROM MEMBER WHERE memId = ?";
 	private static final String FIND_BY_ID_PASWD = "SELECT * FROM MEMBER WHERE memId = ? AND pwd = ?";
 	private static final String FIND_BY_ID = "SELECT * FROM Member WHERE memId = ?";
+	private static final String FIND_IMG_BY_ISBN = "SELECT mempic FROM member WHERE memno = ?";
+	
+	@Override
+	public byte[] getImage(String isbn) {
+		byte[] picture = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	
+		try {
+			con=ds.getConnection();
+			pstmt = con.prepareStatement(FIND_IMG_BY_ISBN);
+			
+			pstmt.setString(1, isbn);
+			
+			rs = pstmt.executeQuery();
+	
+			if (rs.next()) {
+				picture = rs.getBytes(1);
+			}
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return picture;
+	}
+
+	
+	
+	
+	
+	
 	@Override
 	public boolean insert(MemberVO memberVO) {
 		boolean isInsert = false;
@@ -533,6 +590,7 @@ private static DataSource ds = null;
 		}	
 		
 	}
+
 
 
 }

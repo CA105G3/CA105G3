@@ -11,4 +11,5 @@ public interface MemberDAO_interface {
     public MemberVO findById(String memId);
     public MemberVO findByPrimaryKey(String memNo);
     public List<MemberVO> getAll();
+    byte[] getImage(String isbn);
 }
