@@ -81,17 +81,23 @@ public class FoodOrderDAO implements FoodOrderDAO_Interface {
 	public void insertWithOrderDetails(FoodOrderVO foodOrderVO, List<OrderDetailVO> list) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+	System.out.println("===========");	
 		try {
 			con = ds.getConnection();
 			con.setAutoCommit(false);
 						
 			String cols[] = {"ORDERNO"};
+	System.out.println("ooooooooooo");
 			pstmt = con.prepareStatement(INSERT_STMT2, cols);
 			pstmt.setString(1, foodOrderVO.getMemno());
+	System.out.println(foodOrderVO.getMemno());
 			pstmt.setString(2, foodOrderVO.getDeliverAddr());
+	System.out.println(foodOrderVO.getDeliverAddr());
 			pstmt.setString(3, foodOrderVO.getChefno());
+	System.out.println(foodOrderVO.getChefno());
+	
 			pstmt.setString(4, foodOrderVO.getOrderStatus());
+		System.out.println("xxxxxx");
 			pstmt.executeUpdate();
 			
 			String next_orderno = null;
@@ -104,7 +110,7 @@ public class FoodOrderDAO implements FoodOrderDAO_Interface {
 			}
 			rs.close();
 			OrderDetailJDBCDAO dao = new OrderDetailJDBCDAO();
-			System.out.println("list.size()-A=" + list.size());
+		System.out.println("list.size()-A=" + list.size());
 			for (OrderDetailVO anOrderDetail : list) {
 				anOrderDetail.setOrderno(new String(next_orderno));
 				dao.insert2(anOrderDetail, con);

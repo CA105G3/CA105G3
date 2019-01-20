@@ -116,7 +116,7 @@ font {
 		<table class="table">
 	  	<thead class="thead-dark">
 		<tr>
-			<th scope="col"><font>業者</font></th>
+<!-- 			<th scope="col"><font>業者</font></th> -->
 			<th scope="col"><font>餐點名稱</font></th>
 			<th scope="col"><font>供餐時段</font></th>
 			<th scope="col"><font>單價</font></th>
@@ -133,19 +133,21 @@ font {
 	%>
 	<%	for (int i = 0; i < buylist.size(); i++) {
 		MenuListVO order = buylist.get(i);
-// 			chefNo = order.getChefNo();
+			chefNo = order.getChefNo();
 			String chefRep = order.getChefRep();
+			Date menuDate = order.getMenuDate();
 			String mainCourse = order.getMainCourse();
 			String menuTimeSlot = order.getMenuTimeSlot();
 			String menuListNo = order.getMenuListNo();
 			int unitPrice = order.getUnitPrice();
 			int amount = order.getAmount();
 	%>
+	
 		<tbody>
 		<tr>
-			<td scope="row"><%=chefRep%>     </td>
-			<td><%=mainCourse%>   </td>
-			<td><%=menuTimeSlot%></td>
+<%-- 			<td scope="row"><%=chefRep%>     </td> --%>
+			<td scope="row"><%=mainCourse%>   </td>
+			<td><%=menuDate%> <%=menuTimeSlot%>餐</td>
 			<td><%=unitPrice%>    </td>
 			<td><%=amount%> </td>
 		</tr>
@@ -162,9 +164,12 @@ font {
 	<br><br>
     <h4><font>送餐地址:</font><%=deliverAddr%></h4>
 <!-- </form> -->
+	
 		<form name="new_order" action="<%=request.getContextPath()%>/shoppingCart.do" method="POST">
 			   <input type="hidden" name="memno" value="<%=memVO.getMemNo() %>">
 			   <input type="hidden" name="chefNo" value="<%=chefNo%>">
+			   <input type="hidden" name="menuDate" value="${menuListVO.menuDate}">
+			   <input type="hidden" name="menuTimeSlot" value="${menuListVO.menuTimeSlot}">
 		   	   <input type="hidden" name="deliverAddr" value="<%=deliverAddr%>">
 		   	   <input type="hidden" name="orderStatus" value="接受">
 		   	   <input type="hidden" name="total" value="<%=total%>">
@@ -174,6 +179,7 @@ font {
 		</form>
 	</div>
 </div>
+
 <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
             <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
             <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>

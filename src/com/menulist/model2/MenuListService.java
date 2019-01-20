@@ -9,6 +9,7 @@ public class MenuListService {
 	
 	public MenuListService() {
 		dao = new MenuListDAO();
+//		dao = new MenuListJDBCDAO();
 	}
 	
 	public MenuListVO addMenuList(String menuNo, Date menuDate, String menuTimeSlot) {

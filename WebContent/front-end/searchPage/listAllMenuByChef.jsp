@@ -1,12 +1,20 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.*"%>
-<%@ page import="com.menulist.model.*" %>
+<%@ page import="com.menulist.model2.*" %>
 
+<%
+// 	String chefRep = request.getParameter("chefRep");
+// 	MenuListService menuListSvc = new MenuListService();
+// 	List<MenuListVO> menuListVOList = (List<MenuListVO>) menuListSvc.findByChefRep(chefRep);
+// 	pageContext.setAttribute("menuListVOList", menuListVOList);
+%>
+<jsp:useBean id="menuListSvc2" scope="page" class="com.menulist.model2.MenuListService" />
+<jsp:useBean id="MenuSvc" scope="page" class="com.foodorder2.model.MenuService" />
 <html>
 <head>
 <meta charset="UTF-8">
-<title>À\¶¼·~ªÌÀ\ÂI¦Cªí  - listAllMenuByChef.jsp</title>
+<title>é¤é£²æ¥­è€…é¤é»åˆ—è¡¨  - listAllMenuByChef.jsp</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
 <style>
@@ -46,47 +54,51 @@
 <table id="table-1">
 	<!--<img src="images/food_header.jpg">  -->
 	<tr><td>
-		<h3>À\¶¼·~ªÌÀ\ÂI¦Cªí</h3>
-		<h4><a href="<%=request.getContextPath() %>/front-end/searchPage/select_page.jsp"><img src="<%=request.getContextPath() %>/front-end/searchPage/images/back1.gif" width="100" height="32" border="0">¦^­º­¶</a></h4>
+		<h3>é¤é£²æ¥­è€…é¤é»åˆ—è¡¨</h3>
+		<h4><a href="<%=request.getContextPath() %>/front-end/searchPage/select_page.jsp"><img src="<%=request.getContextPath() %>/front-end/searchPage/images/back1.gif" width="100" height="32" border="0">å›é¦–é </a></h4>
 	</td></tr>
 </table>
 	<form name="menuForm" action="/CA105G3/shoppingCart.do" method="POST">
 <table id="table-1">
 	<tr>
-		<th width="90">·~ªÌ</th>
-		<th width="140">À\ÂI¦WºÙ</th>
-		<th width="130">¨ÑÀ\®É¬q</th>
-		<th width="90">³æ»ù</th>
-		<th width="90">¼Æ¶q</th>
+<!-- 		<th width="90">æ¥­è€…</th> -->
+		<th width="140">é¤é»åç¨±</th>
+		<th width="130">ä¾›é¤æ™‚æ®µ</th>
+		<th width="130">é¤é»åœ–ç¤º</th>
+		<th width="90">å–®åƒ¹</th>
+		<th width="90">æ•¸é‡</th>
 		<th width="70"><img src="<%=request.getContextPath() %>/front-end/searchPage/images/shopping-cart.png" width ="45px" height ="35px"></th>
 	</tr></table>
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <table>
-	<c:forEach var="menuListVO" items="${menuListVOList}"> 
+ 	<c:forEach var="menuListVO" items="${menuListVOList}">
 		<tr>
 		<form name="menuForm" action="<%=request.getContextPath() %>/shoppingCart.do" method="POST">
-			<td width="90"><div align="center">${menuListVO.chefRep}</div></td>
+<%-- 			<td width="90"><div align="center">${menuListVO.chefRep}</div></td> --%>
 			<td width="140"><div align="center">${menuListVO.mainCourse}</div></td>
-			<td width="130"><div align="center">${menuListVO.menuTimeSlot}</div></td>
+			<td width="130"><div align="center">${menuListVO.menuDate} ${menuListVO.menuTimeSlot}é¤</div></td>
+			<td width="130"><div align="center"><td><img style="max-width: 190px; max-height: 250px;" src="<%=request.getContextPath()%>/front-end/foodOrder2/foodorderImg2.do?menuno=${menuListVO.menuNo}"/></td></div></td>
 			<td width="90"><div align="center">${menuListVO.unitPrice}</div></td>
 			<td width="90"><div align="center"><input type="text" name="amount" size="3" value=1></div></td>
 			<td width="70"><div align="center"><input type="image" src="<%=request.getContextPath() %>/front-end/searchPage/images/plus.jpg" class="button" width="35" height="25"> </div></td>
 			 <input type="hidden" name="chefRep" value="${menuListVO.chefRep}">
 		     <input type="hidden" name="mainCourse" value="${menuListVO.mainCourse}">
+		     <input type="hidden" name="menuDate" value="${menuListVO.menuDate}">
 		     <input type="hidden" name="menuTimeSlot" value="${menuListVO.menuTimeSlot}">
+<!-- 		     <input type="hidden" name="menuPic" value=""> -->
 		     <input type="hidden" name="unitPrice" value="${menuListVO.unitPrice}">
 		     <input type="hidden" name="chefNo" value="${menuListVO.chefNo}">
 		     <input type="hidden" name="menuListNo" value="${menuListVO.menuListNo}">
 		     <input type="hidden" name="action" value="ADD">
 		</tr>
 		 </form>
-	</c:forEach>
+ 	</c:forEach>
 </table>
- 		
+	
 
 <form name="myShoppingCart" action="<%=request.getContextPath()%>/front-end/searchPage/shoppingCart.jsp" method="POST">
-      <input type="submit" value="¬d¬İ§ÚªºÁÊª«¨®" class="button">
+      <input type="submit" value="æŸ¥çœ‹æˆ‘çš„è³¼ç‰©è»Š" class="button">
 </form>
 	
 </body>
@@ -102,7 +114,7 @@
 <!--  	} -->
 	
 <!--  	function addMenu(){ -->
-<!--  		//Àò¨ú»İ­n¥[¤JÁÊª«¨®°Ó«~½s¸¹ -->
+<!--  		//ç²å–éœ€è¦åŠ å…¥è³¼ç‰©è»Šå•†å“ç·¨è™Ÿ -->
 <!-- 		var ids = ""; -->
 <!--  		var chefRep = document.getElementsByName("chefRep"); -->
 <!-- 		for (var i = 0; i < chefRep.length; i++){ -->
@@ -110,8 +122,8 @@
 <!--  				ids += chefRep[i].value + ","; -->
 <!-- 		} -->
 <!--  		} -->
-<!-- 	//³s½u«á»O,±N°Ó«~½s¸¹,¶Ç°e¨ì«á»O -->
-<!-- 		createXhr();  //¶}±Ò³s½u -->
+<!-- 	//é€£ç·šå¾Œè‡º,å°‡å•†å“ç·¨è™Ÿ,å‚³é€åˆ°å¾Œè‡º -->
+<!-- 		createXhr();  //é–‹å•Ÿé€£ç·š -->
 <%-- 		xhr.open("post", "<%=request.getServletPath()%>/shoppingCart.do", true); --%>
 <!--  		xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded"); -->
 
@@ -120,9 +132,9 @@
 <!--  		xhr.onreadystatechange = function(){ -->
 <!-- 			if(xhr.readyState==4 && xhr.status==200){ -->
 <!-- 				if(xhr.responseText=="ok"){ -->
-<!-- 					alert("·s¼W¦¨¥\!"); -->
+<!-- 					alert("æ–°å¢æˆåŠŸ!"); -->
 <!-- 				}else{ -->
-<!--  					alert("·s¼W¥¢±Ñ!"); -->
+<!--  					alert("æ–°å¢å¤±æ•—!"); -->
 <!--  				} -->
 <!-- 			} -->
 <!--  		} -->
@@ -141,5 +153,5 @@
 <!-- 		} -->
 <!-- 	} -->
 	
-</script> 
+<!-- </script>  -->
 </html>

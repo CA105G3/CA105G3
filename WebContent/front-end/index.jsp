@@ -215,7 +215,7 @@
           <c:forEach var="chefVO" items="${list}" begin="0" end="2">
           <div class="col-md-4 ftco-animate item">
             <div class="blog-entry">
-              <a href="<%=request.getContextPath()%>/front-end/foodOrder2/foodorder2.do?action=getMenusByChefno&chefno=${chefVO.chefNo}" class="block-20" 
+              <a href="<%=request.getContextPath()%>/shoppingCart.do?action=getMenu_by_chefRep&chefRep=${chefVO.chefRep}" class="block-20" 
               		style="background-image: url('<%=request.getContextPath()%>/front-end/memberchef/memberchefImg.do?chefNo=${chefVO.chefNo}');">
               
               </a>

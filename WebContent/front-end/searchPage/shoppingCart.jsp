@@ -124,9 +124,10 @@ font {
 	<table class="table">
   	<thead class="thead-dark">
 		<tr>
-			<th scope="col"><font>業者</font></th>
+<!-- 			<th scope="col"><font>業者</font></th> -->
 			<th scope="col"><font>餐點名稱</font></th>
 			<th scope="col"><font>供餐時段</font></th>
+<!-- 			<th scope="col"><font>餐點圖片</font></th> -->
 			<th scope="col"><font>單價</font></th>
 			<th scope="col"><font>數量</font></th>
 			<th scope="col"><font>取消</font></th>
@@ -137,6 +138,7 @@ font {
 			 MenuListVO order = buylist.get(index); 
 			 String chefRep = order.getChefRep();
 			 String chefNo = order.getChefNo();
+			 Date menuDate = order.getMenuDate();
 			 String mainCourse = order.getMainCourse();
 			 String menuTimeSlot = order.getMenuTimeSlot();
 			 int unitPrice = order.getUnitPrice();
@@ -145,16 +147,18 @@ font {
 	%>
 		<tbody>
 		<tr>
-				<td scope="row"><div align="left"><%=chefRep%></div></td>
+<%-- 				<td scope="row"><div align="left"><%=chefRep%></div></td> --%>
 				<td><div align="left"><%=mainCourse%></div></td>
-				<td><div align="left"><%=menuTimeSlot%></div></td>
+				<td><div align="left"><%=menuDate%> <%=menuTimeSlot%>餐</div></td>
 				<td><div align="left"><%=unitPrice%></div></td>
 				<td><div align="left"><input type="text" name="amount" size="3" value=<%=amount%>></div></td>
 				<td>
 				<a href='<%=request.getContextPath()%>/shoppingCart.do?action=DELETE&del=<%= index %>'>
 				<img src="<%=request.getContextPath()%>/front-end/searchPage/images/delete.png" width="20" height="20"></a></td>
 				<input type="hidden" name="menuListNo" value="${menuListVO.menuListNo}">
-				<input type="hidden" name="chefNo" value="${menuListVO.chefNo}">
+				<input type="hidden" name="menuDate" value="${menuListVO.menuDate}">
+				<input type="hidden" name="menuTimeSlot" value="${menuListVO.menuTimeSlot}">
+				<input type="hidden" name="chefNo" value="<%=chefNo%>">
 	         	
 			</tr><%}%>
 		</tbody>

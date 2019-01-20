@@ -154,7 +154,7 @@ pageContext.setAttribute("list",list);
       <div class="owl-carousel owl-theme" id="carousel-id">
       	<c:forEach var="chefVO" items="${list}">
 	        <div class="item ">
-	          <div class="card" onclick="location.href='<%=request.getContextPath()%>/front-end/foodOrder2/foodorder2.do?action=getMenusByChefno&chefno=${chefVO.chefNo}';" style="width: 300px;">
+	          <div class="card" onclick="location.href='<%=request.getContextPath()%>/shoppingCart.do?action=getMenu_by_chefRep&chefRep=${chefVO.chefRep}';" style="width: 300px;">
 	            <img class="card-img-top img-fluid" src="<%=request.getContextPath()%>/front-end/memberchef/memberchefImg.do?chefNo=${chefVO.chefNo}" alt="Card image cap">
 	            <div class="card-body">
 	              <h4 class="card-title">${chefVO.chefStoreName}</h4>

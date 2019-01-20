@@ -46,7 +46,8 @@ public class MenuListDAO implements MenuListDAO_interface{
 			" LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE FOODORDER.MEMNO=? ORDER BY ORDERDETAIL.ODNO";
 		
 		private static final String GET_BY_CHEFREP_STMT = 
-				"SELECT * FROM MENULIST LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE MEMBERCHEF.CHEFREP=?";
+				"SELECT DISTINCT MEMBERCHEF.CHEFREP, MENU.MAINCOURSE, MENULIST.MenuListNo,MENULIST.MENUTIMESLOT, MENU.MENUNO, MENU.UNITPRICE, MENULIST.MENUDATE, MENU.CHEFNO FROM MENULIST LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO "
+						+ "LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE MEMBERCHEF.CHEFREP=? ORDER BY MENULIST.MENUDATE";
 		private static final String GET_BY_MENUTIMESLOT_STMT = 
 				"SELECT * FROM MENULIST LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE MENULIST.MENUTIMESLOT=?";
 		
@@ -222,6 +223,9 @@ public class MenuListDAO implements MenuListDAO_interface{
 				menulistVO = new MenuListVO();			
 				menulistVO.setMenuListNo(rs.getString("menuListNo"));
 				menulistVO.setChefRep(rs.getString("chefRep"));
+				menulistVO.setChefNo(rs.getString("chefNo"));
+				menulistVO.setMenuDate(rs.getDate("menuDate"));
+				menulistVO.setMenuNo(rs.getString("menuNo"));
 				menulistVO.setMainCourse(rs.getString("mainCourse"));
 				menulistVO.setMenuTimeSlot(rs.getString("menuTimeSlot"));
 				menulistVO.setUnitPrice(rs.getInt("unitPrice"));

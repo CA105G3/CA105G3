@@ -13,7 +13,8 @@ import javax.websocket.Session;
 import com.foodorder.model.FoodOrderService;
 import com.foodorder.model.FoodOrderVO;
 import com.member.model.MemberVO;
-import com.menulist.model2.*;
+import com.menulist.model2.MenuListService;
+import com.menulist.model2.MenuListVO;
 import com.orderdetail.model.OrderDetailVO;
 
 public class ShoppingCartServlet extends HttpServlet {
@@ -69,6 +70,8 @@ public class ShoppingCartServlet extends HttpServlet {
 				/*************************** 2.開始查詢資料 *****************************************/
 				MenuListService menuListSvc = new MenuListService();
 				List<MenuListVO> menuListVOList = (List<MenuListVO>) menuListSvc.findByChefRep(chefRep);
+	System.out.println("menuListVOList.size()="+menuListVOList.size()); 
+	System.out.println(chefRep); 
 				if (menuListVOList == null) {
 					errorMsgs.add("查無資料");
 				}
@@ -82,8 +85,10 @@ public class ShoppingCartServlet extends HttpServlet {
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("menuListVOList", menuListVOList); // 資料庫取出的foodOrderVO物件,存入req
 				req.setAttribute("chefRep", chefRep); // 資料庫取出的foodOrderVO物件,存入req
+				
 				String url = "/front-end/searchPage/listAllMenuByChef.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+
 				successView.forward(req, res);
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
@@ -158,12 +163,11 @@ public class ShoppingCartServlet extends HttpServlet {
 			
 		}
 			
-			
+//			
 		MemberVO memVO = (MemberVO)session.getAttribute("memVO");
-		String memNo = memVO.getMemNo();
-		System.out.println("memNo===="+memNo);
 			
-			if (memNo!=null  && "insert".equals(action)) {
+			if (memVO!=null  && "insert".equals(action)) {
+				String memNo = memVO.getMemNo();
 				List<String> errorMsgs = new LinkedList<String>();
 				req.setAttribute("errorMsgs", errorMsgs);
 	System.out.println("action : "+ action);
@@ -174,7 +178,7 @@ public class ShoppingCartServlet extends HttpServlet {
 //					}
 					String deliverAddr = req.getParameter("deliverAddr");
 					String total = req.getParameter("total");
-					System.out.println("-----" + total);
+	System.out.println("-----" + total);
 					String chefno = req.getParameter("chefNo");
 //					String orderStatus = req.getParameter("orderStatus");
 					java.sql.Date ordTime = null;
@@ -195,7 +199,7 @@ public class ShoppingCartServlet extends HttpServlet {
 						orderDetailVO.setMenuListno(menuListVO.getMenuListNo());
 						orderDetailVO.setUnitPrice(menuListVO.getUnitPrice());
 						orderDetailVO.setAmount(menuListVO.getAmount());
-						System.out.println(menuListVO.getUnitPrice());
+	System.out.println(menuListVO.getUnitPrice());
 						odlist.add(orderDetailVO);
 					}
 					
@@ -204,19 +208,21 @@ public class ShoppingCartServlet extends HttpServlet {
 					foodOrderVO.setMemno(memNo);
 	System.out.println(memNo);
 					foodOrderVO.setDeliverAddr(deliverAddr);
+	System.out.println(deliverAddr);
 					foodOrderVO.setChefno(chefno);
+					System.out.println(chefno);
 					foodOrderVO.setOrderStatus(orderStatus);
-					
+	System.out.println(orderStatus);				
 					req.setAttribute("foodOrderVO", foodOrderVO);
 					req.setAttribute("total", total);
-					
+	System.out.println(errorMsgs);				
 					if(!errorMsgs.isEmpty()) {
 						req.setAttribute("foodOrderVO", foodOrderVO);
 						RequestDispatcher failureView = req.getRequestDispatcher("/front-end/searchPage/checkOut.jsp");
 						failureView.forward(req, res);
 						return;
 					}
-					System.out.println("1111111111");
+	System.out.println("1111111111");
 					
 					/***************************2.開始新增資料***************************************/
 					FoodOrderService foodOrderSvc = new FoodOrderService();
@@ -309,8 +315,9 @@ public class ShoppingCartServlet extends HttpServlet {
 		String chefRep = req.getParameter("chefRep");
 		String mainCourse = req.getParameter("mainCourse");
 		String menuTimeSlot = req.getParameter("menuTimeSlot");
-		int amount = 1;
-//		int amount = Integer.valueOf(req.getParameter("amount"));
+		Date menuDate = java.sql.Date.valueOf(req.getParameter("menuDate"));
+//		int amount = 1;
+		int amount = Integer.valueOf(req.getParameter("amount"));
 		int unitPrice = Integer.valueOf(req.getParameter("unitPrice"));
 		String chefNo = req.getParameter("chefNo");
 		String menuListNo = req.getParameter("menuListNo");
@@ -318,6 +325,7 @@ public class ShoppingCartServlet extends HttpServlet {
 		MenuListVO menu = new MenuListVO();
 		menu.setChefRep(chefRep);
 		menu.setMainCourse(mainCourse);
+		menu.setMenuDate(menuDate);
 		menu.setMenuTimeSlot(menuTimeSlot);
 		menu.setAmount(amount);
 		menu.setUnitPrice(unitPrice);
