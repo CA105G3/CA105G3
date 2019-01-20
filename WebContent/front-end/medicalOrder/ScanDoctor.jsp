@@ -11,6 +11,9 @@
 
 <%	
 	MemberVO memVO = (MemberVO)session.getAttribute("memVO");
+	if(memVO!=null){
+	request.getSession().setAttribute("memno",memVO.getMemNo());
+}
 java.sql.Date regDate = null;
 try {
 	    regDate = memVO.getRegDate();
@@ -134,8 +137,6 @@ try{
 		
 	</div>
 </div>
-
-<%@include file="/front-end/medicalOrder/includedfiles/modal.file" %>
 
 	<br>
 <!-- 	include javascript -->

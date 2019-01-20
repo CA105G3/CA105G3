@@ -14,7 +14,7 @@
 <head>
 <title>basicRecord</title>
 <!-- include css -->
-<%@include file="/front-end/medicalOrder/includedfiles/css.file" %>
+<%@include file="/front-end/member/includedfiles/css.file" %>
 
 </head>
 <body>
@@ -171,13 +171,7 @@
 
 	</div>
 </div>
-		
-
-
-
-
-
-
+	
 
 	<br>
 <!-- include js -->

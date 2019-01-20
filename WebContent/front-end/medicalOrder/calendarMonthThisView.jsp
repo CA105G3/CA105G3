@@ -273,31 +273,35 @@
 // 				console.log(element);
 				element.style.cursor = 'pointer';
 
-				//抓出當前時間可以預約的時段
+				//抓出當前時間的時段
 				var nowMonth = (new Date().getMonth())+1;
 				var nowDay = new Date().getDate();
 				var nowHour = (new Date().getHours());
 				var intMonth = ${intMonth+1};
-				var intDay =${day}
-
+				var intDay =${day};
+				var idCount;
+				
 				if( nowHour < 12){
-					idCount = -3;
-				}else if ( 12 <= nowHour < 16){
-					idCount = -2;
-				}else if ( 16 <= nowHour < 20){
-					idCount = -1;
-				}else{
-					idCount = 0;
+					var idCount = -3;
+				}else if ( nowHour >= 12 && nowHour < 16){
+					var idCount = -2;
+				}else if ( nowHour >= 16 && nowHour < 20){
+					var idCount = -1;
+				}else if (nowHour >= 20 && nowHour <= 23){
+					var idCount = 0;
 				}
 				
 				var nowHourId = nowDay*3 + idCount;
 				
-				console.log(nowHourId);
+				console.log('nowDay:' + nowDay);
+				console.log('nowHour:' + nowHour);
+				console.log('idCount:'+ idCount);
+				console.log('nowHourId:' + nowHourId);
 				
 				
-				if( i <= nowHourId){
+				if( i < nowHourId){
 						element.className = 'event all-day begin end';	
-				}else if( i > nowHourId){
+				}else if( i >= nowHourId){
 					if (element.getAttribute('data-value') == "V")
 						element.className = 'event begin end'; 
 					else
@@ -307,15 +311,16 @@
 				//註冊一個onclick,觸發無法預約的提醒
 				element.onclick = function(){
 					var element = this;
-					if(element.id <= nowHourId){ //還沒處理完當天時間
+					var elementId = this.id;
+					console.log(elementId);
+					if(elementId < nowHourId){ //還沒處理完當天時間
 						Swal(
 							'已是過去時間',
 							'請選擇可預約時段',
 							'warning'
 								)
 						return;
-					}
-					if (element.getAttribute('data-value') != "V"){
+					}else if (element.getAttribute('data-value') != "V"){
 						Swal(
 							'非可預約時間',
 							'請選擇可預約時段',

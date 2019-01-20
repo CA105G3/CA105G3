@@ -189,6 +189,8 @@ img{
 
 	</div>		
 </div>		
+
+
 <!-- include醫生月曆		 -->
 <div class="container-fluid">
 		<div>
@@ -201,54 +203,8 @@ img{
 <!-- include footer -->
 <%@ include file="/front-end/includedfolder/footer.file" %>
 
-
-		<!-- loader -->
-		<div id="ftco-loader" class="show fullscreen">
-			<svg class="circular" width="48px" height="48px">
-				<circle class="path-bg" cx="24" cy="24" r="22" fill="none"
-					stroke-width="4" stroke="#eeeeee" />
-				<circle class="path" cx="24" cy="24" r="22" fill="none"
-					stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg>
-		</div>
-
-		<!-- Modal -->
-		<div class="modal fade" id="modalRequest" tabindex="-1" role="dialog"
-			aria-labelledby="modalRequestLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="modalRequestLabel">登入會員</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<form action="#">
-							<div class="form-group">
-								<!-- <label for="appointment_name" class="text-black">Full Name</label> -->
-								<input type="text" class="form-control" id="appointment_name"
-									placeholder="使用者名稱">
-							</div>
-							<div class="form-group">
-								<!-- <label for="appointment_email" class="text-black">Email</label> -->
-								<input type="text" class="form-control" id="appointment_email"
-									placeholder="密碼">
-							</div>
-
-							<div class="form-group">
-								<input type="submit" value="登入" class="btn btn-primary">
-								<a href="blog.html"><input type="button" value="註冊會員"
-									class="btn btn-primary"></a>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.33.1/dist/sweetalert2.all.min.js"></script>	
 <!-- include js -->
-<%@ include file="/front-end/medicalOrder/includedfiles/javascript.file" %>
+<%@ include file="/front-end/member/includedfiles/js.file" %>
 </body>
 </html>
