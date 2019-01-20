@@ -74,26 +74,33 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'David','David123456','David','09123456789',TO_DATE('1981-01-01','YYYY-MM-DD'),TO_DATE('2018-4-07 13:23:44','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-11-07 13:23:44','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','男','david001@gmail.com',22244,'中央大學中央路255號','AB','有','此為文字串','此為文字串','此為文字串',NULL);
-INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Mary','Mary123456','Mary','09213456789',TO_DATE('1982-02-02','YYYY-MM-DD'),TO_DATE('2018-6-25 11:25:51','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-25 11:25:51','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','女','mary001@gmail.com',22244,'中央大學中央路256號','O','沒有','此為文字串','此為文字串','此為文字串',NULL);
-INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Jim','Jim123457','Jim','09883456789',TO_DATE('1983-03-03','YYYY-MM-DD'),TO_DATE('2018-5-25 15:36:11','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-25 15:36:11','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','男','jim001@gmail.com',22244,'中央大學中央路257號','O','沒有','此為文字串','此為文字串','此為文字串',NULL);
-INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Harry','Harry123457','Harry','09833456789',TO_DATE('1984-04-04','YYYY-MM-DD'),TO_DATE('2018-4-25 16:54:54','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-25 16:54:54','yyyy-mm-dd hh24:mi:ss'),'停用','一般會員','男','harry001@gmail.com',22244,'中央大學中央路258號','A','有','此為文字串','此為文字串','此為文字串',NULL);
-INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Jay','Jay123457','Jay','09343456789',TO_DATE('1985-05-05','YYYY-MM-DD'),TO_DATE('2018-8-04 16:25:15','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-04 16:25:15','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','男','Jay001@gmail.com',22244,'中央大學中央路259號','B','沒有','此為文字串','此為文字串','此為文字串',NULL);
-INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Kim','Kim123457','Kim','09423456789',TO_DATE('1986-06-06','YYYY-MM-DD'),TO_DATE('2018-9-05 18:57:52','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-05 18:57:52','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','男','Kim001@gmail.com',22244,'中央大學中央路260號','A','沒有','此為文字串','此為文字串','此為文字串',NULL);
-INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Adele','Adele123457','Adele','09733555555',TO_DATE('1987-07-07','YYYY-MM-DD'),TO_DATE('2018-9-05 15:25:35','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-05 15:25:35','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','女','Adele001@gmail.com',22244,'中央大學中央路261號','AB','有','此為文字串','此為文字串','此為文字串',NULL);
-INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Trista','Trista123457','Trista','0943334589',TO_DATE('1988-08-08','YYYY-MM-DD'),TO_DATE('2018-9-06 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-06 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','女','Trista@gmail.com',22244,'中央大學中央路262號','O','沒有',NULL,NULL,NULL,NULL);
-INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Alan','Alan123457','Alan','0943334659',TO_DATE('1988-08-09','YYYY-MM-DD'),TO_DATE('2018-9-07 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-07 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','餐飲業者','男','Alan@gmail.com',22244,'中央大學中央路263號','AB','沒有',NULL,NULL,NULL,NULL);
-INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Blake','Blake123457','Blake','0943323469',TO_DATE('1988-08-10','YYYY-MM-DD'),TO_DATE('2018-9-08 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-08 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','餐飲業者','男','Blake@gmail.com',22244,'中央大學中央路264號','A','沒有',NULL,NULL,NULL,NULL);
-INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Venus','Venus123457','Venus','0943352859',TO_DATE('1988-08-11','YYYY-MM-DD'),TO_DATE('2018-9-09 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-09 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','餐飲業者','女','Venus@gmail.com',22244,'中央大學中央路265號','O','沒有',NULL,NULL,NULL,NULL);
-INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Yuri','Yuri123457','Yuri','0943754239',TO_DATE('1988-08-12','YYYY-MM-DD'),TO_DATE('2018-9-10 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-10 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','餐飲業者','女','Yuri@gmail.com',22244,'中央大學中央路266號','B','沒有',NULL,NULL,NULL,NULL);
-INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Zoe','Zoe123457','Zoe','0948797889',TO_DATE('1988-08-13','YYYY-MM-DD'),TO_DATE('2018-9-11 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-11 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','餐飲業者','女','Zoe@gmail.com',22244,'中央大學中央路267號','A','沒有',NULL,NULL,NULL,NULL);
-INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Duke','Duke123457','Duke','0943787589',TO_DATE('1988-08-14','YYYY-MM-DD'),TO_DATE('2018-9-12 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-12 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','餐飲業者','男','Duke@gmail.com',22244,'中央大學中央路268號','AB','沒有',NULL,NULL,NULL,NULL);
-INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Astor','Astor123457','Astor','0943975335',TO_DATE('1988-08-15','YYYY-MM-DD'),TO_DATE('2018-9-13 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-13 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','男','Astor@gmail.com',22244,'中央大學中央路269號','O','沒有',NULL,NULL,NULL,NULL);
-INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Bob','Bob123457','Bob','0943367431',TO_DATE('1988-08-16','YYYY-MM-DD'),TO_DATE('2018-9-4 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-14 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','男','Bob@gmail.com',22244,'中央大學中央路270號','A','沒有',NULL,NULL,NULL,NULL);
-INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Sylvia','Sylvia123457','Sylvia','0989743489',TO_DATE('1988-08-17','YYYY-MM-DD'),TO_DATE('2018-9-15 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-15 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','女','Sylvia@gmail.com',22244,'中央大學中央路271號','O','沒有',NULL,NULL,NULL,NULL);
-INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Tess','Tess123457','Tess','0940675369',TO_DATE('1988-08-18','YYYY-MM-DD'),TO_DATE('2018-9-16 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-16 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','女','Tess@gmail.com',22244,'中央大學中央路272號','AB','沒有',NULL,NULL,NULL,NULL);
-INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Kobe','Kobe123457','Kobe','0943324362',TO_DATE('1988-08-19','YYYY-MM-DD'),TO_DATE('2018-9-17 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-17 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','男','Kobe@gmail.com',22244,'中央大學中央路273號','A','沒有',NULL,NULL,NULL,NULL);
-INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Queen','Queen123457','Queen','0942343245',TO_DATE('1988-08-20','YYYY-MM-DD'),TO_DATE('2018-9-18 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-18 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','女','Queen@gmail.com',22244,'中央大學中央路274號','B','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'David','123456','大衛海鮮','0919740601',TO_DATE('1981-01-01','YYYY-MM-DD'),TO_DATE('2018-4-07 13:23:44','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-11-07 13:23:44','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','男','2018ca105g3@gmail.com',22244,'中央大學中央路255號','AB','有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Peter','123456','吳神','0919740601',TO_DATE('1982-02-02','YYYY-MM-DD'),TO_DATE('2018-6-25 11:25:51','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-25 11:25:51','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','男','2018ca105g3@gmail.com',22244,'中央大學中央路256號','O','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Jim','123456','阿一','0919740601',TO_DATE('1983-03-03','YYYY-MM-DD'),TO_DATE('2018-5-25 15:36:11','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-25 15:36:11','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','男','2018ca105g3@gmail.com',22244,'中央大學中央路257號','O','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Harry','123456','柯南','0919740601',TO_DATE('1984-04-04','YYYY-MM-DD'),TO_DATE('2018-4-25 16:54:54','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-25 16:54:54','yyyy-mm-dd hh24:mi:ss'),'停用','一般會員','男','2018ca105g3@gmail.com',22244,'中央大學中央路258號','A','有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Jay','123456','工藤','0919740601',TO_DATE('1985-05-05','YYYY-MM-DD'),TO_DATE('2018-8-04 16:25:15','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-04 16:25:15','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','男','2018ca105g3@gmail.com',22244,'中央大學中央路259號','B','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Kim','123456','晴子','0919740601',TO_DATE('1986-06-06','YYYY-MM-DD'),TO_DATE('2018-9-05 18:57:52','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-05 18:57:52','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','女','2018ca105g3@gmail.com',22244,'中央大學中央路260號','A','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Adele','123456','結衣','0919740601',TO_DATE('1987-07-07','YYYY-MM-DD'),TO_DATE('2018-9-05 15:25:35','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-05 15:25:35','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','女','2018ca105g3@gmail.com',22244,'中央大學中央路261號','AB','有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Trista','123456','黑寡婦','0919740601',TO_DATE('1988-08-08','YYYY-MM-DD'),TO_DATE('2018-9-06 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-06 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','女','2018ca105g3@gmail.com',22244,'中央大學中央路262號','O','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Alan','123456','美雪','0919740601',TO_DATE('1988-08-09','YYYY-MM-DD'),TO_DATE('2018-9-07 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-07 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','女','2018ca105g3@gmail.com',22244,'中央大學中央路263號','AB','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Blake','123456','Blake','0919740601',TO_DATE('1988-08-10','YYYY-MM-DD'),TO_DATE('2018-9-08 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-08 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','一般會員','女','2018ca105g3@gmail.com',22244,'中央大學中央路264號','A','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Jack','123456','黑傑克','0919740601',TO_DATE('1988-08-11','YYYY-MM-DD'),TO_DATE('2018-9-09 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-09 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','男','2018ca105g3@gmail.com',22244,'中央大學中央路265號','O','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'KP','123456','柯文哲','0919740601',TO_DATE('1988-08-12','YYYY-MM-DD'),TO_DATE('2018-9-10 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-10 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','男','2018ca105g3@gmail.com',22244,'中央大學中央路266號','B','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Zoe','123456','朝田龍太郎','0919740601',TO_DATE('1988-08-13','YYYY-MM-DD'),TO_DATE('2018-9-11 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-11 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','男','2018ca105g3@gmail.com',22244,'中央大學中央路267號','A','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Duke','123456','南方仁','0919740601',TO_DATE('1988-08-14','YYYY-MM-DD'),TO_DATE('2018-9-12 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-12 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','男','2018ca105g3@gmail.com',22244,'中央大學中央路268號','AB','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Fast','123456','法斯特','0919740601',TO_DATE('1988-08-15','YYYY-MM-DD'),TO_DATE('2018-9-13 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-13 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','男','2018ca105g3@gmail.com',22244,'中央大學中央路269號','O','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Bob','123456','喬巴','0919740601',TO_DATE('1988-08-16','YYYY-MM-DD'),TO_DATE('2018-9-4 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-14 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','男','2018ca105g3@gmail.com',22244,'中央大學中央路270號','A','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Lin','123456','林杰樑','0919740601',TO_DATE('1988-08-17','YYYY-MM-DD'),TO_DATE('2018-9-15 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-15 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','男','2018ca105g3@gmail.com',22244,'中央大學中央路271號','O','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Tess','123456','卯之花烈','0919740601',TO_DATE('1988-08-18','YYYY-MM-DD'),TO_DATE('2018-9-16 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-16 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','女','2018ca105g3@gmail.com',22244,'中央大學中央路272號','AB','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Girl','123456','綱手','0919740601',TO_DATE('1988-08-19','YYYY-MM-DD'),TO_DATE('2018-9-17 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-17 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','女','2018ca105g3@gmail.com',22244,'中央大學中央路273號','A','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Queen','123456','慈悲','0919740601',TO_DATE('1988-08-20','YYYY-MM-DD'),TO_DATE('2018-9-18 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-18 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','醫療人員','女','2018ca105g3@gmail.com',22244,'中央大學中央路274號','B','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Aaron','123456','艾倫','0919740601',TO_DATE('1988-08-15','YYYY-MM-DD'),TO_DATE('2018-9-13 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-13 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','餐飲業者','男','2018ca105g3@gmail.com',22244,'中央大學中央路269號','O','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Ace','123456','艾斯','0919740601',TO_DATE('1988-08-16','YYYY-MM-DD'),TO_DATE('2018-9-4 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-14 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','餐飲業者','男','2018ca105g3@gmail.com',22244,'中央大學中央路270號','A','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Adolf','123456','阿道夫','0919740601',TO_DATE('1988-08-17','YYYY-MM-DD'),TO_DATE('2018-9-15 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-15 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','餐飲業者','男','2018ca105g3@gmail.com',22244,'中央大學中央路271號','O','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Athena','123456','雅典娜','0919740601',TO_DATE('1988-08-18','YYYY-MM-DD'),TO_DATE('2018-9-16 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-16 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','餐飲業者','女','2018ca105g3@gmail.com',22244,'中央大學中央路272號','AB','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Hannh','123456','天使佩涵','0919740601',TO_DATE('1999-08-19','YYYY-MM-DD'),TO_DATE('2018-9-17 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-17 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','餐飲業者','女','2018ca105g3@gmail.com',22244,'中央大學中央路273號','A','沒有',NULL,NULL,NULL,NULL);
+INSERT INTO MEMBER VALUES ('M'||lpad(to_char(member_seq.NEXTVAL), 4, '0'),'Keiko','123456','景子','0919740601',TO_DATE('1988-08-20','YYYY-MM-DD'),TO_DATE('2018-9-18 11:52:42','yyyy-mm-dd hh24:mi:ss'),TO_DATE('2018-12-18 11:52:42','yyyy-mm-dd hh24:mi:ss'),'正常','餐飲業者','女','2018ca105g3@gmail.com',22244,'中央大學中央路274號','B','沒有',NULL,NULL,NULL,NULL);
+
 
 -----------------------------------------------
 -- create license OK
@@ -184,9 +191,9 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0001','圍棋切磋','桃園市中壢區中正公園',TO_DATE('2018-12-31','YYYY-MM-DD'),'募集中',10,3,2,'誰是最強的太陽拳繼承者!一起來挑戰八!',NULL,24.960402,121.226430);
-INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0008','外丹功推廣','桃園市中壢區精五行養身館',TO_DATE('2018-01-13','YYYY-MM-DD'),'已結束',50,20,1,'外丹功好，強身健體，還不受中共壓迫歐',NULL,24.959477,121.218103);
-INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0012','喝咖啡','桃園市中壢區沙皇風尚咖啡館',TO_DATE('2018-08-26','YYYY-MM-DD'),'已結束',150,50,3,'',NULL,24.957615,121.212902);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0001','太陽拳比賽','桃園市中壢區中正公園',TO_DATE('2018-12-31','YYYY-MM-DD'),'募集中',10,3,2,'誰是最強的太陽拳繼承者!一起來挑戰八!',NULL,24.960402,121.226430);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0008','捕獲寶可夢','桃園市中壢區精五行養身館',TO_DATE('2018-01-13','YYYY-MM-DD'),'已結束',50,20,1,'鳳王路奇亞現蹤，需組一團來攻陷，加入我吧!',NULL,24.959477,121.218103);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0012','外丹功推廣','桃園市中壢區沙皇風尚咖啡館',TO_DATE('2018-08-26','YYYY-MM-DD'),'已結束',150,50,3,'外丹功好，強身健體，還不受中共壓迫歐',NULL,24.957615,121.212902);
 INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0007','看夜景','桃園市中壢區社會福利基金會',TO_DATE('2019-05-20','YYYY-MM-DD'),'募集中',10,5,5,'高雄發大財，錢進得來，出的去，韓總讓大家賺大錢',NULL,24.959594,121.206722);
 INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0018','腳踏車競速','永安漁港',TO_DATE('2018-09-01','YYYY-MM-DD'),'募集中',100,45,2,'我是彭于晏，邀請大家陪我尬車競速',NULL,24.988651,121.014494);
 INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0010','翻墮羅拳展示','桃園市中壢區SOGO',TO_DATE('2018-10-11','YYYY-MM-DD'),'募集中',30,5,1,'秘術拳法徵求繼承者，意者請洽我',NULL,24.962474,121.223562);
@@ -477,94 +484,98 @@ NOCYCLE
 NOCACHE;
 
 --------------------------------------------------------
---  醫療人員1
+--  醫療人員M11D1
 --------------------------------------------------------
-INSERT INTO doctor VALUES ('D'||lpad(to_char(doctor_seq.NEXTVAL), 4, '0'),'M0015',
-
-'中華民國外科醫師、無黨籍政治人物，現任臺北市市長。
-國立臺灣大學醫學院臨床醫學研究所博士畢業，曾任臺大醫院急診部醫師、臺大醫院創傷醫學部主任、臺大醫學院教授，
-專長為外科重症醫學、器官移植 、人工器官等，是臺灣第一個急診與重症加護專職醫生，
-為臺灣器官標準移植程序的建立者，也是首位將葉克膜（ECMO）技術引進臺灣的醫師。
-2018年任命(學姊)黃瀞瑩為臺北市政府媒體事務組組員
-','離線','失效','外科','4',NULL);
---------------------------------------------------------
---  醫療人員2
---------------------------------------------------------
-INSERT INTO doctor VALUES ('D'||lpad(to_char(doctor_seq.NEXTVAL), 4, '0'),'M0016',
-
+INSERT INTO doctor VALUES ('D'||lpad(to_char(doctor_seq.NEXTVAL), 4, '0'),'M0011',
 '本名間黑男，從小父親因婚外情而私奔及離棄他及母親，因此和母親一起生活。
 某日與母親出遊，因工程商的人為疏失，他誤觸未爆彈引發爆炸，母親送醫後不治，他也一度瀕死，
 但終於被擁有高明醫術的本間丈太郎醫師救活。
 痛苦的復健過程中，使他活下去的動力只有兩個：成為和本間醫師一樣的一流外科醫師，以及報復害死母親的工程商關係人。
 若干年後，間黑男果真習得世界頂尖的外科技術，不過由於對醫學的理念不見容於醫學界，醫師執照被吊銷，
 但他仍憑其高超的醫術自己開診所，並向病患收取鉅額手術費。          
-人們稱這位無照行醫的外科天才為：黑傑克。','線上','審核中','外科','999999999',NULL);
-
+人們稱這位無照行醫的外科天才為：黑傑克。
+','線上','生效中','外科','888',NULL);
 --------------------------------------------------------
---  醫療人員3
+--  醫療人員M12D2
 --------------------------------------------------------
-
-INSERT INTO doctor VALUES ('D'||lpad(to_char(doctor_seq.NEXTVAL), 4, '0'),'M0017','國泰綜合醫院皮膚科暨醫學美容中心主治醫師
-內湖國泰綜合醫院皮膚科主治醫師
-汐止國泰綜合醫院皮膚科主治醫師
-新竹國泰綜合醫院皮膚科主治醫師
-中華民國皮膚科專科醫師
-台灣皮膚科醫學會會員','線上','生效中','皮膚科','200',NULL);
-
+INSERT INTO doctor VALUES ('D'||lpad(to_char(doctor_seq.NEXTVAL), 4, '0'),'M0012',
+'中華民國外科醫師、無黨籍政治人物，現任臺北市市長。
+國立臺灣大學醫學院臨床醫學研究所博士畢業，曾任臺大醫院急診部醫師、臺大醫院創傷醫學部主任、臺大醫學院教授，
+專長為外科重症醫學、器官移植 、人工器官等，是臺灣第一個急診與重症加護專職醫生，
+為臺灣器官標準移植程序的建立者，也是首位將葉克膜（ECMO）技術引進臺灣的醫師。
+','離線','生效中','外科','666',NULL);
 --------------------------------------------------------
---  醫療人員4
+--  醫療人員M13D3
 --------------------------------------------------------
-
-INSERT INTO doctor VALUES ('D'||lpad(to_char(doctor_seq.NEXTVAL), 4, '0'),'M0018','中國醫藥大學醫學系畢業
-台灣大學醫學系臨床醫學研究所碩士
-台灣耳鼻喉科專科醫師
-台灣顏面整形重建外科專科醫師
-台大醫院耳鼻喉部進修
-韓國Asan醫學中心鼻整形手術課程進修
-國泰醫學中心耳鼻喉科住院醫師
-國泰醫學中心耳鼻喉科總醫師
-國泰綜合醫院內湖分院耳鼻喉科主治醫師
-國泰綜合醫院新竹分院耳鼻喉科主治醫師
-汐止國泰醫院耳鼻喉頭頸外科主治醫師
-汐止國泰醫院耳鼻喉頭頸外科主任
-台灣美容醫學教育訓練聯合委員會委員
-衛生福利部美容醫學教育訓練諮議會委員','離線','生效中','耳鼻喉科','7777',NULL);
-
+INSERT INTO doctor VALUES ('D'||lpad(to_char(doctor_seq.NEXTVAL), 4, '0'),'M0013',
+'人稱「醫龍」，
+性格獨斷獨行，對不當的醫療行為絕不袖手旁觀並予以糾正。
+朝田很喜愛吃甜食，除了動手術的時候，身上幾乎隨時帶著甜食，甚至咖啡只要經過朝田的手，都會甜到不能喝的程度。
+擁有影響他人的絕對魅力，為了讓團隊中的其他成員不再依賴自己，亦做出許多令人意想不到的舉動。
+','離線','生效中','外科','111',NULL);
 --------------------------------------------------------
---  醫療人員5
+--  醫療人員M14D4
 --------------------------------------------------------
-
+INSERT INTO doctor VALUES ('D'||lpad(to_char(doctor_seq.NEXTVAL), 4, '0'),'M0014',
+'意外穿越時空，從現代回到150年前的江戶地區。
+即使在艱困的環境下，仍竭盡所能醫治病患。
+雖然內心明白「拯救江戶百姓=改變歷史」，但看著努力求生的病患，自己也在不知不覺中，決定要在這個時代好好活下去。
+','離線','生效中','腦外科','222',NULL);
+--------------------------------------------------------
+--  醫療人員M15D5
+--------------------------------------------------------
+INSERT INTO doctor VALUES ('D'||lpad(to_char(doctor_seq.NEXTVAL), 4, '0'),'M0015',
+'和鄰居的女兒艾莉莎是青梅竹馬，與其結婚後經營著一家診所，平靜而幸福的生活著。
+突然有一天不幸降臨，瘋狂的歹徒槍殺了艾莉莎，浮士德千方百計想挽救妻子的生命，卻最終沒有戰勝死神。
+從此性格變得極端而扭曲，為了將死去的愛妻艾莉莎復活而參加通靈王激戰。
+在禮貌的言語下面，掩飾著一旦切下去就不會罷手的性格。
+','離線','生效中','外科','333',NULL);
+--------------------------------------------------------
+--  醫療人員M16D6
+--------------------------------------------------------
+INSERT INTO doctor VALUES ('D'||lpad(to_char(doctor_seq.NEXTVAL), 4, '0'),'M0016',
+'草帽海賊團的船醫。他是一隻有藍鼻子的馴鹿，因為吃下的「人人果實」讓他得到了能變成人類或半人半鹿的超能力。
+雖然身為海賊，但也堅持醫生的立場，總是給予每個經手的病人確實的治療，也因此痛恨將人命玩弄於股掌間的行為。
+有時能夠利用自己豐富的醫療學識，為夥伴開啟勝利之路，夢想是透過學習醫術而讓自己成為萬靈藥。
+','離線','生效中','外科','555',NULL);
+--------------------------------------------------------
+--  醫療人員M17D7
+--------------------------------------------------------
+INSERT INTO doctor VALUES ('D'||lpad(to_char(doctor_seq.NEXTVAL), 4, '0'),'M0017',
+'臺灣著名的腎臟科和毒理學醫生，有「毒物科權威」之稱，
+林杰樑出生於中華民國嘉義縣朴子市的醫學世家，畢業後長期投入腎臟醫學與毒物醫學的研究。
+他也是首位研發出農藥百草枯解毒劑並且建立標準急救流程的醫生，成功降低臺灣早期許多攝入農藥而致死的案例。
+其研發的治療方式推廣至世界各地且廣泛獲得運用後，也讓原本農藥中毒存活率為40%的印度上升至80%左右。
+同時長期致力於向民眾宣導正確飲食、防毒養生與各項醫學觀念。
+','離線','生效中','腎臟科','1111',NULL);
+--------------------------------------------------------
+--  醫療人員M18D8
+--------------------------------------------------------
+INSERT INTO doctor VALUES ('D'||lpad(to_char(doctor_seq.NEXTVAL), 4, '0'),'M0018',
+'外貌溫柔仁慈，蓄著中分的黑色長髮，
+由於她的鎖骨正下方，有片從入隊以來唯一留下的傷疤，所以平常總是將頭髮綁成麻花髮辮並垂至前方。
+擔當救護隊隊長，醫術極其高超，對護廷十三隊隊員和藹，
+但對在醫護所大鬧的人則會對其散發出其可怕的殺氣，甚至連十一番隊的人都被她嚇得不敢反駁。
+倘若旗下成員因故違反屍魂界的規範，則會讓對方接受應有的處分。
+','離線','生效中','家醫科','2222',NULL);
+--------------------------------------------------------
+--  醫療人員M19D9
+--------------------------------------------------------
 INSERT INTO doctor VALUES ('D'||lpad(to_char(doctor_seq.NEXTVAL), 4, '0'),'M0019',
-
-'台大醫學系畢業
-
-前台大醫院醫師
-
-前衛生署醫策會委員
-
-美國醫師考試FMGEMS及格
-
-前秀傳醫院皮膚科專任醫師
-
-台大糖尿病衛教小組訓練','線上','生效中','家醫科','9487',NULL);
-
-
-
+'木葉忍者村第五代火影、首位女火影。
+第一代火影「千手柱間」的孫女，為傳說三忍之一（另外兩位為自來也和大蛇丸），忍界極富盛名的醫療忍者。
+同時也是建議任務小隊需要一名醫療忍者隨行的首倡者。
+','離線','生效中','家醫科','3333',NULL);
 --------------------------------------------------------
---  醫療人員6
+--  醫療人員M20D10
 --------------------------------------------------------
-
-INSERT INTO doctor VALUES ('D'||lpad(to_char(doctor_seq.NEXTVAL), 4, '0'),'M0020','【我們心理諮商所】合作心理師
-【龍華科技大學】專任諮商心理師
-【新北市泰山高中】專任輔導教師
-【新北市泰山區】國小專任輔導教師
-​【亞東醫院精神科自殺防治中心】輔導員
-【新北市厚德國小】高風險家庭團體帶領者
-【法務部矯正署台北監獄】性侵加害人團體觀察員','線上','生效中','心理諮商','6666',NULL);
-
-
-
-
+INSERT INTO doctor VALUES ('D'||lpad(to_char(doctor_seq.NEXTVAL), 4, '0'),'M0020',
+'慈悲，原名安吉拉•齊格勒，是一名頂尖的治療者、出色的科學家和堅定的和平主義者。
+齊格勒在踏入可以極大改善致命疾病和損傷治療效果的突破性應用納米生物學領域之前，是瑞士一家頂尖醫院的手術部門負責人。
+正是她在醫學領域的成就，引起了鬥陣特攻的注意，受邀擔任醫學研究部門的負責人。
+安吉拉致力於更好地在前線治療受到致命傷的病員。
+而當鬥陣特攻解散之後，齊格勒博士便致力於幫助那些受戰爭波及的受難者。
+','離線','生效中','家醫科','99',NULL);
 -----------------------------------------------
 -- create doctoravailable OK
 -----------------------------------------------
@@ -584,15 +595,30 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0001',TO_DATE('20181201','YYYYMMDD'),'110011100101000110000010111111001001111101111110110010011010100011110001001101011000101010110');
-INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0003',TO_DATE('20190101','YYYYMMDD'),'000011000111110001110110110111111001000101100100010010100111101101001001100001001010100101100');
-INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0003',TO_DATE('20190201','YYYYMMDD'),'000011000111110001110110110111111001000101100100010010100111101101001001100001001010100101100');
-INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0004',TO_DATE('20190101','YYYYMMDD'),'111011100101010010011100100010010111011001010010000111001101101001101111011010101100110010001');
-INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0004',TO_DATE('20190201','YYYYMMDD'),'111011100101010010011100100010010111011001010010000111001101101001101111011010101100110010001');
-INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0005',TO_DATE('20190101','YYYYMMDD'),'010001110100011111000001100110101011010011100000101000010110001011010110010000011101100101000');
-INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0005',TO_DATE('20190201','YYYYMMDD'),'010001110100011111000001100110101011010011100000101000010110001011010110010000011101100101000');
-INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0006',TO_DATE('20190101','YYYYMMDD'),'001110001000111011111010000110010010010001100010010010001101110011011000011010110100010101100');
-INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0006',TO_DATE('20190201','YYYYMMDD'),'001110001000111011111010000110010010010001100010010010001101110011011000011010110100010101100');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0001',TO_DATE('20190101','YYYYMMDD'),'000011000111110001110110110111111001000101100100010010100111101101001001100001001010100101100');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0001',TO_DATE('20190201','YYYYMMDD'),'000011000111110001110110110111111001000101100100010010100111101101001001100001001010100101100');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0002',TO_DATE('20190101','YYYYMMDD'),'111011100101010010011100100010010111011001010010000111001101101001101111011010101100110010001');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0002',TO_DATE('20190201','YYYYMMDD'),'111011100101010010011100100010010111011001010010000111001101101001101111011010101100110010001');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0003',TO_DATE('20190101','YYYYMMDD'),'010001110100011111000001100110101011010011100000101000010110001011010110010000011101100101000');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0003',TO_DATE('20190201','YYYYMMDD'),'010001110100011111000001100110101011010011100000101000010110001011010110010000011101100101000');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0004',TO_DATE('20190101','YYYYMMDD'),'001110001000111011111010000110010010010001100010010010001101110011011000011010110100010101100');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0004',TO_DATE('20190201','YYYYMMDD'),'001110001000111011111010000110010010010001100010010010001101110011011000011010110100010101100');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0005',TO_DATE('20190101','YYYYMMDD'),'011010011100100111001110100111111011111100100011111001000001111111100001111010000100100111110');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0005',TO_DATE('20190201','YYYYMMDD'),'011010011100100111001110100111111011111100100011111001000001111111100001111010000100100111110');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0006',TO_DATE('20190101','YYYYMMDD'),'000011000111110001110110110111111001000101100100010010100111101101001001100001001010100101100');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0006',TO_DATE('20190201','YYYYMMDD'),'000011000111110001110110110111111001000101100100010010100111101101001001100001001010100101100');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0007',TO_DATE('20190101','YYYYMMDD'),'111011100101010010011100100010010111011001010010000111001101101001101111011010101100110010001');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0007',TO_DATE('20190201','YYYYMMDD'),'111011100101010010011100100010010111011001010010000111001101101001101111011010101100110010001');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0008',TO_DATE('20190101','YYYYMMDD'),'010001110100011111000001100110101011010011100000101000010110001011010110010000011101100101000');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0008',TO_DATE('20190201','YYYYMMDD'),'010001110100011111000001100110101011010011100000101000010110001011010110010000011101100101000');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0009',TO_DATE('20190101','YYYYMMDD'),'001110001000111011111010000110010010010001100010010010001101110011011000011010110100010101100');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0009',TO_DATE('20190201','YYYYMMDD'),'001110001000111011111010000110010010010001100010010010001101110011011000011010110100010101100');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0010',TO_DATE('20190101','YYYYMMDD'),'011010011100100111001110100111111011111100100011111001000001111111100001111010000100100111110');
+INSERT INTO doctoravailable VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(doctoravailable_seq.NEXTVAL), 4, '0'),'D0010',TO_DATE('20190201','YYYYMMDD'),'011010011100100111001110100111111011111100100011111001000001111111100001111010000100100111110');
+
+
+commit;
+
 
 -----------------------------------------------
 -- create medicalorder OK
@@ -612,7 +638,7 @@ CREATE TABLE medicalorder(
     CONSTRAINT medicalorder_pk PRIMARY KEY (mono),
     CONSTRAINT medicalorder_fk1 FOREIGN KEY (memno) REFERENCES MEMBER (memno),
     CONSTRAINT medicalorder_fk2 FOREIGN KEY (drno) REFERENCES doctor (drno),
-    CONSTRAINT chk_mostatus CHECK (mostatus IN('等待審核','等待問診','問診完成','取消問診')),
+    CONSTRAINT chk_mostatus CHECK (mostatus IN('等待問診','問診完成','取消問診')),
     CONSTRAINT chk_mohour CHECK (mohour IN('9','13','17'))
 );
 
@@ -623,15 +649,22 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0002','D0001','等待問診',870,TO_DATE('20181223','YYYYMMDD'),'13','生理痛不舒服',NULL,NULL,NULL);
-INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0001','D0002','問診完成',9487,TO_DATE('20190101','YYYYMMDD'),'13','心臟疼痛不止',NULL,NULL,'建議到大型醫院檢查');
-INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0001','D0002','等待問診',9487,TO_DATE('20190202','YYYYMMDD'),'17','晚上睡不著，白天一直睡',NULL,NULL,NULL);
-INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0002','D0003','問診完成',9999,TO_DATE('20181203','YYYYMMDD'),'9','蚊子叮咬',NULL,NULL,'開藥藥給你擦');
-INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0003','D0003','等待問診',9999,TO_DATE('20190124','YYYYMMDD'),'9','頭皮發癢',NULL,NULL,NULL);
-INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0004','D0004','問診完成',7777,TO_DATE('20181105','YYYYMMDD'),'9','白天不會咳，躺下睡覺一直咳',NULL,NULL,'藥劑三餐飯後+睡前吃');
-INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0005','D0005','取消問診',8888,TO_DATE('20181006','YYYYMMDD'),'13','眼睛痛',NULL,NULL,NULL);
-INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0006','D0004','等待問診',7777,TO_DATE('20190124','YYYYMMDD'),'9','耳朵會流出臭臭的不明液體，耳屎挖出來有血色',NULL,NULL,NULL);
-INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0007','D0006','等待審核',6666,TO_DATE('20190210','YYYYMMDD'),'17','心情低落，做什麼事都提不起勁，想死',NULL,NULL,NULL);
+INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0001','D0002','問診完成',666,to_date('20181001','YYYYMMDD'),9,'心臟疼痛不止',null,null,'建議到大型醫院檢查');
+INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0001','D0002','等待問診',666,to_date('20181002','YYYYMMDD'),13,'晚上睡不著，白天一直睡',null,null,null);
+INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0002','D0003','問診完成',111,to_date('20181003','YYYYMMDD'),17,'蚊子叮咬',null,null,'開藥藥給你擦');
+INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0003','D0003','等待問診',111,to_date('20181004','YYYYMMDD'),9,'頭皮發癢',null,null,null);
+INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0004','D0004','問診完成',222,to_date('20181005','YYYYMMDD'),13,'白天不會咳，躺下睡覺一直咳',null,null,'藥劑三餐飯後+睡前吃');
+INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0005','D0005','取消問診',333,to_date('20181006','YYYYMMDD'),17,'眼睛痛','臨時有事',null,null);
+INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0006','D0004','等待問診',222,to_date('20181007','YYYYMMDD'),9,'耳朵會流出臭臭的不明液體，耳屎挖出來有血色',null,null,null);
+INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0007','D0006','等待問診',555,to_date('20181008','YYYYMMDD'),13,'心情低落，做什麼事都提不起勁，想死',null,null,null);
+INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0008','D0001','問診完成',888,to_date('20181001','YYYYMMDD'),17,'肩膀疼痛',null,null,'建議到大型醫院檢查');
+INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0008','D0001','等待問診',888,to_date('20181002','YYYYMMDD'),9,'走久了膝蓋會疼痛',null,null,null);
+INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0009','D0007','問診完成',1111,to_date('20181003','YYYYMMDD'),13,'蚊蟲叮咬後紅腫不消',null,null,'開藥藥給你擦');
+INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0009','D0007','等待問診',1111,to_date('20181004','YYYYMMDD'),17,'頭皮發癢數日未見改善',null,null,null);
+INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0010','D0008','問診完成',222,to_date('20181005','YYYYMMDD'),9,'白天不會咳，躺下睡覺一直咳',null,null,'藥劑三餐飯後+睡前吃');
+INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0010','D0008','取消問診',2222,to_date('20181006','YYYYMMDD'),13,'脖子僵硬','自行按摩解決',null,null);
+INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0002','D0009','等待問診',3333,to_date('20181007','YYYYMMDD'),17,'經期不順',null,null,null);
+INSERT INTO medicalorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(medicalorder_seq.NEXTVAL), 4, '0'),'M0002','D0010','等待問診',99,to_date('20181008','YYYYMMDD'),9,'尿尿會起泡',null,null,null);
 -----------------------------------------------
 -- create favdr OK
 -----------------------------------------------
