@@ -17,6 +17,7 @@
     <servlet-name>MemberServlet</servlet-name>
     <url-pattern>/front-end/member/member.do</url-pattern>
   </servlet-mapping>
+  
   <servlet>
     <servlet-name>ShoppingCartServlet</servlet-name>
     <servlet-class>com.menulist.controller.ShoppingCartServlet</servlet-class>
@@ -203,6 +204,7 @@
     <filter-name>Acess_Filter</filter-name>
     <url-pattern>/doctor.do</url-pattern>
     <url-pattern>/front-end/medicalOrder/*</url-pattern>
+    <url-pattern>/shoppingCart.do</url-pattern>
   </filter-mapping>
   <servlet>
     <servlet-name>ImpressionServlet</servlet-name>

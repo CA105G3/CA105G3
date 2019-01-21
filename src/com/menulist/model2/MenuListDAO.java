@@ -39,11 +39,16 @@ public class MenuListDAO implements MenuListDAO_interface{
 //			"LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE FOODORDER.MEMNO=?";
 
 	
-	private static final String GET_BY_MEMNO_STMT = 
-			"SELECT DISTINCT FOODORDER.ORDERNO, MEMBERCHEF.CHEFNAME, FOODORDER.DELIVERADDR, ORDERDETAIL.ODNO, MEMBERCHEF.CHEFREP, MENU.MAINCOURSE, MENULIST.MENUTIMESLOT, ORDERDETAIL.AMOUNT, ORDERDETAIL.UNITPRICE FROM FOODORDER" + 
+	   private static final String GET_BY_MEMNO_STMT = 
+			"SELECT DISTINCT FOODORDER.ORDERNO, MEMBERCHEF.CHEFNAME FROM FOODORDER" + 
 					" LEFT JOIN ORDERDETAIL ON FOODORDER.ORDERNO=ORDERDETAIL.ORDERNO LEFT JOIN MENULIST ON ORDERDETAIL.MENULISTNO=MENULIST.MENULISTNO" + 
 					" LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE FOODORDER.MEMNO=?";
 		
+	
+//	    private static final String GET_BY_MEMNO_STMT = 
+//			"SELECT DISTINCT FOODORDER.ORDERNO, FOODORDER.DELIVERADDR, MEMBERCHEF.CHEFNAME, MEMBERCHEF.CHEFREP, MENU.MAINCOURSE, MENULIST.MENUTIMESLOT, ORDERDETAIL.AMOUNT, ORDERDETAIL.UNITPRICE FROM FOODORDER" + 
+//			" LEFT JOIN ORDERDETAIL ON FOODORDER.ORDERNO=ORDERDETAIL.ORDERNO LEFT JOIN MENULIST ON ORDERDETAIL.MENULISTNO=MENULIST.MENULISTNO" + 
+//			" LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE FOODORDER.MEMNO=?";
 		private static final String GET_BY_CHEFNAME_STMT = 
 				"SELECT DISTINCT MEMBERCHEF.CHEFREP, MEMBERCHEF.CHEFNAME, MENU.MAINCOURSE, MENULIST.MenuListNo,MENULIST.MENUTIMESLOT, MENU.MENUNO, MENU.UNITPRICE, MENULIST.MENUDATE, MENU.CHEFNO FROM MENULIST LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO "
 						+ "LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE MEMBERCHEF.CHEFNAME=? ORDER BY MENULIST.MENUDATE";
@@ -176,14 +181,14 @@ public class MenuListDAO implements MenuListDAO_interface{
 				
 				menulistVO = new MenuListVO();			
 				menulistVO.setOrderno(rs.getString("orderno"));
-				menulistVO.setOdno(rs.getString("odno"));
-				menulistVO.setDeliverAddr(rs.getString("deliverAddr"));
+//				menulistVO.setOdno(rs.getString("odno"));
+//				menulistVO.setDeliverAddr(rs.getString("deliverAddr"));
 				menulistVO.setChefName(rs.getString("chefName"));
-				menulistVO.setChefRep(rs.getString("chefRep"));
-				menulistVO.setMainCourse(rs.getString("mainCourse"));
-				menulistVO.setMenuTimeSlot(rs.getString("menuTimeSlot"));
-				menulistVO.setUnitPrice(rs.getInt("unitPrice"));
-				menulistVO.setAmount(rs.getInt("amount"));
+//				menulistVO.setChefRep(rs.getString("chefRep"));
+//				menulistVO.setMainCourse(rs.getString("mainCourse"));
+//				menulistVO.setMenuTimeSlot(rs.getString("menuTimeSlot"));
+//				menulistVO.setUnitPrice(rs.getInt("unitPrice"));
+//				menulistVO.setAmount(rs.getInt("amount"));
 				list.add(menulistVO);
 			}
 			

@@ -6,21 +6,15 @@
 <%@ page import="com.menulist.model2.*" %>
 <%@ page import="com.member.model.*" %>
 
-<%-- <jsp:useBean id="listOds_ByOrderno" scope="request" type="java.util.Set<OrderDetailVO>" /> <!-- 於EL此行可省略 --> --%>
-
+<jsp:useBean id="foodOrderSvc" scope="page" class="com.foodorder.model.FoodOrderService" />
 <% 
   MemberVO memVO = (MemberVO)session.getAttribute("memVO");
 %>
 <%-- <jsp:useBean id="foodOrderSvc" scope="page" class="com.foodorder.model.FoodOrderService" /> --%>
 <%	
-   FoodOrderService foodOrderSvc = new FoodOrderService();  
-   List<FoodOrderVO> foodOrderVOList = (List<FoodOrderVO>) foodOrderSvc.findBy_Memno(memVO.getMemNo());  
-   pageContext.setAttribute("foodOrderVOList", foodOrderVOList);  
-%>
-<%	
-// 	FoodOrderService foodOrderSvc = new FoodOrderService();
-// 	List<FoodOrderVO> list = foodOrderSvc.getAll();
-// 	pageContext.setAttribute("list", list);
+//    FoodOrderService foodOrderSvc = new FoodOrderService();  
+//    List<FoodOrderVO> foodOrderVOList = (List<FoodOrderVO>) foodOrderSvc.findBy_Memno(memVO.getMemNo());  
+//    pageContext.setAttribute("foodOrderVOList", foodOrderVOList);  
 %>
 <jsp:useBean id="menuListSvc" scope="page" class="com.menulist.model2.MenuListService" />
 
@@ -99,22 +93,25 @@ font {
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">Plus      <i class="fas fa-plus-square"></i></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="oi oi-menu"></span> Menu
-            </button>
-            <div class="collapse navbar-collapse" id="ftco-nav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item "><a href="<%=request.getContextPath() %>/front-end/index.jsp" class="nav-link">回到首頁</a></li>
-                    <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/memberchef/listAllChef.jsp" class="nav-link">送餐專區</a></li>
-                    <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/medicalOrder/ScanDoctor.jsp" class="nav-link">線上問診</a></li>
-                    <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/activity/joinactivity.jsp" class="nav-link">活動專區</a></li>
-                    <li class="nav-item cta"><a href="contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest"><span>登入</span></a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+	    <div class="container">
+	      <a class="navbar-brand" href="<%=request.getContextPath() %>/front-end/index.jsp">Plus<i class="fas fa-plus-square"></i></a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span>Menu
+	      </button>
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav ml-auto">
+	          <li class="nav-item"><a href="food.html" class="nav-link"><%= (memVO==null)? "訪客" :memVO.getMemName() %> 您好!</a></li>
+	          <li class="nav-item"><a href=<%=(memVO==null)? request.getContextPath()+"/front-end/index.jsp" : request.getContextPath()+"/front-end/member/member.do?action=getOne_For_Display&memno="+memVO.getMemNo() %> class="nav-link">個人設定</a></li>
+	          <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/memberchef/listAllChef.jsp" class="nav-link">送餐專區</a></li>
+	          <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/medicalOrder/ScanDoctor.jsp" class="nav-link">線上問診</a></li>
+	          <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/activity/joinactivity.jsp" class="nav-link">活動專區</a></li>
+	          <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/searchPage/shoppingCart.jsp" class="nav-link">購物餐車</a></li>
+	          <li class="nav-item myOrder"><a href="<%=request.getContextPath() %>/front-end/foodorder/listAllFoodOrdersByMemno.jsp" class="nav-link">訂餐紀錄</a></li>
+	          <li class="nav-item cta"><a href="<%=request.getContextPath() %>/front-end/member/member.do?action=logout" class="nav-link" <%= (memVO==null)? "data-toggle='modal' data-target='#modalRequest'" :"" %>  ><span id="mylogin"><%= (memVO==null)? "登入/註冊" :"登出" %></span></a></li>
+	        </ul>
+	      </div>
+	    </div>
+	 </nav>
     <!-- END nav -->
     <!--以下可改動-->
     <section class="home-slider owl-carousel">
@@ -199,35 +196,29 @@ font {
 			<tr>
 				<th>訂單編號</th>
 				<th>餐飲業者</th>
-				<th>單價</th>
-				<th>數量</th>
-				<th>送餐地址</th>
+<!-- 				<th>訂餐日期</th> -->
+<!-- 				<th>送餐地址</th> -->
 			</tr>
 		</thead>
+		
 		<c:forEach var="menuListVO" items="${menuListSvc.findByMemno(memVO.memNo)}">
 		<tbody>
 			<tr>
 			 <td>
 				 <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/front-end/foodorder/foodorder.do" style="margin-bottom: 0px;">
-<%-- 				    <input type="submit" value="${menuListVO.orderno}">  --%>
 					<input type="button" value="${menuListVO.orderno}" class="button ordernoClick">
 				    <input type="hidden" name="orderno" value="${menuListVO.orderno}">
 				    <input type="hidden" name="action" value="find_od_by_orderno">
 				 </FORM>
 			 </td>
 				 <td>${menuListVO.chefName}</td>
-				 <td>${menuListVO.unitPrice}</td>
-				 <td>${menuListVO.amount}</td>
-				 <td>${menuListVO.deliverAddr}</td>
+<%-- 				 <td>${foodOrderVO.ordTime}</td> --%>
+<%-- 				 <td>${foodOrderVO.deliverAddr}</td> --%>
 			</tr>
 			</tbody>
-			
 			</c:forEach>
 		</table>
 		<br>
-<%-- <%if (request.getAttribute("listOds_ByOrderno")!=null) { %> --%>
-<%-- 		<jsp:include page="listAllOdByOrderno-session2.jsp" /> --%>
-<%-- <%} %> --%>
 </div>
 <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
             <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />

@@ -17,10 +17,15 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 			"SELECT DISTINCT FOODORDER.ORDERNO, MEMBERCHEF.CHEFREP, MEMBERCHEF.CHEFNAME, MENU.MAINCOURSE, MENULIST.MENUTIMESLOT, ORDERDETAIL.AMOUNT, ORDERDETAIL.UNITPRICE FROM FOODORDER" + 
 					"LEFT JOIN ORDERDETAIL ON FOODORDER.ORDERNO=ORDERDETAIL.ORDERNO LEFT JOIN MENULIST ON ORDERDETAIL.MENULISTNO=MENULIST.MENULISTNO" + 
 					"LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO";
+	
 	private static final String GET_BY_MEMNO_STMT = 
-			"SELECT DISTINCT FOODORDER.ORDERNO, FOODORDER.DELIVERADDR, ORDERDETAIL.ODNO, MEMBERCHEF.CHEFNAME, MEMBERCHEF.CHEFREP, MENU.MAINCOURSE, MENULIST.MENUTIMESLOT, ORDERDETAIL.AMOUNT, ORDERDETAIL.UNITPRICE FROM FOODORDER" + 
-			" LEFT JOIN ORDERDETAIL ON FOODORDER.ORDERNO=ORDERDETAIL.ORDERNO LEFT JOIN MENULIST ON ORDERDETAIL.MENULISTNO=MENULIST.MENULISTNO" + 
-			" LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE FOODORDER.MEMNO=?";
+			"SELECT DISTINCT FOODORDER.ORDERNO, MEMBERCHEF.CHEFNAME FROM FOODORDER" + 
+					" LEFT JOIN ORDERDETAIL ON FOODORDER.ORDERNO=ORDERDETAIL.ORDERNO LEFT JOIN MENULIST ON ORDERDETAIL.MENULISTNO=MENULIST.MENULISTNO" + 
+					" LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE FOODORDER.MEMNO=?";
+//	private static final String GET_BY_MEMNO_STMT = 
+//			"SELECT DISTINCT FOODORDER.ORDERNO, FOODORDER.DELIVERADDR, MEMBERCHEF.CHEFNAME, MEMBERCHEF.CHEFREP, MENU.MAINCOURSE, MENULIST.MENUTIMESLOT, ORDERDETAIL.AMOUNT, ORDERDETAIL.UNITPRICE FROM FOODORDER" + 
+//			" LEFT JOIN ORDERDETAIL ON FOODORDER.ORDERNO=ORDERDETAIL.ORDERNO LEFT JOIN MENULIST ON ORDERDETAIL.MENULISTNO=MENULIST.MENULISTNO" + 
+//			" LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE FOODORDER.MEMNO=?";
 	private static final String GET_BY_CHEFNAME_STMT = 
 			"SELECT DISTINCT MEMBERCHEF.CHEFNAME, MEMBERCHEF.CHEFREP, MENU.MAINCOURSE, MENULIST.MenuListNo,MENULIST.MENUTIMESLOT, MENU.UNITPRICE, MENU.MENUNO, MENULIST.MENUDATE, MENU.CHEFNO FROM MENULIST LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO "
 			+ "LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE MEMBERCHEF.CHEFNAME=? ORDER BY MENULIST.MENUDATE";
@@ -162,14 +167,16 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				menulistVO = new MenuListVO();				
+				menulistVO = new MenuListVO();			
 				menulistVO.setOrderno(rs.getString("orderno"));
-				menulistVO.setOdno(rs.getString("odno"));
+//				menulistVO.setOdno(rs.getString("odno"));
+//				menulistVO.setDeliverAddr(rs.getString("deliverAddr"));
 				menulistVO.setChefName(rs.getString("chefName"));
-				menulistVO.setChefRep(rs.getString("chefRep"));
-				menulistVO.setMainCourse(rs.getString("mainCourse"));
-				menulistVO.setUnitPrice(rs.getInt("unitPrice"));
-				menulistVO.setDeliverAddr(rs.getString("deliverAddr"));
+//				menulistVO.setChefRep(rs.getString("chefRep"));
+//				menulistVO.setMainCourse(rs.getString("mainCourse"));
+//				menulistVO.setMenuTimeSlot(rs.getString("menuTimeSlot"));
+//				menulistVO.setUnitPrice(rs.getInt("unitPrice"));
+//				menulistVO.setAmount(rs.getInt("amount"));
 				list.add(menulistVO);
 			}
 			
@@ -412,7 +419,7 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 		List<MenuListVO> list = dao.findByMemno("M0001");
 		for(MenuListVO amenulistVO : list) {
 		System.out.print(amenulistVO.getOrderno() + " , ");
-		System.out.print(amenulistVO.getOdno() + " , ");
+//		System.out.print(amenulistVO.getOdno() + " , ");
 		System.out.print(amenulistVO.getChefName() + " , ");
 		System.out.print(amenulistVO.getChefRep() + " , ");
 		System.out.print(amenulistVO.getMainCourse() + " , ");

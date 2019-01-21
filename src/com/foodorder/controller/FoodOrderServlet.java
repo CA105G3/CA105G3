@@ -43,6 +43,7 @@ public class FoodOrderServlet extends HttpServlet {
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String str = req.getParameter("memno");
+//				String str2 = req.getParameter("orderno");
 //				if (str == null || (str.trim()).length() == 0) {
 //					errorMsgs.add("請輸入EMAIL查詢");
 //				}
@@ -58,7 +59,7 @@ public class FoodOrderServlet extends HttpServlet {
 				FoodOrderService foodOrderSvc = new FoodOrderService();
 				List<FoodOrderVO> foodOrderVOList = (List<FoodOrderVO>) foodOrderSvc.findBy_Memno(memno);
 				
-		System.out.println("foodOrderVOList.size() =" + foodOrderVOList.size());
+				System.out.println("foodOrderVOList.size() =" + foodOrderVOList.size());
 				if (foodOrderVOList == null) {
 					errorMsgs.add("查無資料");
 				}
@@ -72,7 +73,8 @@ public class FoodOrderServlet extends HttpServlet {
 				System.out.println("xxxxxxxxxxxxxxx");
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("foodOrderVOList", foodOrderVOList); // 資料庫取出的foodOrderVO物件,存入req
-//				String url = "/front-end/memberchef/listAllChef.jsp";
+				
+				
 				String url = "/front-end/foodorder/listAllFoodOrdersByMemno-session.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);

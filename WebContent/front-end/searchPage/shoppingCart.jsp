@@ -4,6 +4,9 @@
 <%@ page import="com.menulist.model2.*" %>
 <%@ page import="com.member.model.*" %>
 
+<% 
+  MemberVO memVO = (MemberVO)session.getAttribute("memVO");
+%>
 <%	
 // 	MemberVO memVO = (MemberVO)session.getAttribute("memVO");
 // 	if(memVO!=null){
@@ -88,22 +91,25 @@ font {
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">Plus      <i class="fas fa-plus-square"></i></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="oi oi-menu"></span> Menu
-            </button>
-            <div class="collapse navbar-collapse" id="ftco-nav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item "><a href="<%=request.getContextPath() %>/front-end/index.jsp" class="nav-link">回到首頁</a></li>
-                    <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/memberchef/listAllChef.jsp" class="nav-link">送餐專區</a></li>
-                    <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/medicalOrder/ScanDoctor.jsp" class="nav-link">線上問診</a></li>
-                    <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/activity/joinactivity.jsp" class="nav-link">活動專區</a></li>
-                    <li class="nav-item cta"><a href="contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest"><span>登入</span></a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+	    <div class="container">
+	      <a class="navbar-brand" href="<%=request.getContextPath() %>/front-end/index.jsp">Plus<i class="fas fa-plus-square"></i></a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span>Menu
+	      </button>
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav ml-auto">
+	          <li class="nav-item"><a href="food.html" class="nav-link"><%= (memVO==null)? "訪客" :memVO.getMemName() %> 您好!</a></li>
+	          <li class="nav-item"><a href=<%=(memVO==null)? request.getContextPath()+"/front-end/index.jsp" : request.getContextPath()+"/front-end/member/member.do?action=getOne_For_Display&memno="+memVO.getMemNo() %> class="nav-link">個人設定</a></li>
+	          <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/memberchef/listAllChef.jsp" class="nav-link">送餐專區</a></li>
+	          <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/medicalOrder/ScanDoctor.jsp" class="nav-link">線上問診</a></li>
+	          <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/activity/joinactivity.jsp" class="nav-link">活動專區</a></li>
+	          <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/searchPage/shoppingCart.jsp" class="nav-link">購物餐車</a></li>
+	          <li class="nav-item myOrder"><a href="<%=request.getContextPath() %>/front-end/foodorder/listAllFoodOrdersByMemno.jsp" class="nav-link">訂餐紀錄</a></li>
+	          <li class="nav-item cta"><a href="<%=request.getContextPath() %>/front-end/member/member.do?action=logout" class="nav-link" <%= (memVO==null)? "data-toggle='modal' data-target='#modalRequest'" :"" %>  ><span id="mylogin"><%= (memVO==null)? "登入/註冊" :"登出" %></span></a></li>
+	        </ul>
+	      </div>
+	    </div>
+	 </nav>
     <!-- END nav -->
     <!--以下可改動-->
     <section class="home-slider owl-carousel">
