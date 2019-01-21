@@ -551,5 +551,11 @@ public class DoctorJDBCDAO implements DoctorDAO_interface{
 		//updateIsOnline
 //		dao.UpdateIsonline("離線", "M0002");
 	}
+
+	@Override
+	public void UpdateStatus(String status, String memno) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

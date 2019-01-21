@@ -1,22 +1,21 @@
 <%@page import="com.administrator.model.AdministratorVO"%>
+<%@page import="java.util.List"%>
 <%@page import="com.member.model.MemberVO"%>
-<%@page import="java.util.*"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.license.model.*"%>
 
-<%-- <jsp:useBean id="qual_by_lic" scope="request" --%>
-<%-- 	type="java.util.Set<QualifyVO>" /> --%>
-<jsp:useBean id="licenseSvc" scope="page"
-	class="com.license.model.LicenseService" />
 
 <%
 	// 	MemberVO memVO=null;
 	// 	memVO = (MemberVO)session.getAttribute("memVO");
 %>
-<%
-	List<QualifyVO> list = (ArrayList<QualifyVO>) request.getAttribute("qual_by_lic");
 
+<% 
+	LicenseService licenseSvc = new LicenseService();
+	List<QualifyVO> list = licenseSvc.getAll();
+	pageContext.setAttribute("list", list);
+	
 	AdministratorVO adminVO=null;
 	adminVO = (AdministratorVO)session.getAttribute("adminVO");
 %>
@@ -146,16 +145,15 @@ th, td {
 </style>
 <style type="text/css">
 #sidebar-container {
-	min-height: 200vh;
-	background-color: #333;
-	padding: 0;
+    min-height: 200vh;
+    background-color: #333;
+    padding: 0;
 }
-
 a {
-	-webkit-transition: .3s all ease;
-	-o-transition: .3s all ease;
-	transition: .3s all ease;
-	color: #000000;
+    -webkit-transition: .3s all ease;
+    -o-transition: .3s all ease;
+    transition: .3s all ease;
+    color: #000000;
 }
 </style>
 </head>
@@ -236,234 +234,230 @@ The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep
 	<!-- NavBar END -->
 	<!-- Bootstrap row -->
 	<div class="row" id="body-row">
-		<div class="col-ms-3">
-			<!-- Sidebar -->
-			<div id="sidebar-container"
-				class="sidebar-expanded d-none d-md-block">
-				<!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
-				<!-- Bootstrap List Group -->
-				<ul class="list-group">
-					<li
-						class="list-group-item sidebar-separator-title text-light d-flex align-items-center menu-collapsed">
-						<small>證照查詢</small>
-					</li>
-					<!-- Menu with submenu -->
-					<a
-						href="<%=request.getContextPath()%>/front-end/license/getAllLicense.jsp"
-						class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-						<div class="d-flex w-100 justify-content-start align-items-center">
+	<div class="col-ms-3">
+		<!-- Sidebar -->
+		<div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
+			<!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+			<!-- Bootstrap List Group -->
+			<ul class="list-group">
+				<li
+					class="list-group-item sidebar-separator-title text-light d-flex align-items-center menu-collapsed">
+					<small>證照查詢</small>
+				</li>
+				<!-- Menu with submenu -->
+				<a
+					href="<%=request.getContextPath()%>/front-end/license/getAllLicense.jsp"
+					class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+					<div class="d-flex w-100 justify-content-start align-items-center">
+						<span class="fa fa-dashboard fa-fw mr-3"></span> <span
+							class="menu-collapsed">所有證照</span>
+					</div>
+				</a>
+				<a
+					href="<%=request.getContextPath()%>/license/license.do?action=drCheck_qualify&licStatus=審核中"
+					class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+					<div class="d-flex w-100 justify-content-start align-items-center">
+						<span class="fa fa-user fa-fw mr-3"></span> <span
+							class="menu-collapsed">審核中證照</span> <span
+							class="submenu-icon ml-auto"></span>
+					</div>
+				</a>
 
-							<span class="fa fa-dashboard fa-fw mr-3"></span> <span
-								class="menu-collapsed">所有證照</span>
-						</div>
-					</a>
-					<a
-						href="<%=request.getContextPath()%>/license/license.do?action=drCheck_qualify&licStatus=審核中"
-						class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-						<div class="d-flex w-100 justify-content-start align-items-center">
-							<span class="fa fa-user fa-fw mr-3"></span> <span
-								class="menu-collapsed">審核中證照</span> <span
-								class="submenu-icon ml-auto"></span>
-						</div>
-					</a>
-
-					<!-- Separator with title -->
-					<!--             <li class="list-group-item sidebar-separator-title text-light d-flex align-items-center menu-collapsed"> -->
-					<!--                 <small>參與活動查詢</small> -->
-					<!--             </li> -->
-					<!-- /END Separator -->
-					<a
-						href="<%=request.getContextPath()%>/license/license.do?action=drCheck_qualify&licStatus=生效中"
-						" class="bg-dark list-group-item list-group-item-action">
-						<div class="d-flex w-100 justify-content-start align-items-center">
-							<span class="fa fa-calendar fa-fw mr-3"></span> <span
-								class="menu-collapsed">生效中證照</span>
-						</div>
-					</a>
-					<a
-						href="<%=request.getContextPath()%>/license/license.do?action=drCheck_qualify&licStatus=已失效"
-						" class="bg-dark list-group-item list-group-item-action">
-						<div class="d-flex w-100 justify-content-start align-items-center">
-							<span class="fa fa-calendar fa-fw mr-3"></span> <span
-								class="menu-collapsed">已失效證照</span>
-						</div>
-					</a>
-					<!-- Separator without title -->
-					<!--             <li class="list-group-item sidebar-separator menu-collapsed"></li>             -->
-					<!--             <a href="#" data-toggle="sidebar-colapse" class="bg-dark list-group-item list-group-item-action d-flex align-items-center"> -->
-					<!--                 <div class="d-flex w-100 justify-content-start align-items-center"> -->
-					<!--                     <span id="collapse-icon" class="fa fa-2x mr-3"></span> -->
-					<!--                     <span id="collapse-text" class="menu-collapsed">Collapse</span> -->
-					<!--                 </div> -->
-					<!--             </a> -->
-					<!--         </ul>     -->
-					<!-- List Group END-->
-			</div>
-			<!-- sidebar-container END -->
+				<!-- Separator with title -->
+				<!--             <li class="list-group-item sidebar-separator-title text-light d-flex align-items-center menu-collapsed"> -->
+				<!--                 <small>參與活動查詢</small> -->
+				<!--             </li> -->
+				<!-- /END Separator -->
+				<a
+					href="<%=request.getContextPath()%>/license/license.do?action=drCheck_qualify&licStatus=生效中"
+					" class="bg-dark list-group-item list-group-item-action">
+					<div class="d-flex w-100 justify-content-start align-items-center">
+						<span class="fa fa-calendar fa-fw mr-3"></span> <span
+							class="menu-collapsed">生效中證照</span>
+					</div>
+				</a>
+				<a
+					href="<%=request.getContextPath()%>/license/license.do?action=drCheck_qualify&licStatus=已失效"
+					" class="bg-dark list-group-item list-group-item-action">
+					<div class="d-flex w-100 justify-content-start align-items-center">
+						<span class="fa fa-calendar fa-fw mr-3"></span> <span
+							class="menu-collapsed">已失效證照</span>
+					</div>
+				</a>
+				<!-- Separator without title -->
+				<!--             <li class="list-group-item sidebar-separator menu-collapsed"></li>             -->
+				<!--             <a href="#" data-toggle="sidebar-colapse" class="bg-dark list-group-item list-group-item-action d-flex align-items-center"> -->
+				<!--                 <div class="d-flex w-100 justify-content-start align-items-center"> -->
+				<!--                     <span id="collapse-icon" class="fa fa-2x mr-3"></span> -->
+				<!--                     <span id="collapse-text" class="menu-collapsed">Collapse</span> -->
+				<!--                 </div> -->
+				<!--             </a> -->
+				<!--         </ul>     -->
+				<!-- List Group END-->
+		</div>
+		<!-- sidebar-container END -->
 		</div>
 
 
-		<!-- 		<h4>我是drQual</h4> -->
+<!-- 		<h4>我是drQual</h4> -->
 
 
 		<div class="col-ms-9">
-			<br>
+		<br>
 
 
-			<div class="row d-flex justify-content-center">
-				<div class="col-lg-2"></div>
-				<div class="col-lg-10 ">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4>${panelH}證照</h4>
-						</div>
-						<!-- /.panel-heading -->
-						<div class="panel-body">
+		<div class="row d-flex justify-content-center">
+		<div class="col-lg-2">
+		</div>
+			<div class="col-lg-10 ">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h4>所有證照</h4></div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
 
 
 
 
-							<form METHOD="post"
-								action="<%=request.getContextPath()%>/license/license.do"
-								style="margin-bottom: 0px;">
+						<form METHOD="post"
+							action="<%=request.getContextPath()%>/license/license.do"
+							style="margin-bottom: 0px;">
 
-								<%-- 錯誤表列 --%>
-								<%-- 		<c:if test="${not empty errorMsgs}"> --%>
-								<!-- 			<font style="color: red">請修正以下錯誤:</font> -->
-								<!-- 			<ul> -->
-								<%-- 				<c:forEach var="message" items="${errorMsgs}"> --%>
-								<%-- 					<li style="color: red">${message}</li> --%>
-								<%-- 				</c:forEach> --%>
-								<!-- 			</ul> -->
-								<%-- 		</c:if> --%>
+							<%-- 錯誤表列 --%>
+							<%-- 		<c:if test="${not empty errorMsgs}"> --%>
+							<!-- 			<font style="color: red">請修正以下錯誤:</font> -->
+							<!-- 			<ul> -->
+							<%-- 				<c:forEach var="message" items="${errorMsgs}"> --%>
+							<%-- 					<li style="color: red">${message}</li> --%>
+							<%-- 				</c:forEach> --%>
+							<!-- 			</ul> -->
+							<%-- 		</c:if> --%>
 
-								<table
-									class="table table-striped table-borderedtable table-hover"
-									id="dataTables-example">
+							<table
+								class="table table-striped table-borderedtable table-hover"
+								id="dataTables-example">
+								<tr>
+									<th>證照編號</th>
+									<th>會員姓名</th>
+									<th>證照資料</th>
+									<th>證照狀態</th>
+									<th>證照描述</th>
+									<th>科別</th>
+									<th>證照時效</th>
+									<th>會員狀態</th>
+								</tr>
+								<%@ include file="page1.file"%>
+								<%-- <%!int licDuecount= 0 ;%> --%>
+								<c:forEach var="qualifyVO" items="${list}" varStatus="s" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+										<jsp:useBean id="ms" scope="page"
+											class="com.member.model.MemberService" />
 									<tr>
-										<th>證照編號</th>
-										<th>會員姓名</th>
-										<th>證照資料</th>
-										<th>證照狀態</th>
-										<th>證照描述</th>
-										<th>科別</th>
-										<th>證照時效</th>
-										<th>會員狀態</th>
+										<td>${qualifyVO.licNo}</td>
+										<td>${ms.getOneMember(qualifyVO.memNo).memName}</td>
+										<!-- 照片	 -->
+										<c:choose>
+											<c:when test="${(qualifyVO.licData)!=null}">
+												<td><img
+													src="<%= request.getContextPath() %>/license/licensePic.do?licNo=${qualifyVO.licNo} "
+													height="250px" width="300px" /></td>
+											</c:when>
+											<c:otherwise>
+												<td><img
+													src="<%=request.getContextPath()%>/front-end/activity/img/nopic.jpg">
+												</td>
+											</c:otherwise>
+										</c:choose>
+										<td><select name="licStatus">
+												<option value="生效中"
+													${'生效中'==qualifyVO.licStatus? 'selected':'' }>生效中</option>
+												<option value="審核中"
+													${'審核中'==qualifyVO.licStatus? 'selected':'' }>審核中</option>
+												<option value="已失效"
+													${'已失效'==qualifyVO.licStatus? 'selected':'' }>已失效</option>
+												<%-- 						    <option value="心理諮商" ${(dvo.major=="心理諮商")? 'selected':'' }>心理諮商 --%>
+										</select></td>
+										<td>${qualifyVO.licDesc}</td>
+
+
+										<jsp:useBean id="ds" scope="page"
+											class="com.doctor.model.DoctorService" />
+
+
+										<td>${ds.getOneDoctor(ds.getDrno(qualifyVO.memNo).drno).major}</td>
+
+
+
+
+
+
+
+										<td>${qualifyVO.licDue}</td>
+
+										<!-- 					<td><input id="f_date1" name="licDue" size="45" -->
+										<%-- 							value="${(qualifyVO == null) ? '' : qualifyVO.getLicDue()% }" /> --%>
+										<!-- 					</td> -->
+
+										<%-- <c:set scope="request" var="qualifyVO" value="${qualifyVO}"/> --%>
+
+										<%-- <td><c:out value="${pageScope.qualifyVO}"    default="無資料" /></td> --%>
+
+										<%
+											// 		licDue
+												// 		java.sql.Date licDue = null;
+												// 		try {
+												// 			QualifyVO qvo =  (QualifyVO)request.getAttribute("qualifyVO");
+												// 			licDue = qvo.getLicDue();
+												// 		} catch (Exception e) {
+												// 			licDue = new java.sql.Date(System.currentTimeMillis());
+												// 		}
+										%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+										<td><select name="ident">
+												<option value="一般會員"
+													${"一般會員"==qualifyVO.ident? 'selected':'' }>一般會員</option>
+												<option value="醫療人員"
+													${"醫療人員"==qualifyVO.ident? 'selected':'' }>醫療人員</option>
+												<%-- 						<option value="餐飲業者" ${"餐飲業者"==qualifyVO.ident}?selected:"" }>餐飲業者</option> --%>
+										</select></td>
+										<td><input type="submit" value="確認"> <input
+											type="hidden" name="licNo" value="${qualifyVO.licNo}">
+											<input type="hidden" name="memNo" value="${qualifyVO.memNo}">
+											<input type="hidden" name="queryStatus" value="${qualifyVO.licStatus}"> 
+											<input type="hidden" name="listAll" value="yes"> 
+											<input type="hidden"
+											name="action" value="drLicStatusChange"></td>
 									</tr>
-									<%@ include file="/front-end/license/page1.file"%>
-									<%-- <%!int licDuecount= 0 ;%> --%>
-									<c:forEach var="qualifyVO" items="${qual_by_lic}" varStatus="s"
-										begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-
-										<tr>
-											<td>${qualifyVO.licNo}</td>
-											<jsp:useBean id="ms" scope="page"
-												class="com.member.model.MemberService" />
-											<td>${ms.getOneMember(qualifyVO.memNo).memName}</td>
-											<!-- 照片	 -->
-											<c:choose>
-												<c:when test="${(qualifyVO.licData)!=null}">
-													<td><img
-														src="<%= request.getContextPath() %>/license/licensePic.do?licNo=${qualifyVO.licNo} "
-														height="250px" width="300px" /></td>
-												</c:when>
-												<c:otherwise>
-													<td><img
-														src="<%=request.getContextPath()%>/front-end/activity/img/nopic.jpg">
-													</td>
-												</c:otherwise>
-											</c:choose>
-											<td><select name="licStatus">
-													<option value="生效中"
-														${'生效中'==qualifyVO.licStatus? 'selected':'' }>生效中</option>
-													<option value="審核中"
-														${'審核中'==qualifyVO.licStatus? 'selected':'' }>審核中</option>
-													<option value="已失效"
-														${'已失效'==qualifyVO.licStatus? 'selected':'' }>已失效</option>
-													<%-- 						    <option value="心理諮商" ${(dvo.major=="心理諮商")? 'selected':'' }>心理諮商 --%>
-											</select></td>
-											<td>${qualifyVO.licDesc}</td>
-
-
-											<jsp:useBean id="ds" scope="page"
-												class="com.doctor.model.DoctorService" />
-
-
-											<td>${ds.getOneDoctor(ds.getDrno(qualifyVO.memNo).drno).major}</td>
+								</c:forEach>
+							</table>
+							<%@ include file="page2.file"%>
+						</Form>
 
 
 
-
-
-
-
-											<td>${qualifyVO.licDue}</td>
-
-											<!-- 					<td><input id="f_date1" name="licDue" size="45" -->
-											<%-- 							value="${(qualifyVO == null) ? '' : qualifyVO.getLicDue()% }" /> --%>
-											<!-- 					</td> -->
-
-											<%-- <c:set scope="request" var="qualifyVO" value="${qualifyVO}"/> --%>
-
-											<%-- <td><c:out value="${pageScope.qualifyVO}"    default="無資料" /></td> --%>
-
-											<%
-												// 		licDue
-													// 		java.sql.Date licDue = null;
-													// 		try {
-													// 			QualifyVO qvo =  (QualifyVO)request.getAttribute("qualifyVO");
-													// 			licDue = qvo.getLicDue();
-													// 		} catch (Exception e) {
-													// 			licDue = new java.sql.Date(System.currentTimeMillis());
-													// 		}
-											%>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-											<td><select name="ident">
-													<option value="一般會員"
-														${"一般會員"==qualifyVO.ident? 'selected':'' }>一般會員</option>
-													<option value="醫療人員"
-														${"醫療人員"==qualifyVO.ident? 'selected':'' }>醫療人員</option>
-													<%-- 						<option value="餐飲業者" ${"餐飲業者"==qualifyVO.ident}?selected:"" }>餐飲業者</option> --%>
-											</select></td>
-											<td><input type="submit" value="確認"> <input
-												type="hidden" name="licNo" value="${qualifyVO.licNo}">
-												<input type="hidden" name="memNo" value="${qualifyVO.memNo}">
-												<input type="hidden" name="queryStatus"
-												value="${qualifyVO.licStatus}"> <input type="hidden"
-												name="action" value="drLicStatusChange"></td>
-										</tr>
-									</c:forEach>
-								</table>
-								<%@ include file="/front-end/license/page2.file"%>
-							</Form>
-
-
-
-						</div>
-						<!-- /.panel-body -->
 					</div>
-					<!-- /.panel -->
+					<!-- /.panel-body -->
 				</div>
+				<!-- /.panel -->
 			</div>
 		</div>
 
+</div>
 	</div>
 
 

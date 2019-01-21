@@ -3,11 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.administrator.model.*"%>
 <%
-	AdministratorVO adminVO = (AdministratorVO) request.getAttribute("adminVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
-	pageContext.setAttribute("adminVO", adminVO);
+	AdministratorVO adminVO=null;
+	adminVO = (AdministratorVO)session.getAttribute("adminVO");
 %>
 <!DOCTYPE html>
-<html lang="en">
 <head>
 <link rel="Shortcut Icon" type="image/x-icon"
 	href="<%=request.getContextPath()%>/template/images/favicon.ico">
@@ -59,23 +58,12 @@
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item "><a
-						href="<%=request.getContextPath()%>/template/index.html"
-						class="nav-link">回到首頁</a></li>
-					<li class="nav-item"><a
-						href="<%=request.getContextPath()%>/template/food.html"
-						class="nav-link">送餐專區</a></li>
-					<li class="nav-item"><a
-						href="<%=request.getContextPath()%>/template/doctors.html"
-						class="nav-link">線上問診</a></li>
-					<li class="nav-item"><a href="../impression/impsearch.jsp"
-						class="nav-link">活動專區</a></li>
-					<li class="nav-item"><a
-						href="<%=request.getContextPath()%>/template/contact.html"
-						class="nav-link">聯繫我們</a></li>
-					<li class="nav-item cta"><a
-						href="<%=request.getContextPath()%>/template/contact.html"
-						class="nav-link" data-toggle="modal" data-target="#modalRequest"><span>登入</span></a></li>
+	          <li class="nav-item"><a href="food.html" class="nav-link"><%= (adminVO==null)? "訪客" :adminVO.getAdminName() %> 您好!</a></li>
+	          <li class="nav-item"><a href="#" class="nav-link">個人設定</a></li>
+	          <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/memberchef/listAllChef.jsp" class="nav-link">送餐專區</a></li>
+	          <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/medicalOrder/ScanDoctor.jsp" class="nav-link">線上問診</a></li>
+	          <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/activity/joinactivity.jsp" class="nav-link">活動專區</a></li>
+	          <li class="nav-item cta"><a href="<%=request.getContextPath() %>/back-end/admin/admin.do?action=adminLogout" class="nav-link" <%= (adminVO==null)? "data-toggle='modal' data-target='#modalRequest'" :"" %>  ><span id="mylogin"><%= (adminVO==null)? "登入/註冊" :"登出" %></span></a></li>
 				</ul>
 			</div>
 		</div>
@@ -137,7 +125,7 @@
 					<div class="card" style="width: 18rem;">
 					  <img class="card-img-top" src="<%=request.getContextPath()%>/back-end/admin/pic/Thanos1.png" alt="Card image cap">
 					  <div class="card-body text-center">
-					    <a href="#" class="btn btn-primary">　會員權限驗證　</a>
+					    <a href="<%=request.getContextPath()%>/front-end/license/getAllLicense.jsp" class="btn btn-primary">　會員權限驗證　</a>
 					  </div>
 					</div>
 				</div>

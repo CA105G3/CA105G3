@@ -13,5 +13,6 @@ public interface DoctorDAO_interface {
 	public List<DoctorVO> getMajor();
 	public DoctorVO getDrno(String memno);
 	public void UpdateIsonline(String isonline,String memno);
+	public void UpdateStatus(String status,String memno);
 }
 

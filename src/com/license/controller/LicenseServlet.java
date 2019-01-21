@@ -10,12 +10,14 @@ import java.util.Set;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import com.activity.model.ActivityService;
+import com.doctor.model.DoctorService;
 import com.impression.model.ImpressionService;
 import com.impression.model.ImpressionVO;
 import com.license.model.LicenseService;
@@ -23,17 +25,18 @@ import com.license.model.LicenseVO;
 import com.license.model.QualifyVO;
 import com.member.model.MemberService;
 import com.member.model.MemberVO;
-@MultipartConfig
+@WebServlet("/license.do")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class LicenseServlet extends HttpServlet{
 
 		
-		public void doget(HttpServletRequest req, HttpServletResponse res) 
-			throws ServletException ,IOException{
-				doPost(req,res);
-			}
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		doPost(req, res);
+	}
 		
-		public void doPost(HttpServletRequest req, HttpServletResponse res) 
-			throws ServletException ,IOException{
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 				
 			req.setCharacterEncoding("UTF-8");
 			String action = req.getParameter("action");
@@ -320,11 +323,11 @@ public class LicenseServlet extends HttpServlet{
 
 			/*************************** 2.開始查詢資料****************************************/
 			LicenseService licenseSvc = new LicenseService();
-			Set<QualifyVO> set = licenseSvc.getChange(licStatus);
+			List<QualifyVO> list = licenseSvc.getChange(licStatus);
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-			req.setAttribute("qual_by_lic", set);    // 資料庫取出的impressionVO物件,存入req
-			System.out.println(set);
+			req.setAttribute("qual_by_lic", list);    // 資料庫取出的impressionVO物件,存入req
+			System.out.println(list);
 			String url = "/back-end/qualify/qual_by_lic.jsp";        // 成功轉交 act_imp.jsp
 			
 			RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -426,13 +429,14 @@ public class LicenseServlet extends HttpServlet{
 
 			/*************************** 2.開始查詢資料****************************************/
 			LicenseService licenseSvc = new LicenseService();
-			Set<QualifyVO> set = licenseSvc.getChange(licStatus);
+			List<QualifyVO> list = licenseSvc.getChange(licStatus);
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-			req.setAttribute("qual_by_lic", set);    // 資料庫取出的impressionVO物件,存入req
-			System.out.println(set);
+			req.setAttribute("qual_by_lic", list);    // 資料庫取出的impressionVO物件,存入req
+			System.out.println(list);
 			String url = "/back-end/qualify/drQual.jsp";        // 成功轉交 act_imp.jsp
 			
+			req.setAttribute("panelH", licStatus);
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 
@@ -447,21 +451,53 @@ public class LicenseServlet extends HttpServlet{
 		req.setAttribute("errorMsgs", errorMsgs);
 		
 		
-		try {
+//		try {
 			/***************************1.接收請求參數****************************************/
 			String licNo = req.getParameter("licNo");
 			System.out.println(licNo);
 			String memNo = req.getParameter("memNo");
 			System.out.println(memNo);
-			String licStatus = req.getParameter("licStatus");
-			System.out.println(licStatus);
-			String ident = req.getParameter("ident");
-			System.out.println(ident);
-		
-		}catch(Exception e) {
-		}
+			String licStatus = req.getParameter("licStatus");  //生效中，已失效，審核中
+			System.out.println("licStatus =" + licStatus);
+			String ident = req.getParameter("ident"); //會員身分
+			System.out.println("ident = " + ident);
+			
+			String drStatus = licStatus;
+			if(licStatus.equals("已失效")) {
+				drStatus = "失效";
+			}
+			
+			String queryStatus = req.getParameter("queryStatus");
+			System.out.println("queryStatus = " + queryStatus);
+			
+			LicenseService ls = new LicenseService();
+			ls.changestatus(licNo, licStatus);
+			
+			MemberService ms = new MemberService();
+			ms.changeident(ident, memNo);
+			
+			DoctorService ds = new DoctorService();
+			ds.UpdateStatus(drStatus, memNo);
+			
+			
+			List<QualifyVO> list = ls.getChange(queryStatus);
+			req.setAttribute("qual_by_lic", list);    // 資料庫取出的impressionVO物件,存入req
+			
+			String listAll = req.getParameter("listAll");
+			String url = "";
+			if("yes".equals(listAll)) {
+				url = "/front-end/license/getAllLicense.jsp";
+			}else {
+				url = "/back-end/qualify/drQual.jsp"; 
+			}
+			
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}
 	}
-//	==================addBy彥廷===============================================
+//	=======================================================================
 	}	
 		public static byte[] toByteArray(InputStream input) throws IOException {
 		    ByteArrayOutputStream output = new ByteArrayOutputStream();

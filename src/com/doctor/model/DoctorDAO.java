@@ -43,6 +43,7 @@ public class DoctorDAO implements DoctorDAO_interface{
 	private static final String GET_MAJOR = "SELECT DISTINCT MAJOR FROM DOCTOR";
 	private static final String GET_DRNO = "SELECT DRNO FROM DOCTOR WHERE MEMNO = ?";
 	private static final String UPDATE_ISONLINE_BY_MEMNO = "UPDATE DOCTOR SET ISONLINE = ? WHERE MEMNO = ? ";
+	private static final String UPDATE_STATUS_BY_MEMNO = "UPDATE DOCTOR SET STATUS = ? WHERE MEMNO = ? ";
 
 	@Override
 	public void insert(DoctorVO doctorVO) {
@@ -362,6 +363,37 @@ public class DoctorDAO implements DoctorDAO_interface{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_ISONLINE_BY_MEMNO);
 			pstmt.setString(1, isonline);
+			pstmt.setString(2, memno);
+			pstmt.executeUpdate();
+			pstmt.clearParameters();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public void UpdateStatus(String status,String memno) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_STATUS_BY_MEMNO);
+			pstmt.setString(1, status);
 			pstmt.setString(2, memno);
 			pstmt.executeUpdate();
 			pstmt.clearParameters();

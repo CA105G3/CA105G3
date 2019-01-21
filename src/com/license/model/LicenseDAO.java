@@ -23,9 +23,8 @@ public class LicenseDAO implements LicenseDAO_interface{
 private static DataSource ds = null;
 	
 	static {
-		Context ctx;
 		try {
-			ctx = new InitialContext();
+			Context ctx = new InitialContext();
 			ds=(DataSource)ctx.lookup("java:comp/env/jdbc/TestDB");
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
@@ -34,7 +33,7 @@ private static DataSource ds = null;
 	}
 	
 	private static final String INSERT_STMT ="INSERT INTO License(licNo,memNo,licData,licStatus,licDesc,licDue) VALUES ('L'||lpad(to_char(license_seq.NEXTVAL), 4, '0'),?,?,?,?,?)";
-	private static final String GET_ALL_STMT ="SELECT * FROM License order by licNo";
+	private static final String GET_ALL_STMT ="SELECT LicNo,license.MemNo,LicData,LicStatus,LicDesc,LicDue,ident From member,License where member.memno = license.memno ORDER BY LICENSE.LICNO";
 	private static final String GET_ONE_STMT = "SELECT * FROM License where licNo = ?";
 	private static final String DELETE = "DELETE FROM License where licNo =　?";
 	private static final String UPDATE = " UPDATE　License set memNo =?,licData=?,licStatus=?,licDesc=?,licDue=? where licNo=?";
@@ -105,7 +104,7 @@ private static DataSource ds = null;
 			}
 			if(con != null) {
 				try {
-					pstmt.close();
+					con.close();
 				}catch(SQLException e) {
 					e.printStackTrace();
 				}
@@ -137,7 +136,7 @@ private static DataSource ds = null;
 			}
 			if(con != null) {
 				try {
-					pstmt.close();
+					con.close();
 				}catch(SQLException e) {
 					e.printStackTrace();
 				}
@@ -186,7 +185,7 @@ private static DataSource ds = null;
 			}
 			if(con != null) {
 				try {
-					pstmt.close();
+					con.close();
 				}catch(SQLException e) {
 					e.printStackTrace();
 				}
@@ -195,12 +194,18 @@ private static DataSource ds = null;
 		return licenseVO;
 	}
 	@Override
-	public List<LicenseVO> getAll() {
+	public List<QualifyVO> getAll() {
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		List<LicenseVO> list = new ArrayList<>();
+//		LicenseVO licenseVO = null;
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List<LicenseVO> list = new ArrayList<>();
-		LicenseVO licenseVO = null;
+		List<QualifyVO> list = new ArrayList<QualifyVO>();
+		QualifyVO qualifyVO = null;
 		
 		try {
 			con=ds.getConnection();
@@ -208,14 +213,15 @@ private static DataSource ds = null;
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				licenseVO = new LicenseVO();
-				licenseVO.setLicNo(rs.getString(1));
-				licenseVO.setMemNo(rs.getString(2));
-				licenseVO.setLicData(rs.getBytes(3));
-				licenseVO.setLicStatus(rs.getString(4));
-				licenseVO.setLicDesc(rs.getString(5));
-				licenseVO.setLicDue(rs.getDate(6));
-				list.add(licenseVO);
+				qualifyVO = new QualifyVO();
+				qualifyVO.setLicNo(rs.getString(1));
+				qualifyVO.setMemNo(rs.getString(2));
+				qualifyVO.setLicData(rs.getBytes(3));
+				qualifyVO.setLicStatus(rs.getString(4));
+				qualifyVO.setLicDesc(rs.getString(5));
+				qualifyVO.setLicDue(rs.getDate(6));
+				qualifyVO.setIdent(rs.getString(7));
+				list.add(qualifyVO);
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "	+ se.getMessage());
@@ -236,7 +242,7 @@ private static DataSource ds = null;
 			}
 			if(con != null) {
 				try {
-					pstmt.close();
+					con.close();
 				}catch(SQLException e) {
 					e.printStackTrace();
 				}
@@ -245,11 +251,11 @@ private static DataSource ds = null;
 		return list;
 	}
 	
-	public Set<QualifyVO> getChange(String licStatus) {
+	public List<QualifyVO> getChange(String licStatus) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Set<QualifyVO> set = new LinkedHashSet<QualifyVO>();
+		List<QualifyVO> list = new ArrayList<QualifyVO>();
 		QualifyVO qualifyVO = null;
 		
 		try {
@@ -267,7 +273,7 @@ private static DataSource ds = null;
 				qualifyVO.setLicDesc(rs.getString(5));
 				qualifyVO.setLicDue(rs.getDate(6));
 				qualifyVO.setIdent(rs.getString(7));
-				set.add(qualifyVO);
+				list.add(qualifyVO);
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "	+ se.getMessage());
@@ -288,13 +294,13 @@ private static DataSource ds = null;
 			}
 			if(con != null) {
 				try {
-					pstmt.close();
+					con.close();
 				}catch(SQLException e) {
 					e.printStackTrace();
 				}
 			}
 		}
-		return set;
+		return list;
 	}
 	
 	
@@ -384,7 +390,7 @@ private static DataSource ds = null;
 			}
 			if(con != null) {
 				try {
-					pstmt.close();
+					con.close();
 				}catch(SQLException e) {
 					e.printStackTrace();
 				}

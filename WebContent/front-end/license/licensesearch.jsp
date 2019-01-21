@@ -8,11 +8,11 @@
 
 <% 
 	LicenseService licSvc = new LicenseService();
-	Set<QualifyVO> set = licSvc.getChange("生效中");
+	List<QualifyVO> set = licSvc.getChange("生效中");
 	pageContext.setAttribute("set", set);
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <link rel="Shortcut Icon" type="image/x-icon" href="<%=request.getContextPath()%>/template/images/favicon.ico">
     <title >Health PLUS</title>
@@ -99,7 +99,7 @@
         <div class="container" data-scrollax-parent="true">
           <div class="row slider-text align-items-end">
             <div class="col-md-7 col-sm-12 ftco-animate mb-5">
-              <h1 class="mb-3" data-scrollax=" properties: { translateY: '70%', opacity: .9}">活動專區</h1>
+              <h1 class="mb-3" data-scrollax=" properties: { translateY: '70%', opacity: .9}">會員證照管理</h1>
             </div>
           </div>
         </div>
@@ -110,7 +110,7 @@
         <div class="container" data-scrollax-parent="true">
           <div class="row slider-text align-items-end">
             <div class="col-md-7 col-sm-12 ftco-animate mb-5">
-              <h1 class="mb-3" data-scrollax=" properties: { translateY: '70%', opacity: .9}">活動專區</h1>
+              <h1 class="mb-3" data-scrollax=" properties: { translateY: '70%', opacity: .9}">會員證照管理</h1>
             </div>
           </div>
         </div>

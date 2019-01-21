@@ -40,7 +40,7 @@ public LicenseVO addLic(String memNo,byte[] licData,String licStatus,String licD
 		return dao.findByPrimaryKey(licNo);
 	}
 	
-	public List<LicenseVO> getAll() {
+	public List<QualifyVO> getAll() {
 		return dao.getAll();
 		
 	}
@@ -49,7 +49,7 @@ public LicenseVO addLic(String memNo,byte[] licData,String licStatus,String licD
 		dao.delete(licNo);
 	}
 	
-	public Set<QualifyVO> getChange(String licStatus){
+	public List<QualifyVO> getChange(String licStatus){
 		return dao.getChange(licStatus);
 	}
 	

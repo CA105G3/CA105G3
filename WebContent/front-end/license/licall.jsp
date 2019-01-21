@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
@@ -12,7 +12,7 @@
 <html>
 <head>
 
-<title>¬d¸ß©Ò¦³¬¡°Ê-actall.jsp</title>
+<title>æŸ¥è©¢æ‰€æœ‰æ´»å‹•-actall.jsp</title>
 <style>
   table#table-1 {
 	width:container-fluid;
@@ -53,14 +53,14 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>©Ò¦³ÃÒ·Ó¸ê®Æ - licall.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/front-end/license/licensesearch.jsp"><img src="<%=request.getContextPath()%>/front-end/license/img/back1.gif" width="100" height="32" border="0">¦^­º­¶</a></h4>
+		 <h3>æ‰€æœ‰è­‰ç…§è³‡æ–™ - licall.jsp</h3>
+		 <h4><a href="<%=request.getContextPath()%>/front-end/license/licensesearch.jsp"><img src="<%=request.getContextPath()%>/front-end/license/img/back1.gif" width="100" height="32" border="0">å›é¦–é </a></h4>
 	</td></tr>
 </table>
 
-<!-- ¿ù»~¦Cªí -->
+<!-- éŒ¯èª¤åˆ—è¡¨ -->
 <c:if test="${not empty erroeMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤</font>
 		<ul>
 			<c:forEach var="message" items="${errorMsgs}">
 				<li style="color:red">${message}</li>
@@ -70,13 +70,13 @@
 
 <table>
 	<tr>
-		<th>ÃÒ·Ó½s¸¹</th>
-		<th>·|­û½s¸¹</th>
-		<th>ÃÒ·Ó¸ê®Æ</th>
-		<th>ÃÒ·Óª¬ºA</th>
-		<th>ÃÒ·Ó´y­z</th>
-		<th>ÃÒ·Ó®É®Ä</th>	
-		<th>­×§ï</th>	
+		<th>è­‰ç…§ç·¨è™Ÿ</th>
+		<th>æœƒå“¡ç·¨è™Ÿ</th>
+		<th>è­‰ç…§è³‡æ–™</th>
+		<th>è­‰ç…§ç‹€æ…‹</th>
+		<th>è­‰ç…§æè¿°</th>
+		<th>è­‰ç…§æ™‚æ•ˆ</th>	
+		<th>ä¿®æ”¹</th>	
 
 		
 	</tr>
@@ -87,7 +87,7 @@
 		<tr>
 			<td>${licenseVO.licNo}</td>
 			<td>${licenseVO.memNo}</td>
-<!-- ·Ó¤ù	 -->
+<!-- ç…§ç‰‡	 -->
 			<c:choose>
 				<c:when test="${(licenseVO.licData)!=null}">
 			<td>
@@ -106,13 +106,13 @@
 
 			<td>
 				<form METHOD="post" action="<%=request.getContextPath()%>/license/license.do" style="margin-bottom: 0px;">
-					<input type="submit" value="­×§ï">
+					<input type="submit" value="ä¿®æ”¹">
 			     	<input type="hidden" name="licNo"  value="${licenseVO.licNo}">
 			     	<input type="hidden" name="action"	value="getOne_For_Update">
 				</form>
 				
 			  	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/license/license.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="§R°£">
+			     <input type="submit" value="åˆªé™¤">
 			     <input type="hidden" name="licNo"  value="${licenseVO.licNo}">
 			     <input type="hidden" name="action" value="delete"></FORM>
 			</td>

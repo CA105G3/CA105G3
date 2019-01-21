@@ -8,7 +8,7 @@ public interface LicenseDAO_interface {
 	public void update(LicenseVO licenseVO);
 	public void delete(String licNo);
 	public LicenseVO findByPrimaryKey(String licNo);
-	public List<LicenseVO> getAll();
-	public Set<QualifyVO> getChange(String licStatus);
+	public List<QualifyVO> getAll();
+	public List<QualifyVO> getChange(String licStatus);
 	public void changestatus(String licNo,String licStatus);
 }

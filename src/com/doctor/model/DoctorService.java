@@ -68,4 +68,7 @@ public class DoctorService {
 		dao.UpdateIsonline(isonline, memno);
 	}
 	
+	public void UpdateStatus(String status,String memno) {
+		dao.UpdateStatus(status, memno);
+	}
 }
