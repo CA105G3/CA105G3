@@ -98,7 +98,7 @@ pageContext.setAttribute("personactSet", personactSet);
 		<th>活動照片</th>
 		<th>活動敘述</th>
 		<th>聊天室</th>
-		<th>修改</th>
+		<th>退出</th>
 		
 		
 	</tr>

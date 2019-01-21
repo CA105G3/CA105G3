@@ -10,6 +10,7 @@
 	MemberService memberSvc = new MemberService();
 	MemberVO memberVO = memberSvc.getOneMember(memNo);
 	pageContext.setAttribute("memberVO", memberVO);
+	
 %>
 
 <!DOCTYPE html>
@@ -53,23 +54,26 @@ body {
 						<img id="headView" src="<%= request.getContextPath()%>/front-end/member/membergetpic.do?memno=${joinactpic.memNo}"/>
 				</c:forEach>
 			</div>
-		<div style="width:800px;height:1px; background:#000000;"></div>
-		<ul class="messages" id="messagesArea">
-		</ul>
-		<div class="bottom_wrapper clearfix">
-			<div class="message_input_wrapper">
-				<input id="userName" class="text-field" type="hidden" value="${memberVO.memName}" readonly/>
-				<input class="message_input" id="message"  placeholder="訊息" onkeydown="if (event.keyCode == 13) sendMessage();"/>
-			</div>
-			<div class="send_message">
-				<div class="icon"></div>
-				<div class="text" value="送出" type="submit" id="sendMessage" onclick="sendMessage();">Send</div>
-			</div>
-		</div>
+			<div>
+				<ul class="messages" id="messagesArea" style="height: 285px;">
+				</ul>
+			</div>	
+					<div class="bottom_wrapper clearfix">
+						<div class="message_input_wrapper">
+							<input id="userName" class="text-field" type="hidden" value="${memberVO.memName}" readonly/>
+							<input class="message_input" id="message"  placeholder="訊息" onkeydown="if (event.keyCode == 13) sendMessage();"/>
+						</div>
+						<div class="send_message">
+							<div class="icon"></div>
+							<div class="text" value="送出" type="submit" id="sendMessage" onclick="sendMessage();">Send</div>
+						</div>
+					</div>
+	</div>		
+	<div style="flex; justify-content: flex-end;">
+		<a href="<%= request.getContextPath()%>/front-end/activity/personact.jsp">
+        	<button class="btn btn-info">離開聊天室</button>
+        </a>
 	</div>
-	<div style="flex; justify-content: flex-end;"><a href="<%= request.getContextPath()%>/front-end/activity/personact.jsp">
-                    	<button class="btn btn-info">離開聊天室</button>
-                	</a></div>
 	
 </body>
 
@@ -97,16 +101,20 @@ body {
 		webSocket.onmessage = function(event) {
 			var messagesArea = document.getElementById("messagesArea");
 			var jsonObj = JSON.parse(event.data);
-			console.log(jsonObj.userName);
+			var memNo = jsonObj.memNo;
+			console.log(memNo);
 			var name = jsonObj.userName;
+			console.log(jsonObj.userName);
 			var message = jsonObj.userName + ": " + jsonObj.message + "\r\n";
+			var message2 = jsonObj.message + ": "+ jsonObj.userName + "\r\n";
 			if(jsonObj.userName==='${memberVO.memName}'){
 				$('#messagesArea').append("<div style='display: flex; justify-content: flex-start'>"+
-"<img id='headView' src='<%= request.getContextPath()%>/front-end/member/membergetpic.do?memno=${joinactpic.memNo}'/>"+message+"<div>");
+"<img id='headView' src='<%= request.getContextPath()%>/front-end/member/membergetpic.do?memno=${memberVO.memNo}'/>"+message+"<div>");
 				messagesArea.value = messagesArea.value + message;
 				messagesArea.scrollTop = messagesArea.scrollHeight;
 			}else{
-				$('#messagesArea').append("<div style='display: flex; justify-content: flex-end'>"+message+"<div>");
+				$('#messagesArea').append("<div style='display: flex; justify-content: flex-end'>"+
+message2+"<img id='headView' src='<%= request.getContextPath()%>/front-end/member/membergetpic.do?memno="+memNo+"'/>"+"<div>");
 				messagesArea.value = messagesArea.value + message;
 				messagesArea.scrollTop = messagesArea.scrollHeight;	
 			}
@@ -137,7 +145,8 @@ body {
 		} else {
 			var jsonObj = {
 				"userName" : userName,
-				"message" : message
+				"message" : message,
+				"memNo":"<%=memberVO.getMemNo()%>"
 			};
 			webSocket.send(JSON.stringify(jsonObj));
 			inputMessage.value = "";

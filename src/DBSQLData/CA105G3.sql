@@ -191,14 +191,29 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0001','太陽拳比賽','桃園市中壢區中正公園',TO_DATE('2018-12-31','YYYY-MM-DD'),'募集中',10,3,2,'誰是最強的太陽拳繼承者!一起來挑戰八!',NULL,24.960402,121.226430);
-INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0008','捕獲寶可夢','桃園市中壢區精五行養身館',TO_DATE('2018-01-13','YYYY-MM-DD'),'已結束',50,20,1,'鳳王路奇亞現蹤，需組一團來攻陷，加入我吧!',NULL,24.959477,121.218103);
-INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0012','外丹功推廣','桃園市中壢區沙皇風尚咖啡館',TO_DATE('2018-08-26','YYYY-MM-DD'),'已結束',150,50,3,'外丹功好，強身健體，還不受中共壓迫歐',NULL,24.957615,121.212902);
-INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0007','看夜景','桃園市中壢區社會福利基金會',TO_DATE('2019-05-20','YYYY-MM-DD'),'募集中',10,5,5,'高雄發大財，錢進得來，出的去，韓總讓大家賺大錢',NULL,24.959594,121.206722);
-INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0018','腳踏車競速','永安漁港',TO_DATE('2018-09-01','YYYY-MM-DD'),'募集中',100,45,2,'我是彭于晏，邀請大家陪我尬車競速',NULL,24.988651,121.014494);
-INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0010','翻墮羅拳展示','桃園市中壢區SOGO',TO_DATE('2018-10-11','YYYY-MM-DD'),'募集中',30,5,1,'秘術拳法徵求繼承者，意者請洽我',NULL,24.962474,121.223562);
-INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0019','象棋大賽','中壢區新勢公園',TO_DATE('2019-02-02','YYYY-MM-DD'),'募集中',60,10,1,'高處不勝寒，坐擁榕樹下20年，誰能贏我',NULL,24.951806,121.216693);
-INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0013','慈善撲克大賽','佑民醫院',TO_DATE('2019-01-24','YYYY-MM-DD'),'募集中',500,100,10,'20塊港幣想贏到100萬，哈哈哈哈，好啊我借你',NULL,24.957371,121.203808);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0001','槌球比賽','桃園市中壢區中正公園',TO_DATE('2018-12-31','YYYY-MM-DD'),'已結束',10,3,1,'一年一度老人盃槌球大賽開始囉，歡迎報名!',NULL,24.960402,121.226430);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0008','外丹功宣導','桃園市中壢區精五行養身館',TO_DATE('2018-01-13','YYYY-MM-DD'),'已結束',30,2,1,'大家來練外丹功，健康一生，前程美好，幸福一生。',NULL,24.959477,121.218103);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0012','喝咖啡','桃園市中壢區沙皇風尚咖啡館',TO_DATE('2018-08-26','YYYY-MM-DD'),'已結束',5,2,1,'下午無聊沒事，想找人一起享受午後時光。',NULL,24.957615,121.212902);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0007','做公益','桃園市中壢區社會福利基金會',TO_DATE('2018-05-20','YYYY-MM-DD'),'已結束',20,5,1,'徵求長青工作者一起幫助弱家庭。',NULL,24.959594,121.206722);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0018','一起騎單車','桃園市永安漁港',TO_DATE('2018-09-01','YYYY-MM-DD'),'已結束',15,2,1,'永安漁港揪團騎，邀請朋友們陪我漫遊綠色隧道。',NULL,24.988651,121.014494);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0001','客家文化行','苗栗縣客家圓樓',TO_DATE('2018-10-01','YYYY-MM-DD'),'已結束',15,2,1,'客家人的文化，客家人的態度。',NULL,24.6034886,120.82331599999998);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0010','周年慶大採購','桃園市中壢區SOGO',TO_DATE('2019-10-11','YYYY-MM-DD'),'募集中',5,2,1,'這一波周年慶我一定要搶到GUGGI，有人有興趣陪我一起搶嗎?',NULL,24.962474,121.223562);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0019','象棋大賽','桃園市中壢區新勢公園',TO_DATE('2019-02-02','YYYY-MM-DD'),'募集中',2,1,1,'高處不勝寒，坐擁榕樹下20年，需要有人來打敗我，I want You!',NULL,24.951806,121.216693);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actdesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0013','定期體檢','桃園市中壢區佑民醫院',TO_DATE('2019-01-24','YYYY-MM-DD'),'募集中',50,10,1,'一年一度免費體檢開始囉，歡迎各位會員相約一起來。',NULL,24.957371,121.203808);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0009','看海景','三仙台',TO_DATE('2019-03-24','YYYY-MM-DD'),'募集中',30,10,1,'一起前往台東吧，風和日麗時的三仙台美到讓您忘記呼吸!',null,23.121648,121.402531);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0001','觀看空勤隊訓','豐年機場',TO_DATE('2019-02-24','YYYY-MM-DD'),'募集中',30,10,1,'可以看到空中勤務隊日常訓練，直升機各種高技術操作，保證驚叫連連喔!',null,22.756575,121.107225);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0002','甩手功大會','台北大學',TO_DATE('2019-01-24','YYYY-MM-DD'),'募集中',30,10,1,'招募附近居民與有意願者一起前往甩手健身!',null,24.946961,121.370697);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0020','拜訪地靈人傑區域','台中大雅區',TO_DATE('2019-04-24','YYYY-MM-DD'),'募集中',14,1,1,'聽說這裡專出人才? 大家一起前去看看吧!',null,24.222310,120.655814);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0004','一起看熱氣球','鹿野高台',TO_DATE('2019-03-13','YYYY-MM-DD'),'募集中',12,1,1,'台東鹿野高台熱氣球季盛況空前，大家一起前往欣賞熱氣球聚落同時升起的壯觀景色吧',null,22.917183,121.122715);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0006','岡山之眼一日遊','高雄岡山',TO_DATE('2019-01-25','YYYY-MM-DD'),'募集中',11,11,1,'羊肉爐好吃喔，一同前往大吃一頓吧!',null,22.804851,120.363713);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0011','紅豆麵包好好吃','台東關山',TO_DATE('2019-3-11','YYYY-MM-DD'),'募集中',15,10,1,'你知道關山有超好吃的紅豆吐司嗎? 大家一同前往選購吧!',null,23.016268,121.186018);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0013','大家以起來爬山','台北象山',TO_DATE('2019-6-12','YYYY-MM-DD'),'募集中',40,20,1,'身為都市人每日待在家身體都快腐朽啦，一起前往像山登山健行吧!',null,25.027906,121.576540);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0001','宅宅在幹嘛','新竹科學園區',TO_DATE('2019-01-27','YYYY-MM-DD'),'募集中',100,20,1,'看過宅宅嗎? 擔心這輩子沒見過宅宅顯得孤陋寡聞? 一同前往新竹科學園區見識宅宅們吧!',null,24.782585,121.006332);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0005','秋紅谷觀光','台中秋紅谷',TO_DATE('2019-4-22','YYYY-MM-DD'),'募集中',10,2,1,'秋紅谷位於台中市區，朋友們一同前來秋紅谷魚池釣魚吧!',null,24.167404,120.639722);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0007','麵超好吃','台南小丰川',TO_DATE('2019-5-11','YYYY-MM-DD'),'募集中',4,4,1,'上次在台南迷路，誤打誤撞走進一家叫小丰川的麵攤，隨意點了一碗麵，沒想到真是太好吃了! 大家一起相約前來享受美食吧!',null,22.999767,120.199701);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0013','美食的一天','台南國華街',TO_DATE('2019-8-12','YYYY-MM-DD'),'募集中',15,11,1,'想不想到台南美食一級戰區呢?一同來國華街享受美食吧!',null,2.996801,120.198625);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0015','漫遊安平','台南安平老街',TO_DATE('2019-2-24','YYYY-MM-DD'),'募集中',3,2,1,'想同時感受台南豔陽，台南文化與台南美食嗎? 一同前來安平老街吧!',null,23.000975,120.161896);
+INSERT INTO activity(actno,memno,actname,actloc,acttime,actstatus,actmax,actlimit,timecheck,actDesc,actpic,latitude,longtitude) VALUES('ACT'||lpad(to_char(activity_seq.NEXTVAL), 4, '0'),'M0018','東區美食游','台南東區',TO_DATE('2019-3-15','YYYY-MM-DD'),'募集中',50,10,1,'台南東區居民一起前來聚會吧!',null,22.992663,120.221997);
 
 -----------------------------------------------
 -- create Joinact OK
@@ -213,18 +228,114 @@ CREATE TABLE joinact(
 );
     
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0001','M0001',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0001','M0007',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0001','M0018',1);
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0002','M0012',1);
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0002','M0010',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0002','M0011',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0002','M0005',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0002','M0007',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0002','M0008',1);
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0003','M0002',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0003','M0005',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0003','M0011',1);
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0003','M0019',1);
-INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0005','M0017',1);
-INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0004','M0008',1);
-INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0007','M0015',1);
-INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0006','M0010',1);
-INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0001','M0018',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0003','M0012',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0004','M0007',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0004','M0017',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0004','M0019',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0004','M0005',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0004','M0001',1);
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0004','M0015',1);
-INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0001','M0007',1);
-INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0008','M0001',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0004','M0008',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0005','M0017',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0005','M0011',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0005','M0007',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0005','M0001',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0005','M0019',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0005','M0013',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0005','M0018',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0006','M0010',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0006','M0001',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0007','M0015',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0007','M0011',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0007','M0007',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0007','M0013',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0007','M0020',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0008','M0019',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0009','M0013',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0009','M0012',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0009','M0016',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0009','M0002',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0009','M0007',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0010','M0009',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0010','M0007',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0010','M0002',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0010','M0019',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0010','M0011',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0010','M0015',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0011','M0001',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0011','M0006',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0012','M0002',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0012','M0012',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0012','M0020',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0013','M0020',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0013','M0001',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0013','M0004',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0013','M0009',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0013','M0011',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0013','M0015',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0013','M0016',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0013','M0018',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0013','M0015',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0013','M0015',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0014','M0004',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0014','M0001',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0014','M0014',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0014','M0018',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0014','M0011',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0014','M0010',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0014','M0009',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0015','M0006',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0015','M0016',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0015','M0017',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0015','M0018',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0016','M0011',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0016','M0002',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0016','M0008',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0016','M0019',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0016','M0015',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0016','M0012',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0016','M0020',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0016','M0013',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0016','M0017',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0016','M0004',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0016','M0010',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0017','M0013',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0017','M0012',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0017','M0003',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0018','M0001',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0018','M0020',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0018','M0011',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0018','M0012',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0019','M0005',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0019','M0011',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0019','M0015',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0020','M0007',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0020','M0017',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0020','M0016',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0020','M0015',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0021','M0013',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0021','M0019',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0021','M0014',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0022','M0015',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0022','M0015',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0022','M0015',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0023','M0018',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0023','M0019',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0023','M0008',1);
+
+
 -----------------------------------------------
 -- create impression OK
 -----------------------------------------------
@@ -250,11 +361,11 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'比克魔王太強大','ACT0001','M0001','沒心得',NULL,NULL,'文字心得');
-INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'抓到波克比','ACT0002','M0012','沒心得',NULL,NULL,'文字心得');
-INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'前往真新鎮','ACT0002','M0010','今天花了我好幾顆金莓果才搞定班基拉斯，看來我的曲E還要再練練。',NULL,NULL,'文字心得');
-INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'我是破風手','ACT0005','M0017','隔壁老王實在太弱了，根本比不贏我中和鵬魚雁，下次練練再來吧!',NULL,NULL,'文字心得');
-INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'健康你我他','ACT0003','M0019','外丹功重在練心，重中之重，凡人不會理解的。',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'冠軍!','ACT0001','M0001','參加過這麼多次槌球比賽，還沒有像這次這麼順利，人生第一次的冠軍獎盃入手了!這都要感謝我的老伴不離不棄，每天陪我練習，愛妳歐。',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'槌球初體驗','ACT0001','M0018','槌球真是很棒，人一開心的話就輕鬆了嘛，又可以結交一些朋友啊，對不對，大家在一起玩蠻開心的，參加這個運動太棒了!',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'外丹功十二式的關鍵功效','ACT0002','M0010','今天花了我好幾顆金莓果才搞定班基拉斯，看來我的曲E還要再練練。',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'','ACT0002','M0017','隔壁老王實在太弱了，根本比不贏我中和鵬魚雁，下次練練再來吧!',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'','ACT0002','M0019','外丹功重在練心，重中之重，凡人不會理解的。',NULL,NULL,'文字心得');
 INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'高雄賺大錢','ACT0004','M0008','今天與隔壁李太太看了愛河的夜景，讓我又燃起了年輕時候戀愛的感覺啊!',NULL,NULL,'文字心得');
 INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'抖手救世界','ACT0003','M0002','外丹功總共有十二式，彈抖運動是其主流。彈抖動作配合節奏的呼吸，可使人體保持肌肉鬆弛，呼吸平順，身體的供氧量充足，經過約數十分鐘的彈抖動作之後，整個人便覺身輕氣爽。',NULL,NULL,'文字心得');
 

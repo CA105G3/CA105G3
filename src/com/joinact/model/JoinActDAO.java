@@ -548,13 +548,13 @@ public void insert2(JoinActVO joinActVO, Connection con) {
 			} catch (SQLException se) {
 				se.printStackTrace(System.err);
 			}
-			if(con != null) {
-				try {
-					con.close();
-				}catch(SQLException e) {
-					e.printStackTrace();
-				}
-			}
+//			if(con != null) {
+//				try {
+//					con.close();
+//				}catch(SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
 		}
 	}
 	

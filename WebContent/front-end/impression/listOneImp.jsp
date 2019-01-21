@@ -87,6 +87,7 @@
 		<th>影片</th>
 		<th>照片</th>
 		<th>修改</th>
+		<th>刪除</th>
 	</tr>
 	
 	<c:forEach var="list" items="${list}">
@@ -132,6 +133,13 @@
 			     	<input type="hidden" name="action"	value="getOne_For_Update">
 					<button type="submit" class="btn btn-info">修改</button>
 				</form>
+			</td>
+			<td>
+				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/impression/impression.do" style="margin-bottom: 0px;">
+				    	<input type="submit" value="刪除心得" class="btn btn-Warning">
+				    	<input type="hidden" name="impNo" value="${list.impNo}">
+				    	<input type="hidden" name="action" value="delete">
+			     	</FORM>
 			</td>
 	</tr>
 	</c:forEach>

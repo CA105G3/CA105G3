@@ -620,14 +620,14 @@ public class ActivityDAO implements ActivityDAO_interface{
 				} catch (SQLException se) {
 					se.printStackTrace(System.err);
 				}
-			}
-			if (con != null) {
+				if(con != null) {
 				try {
 					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
+				}catch(SQLException e) {
+					e.printStackTrace();
 				}
 			}
+			}	
 		}	
 	}
 }

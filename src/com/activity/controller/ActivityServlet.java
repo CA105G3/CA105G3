@@ -376,7 +376,7 @@ if ("insert".equals(action)) { // 來自addact.jsp的請求
 				
 				/***************************2.開始新增資料***************************************/
 				ActivityService activitySvc = new ActivityService();
-				activitySvc.insertjoinact(activityVO);		
+				activitySvc.insertjoinact(activityVO);
 				List<ActivityVO> actlist = activitySvc.startact(actStatus);
 				if (actlist == null) {
 					errorMsgs.add("查無資料");
