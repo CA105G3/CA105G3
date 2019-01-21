@@ -57,7 +57,7 @@ private static DataSource ds = null;
 		+ "from joinact join activity on joinact.actno=activity.actno where joinact.memno=? and joinact.actNo=? order by joinact.actno";	
 	//查詢參加活動的會員名稱
 	private static final String FIND_NAME_IN_CHAT = 
-			"SELECT joinact.memno,joinact.actno,member.memname from joinact,member where joinact.memno = member.memno and actNo =?";
+			"SELECT joinact.memno,joinact.actno,member.memname,member.mempic from joinact,member where joinact.memno = member.memno and actNo =?";
 	private static final String FIND_OFF_ACT =
 			"select joinact.memno,joinact.actno,activity.actname,activity.actloc,activity.acttime,activity.actpic,activity.actdesc "
 			+ "from joinact join activity on joinact.actno=activity.actno where joinact.memno=? and activity.actstatus='已結束' order by joinact.actno";
@@ -426,6 +426,7 @@ public List<ChatRoomVO> chatroomall(String actNo) {
 			chatRoomVO.setMemNo(rs.getString("Memno"));	
 			chatRoomVO.setActNo(rs.getString("actNo"));
 			chatRoomVO.setMemName(rs.getString("memName"));
+			chatRoomVO.setMemPic(rs.getBytes("memPic"));
 			list.add(chatRoomVO);
 		}
 	}catch(SQLException se) {

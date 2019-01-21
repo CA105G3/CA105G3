@@ -23,14 +23,15 @@
 	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.full.js"></script>
 <style>
- h3.title{
+   h3.title{
  	text-align:center;
+ 	font-family:Microsoft JhengHei;
+ 	font-size:200%;
  }
   h4 {
     color: #FF0088;
-    display: inline;
+    text-align:right;
   }
-
 body {
   	background-image:url('<%=request.getContextPath()%>/front-end/activity/img/mountain.jpg');
 	opacity:1;
@@ -39,7 +40,7 @@ body {
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
-    color:#00DDDD;
+    color:#B8860B;
     font-weight:bold;
   }
 #map {
@@ -48,15 +49,16 @@ body {
 	}
 </style>
 
-<title>活動資料修改-update_act.jsp</title>
+<title>活動資料修改</title>
 </head>
 <body>
-	<div>
-		<div><h3 class="title">活動資料修改-update_act.jsp</h3></div>
-		<div><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><img src="<%= request.getContextPath() %>/front-end/activity/img/back1.gif" width="100" height="100" border="0">回首頁</a></div>
-	</div>
-
-<h3>資料修改:</h3>
+	<header style="background-image:url('<%=request.getContextPath()%>/front-end/activity/img/act1.gif'); height:150px;background-repeat: no-repeat;
+    background-attachment: fixed;background-position: center;background-size: cover;">
+		<span>&nbsp;</span><br>
+		<span>&nbsp;</span>
+			<h3 class="title" style="color:black;"><span><b>活動資料修改</b></span></h3>
+			<h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><batton class="btn btn-Success" style="margin-right:20px;">回首頁</batton></a></h4>
+	</header>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -97,10 +99,6 @@ body {
     					<div class="form-group col-md-12">
       						<label for="inputEmail4">活動人數上限:</label>
       						<input type="text" class="form-control" name="actMax" value="${activityVO.actMax}"/>
-    					</div>
-    					<div class="form-group col-md-12">
-      						<label for="inputEmail4">活動確認時間:</label>
-      						<input type="text" class="form-control" name="timeCheck" value="${activityVO.timeCheck}"/>
     					</div>
     					<div class="form-group col-md-12">
     						<label for="inputEmail4">活動狀態:</label>
@@ -156,8 +154,9 @@ body {
     				<div class="form-group col-md-2">
       					<div class="row">
       						<input type="hidden" name="action" value="update">
+							<input type="hidden" name="timeCheck" value="1">
 							<input type="hidden" name="actNo" value="<%= activityVO.getActNo()%>">
-							<input type="submit" value="送出修改" class="btn btn-success">
+							<input type="submit" value="送出修改" class="btn btn-Success">
     					</div>
     				</div>
   				</div>

@@ -82,8 +82,7 @@ pageContext.setAttribute("memNo", memNo);
 		<th>活動時間</th>
 		<th>活動狀態</th>
 		<th>活動最多人數</th>
-		<th>活動最少人數</th>
-		<th>活動成立判定時間</th>	
+		<th>活動最少人數</th>	
 		<th>活動敘述</th>
 		<th>舉辦活動圖片</th>	
 		<th>修改</th>	
@@ -100,7 +99,6 @@ pageContext.setAttribute("memNo", memNo);
 			<td>${actVO.actStatus}</td>
 			<td>${actVO.actMax}</td>
 			<td>${actVO.actLimit}</td>
-			<td>${actVO.timeCheck}</td>
 			<td>${actVO.actDesc}</td>
 <!-- 照片			 -->
 			<c:choose>
@@ -119,6 +117,7 @@ pageContext.setAttribute("memNo", memNo);
 			<td>
 				<form METHOD="post" action="<%=request.getContextPath()%>/activity/activity.do" style="margin-bottom: 0px;">
 					<input type="submit" value="參加" class="btn btn-info">
+			     	<input type="hidden" name="timeCheck"  value="${actVO.timeCheck}">
 			     	<input type="hidden" name="actNo"  value="${actVO.actNo}">
 			     	<input type="hidden" name="memNo"  value="${memNo}">
 			     	<input type="hidden" name="actStatus"  value="${actVO.actStatus}">

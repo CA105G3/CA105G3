@@ -17,6 +17,7 @@ public class MemberImgServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String memno = req.getParameter("memno");
+		System.out.println(memno);
 		MemberService memSvc = new MemberService();
 		byte[] pic = memSvc.getOneMember(memno).getMemPic();
 		

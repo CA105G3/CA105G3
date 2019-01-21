@@ -109,7 +109,7 @@
 				</c:when>
 				<c:otherwise >
 			<td>
-			<img src="<%=request.getContextPath()%>/front-end/impression/img/no-video.png">
+				<img src="<%=request.getContextPath()%>/front-end/impression/img/no-video.png">
 			</td>
 				</c:otherwise>
 			</c:choose>

@@ -53,10 +53,11 @@ body {
 <title>新增活動-addact.jsp</title>
 </head>
 <body>
-	<header>
+	<header style="background-image:url('<%=request.getContextPath()%>/front-end/activity/img/act1.gif'); height:150px;background-repeat: no-repeat;
+    background-attachment: fixed;background-position: center;background-size: cover;">
 		<span>&nbsp;</span><br>
 		<span>&nbsp;</span>
-			<h3 class="title"><span><b>建立活動</b></span></h3>
+			<h3 class="title"style="color:black;"><span><b>建立活動</b></span></h3>
 			<h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><batton class="btn btn-Success" style="margin-right:20px;">回首頁</batton></a></h4>
 	</header>
 
@@ -69,7 +70,8 @@ body {
 		</c:forEach>
 	</ul>
 </c:if>
-
+<br>
+<br>
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/activity/activity.do" name="form1" enctype="multipart/form-data">
 	<div class="container-fluid">
 		<div class="row">
@@ -111,10 +113,6 @@ body {
 			</div>
 			<div class="col-xs-12 col-sm-6">
 				<div class="form-group col-md-12">
-			    	<div class="row">
-			      		<label for="inputZip">活動確認時間:</label>
-			      		<input type="text" class="form-control" name="timeCheck" placeholder="至少為1天" value="<%= (activityVO==null)? "" : activityVO.getTimeCheck()%>">
-			  		</div>
 			  	</div>
 				<div class="form-column">
 					<div class="row">
@@ -138,6 +136,7 @@ body {
 					</div>
 					<div class="form-group col-md-2">
 						<div class="row">
+							<input type="hidden" name="timeCheck" value="1">
 							<input type="hidden" name="actStatus" value="募集中">
 							<input type="hidden" name="action" value="insert">
 						    <button type="submit" class="btn btn-success">新增</button>
@@ -202,6 +201,7 @@ body {
 	                    position: results[0].geometry.location,
 	                    animation: google.maps.Animation.DROP,
 	                    draggable:true
+	                    
 	                });
 	              //拖曳位置
 	                google.maps.event.addListener(marker, 'dragend', function(marker){
@@ -218,11 +218,9 @@ body {
 	                          if (status === 'OK') {
 	                        	  document.getElementById( 'address' ).value = (results[0].formatted_address);
 	                              }
-	                          });
-						
-	                 }); 
-	                
-	            } else {
+	                          });	
+	                 });     
+	            }else{
 	                alert('Geocode was not successful for the following reason: ' + status);
 	            }
 	        });	        
@@ -240,14 +238,14 @@ body {
 	    	  });
 	    	}
 	        //畫圓圈
-	        var circle = new google.maps.Circle({
-			  center: thePlaceNeedToBeDynmic,
-			  radius: 1000,
-			  strokeOpacity: 0,
-			  fillColor: '#76A2DC',
-			  fillOpacity: 0.35,
-			  map: map
-			});
+// 	        var circle = new google.maps.Circle({
+// 			  center: thePlaceNeedToBeDynmic,
+// 			  radius: 1000,
+// 			  strokeOpacity: 0,
+// 			  fillColor: '#76A2DC',
+// 			  fillOpacity: 0.35,
+// 			  map: map
+// 			});
 	        
 
 	    }

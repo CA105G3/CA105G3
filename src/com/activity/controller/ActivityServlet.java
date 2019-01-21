@@ -608,9 +608,7 @@ if ("actall_ByCompositeQuery".equals(action)) { // 來自select_page.jsp的複�
 		try {
 			/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 			String actNo = req.getParameter("actNo").trim();
-			System.out.println(actNo);
 			String memNo = req.getParameter("memNo").trim();
-			System.out.println(memNo);
 			
 			/***************************2.查詢資料**********************/
 			JoinActService joinactSvc = new JoinActService();

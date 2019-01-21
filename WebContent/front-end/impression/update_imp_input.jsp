@@ -21,14 +21,15 @@ ImpressionVO impressionVO = (ImpressionVO) request.getAttribute("impressionVO");
 	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.full.js"></script>
 <style>
- h3.title{
+   h3.title{
  	text-align:center;
+ 	font-family:Microsoft JhengHei;
+ 	font-size:200%;
  }
   h4 {
     color: #FF0088;
-    display: inline;
+    text-align:right;
   }
-
 body {
   	background-image:url('<%=request.getContextPath()%>/front-end/activity/img/mountain.jpg');
 	opacity:1;
@@ -37,7 +38,7 @@ body {
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
-    color:#00DDDD;
+    color:#B8860B;
     font-weight:bold;
   }
 #map {
@@ -46,15 +47,15 @@ body {
 	}
 </style>
 
-<title>心得資料修改 - update_imp_input.jsp</title>
+<title>心得資料修改 </title>
 </head>
 <body>
-	<div>
-		<div><h3 class="title">心得資料修改 - update_imp_input.jsp</h3></div>
-		<div><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><img src="<%= request.getContextPath() %>/front-end/activity/img/back1.gif" width="100" height="100" border="0">回首頁</a></div>
-	</div>
-
-<h3>資料修改:</h3>
+	<header>
+		<span>&nbsp;</span><br>
+		<span>&nbsp;</span>
+			<h3 class="title"><span><b>心得資料修改 </b></span></h3>
+			<h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><batton class="btn btn-Success" style="margin-right:20px;">回首頁</batton></a></h4>
+	</header>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -116,7 +117,7 @@ body {
 								</c:when>
 								<c:otherwise>
 									<td>
-										<img src="<%= request.getContextPath()%>/front-end/impression/img/nopic.jpg" id="output2" width=50% height=50%>
+										<img src="<%= request.getContextPath()%>/front-end/impression/img/nopic.jpg" id="output2" height=50%>
 										<input type="file" name="recPic" size="45" onchange="loadFile(event)"/>
 									</td>
 								</c:otherwise>
@@ -141,10 +142,10 @@ body {
 								</c:when>
 								<c:otherwise >
 									<td>
-										<video width="400" controls>
+										<video width="400" controls poster="<% request.getContextPath();%>img/novideojpg.jpg">
 											<source src="<%= request.getContextPath() %>/impression/impressionVideo.do?impNo=${impressionVO.impNo} " id="video_here">
 										</video>
-											<input type="file" name="recVideo" size="45" class="file_multi_video" accept="video/*">
+											<input type="file" name="recVideo" class="file_multi_video" accept="video/*">
 									</td>
 								</c:otherwise>
 							</c:choose>

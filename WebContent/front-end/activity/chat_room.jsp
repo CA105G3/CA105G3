@@ -6,10 +6,15 @@
 <%@ page import="com.joinact.model.*"%>
 <%@ page import="com.member.model.*"%>
 <%
-	String memNo = "M0001";
+	String memNo = (String)session.getAttribute("memno");
 	MemberService memberSvc = new MemberService();
 	MemberVO memberVO = memberSvc.getOneMember(memNo);
 	pageContext.setAttribute("memberVO", memberVO);
+%>
+
+<% 
+	JoinActService joinactSvc = new JoinActService();
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -32,6 +37,12 @@ body {
   background-image:url(<%=request.getContextPath()%>/front-end/activity/img/oldbuild.gif);
   font-family: "Calibri", "Roboto", sans-serif;
 }
+#headView{
+    height: 60px;
+    width: 	60px;
+    border-radius: 50%;
+    overflow：hidden;
+}
 </style>	
 </head>
 
@@ -41,11 +52,17 @@ body {
 		<div class="top_menu">
 			<div class="title">${activityVO.actName}的聊天室</div>
 		</div>
+			<div>
+				<c:forEach var="joinactpic" items="${listchat}">
+						<img id="headView" src="<%= request.getContextPath()%>/front-end/member/membergetpic.do?memno=${joinactpic.memNo}"/>
+				</c:forEach>
+			</div>
+		<div style="width:800px;height:1px; background:#000000;"></div>
 		<ul class="messages" id="messagesArea">
 		</ul>
 		<div class="bottom_wrapper clearfix">
 			<div class="message_input_wrapper">
-				<input id="userName" class="text-field" type="hidden" value="${memberVO.memName}" readonly="true" />
+				<input id="userName" class="text-field" type="hidden" value="${memberVO.memName}" readonly/>
 				<input class="message_input" id="message"  placeholder="訊息" onkeydown="if (event.keyCode == 13) sendMessage();"/>
 			</div>
 			<div class="send_message">

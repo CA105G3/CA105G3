@@ -1,3 +1,4 @@
+<%@page import="com.activity.model.ActivityService"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -9,6 +10,7 @@
 	ImpressionService impressionSvc = new ImpressionService();
     List<ImpressionVO> list = impressionSvc.getAll();
     pageContext.setAttribute("list",list);
+    ActivityService actSvc = new ActivityService();
 %>
 
 
@@ -99,11 +101,11 @@
 	</tr>
 	<%@ include file="page1.file" %> 
 	<c:forEach var="impressionVO" items="${list}" begin="<%= pageIndex %>" end="<%=pageIndex+rowsPerPage-1%>">
-		
+	
 		<tr>
 			<td>${impressionVO.impNo}</td>
 			<td>${impressionVO.impTime}</td>
-			<td>${impressionVO.impName}</td>			
+			<td>${impressionVO.impName}</td>
 			<td>${impressionVO.actNo}</td>
 			<td>${impressionVO.memNo}</td>
 			<td>${impressionVO.impCon}</td>
@@ -112,14 +114,14 @@
 				<c:when test="${(impressionVO.recVideo)!=null}">
 			<td>
 				<video width="400" controls>
-					<source src="<%= request.getContextPath() %>/impression/impressionVideo.do?impNo=${impressionVO.impNo} " type="video/mp4"/>
+				<source src="<%= request.getContextPath() %>/impression/impressionVideo.do?impNo=${impressionVO.impNo} " type="video/mp4"/>
 				</video>
 			</td>
 				</c:when>
 				<c:otherwise >
-					<video width="400" controls poster="<% request.getContextPath();%>img/novideojpg.jpg">
-						<source src="<%= request.getContextPath() %>/impression/impressionVideo.do?impNo=${impressionVO.impNo} " id="video_here">
-					</video>
+			<td>
+				<img src="<%=request.getContextPath()%>/front-end/impression/img/no-video.png">
+			</td>
 				</c:otherwise>
 			</c:choose>
 <!--ทำค๙ -->

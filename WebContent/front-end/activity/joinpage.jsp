@@ -9,6 +9,9 @@
 String memNo=(String)session.getAttribute("memno");
 pageContext.setAttribute("memNo", memNo);
 ActivityVO activityVO = (ActivityVO)request.getAttribute("activityVO");
+MemberService memSvc = new MemberService();
+MemberVO organiser = memSvc.getOneMember(activityVO.getMemNo());
+pageContext.setAttribute("organiser", organiser);
 %>
 
 <html>
@@ -70,20 +73,19 @@ ActivityVO activityVO = (ActivityVO)request.getAttribute("activityVO");
 		<span>&nbsp;</span><br>
 		<span>&nbsp;</span>
 			<h3 class="title"><span><b>活動詳情</b></span></h3>
-			<h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><batton class="btn btn-Success" style="margin-right:20px;">回首頁</batton></a></h4>
+			<h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><button class="btn btn-Success" style="margin-right:20px;">回首頁</button></a></h4>
 	</header>
 
 <table>
 	<tr style="background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);">
 		<th>活動編號</th>
-		<th>舉辦人編號</th>
+		<th>主辦人名稱</th>
 		<th>活動名稱</th>
 		<th>活動地點</th>
 		<th>活動時間</th>
 		<th>活動狀態</th>
 		<th>活動最多人數</th>
 		<th>活動最少人數</th>
-		<th>活動成立判定時間</th>
 		<th>活動敘述</th>	
 		<th>活動照片</th>
 		<th>參加活動</th>	
@@ -93,14 +95,13 @@ ActivityVO activityVO = (ActivityVO)request.getAttribute("activityVO");
 	
 		<tr>
 			<td>${activityVO.actNo}</td>
-			<td>${activityVO.memNo}</td>
+			<td>${organiser.memName}</td>
 			<td>${activityVO.actName}</td>
 			<td>${activityVO.actLoc}</td>
 			<td>${activityVO.actTime}</td>
 			<td>${activityVO.actStatus}</td>
 			<td>${activityVO.actMax}</td>
 			<td>${activityVO.actLimit}</td>
-			<td>${activityVO.timeCheck}</td>
 			<td>${activityVO.actDesc}</td>
 <!-- 照片			 -->
 			<c:choose>

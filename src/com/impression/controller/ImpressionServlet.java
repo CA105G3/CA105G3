@@ -243,6 +243,7 @@ public class ImpressionServlet extends HttpServlet{
 					}
 					byte[] recvideo = null;
 					Part part = req.getPart("recVideo");
+					System.out.println(part);
 //					if(part.getSubmittedFileName() == (null)|| part.getSubmittedFileName().trim().length() == 0) {
 //						
 //						File file = new File(getServletContext().getRealPath("impression/img/nopic.jpg"));
@@ -281,7 +282,7 @@ public class ImpressionServlet extends HttpServlet{
 				impressionVO.setImpCon(impcon);
 				impressionVO.setRecVideo(recvideo);
 				impressionVO.setRecPic(recpic);
-				impressionVO.setImpField(impfield);				
+				impressionVO.setImpField(impfield);	
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("impressionVO", impressionVO); // 資料庫取出的impressionVO物件,存入req

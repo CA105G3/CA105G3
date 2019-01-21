@@ -149,9 +149,6 @@ The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep
                	<a href="<%= request.getContextPath()%>/front-end/activity/personact.jsp" class="list-group-item list-group-item-action bg-dark text-white">
                     <span class="menu-collapsed">查詢已參加的活動</span>
                 </a>	
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                    <span class="menu-collapsed">Tables</span>
-                </a>
             </div>
             <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-start align-items-center">
@@ -174,7 +171,7 @@ The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep
             </div>            
 <!-- Separator with title -->
             <li class="list-group-item sidebar-separator-title text-light d-flex align-items-center menu-collapsed">
-                <small>參與活動查詢</small>
+                <small>心得分享</small>
             </li>
 <!-- /END Separator -->
             <a href="<%= request.getContextPath()%>/front-end/impression/listAllImp.jsp" class="bg-dark list-group-item list-group-item-action">
@@ -258,7 +255,7 @@ The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep
 					</div>
 					<div class="col-xs-12 col-sm-2">
 						&nbsp;
-				        <input type="submit" value="送出" class="btn btn-info">
+				        <button class="btn btn-success" type="submit">送出</button>
 				        <input type="hidden" name="action" value="actall_ByCompositeQuery" style="width:150px; height:30px;">
 					</div>
 					<div class="col-xs-12 col-sm-2">
@@ -396,7 +393,7 @@ The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep
    
    <script type="text/javascript">
 	function initMap(){
-		var thePlaceNeedToBeDynmic = { lat: 24.968269, lng: 121.192192 }; 
+		var thePlaceNeedToBeDynmic = { lat: 24.968269, lng: 121.192192}; 
         var map = new google.maps.Map(document.getElementById('map'), { zoom: 14, center: thePlaceNeedToBeDynmic });
         var marker = new google.maps.Marker({ position: thePlaceNeedToBeDynmic, map: map ,title:"中央大學"});
         

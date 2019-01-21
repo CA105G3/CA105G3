@@ -97,8 +97,8 @@ pageContext.setAttribute("personactSet", personactSet);
 		<th>活動時間</th>
 		<th>活動照片</th>
 		<th>活動敘述</th>
-		<th>修改</th>
 		<th>聊天室</th>
+		<th>修改</th>
 		
 		
 	</tr>
@@ -125,15 +125,6 @@ pageContext.setAttribute("personactSet", personactSet);
 				</c:otherwise>
 			</c:choose>
 				<td>${personActVO.actDesc}</td>
-<!--退出活動 -->
-				<td>	
-			  		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/joinact/joinact.do" style="margin-bottom: 0px;">
-				    	<input type="submit" value="退出活動" class="btn btn-info">
-				    	<input type="hidden" name="actNo"  value="${personActVO.actNo}">
-				    	<input type="hidden" name="memNo" value="${personActVO.memNo}">
-				    	<input type="hidden" name="action" value="delete">
-			     	</FORM>
-				</td>
 <!--加入聊天室 -->
 				<td>	
 			  		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/activity/activity.do" style="margin-bottom: 0px;">
@@ -141,6 +132,15 @@ pageContext.setAttribute("personactSet", personactSet);
 				    	<input type="hidden" name="actNo"  value="${personActVO.actNo}">
 				    	<input type="hidden" name="memNo" value="${personActVO.memNo}">
 				    	<input type="hidden" name="action" value="chat_room">
+			     	</FORM>
+				</td>
+<!--退出活動 -->
+				<td>	
+			  		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/joinact/joinact.do" style="margin-bottom: 0px;">
+				    	<input type="submit" value="退出活動" class="btn btn-info">
+				    	<input type="hidden" name="actNo"  value="${personActVO.actNo}">
+				    	<input type="hidden" name="memNo" value="${personActVO.memNo}">
+				    	<input type="hidden" name="action" value="delete">
 			     	</FORM>
 				</td>
 			</tr>
