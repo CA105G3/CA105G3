@@ -87,11 +87,10 @@ font {
             </button>
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item "><a href="index.html" class="nav-link">回到首頁</a></li>
-                    <li class="nav-item"><a href="food.html" class="nav-link">送餐專區</a></li>
-                    <li class="nav-item"><a href="doctors.html" class="nav-link">線上問診</a></li>
-                    <li class="nav-item"><a href="activity.html" class="nav-link">活動專區</a></li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">聯繫我們</a></li>
+                    <li class="nav-item "><a href="<%=request.getContextPath() %>/front-end/index.jsp" class="nav-link">回到首頁</a></li>
+                    <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/listAllChef.jsp" class="nav-link">送餐專區</a></li>
+                    <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/medicalOrder/ScanDoctor.jsp" class="nav-link">線上問診</a></li>
+                    <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/activity/joinactivity.jsp" class="nav-link">活動專區</a></li>
                     <li class="nav-item cta"><a href="contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest"><span>登入</span></a></li>
                 </ul>
             </div>

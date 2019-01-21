@@ -6,6 +6,9 @@ import java.sql.Timestamp;
 public class FoodOrderVO {
 	private String orderno, memno, deliverAddr, chefno, orderStatus;
 	private Date ordTime;
+	
+	
+	
 	public String getOrderno() {
 		return orderno;
 	}

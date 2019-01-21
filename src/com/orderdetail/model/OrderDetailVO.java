@@ -7,6 +7,30 @@ public class OrderDetailVO {
 	private String odno, orderno, menuListno;
 	private int amount, unitPrice;
 	
+	private String menuTimeSlot, mainCourse;
+	private Date menuDate;
+	
+	
+	public String getMenuTimeSlot() {
+		return menuTimeSlot;
+	}
+	public void setMenuTimeSlot(String menuTimeSlot) {
+		this.menuTimeSlot = menuTimeSlot;
+	}
+	public String getMainCourse() {
+		return mainCourse;
+	}
+	public void setMainCourse(String mainCourse) {
+		this.mainCourse = mainCourse;
+	}
+	public Date getMenuDate() {
+		return menuDate;
+	}
+	public void setMenuDate(Date menuDate) {
+		this.menuDate = menuDate;
+	}
+	
+	
 	public String getOdno() {
 		return odno;
 	}

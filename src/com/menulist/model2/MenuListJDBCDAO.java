@@ -14,13 +14,13 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 	private static final String INSERT_STMT = 
 		"INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'), ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-			"SELECT DISTINCT FOODORDER.ORDERNO, MEMBERCHEF.CHEFREP, MENU.MAINCOURSE, MENULIST.MENUTIMESLOT, ORDERDETAIL.AMOUNT, ORDERDETAIL.UNITPRICE FROM FOODORDER" + 
+			"SELECT DISTINCT FOODORDER.ORDERNO, MEMBERCHEF.CHEFREP, MEMBERCHEF.CHEFNAME, MENU.MAINCOURSE, MENULIST.MENUTIMESLOT, ORDERDETAIL.AMOUNT, ORDERDETAIL.UNITPRICE FROM FOODORDER" + 
 					"LEFT JOIN ORDERDETAIL ON FOODORDER.ORDERNO=ORDERDETAIL.ORDERNO LEFT JOIN MENULIST ON ORDERDETAIL.MENULISTNO=MENULIST.MENULISTNO" + 
 					"LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO";
 	private static final String GET_BY_MEMNO_STMT = 
-			"SELECT DISTINCT FOODORDER.ORDERNO, MEMBERCHEF.CHEFREP, MENU.MAINCOURSE, MENULIST.MENUTIMESLOT, ORDERDETAIL.AMOUNT, ORDERDETAIL.UNITPRICE FROM FOODORDER" + 
-			"LEFT JOIN ORDERDETAIL ON FOODORDER.ORDERNO=ORDERDETAIL.ORDERNO LEFT JOIN MENULIST ON ORDERDETAIL.MENULISTNO=MENULIST.MENULISTNO" + 
-			"LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE FOODORDER.MEMNO=?";
+			"SELECT DISTINCT FOODORDER.ORDERNO, FOODORDER.DELIVERADDR, ORDERDETAIL.ODNO, MEMBERCHEF.CHEFNAME, MEMBERCHEF.CHEFREP, MENU.MAINCOURSE, MENULIST.MENUTIMESLOT, ORDERDETAIL.AMOUNT, ORDERDETAIL.UNITPRICE FROM FOODORDER" + 
+			" LEFT JOIN ORDERDETAIL ON FOODORDER.ORDERNO=ORDERDETAIL.ORDERNO LEFT JOIN MENULIST ON ORDERDETAIL.MENULISTNO=MENULIST.MENULISTNO" + 
+			" LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE FOODORDER.MEMNO=?";
 	private static final String GET_BY_CHEFNAME_STMT = 
 			"SELECT DISTINCT MEMBERCHEF.CHEFNAME, MEMBERCHEF.CHEFREP, MENU.MAINCOURSE, MENULIST.MenuListNo,MENULIST.MENUTIMESLOT, MENU.UNITPRICE, MENU.MENUNO, MENULIST.MENUDATE, MENU.CHEFNO FROM MENULIST LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO "
 			+ "LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE MEMBERCHEF.CHEFNAME=? ORDER BY MENULIST.MENUDATE";
@@ -163,10 +163,13 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 			
 			while(rs.next()) {
 				menulistVO = new MenuListVO();				
+				menulistVO.setOrderno(rs.getString("orderno"));
+				menulistVO.setOdno(rs.getString("odno"));
+				menulistVO.setChefName(rs.getString("chefName"));
 				menulistVO.setChefRep(rs.getString("chefRep"));
 				menulistVO.setMainCourse(rs.getString("mainCourse"));
-				menulistVO.setMenuTimeSlot(rs.getString("menuTimeSlot"));
 				menulistVO.setUnitPrice(rs.getInt("unitPrice"));
+				menulistVO.setDeliverAddr(rs.getString("deliverAddr"));
 				list.add(menulistVO);
 			}
 			
@@ -406,27 +409,31 @@ public class MenuListJDBCDAO implements MenuListDAO_interface{
 //		dao.delete("20181213-0003");
 		
 //		// 用會員編號查詢
-//		List<MenuListVO> list = dao.findByMemno("M0001");
-//		for(MenuListVO amenulistVO : list) {
-//		System.out.print(amenulistVO.getChefRep() + " , ");
-//		System.out.print(amenulistVO.getMainCourse() + " , ");
-//		System.out.print(amenulistVO.getMenuTimeSlot() + " , ");
-//		System.out.println(amenulistVO.getUnitPrice());
-//		System.out.println("----------------------");
-//		}
-		
-//		// 用業者編號查詢
-		List<MenuListVO> list = dao.findByChefName("孫小美");
+		List<MenuListVO> list = dao.findByMemno("M0001");
 		for(MenuListVO amenulistVO : list) {
+		System.out.print(amenulistVO.getOrderno() + " , ");
+		System.out.print(amenulistVO.getOdno() + " , ");
 		System.out.print(amenulistVO.getChefName() + " , ");
+		System.out.print(amenulistVO.getChefRep() + " , ");
 		System.out.print(amenulistVO.getMainCourse() + " , ");
-		System.out.print(amenulistVO.getMenuNo() + " , ");
 		System.out.print(amenulistVO.getMenuTimeSlot() + " , ");
-		System.out.print(amenulistVO.getMenuDate() + " , ");
 		System.out.println(amenulistVO.getUnitPrice());
-		System.out.println(amenulistVO.getChefNo());
+		System.out.println(amenulistVO.getDeliverAddr());
 		System.out.println("----------------------");
 		}
+		
+//		// 用業者編號查詢
+//		List<MenuListVO> list = dao.findByChefName("孫小美");
+//		for(MenuListVO amenulistVO : list) {
+//		System.out.print(amenulistVO.getChefName() + " , ");
+//		System.out.print(amenulistVO.getMainCourse() + " , ");
+//		System.out.print(amenulistVO.getMenuNo() + " , ");
+//		System.out.print(amenulistVO.getMenuTimeSlot() + " , ");
+//		System.out.print(amenulistVO.getMenuDate() + " , ");
+//		System.out.println(amenulistVO.getUnitPrice());
+//		System.out.println(amenulistVO.getChefNo());
+//		System.out.println("----------------------");
+//		}
 		
 		// 用供餐時間查詢
 //		List<MenuListVO> list2 = dao.findByMenuTimeSlot("早");

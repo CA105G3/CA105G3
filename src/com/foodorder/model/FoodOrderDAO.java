@@ -38,6 +38,8 @@ public class FoodOrderDAO implements FoodOrderDAO_Interface {
 	private static final String GET_BY_EMAIL_STMT = "SELECT * FROM FOODORDER LEFT JOIN MEMBER ON FOODORDER.MEMNO=MEMBER.MEMNO WHERE EMAIL=?";
 	
 	private static final String GET_OrderDetails_ByOrder_STMT = "SELECT * FROM ORDERDETAIL WHERE ORDERNO = ? ORDER BY ODNO";
+	private static final String GET_OrderDetails_ByOrder_STMT2 = "SELECT * FROM ORDERDETAIL LEFT JOIN MENULIST ON ORDERDETAIL.MENULISTNO = MENULIST.MENULISTNO "
+			+ "LEFT JOIN MENU ON MENULIST.MENUNO = MENU.MENUNO WHERE ORDERNO = ? ORDER BY ODNO";
 	
 	private static final String GET_ALL_STMT = "SELECT * FROM FOODORDER ORDER BY ORDERNO";
 	
@@ -397,7 +399,7 @@ public class FoodOrderDAO implements FoodOrderDAO_Interface {
 	
 		try {
 			con=ds.getConnection();
-			pstmt = con.prepareStatement(GET_OrderDetails_ByOrder_STMT);
+			pstmt = con.prepareStatement(GET_OrderDetails_ByOrder_STMT2);
 			pstmt.setString(1, orderno);
 			rs = pstmt.executeQuery();
 		
@@ -405,7 +407,9 @@ public class FoodOrderDAO implements FoodOrderDAO_Interface {
 				orderDetailVO = new OrderDetailVO();
 				orderDetailVO.setOdno(rs.getString("odno"));
 				orderDetailVO.setOrderno(rs.getString("orderno"));
-				orderDetailVO.setMenuListno(rs.getString("menuListno"));
+				orderDetailVO.setMainCourse(rs.getString("mainCourse"));
+				orderDetailVO.setMenuDate(rs.getDate("menuDate"));
+				orderDetailVO.setMenuTimeSlot(rs.getString("menuTimeSlot"));
 				orderDetailVO.setAmount(rs.getInt("amount"));
 				orderDetailVO.setUnitPrice(rs.getInt("unitPrice"));
 				set.add(orderDetailVO);

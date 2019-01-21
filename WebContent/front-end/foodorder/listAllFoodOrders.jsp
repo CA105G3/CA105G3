@@ -87,11 +87,10 @@ font {
             </button>
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item "><a href="index.html" class="nav-link">回到首頁</a></li>
-                    <li class="nav-item"><a href="food.html" class="nav-link">送餐專區</a></li>
-                    <li class="nav-item"><a href="doctors.html" class="nav-link">線上問診</a></li>
-                    <li class="nav-item"><a href="activity.html" class="nav-link">活動專區</a></li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">聯繫我們</a></li>
+                    <li class="nav-item "><a href="<%=request.getContextPath() %>/front-end/index.jsp" class="nav-link">回到首頁</a></li>
+                    <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/listAllChef.jsp" class="nav-link">送餐專區</a></li>
+                    <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/medicalOrder/ScanDoctor.jsp" class="nav-link">線上問診</a></li>
+                    <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/activity/joinactivity.jsp" class="nav-link">活動專區</a></li>
                     <li class="nav-item cta"><a href="contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest"><span>登入</span></a></li>
                 </ul>
             </div>
@@ -135,6 +134,7 @@ font {
 		MenuListVO order = buylist.get(i);
 			String chefNo = order.getChefNo();
 			String chefRep = order.getChefRep();
+			String chefName = order.getChefName();
 			String mainCourse = order.getMainCourse();
 			String menuTimeSlot = order.getMenuTimeSlot();
 			String menuListNo = order.getMenuListNo();
@@ -143,7 +143,7 @@ font {
 	%>
 		<tbody>
 		<tr>
-			<td scope="row"><%=chefRep%> </td>
+			<td scope="row"><%=chefName%> </td>
 			<td><%=mainCourse%> </td>
 			<td><%=menuTimeSlot%> </td>
 			<td><%=unitPrice%> </td>
@@ -160,7 +160,8 @@ font {
 	</table>
 		<p>送餐地址:${foodOrderVO.deliverAddr}
 	</form>
-	<a href="<%=request.getContextPath() %>/front-end/searchPage/select_page.jsp"><font color="#488AC7"> 我 想 繼 續 訂 餐 </font></a>
+	<a href="<%=request.getContextPath() %>/front-end/memberchef/listAllChef.jsp"><font color="#488AC7"> 我 想 繼 續 訂 餐 </font></a> <br><br>
+	<a href="<%=request.getContextPath() %>/front-end/foodorder/listAllFoodOrdersByMemno-session.jsp"><font color="#488AC7"> 查 看 我 的 訂 單 </font></a>
 	<br><br>
 </div>
 <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">

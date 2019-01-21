@@ -85,11 +85,10 @@ font {
             </button>
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item "><a href="index.html" class="nav-link">回到首頁</a></li>
-                    <li class="nav-item"><a href="food.html" class="nav-link">送餐專區</a></li>
-                    <li class="nav-item"><a href="doctors.html" class="nav-link">線上問診</a></li>
-                    <li class="nav-item"><a href="activity.html" class="nav-link">活動專區</a></li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">聯繫我們</a></li>
+                   <li class="nav-item "><a href="<%=request.getContextPath() %>/front-end/index.jsp" class="nav-link">回到首頁</a></li>
+                    <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/listAllChef.jsp" class="nav-link">送餐專區</a></li>
+                    <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/medicalOrder/ScanDoctor.jsp" class="nav-link">線上問診</a></li>
+                    <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/activity/joinactivity.jsp" class="nav-link">活動專區</a></li>
                     <li class="nav-item cta"><a href="contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest"><span>登入</span></a></li>
                 </ul>
             </div>
@@ -116,7 +115,6 @@ font {
 		<table class="table">
 	  	<thead class="thead-dark">
 		<tr>
-<!-- 			<th scope="col"><font>業者</font></th> -->
 			<th scope="col"><font>餐點名稱</font></th>
 			<th scope="col"><font>供餐時段</font></th>
 			<th scope="col"><font>單價</font></th>
@@ -145,7 +143,6 @@ font {
 	
 		<tbody>
 		<tr>
-<%-- 			<td scope="row"><%=chefRep%>     </td> --%>
 			<td scope="row"><%=mainCourse%>   </td>
 			<td><%=menuDate%> <%=menuTimeSlot%>餐</td>
 			<td><%=unitPrice%>    </td>

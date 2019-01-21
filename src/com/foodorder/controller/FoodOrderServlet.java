@@ -7,6 +7,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import com.foodorder.model.*;
+import com.member.model.MemberVO;
+import com.orderdetail.model.OrderDetailVO;
 
 public class FoodOrderServlet extends HttpServlet {
 
@@ -20,6 +22,93 @@ public class FoodOrderServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		
+		HttpSession session = req.getSession();
+		MemberVO memVO = (MemberVO)session.getAttribute("memVO");
+		
+		if ("myOrder".equals(action)) {
+			String memno = memVO.getMemNo();
+		System.out.println("action ===" + action);
+		System.out.println(memno);
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				String str = req.getParameter("memno");
+//				if (str == null || (str.trim()).length() == 0) {
+//					errorMsgs.add("請輸入EMAIL查詢");
+//				}
+				// Send the use back to the form, if there were errors
+//				if (!errorMsgs.isEmpty()) {
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/front-end/foodorder/select_page.jsp");
+//					failureView.forward(req, res);
+//					return;//程式中斷
+//				}
+				
+				/***************************2.開始查詢資料*****************************************/
+				FoodOrderService foodOrderSvc = new FoodOrderService();
+				List<FoodOrderVO> foodOrderVOList = (List<FoodOrderVO>) foodOrderSvc.findBy_Memno(memno);
+				
+		System.out.println("foodOrderVOList.size() =" + foodOrderVOList.size());
+				if (foodOrderVOList == null) {
+					errorMsgs.add("查無資料");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/index.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				System.out.println("xxxxxxxxxxxxxxx");
+				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("foodOrderVOList", foodOrderVOList); // 資料庫取出的foodOrderVO物件,存入req
+//				String url = "/front-end/memberchef/listAllChef.jsp";
+				String url = "/front-end/foodorder/listAllFoodOrdersByMemno-session.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				successView.forward(req, res);
+			System.out.println("已成功轉交");
+				/***************************其他可能的錯誤處理*************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/index.jsp");
+				failureView.forward(req, res);
+			}
+
+		}
+		
+		if ("find_od_by_orderno".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String orderno = req.getParameter("orderno");
+	System.out.println(orderno);
+				/*************************** 2.開始查詢資料 ****************************************/
+				FoodOrderService foodOrderSvc = new FoodOrderService();
+				Set<OrderDetailVO> set = foodOrderSvc.getOrderDetailsByFoodOrder(orderno);
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				req.setAttribute("listOds_ByOrderno", set);    // 資料庫取出的set物件,存入request
+
+				String url = null;
+//				if ("find_od_by_orderno".equals(action))
+//					url = "/front-end/foodorder/listAllFoodOrdersByMemno-session.jsp";        // 成功轉交 dept/listEmps_ByDeptno.jsp
+					url = "/front-end/foodorder/listAllOdByOrderno-session.jsp";        // 成功轉交 dept/listEmps_ByDeptno.jsp
+
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 ***********************************/
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
+		}
 		
 		if ("getOrder_by_Orderno".equals(action)) { // 來自select_page.jsp的請求
 

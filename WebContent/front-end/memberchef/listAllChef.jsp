@@ -146,6 +146,11 @@ pageContext.setAttribute("list",list);
 			<input type="hidden" name="action" value="enter_chef">
 			<input id="drbtn"type="submit" value="我是供餐業者" class="btn btn-primary">
 		</form>
+		<form method="post" action="<%=request.getContextPath()%>//front-end/foodorder/foodorder.do" style="position: relative;left: 100px;margin-top: 20px;margin-bottom: 20px;">
+		<input type="hidden" name="memno" value="${memno}">
+		<input type="submit" value="查看我的訂單" class="btn btn-primary myOrder">
+		<input type="hidden" name="action" value="myOrder">
+		</form>
 </div>   
    
    
@@ -171,6 +176,16 @@ pageContext.setAttribute("list",list);
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="js/owl.carousel.min.js"></script>
   
+  <script>
+  $(document).ready(function(){
+	  	if (<%=memVO %> == null) {
+	  		$(".myOrder").hide();
+	  	} else {
+	  		$(".myOrder").show();
+	  	}
+	  });
+  </script>
+   
   <script type="text/javascript">
   $(document).ready(function(){
     $('.owl-carousel').owlCarousel({

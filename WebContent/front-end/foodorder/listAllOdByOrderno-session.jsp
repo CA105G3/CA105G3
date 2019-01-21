@@ -2,66 +2,49 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.foodorder.model.*" %>
-<%-- <%@ page import="com.orderdetail.model.*" %> --%>
+<%@ page import="com.orderdetail.model.*" %>
 <%@ page import="com.menulist.model2.*" %>
 <%@ page import="com.member.model.*" %>
 
-<%-- <jsp:useBean id="listOds_ByOrderno" scope="request" type="java.util.Set<OrderDetailVO>" /> <!-- 於EL此行可省略 --> --%>
+<jsp:useBean id="listOds_ByOrderno" scope="request" type="java.util.Set<OrderDetailVO>" /> <!-- 於EL此行可省略 -->
+<jsp:useBean id="foodOrderSvc" scope="page" class="com.foodorder.model.FoodOrderService" />
 
 <% 
   MemberVO memVO = (MemberVO)session.getAttribute("memVO");
-%>
-<%-- <jsp:useBean id="foodOrderSvc" scope="page" class="com.foodorder.model.FoodOrderService" /> --%>
-<%	
-   FoodOrderService foodOrderSvc = new FoodOrderService();  
-   List<FoodOrderVO> foodOrderVOList = (List<FoodOrderVO>) foodOrderSvc.findBy_Memno(memVO.getMemNo());  
-   pageContext.setAttribute("foodOrderVOList", foodOrderVOList);  
-%>
-<%	
-// 	FoodOrderService foodOrderSvc = new FoodOrderService();
-// 	List<FoodOrderVO> list = foodOrderSvc.getAll();
-// 	pageContext.setAttribute("list", list);
 %>
 <jsp:useBean id="menuListSvc" scope="page" class="com.menulist.model2.MenuListService" />
 
 <html>
 <meta charset="UTF-8">
-<title><%=memVO.getMemName() %>的餐飲訂單查詢</title>
+
 <style type="text/css">
 table {
   border-collapse: collapse;
   width: 100%;
   box-shadow: 5px 5px #888888;
 }
-
 td, th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
 }
-
 tbody:nth-child(even) {
   background-color: #dddddd;
 }
-
 font {
 	font-weight: bold;
 	font-family: "微軟正黑體";
 }
-
 .first {
 	margin-top: 100px;
 }
-
 .second {
 	margin-top: 20px;
 }
-
 .card-img {
 	widows: 230px;
 	height: 150px;
 }
-
 .card-body {
 	margin-top: -15px;
 }
@@ -135,38 +118,38 @@ font {
 			</c:forEach>
 		</ul>
 	</c:if>
+<%-- <font color=red><b>${param.memno}</b></font> --%>
 		<table class="table">
 	  	<thead class="thead-dark">
 			<tr>
-				<th>訂單編號</th>
-				<th>餐飲業者</th>
+				<th>訂單明細編號</th>
+				<th>餐點名稱</th>
+				<th>供餐時段</th>
 				<th>單價</th>
 				<th>數量</th>
-				<th>送餐地址</th>
 			</tr>
 		</thead>
-		<c:forEach var="menuListVO" items="${menuListSvc.findByMemno(memVO.memNo)}">
-		<tbody>
-			<tr>
-			 <td>
-				 <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/front-end/foodorder/foodorder.do" style="margin-bottom: 0px;">
-				    <input type="submit" value="${menuListVO.orderno}"> 
-				    <input type="hidden" name="orderno" value="${menuListVO.orderno}">
-				    <input type="hidden" name="action" value="find_od_by_orderno">
-				 </FORM>
-			 </td>
-				 <td>${menuListVO.chefName}</td>
-				 <td>${menuListVO.unitPrice}</td>
-				 <td>${menuListVO.amount}</td>
-				 <td>${menuListVO.deliverAddr}</td>
-			</tr>
-			</tbody>
-			</c:forEach>
+		<c:forEach var="orderDetailVO" items="${listOds_ByOrderno}" >
+<%-- 			<c:forEach var="menuListVO" items="${menuListSvc.findByMemno(memVO.memNo)}"> --%>
+				<tbody>
+					<tr>
+					 <td>${orderDetailVO.odno}</td>
+					 <td>${orderDetailVO.mainCourse}</td>
+					 <td>${orderDetailVO.menuDate} ${menuListVO.menuTimeSlot}</td>
+					 <td>${orderDetailVO.unitPrice}</td>
+					 <td>${orderDetailVO.amount}</td>
+					 
+<%-- 					 <td>${menuListVO.odno}</td> --%>
+<%-- 					 <td>${menuListVO.mainCourse}</td> --%>
+<%-- 					 <td>${menuListVO.menuDate} ${menuListVO.menuTimeSlot}</td> --%>
+<%-- 					 <td>${menuListVO.unitPrice}</td> --%>
+<%-- 					 <td>${menuListVO.amount}</td> --%>
+		
+					</tr>
+				</tbody>
+<%-- 			 </c:forEach> --%>
+		</c:forEach>
 		</table>
-		<br>
-<%-- <%if (request.getAttribute("listOds_ByOrderno")!=null) { %> --%>
-<%-- 		<jsp:include page="listAllOdByOrderno-session2.jsp" /> --%>
-<%-- <%} %> --%>
 </div>
 <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
             <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
@@ -218,7 +201,6 @@ font {
     <script src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script>
     <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
 </body>
-
 <!-- 以上為可動部分 -->
 <footer class="ftco-footer ftco-bg-dark ftco-section">
     <div class="container">

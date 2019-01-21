@@ -7,6 +7,7 @@ public class MenuListVO implements java.io.Serializable{
 	
 	private String menuListNo;
 	private String odno;
+	private String orderno;
 	private String chefRep;
 	private String mainCourse;
 	private int amount;
@@ -16,6 +17,7 @@ public class MenuListVO implements java.io.Serializable{
 	private java.sql.Date menuDate;
 	private String menuTimeSlot;
 	private String chefName;
+	private String deliverAddr;
 	
 	
 	public String getChefName() {
@@ -38,6 +40,12 @@ public class MenuListVO implements java.io.Serializable{
 	}
 	
 	
+	public String getOrderno() {
+		return orderno;
+	}
+	public void setOrderno(String orderno) {
+		this.orderno = orderno;
+	}
 	public String getMainCourse() {
 		return mainCourse;
 	}
@@ -57,6 +65,13 @@ public class MenuListVO implements java.io.Serializable{
 		this.unitPrice = unitPrice;
 	}
 	
+	
+	public String getDeliverAddr() {
+		return deliverAddr;
+	}
+	public void setDeliverAddr(String deliverAddr) {
+		this.deliverAddr = deliverAddr;
+	}
 	public String getChefNo() {
 		return chefNo;
 	}

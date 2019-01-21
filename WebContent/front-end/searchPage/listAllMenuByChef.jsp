@@ -96,11 +96,10 @@ font {
             </button>
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item "><a href="index.html" class="nav-link">回到首頁</a></li>
-                    <li class="nav-item"><a href="food.html" class="nav-link">送餐專區</a></li>
-                    <li class="nav-item"><a href="doctors.html" class="nav-link">線上問診</a></li>
-                    <li class="nav-item"><a href="activity.html" class="nav-link">活動專區</a></li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">聯繫我們</a></li>
+                    <li class="nav-item "><a href="<%=request.getContextPath() %>/front-end/index.jsp" class="nav-link">回到首頁</a></li>
+                    <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/listAllChef.jsp" class="nav-link">送餐專區</a></li>
+                    <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/medicalOrder/ScanDoctor.jsp" class="nav-link">線上問診</a></li>
+                    <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/activity/joinactivity.jsp" class="nav-link">活動專區</a></li>
                     <li class="nav-item cta"><a href="contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest"><span>登入</span></a></li>
                 </ul>
             </div>
@@ -143,11 +142,11 @@ font {
 		<form name="menuForm" action="<%=request.getContextPath() %>/shoppingCart.do" method="POST">
 <%-- 			<td width="90"><div align="center">${menuListVO.chefRep}</div></td> --%>
 			<td scope="row"><div align="center">${menuListVO.mainCourse}</div></td>
-			<td><div align="center">${menuListVO.menuDate} ${menuListVO.menuTimeSlot}餐</div></td>
-			<td><div align="center"><img style="max-width: 190px; max-height: 250px;" src="<%=request.getContextPath()%>/front-end/foodOrder2/foodorderImg2.do?menuno=${menuListVO.menuNo}"/></div></td>
-			<td><div align="center">${menuListVO.unitPrice}</div></td>
-			<td><div align="center"><input type="text" name="amount" size="3" value=1></div></td>
-			<td><div align="center"><input type="image" src="<%=request.getContextPath() %>/front-end/searchPage/images/plus.jpg" class="button" width="35" height="25"> </div></td>
+			<td><div>${menuListVO.menuDate} ${menuListVO.menuTimeSlot}餐</div></td>
+			<td><div><img style="max-width: 190px; max-height: 250px;" src="<%=request.getContextPath()%>/front-end/foodOrder2/foodorderImg2.do?menuno=${menuListVO.menuNo}"/></div></td>
+			<td><div>${menuListVO.unitPrice}</div></td>
+			<td><div><input type="text" name="amount" size="3" value=1></div></td>
+			<td><div><input type="image" src="<%=request.getContextPath() %>/front-end/searchPage/images/plus.jpg" class="button" width="35" height="25"> </div></td>
 			 <input type="hidden" name="chefName" value="${menuListVO.chefName}">
 		     <input type="hidden" name="mainCourse" value="${menuListVO.mainCourse}">
 		     <input type="hidden" name="menuDate" value="${menuListVO.menuDate}">

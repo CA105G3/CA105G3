@@ -13,6 +13,8 @@ import javax.websocket.Session;
 import com.foodorder.model.FoodOrderService;
 import com.foodorder.model.FoodOrderVO;
 import com.member.model.MemberVO;
+import com.memberchef.model.MemberChefService;
+import com.memberchef.model.MemberChefVO;
 import com.menulist.model2.MenuListService;
 import com.menulist.model2.MenuListVO;
 import com.orderdetail.model.OrderDetailVO;
@@ -164,7 +166,7 @@ public class ShoppingCartServlet extends HttpServlet {
 		}
 			
 //			
-		MemberVO memVO = (MemberVO)session.getAttribute("memVO");
+			MemberVO memVO = (MemberVO)session.getAttribute("memVO");
 			
 			if (memVO!=null  && "insert".equals(action)) {
 				String memNo = memVO.getMemNo();
@@ -206,24 +208,18 @@ public class ShoppingCartServlet extends HttpServlet {
 					
 					FoodOrderVO foodOrderVO = new FoodOrderVO();
 					foodOrderVO.setMemno(memNo);
-	System.out.println(memNo);
 					foodOrderVO.setDeliverAddr(deliverAddr);
-	System.out.println(deliverAddr);
 					foodOrderVO.setChefno(chefno);
 					System.out.println(chefno);
 					foodOrderVO.setOrderStatus(orderStatus);
-	System.out.println(orderStatus);				
 					req.setAttribute("foodOrderVO", foodOrderVO);
 					req.setAttribute("total", total);
-	System.out.println(errorMsgs);				
 					if(!errorMsgs.isEmpty()) {
 						req.setAttribute("foodOrderVO", foodOrderVO);
 						RequestDispatcher failureView = req.getRequestDispatcher("/front-end/searchPage/checkOut.jsp");
 						failureView.forward(req, res);
 						return;
 					}
-	System.out.println("1111111111");
-					
 					/***************************2.開始新增資料***************************************/
 					FoodOrderService foodOrderSvc = new FoodOrderService();
 					foodOrderSvc.insertWithOrderDetails(foodOrderVO, odlist);
@@ -235,7 +231,6 @@ public class ShoppingCartServlet extends HttpServlet {
 				
 					String url = "/front-end/foodorder/listAllFoodOrders.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);
-					System.out.println("333333");
 					successView.forward(req, res);
 					session.removeAttribute("shoppingcart");
 					return;
@@ -246,6 +241,7 @@ public class ShoppingCartServlet extends HttpServlet {
 					failureView.forward(req, res);
 				}
 			}
+			
 			
 			
 //		if ("getMenu_by_menuTimeSlot".equals(action)) {

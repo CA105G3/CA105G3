@@ -211,6 +211,11 @@
             <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
           </div>
         </div>
+        <form method="post" action="<%=request.getContextPath()%>//front-end/foodorder/foodorder.do" style="position: relative;left: 100px;margin-top: 20px;margin-bottom: 20px;">
+			<input type="hidden" name="memno" value="${memno}">
+			<input align="left" type="submit" value="查看我的訂單" class="btn btn-primary myOrder">
+			<input type="hidden" name="action" value="myOrder">
+		 </form>
         <div class="row owl-carousel owl-theme" id="carousel-id">
           <c:forEach var="chefVO" items="${list}" begin="0" end="2">
           <div class="col-md-4 ftco-animate item">
@@ -474,6 +479,15 @@
            //minDate:               '-1970-01-01', // 去除今日(不含)之前
            maxDate:               '+1970-01-01'  // 去除今日(不含)之後
         });
+</script>
+<script>
+  $(document).ready(function(){
+	  	if (<%=memVO %> == null) {
+	  		$(".myOrder").hide();
+	  	} else {
+	  		$(".myOrder").show();
+	  	}
+	  });
 </script>
 <script type="text/javascript">
   function faillogin(){ 
