@@ -6,19 +6,6 @@
 
 <%  
 MemberVO memVO = (MemberVO)session.getAttribute("memVO");
-java.sql.Date regDate = null;
-try {
-	    regDate = memVO.getRegDate();
- } catch (Exception e) {
-	   regDate = new java.sql.Date(System.currentTimeMillis());
- }
-java.sql.Timestamp stayTime = null;
-try{
-	  stayTime=memVO.getStayTime();
-}catch(Exception e){
-	  stayTime=new java.sql.Timestamp(System.currentTimeMillis());
-}
-
 MemberChefVO chefVO = (MemberChefVO) session.getAttribute("chefVO");
 %>
 <!DOCTYPE html>
@@ -66,24 +53,7 @@ MemberChefVO chefVO = (MemberChefVO) session.getAttribute("chefVO");
   </head>
   <body>
     
-	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
-	      <a class="navbar-brand" href="<%=request.getContextPath() %>/front-end/index.jsp">Plus<i class="fas fa-plus-square"></i></a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span>Menu
-	      </button>
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="food.html" class="nav-link"><%= (memVO==null)? "訪客" :memVO.getMemName() %> 您好!</a></li>
-	          <li class="nav-item"><a href=<%=(memVO==null)? request.getContextPath()+"/front-end/index.jsp" : request.getContextPath()+"/front-end/member/member.do?action=getOne_For_Display&memno="+memVO.getMemNo() %> class="nav-link">個人設定</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/memberchef/listAllChef.jsp" class="nav-link">送餐專區</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/medicalOrder/ScanDoctor.jsp" class="nav-link">線上問診</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/activity/joinactivity.jsp" class="nav-link">活動專區</a></li>
-	          <li class="nav-item cta"><a href="<%=request.getContextPath() %>/front-end/member/member.do?action=logout" class="nav-link" <%= (memVO==null)? "data-toggle='modal' data-target='#modalRequest'" :"" %>  ><span id="mylogin"><%= (memVO==null)? "登入/註冊" :"登出" %></span></a></li>
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
+	  <%@include file="nav.file" %>
     <!-- END nav -->
 
 	
@@ -124,22 +94,6 @@ MemberChefVO chefVO = (MemberChefVO) session.getAttribute("chefVO");
     </section>
 		
 	<!-- Bootstrap NavBar -->
-  
-      <!-- This menu is hidden in bigger devices with d-sm-none. 
-           The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
-      <li class="nav-item dropdown d-sm-block d-md-none">
-        <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Menu
-        </a>
-        <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
-            <a class="dropdown-item" href="#">Dashboard</a>
-            <a class="dropdown-item" href="#">Profile</a>
-            <a class="dropdown-item" href="#">Tasks</a>
-            <a class="dropdown-item" href="#">Etc ...</a>
-        </div>
-      </li><!-- Smaller devices menu END -->
-      
-
 
 <!-- Bootstrap row -->
 <div class="row" id="body-row">
@@ -160,7 +114,7 @@ MemberChefVO chefVO = (MemberChefVO) session.getAttribute("chefVO");
                     <span class="menu-collapsed">基本資料</span>
                 </div>
             </a>            
-            <a href="<%=request.getContextPath()%>/front-end/menu/menu.jsp" class="bg-dark list-group-item list-group-item-action">
+           <a href="<%=request.getContextPath()%>/front-end/menu/menu.do?action=getOne_For_Display" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fas fa-calendar-alt fa-fw mr-3"></span>
                     <span class="menu-collapsed">基本菜單管理</span>
@@ -172,7 +126,7 @@ MemberChefVO chefVO = (MemberChefVO) session.getAttribute("chefVO");
                     <span class="menu-collapsed">上架菜單管理</span>
                 </div>
             </a>            
-            <a href="<%=request.getContextPath()%>/front-end/memberchef/chefOrder.do?action=getOrder" class="bg-dark list-group-item list-group-item-action">
+            <a href="<%=request.getContextPath()%>/front-end/memberchef/chefOrder.do?action=getNowOrder" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fas fa-list fa-fw mr-3"></span>
                     <span class="menu-collapsed">訂單管理</span>
@@ -272,7 +226,8 @@ MemberChefVO chefVO = (MemberChefVO) session.getAttribute("chefVO");
    
    
    <!--------------------------------------------/MAIN --------------------------------------------> 
-
+</div>
+  <!-- body-row END -->
   <!-- Modal -->
   <div class="modal fade" id="modalRequest" tabindex="-1" role="dialog" aria-labelledby="modalRequestLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -280,25 +235,44 @@ MemberChefVO chefVO = (MemberChefVO) session.getAttribute("chefVO");
         <div class="modal-header">
           <h5 class="modal-title" id="modalRequestLabel">登入會員</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true" id="loghide">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form action="#">
+          <form action="<%=request.getContextPath() %>/front-end/member/member.do" method="post">
             <div class="form-group">
               <!-- <label for="appointment_name" class="text-black">Full Name</label> -->
-              <input type="text" class="form-control" id="appointment_name" placeholder="使用者名稱">
+              <input type="text" class="form-control" id="appointment_name" placeholder="帳號" NAME="account">
             </div>
             <div class="form-group">
               <!-- <label for="appointment_email" class="text-black">Email</label> -->
-              <input type="text" class="form-control" id="appointment_email" placeholder="密碼">
+              <input type="password" class="form-control" id="appointment_email" placeholder="密碼" NAME="password">
             </div>
-            
-            <div class="form-inline">
+             <div class="form-group">
+              <input type="hidden" name="action" value="authorization">
               <input type="submit" value="登入" class="btn btn-primary">
-              <a href="<%=request.getContextPath()%>/template/contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest2"><input type="button" value="註冊會員" class="btn btn-primary" ></a>
+              <input type="reset" value="清除" class="btn btn-primary">
+<!--               <a href="signup.jsp" data-toggle="modal" data-target="#modalRequest2" id="signup"><input type="button" value="註冊會員" class="btn btn-primary" onclick="signup()" ></a> -->
+<!--             	<a href="signup.jsp" data-toggle="modal" data-target="#modalRequest2" id="signup"><input type="button" value="註冊會員" class="btn btn-primary" onclick="signup()" id="signup2"></a> -->
             </div>
           </form>
+          
+          <c:if test="${not empty loginerrorMsgs}">
+			<font style="color:red">請修正以下錯誤:</font>
+			<ul>
+			<c:forEach var="message" items="${loginerrorMsgs}">
+			<li style="color:red">${message}</li>
+	        </c:forEach>
+			</ul>
+		  </c:if>
+		  <c:if test="${not empty accessfail}">
+			<font style="color:red">請修正以下錯誤:</font>
+			<ul>
+			<c:forEach var="message" items="${accessfail}">
+			<li style="color:red">${message}</li>
+	        </c:forEach>
+			</ul>
+		  </c:if>
         </div>
       </div>
     </div>

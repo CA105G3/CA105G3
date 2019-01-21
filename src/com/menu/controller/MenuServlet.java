@@ -44,7 +44,8 @@ public class MenuServlet extends HttpServlet {
 
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-				String chefNo = req.getParameter("chefNo");
+//				String chefNo = req.getParameter("chefNo");
+				String chefNo = (String) session.getAttribute("chefNo");
 				String chefNoReg = "^CHEF[0-9]{4}";
 				if (chefNo == null || chefNo.trim().length() == 0) {
 					errorMsgs.add("廚師編號: 請勿空白");
@@ -66,14 +67,10 @@ public class MenuServlet extends HttpServlet {
 				List<MenuVO> list = menuSvc.getOneChefMenu(chefNo);
 				
 				if (list == null) {
-					errorMsgs.add("查無資料");
-				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front\\u002dend/menu/select_page.jsp");
-					failureView.forward(req, res);
-					return;//程式中斷
+					String url = "/front\u002dend/menu/menu.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url);
+					successView.forward(req, res);	
+					return;
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)***********/
@@ -109,21 +106,19 @@ public class MenuServlet extends HttpServlet {
 				List<MenuVO> list = menuSvc.getOneChefMenu(chefNo);
 				
 				if (list == null) {
-					errorMsgs.add("查無資料");
-				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front\u002dend/menu/menu.jsp");
-					failureView.forward(req, res);
-					return;//程式中斷
+//					errorMsgs.add("查無資料");
+					String url = "/front\u002dend/menu/updatemenu.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url); 
+					successView.forward(req, res);	
+					System.out.println("1");
+					return;
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)***********/
 //				req.setAttribute("list", list); // 資料庫取出的List<menuVO>物件,存入req
 				session.setAttribute("list", list); // 資料庫取出的List<menuVO>物件,存入req
 				String url = "/front\u002dend/menu/updatemenu.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交memberchef.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);				
 				
 				/***************************其他可能的錯誤處理**********************************/

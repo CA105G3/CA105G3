@@ -3,8 +3,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.foodorder2.model.*"%>
-<%@ page import="com.member.model.*"%>  
-<%  
+<%@ page import="com.member.model.*"%>
+  
+<%
+MemberVO memVO = (MemberVO)session.getAttribute("memVO");
 String chefNo = (String)session.getAttribute("chefNo");
 List<FoodOrderVO> FOlist = (List<FoodOrderVO>)request.getAttribute("FOlist");
 List<OrderDetailVO> ODlist = (List<OrderDetailVO>)request.getAttribute("ODlist");
@@ -51,25 +53,7 @@ List<MemberVO> member = (List<MemberVO>)request.getAttribute("member");
   </head>
   <body>
     
-	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
-	      <a class="navbar-brand" href="<%=request.getContextPath()%>/template/index.html">Plus      <i class="fas fa-plus-square"></i></a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
-
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="<%=request.getContextPath()%>/template/index.html" class="nav-link">首頁</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/template/food.html" class="nav-link">送餐專區</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/template/doctors.html" class="nav-link">線上問診</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/index.jsp#menuTarget" class="nav-link">活動專區</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/template/contact.html" class="nav-link">聯繫我們</a></li>
-	          <li class="nav-item cta"><a href="<%=request.getContextPath()%>/template/contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest"><span>登入</span></a></li>
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
+	  <%@include file="nav.file" %>
     <!-- END nav -->
 
 	
@@ -110,21 +94,6 @@ List<MemberVO> member = (List<MemberVO>)request.getAttribute("member");
     </section>
 		
 	<!-- Bootstrap NavBar -->
-  
-      <!-- This menu is hidden in bigger devices with d-sm-none. 
-           The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
-      <li class="nav-item dropdown d-sm-block d-md-none">
-        <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Menu
-        </a>
-        <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
-            <a class="dropdown-item" href="#">Dashboard</a>
-            <a class="dropdown-item" href="#">Profile</a>
-            <a class="dropdown-item" href="#">Tasks</a>
-            <a class="dropdown-item" href="#">Etc ...</a>
-        </div>
-      </li><!-- Smaller devices menu END -->
-      
 
 
 <!-- Bootstrap row -->
@@ -146,7 +115,7 @@ List<MemberVO> member = (List<MemberVO>)request.getAttribute("member");
                     <span class="menu-collapsed">基本資料</span>
                 </div>
             </a>            
-            <a href="<%=request.getContextPath()%>/front-end/menu/menu.jsp" class="bg-dark list-group-item list-group-item-action">
+           <a href="<%=request.getContextPath()%>/front-end/menu/menu.do?action=getOne_For_Display" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fas fa-calendar-alt fa-fw mr-3"></span>
                     <span class="menu-collapsed">基本菜單管理</span>
@@ -158,7 +127,7 @@ List<MemberVO> member = (List<MemberVO>)request.getAttribute("member");
                     <span class="menu-collapsed">上架菜單管理</span>
                 </div>
             </a>            
-            <a href="<%=request.getContextPath()%>/front-end/memberchef/chefOrder.do?action=getOrder" class="bg-dark list-group-item list-group-item-action">
+            <a href="<%=request.getContextPath()%>/front-end/memberchef/chefOrder.do?action=getNowOrder" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fas fa-list fa-fw mr-3"></span>
                     <span class="menu-collapsed">訂單管理</span>
@@ -167,8 +136,36 @@ List<MemberVO> member = (List<MemberVO>)request.getAttribute("member");
     </div><!-- sidebar-container END -->
 
    <!-------------------------------------------- MAIN -------------------------------------------->
+
 <div class="container">
 	<div class="row">
+		<div class="col-xs-12 col-sm-4">
+			<FORM METHOD="post" style="padding-bottom: 10px;padding-top: 10px;" ACTION="<%=request.getContextPath()%>/front-end/memberchef/chefOrder.do" style="margin-bottom: 0px;">
+				<input type="hidden" name="action" value="getTodayOrder">
+				<div class="text-center"><input type="submit" class="btn btn-danger btn-lg" value="今日訂單" ></div>
+			</FORM>
+		</div>
+		<div class="col-xs-12 col-sm-4">
+			<FORM METHOD="post" style="padding-bottom: 10px;padding-top: 10px;" ACTION="<%=request.getContextPath()%>/front-end/memberchef/chefOrder.do" style="margin-bottom: 0px;">
+				<input type="hidden" name="action" value="getHistoryOrder">
+				<div class="text-center"><input type="submit" class="btn btn-secondary" value="歷史訂單" ></div>
+			</FORM>
+			<FORM METHOD="post" style="padding-bottom: 10px;padding-top: 10px;" ACTION="<%=request.getContextPath()%>/front-end/memberchef/chefOrder.do" style="margin-bottom: 0px;">
+				<input type="hidden" name="action" value="getNowOrder">
+				<div class="text-center"><input type="submit" class="btn btn-primary" value="目前訂單" ></div>
+			</FORM>
+		</div>
+		<div class="col-xs-12 col-sm-4">
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/memberchef/chefOrder.do" style="margin-bottom: 0px;">
+				 開始日期：<input style="margin-top: 10px;" type="text"   name="startDate" id="start_date" ><br>
+				 結束日期：<input style="margin-top: 10px;" type="text"   name="endDate"   id="end_date"  >
+				<input type="hidden" name="action" value="getOrder">
+				<div class="text-center"><input type="submit" style="border-top-width: 1px;margin-top: 10px;" class="btn btn-success" value="送出查詢日期" ></div> 
+			</FORM>
+		</div>
+	</div>
+	<div class="row">
+		<form method="post" action="goDelivery.jsp">
 		<div class="col-xs-12 col-sm-6">
 			<table class="table table-striped table-hover table-bordered" style="width: 1000px;">
 				<h5>訂單明細</h5>
@@ -177,6 +174,8 @@ List<MemberVO> member = (List<MemberVO>)request.getAttribute("member");
 						<th>訂單編號</th>
 						<th>餐點圖片</th>
 						<th>餐點名稱</th>
+						<th>訂餐時間</th>
+						<th>訂餐時段</th>
 						<th>訂購者</th>
 						<th>地址</th>
 						<th>數量</th>
@@ -187,39 +186,47 @@ List<MemberVO> member = (List<MemberVO>)request.getAttribute("member");
 				<tbody>
 				  <c:forEach var="OrderDetailVO" items="${ODlist}">  
 					<tr>
-						<td>${OrderDetailVO.orderno}</td>
 						<c:forEach var="MenuListVO" items="${menuList}">
 							<c:if test="${OrderDetailVO.menuListno==MenuListVO.menuListNo}">
+								<td>${OrderDetailVO.orderno}</td>
 								<c:forEach var="MenuVO" items="${menu}">
 									<c:if test="${MenuListVO.menuNo==MenuVO.menuNo}">
 										<td><img src="<%=request.getContextPath()%>/front-end/menu/menuImg.do?menuNo=${MenuVO.menuNo}"style="max-width: 100px;max-height: 150px;"></td>
 										<td>${MenuVO.mainCourse}</td>
+										<td>${MenuListVO.menuDate}</td>
+										<td>${MenuListVO.menuTimeSlot}</td>
 									</c:if>
 								</c:forEach>
-							</c:if>
-						</c:forEach>
-						<c:forEach var="FoodOrderVO" items="${FOlist}">
-							<c:if test="${OrderDetailVO.orderno==FoodOrderVO.orderno}">
-								<c:forEach var="memberVO" items="${member}">
-									<c:if test="${FoodOrderVO.memno==memberVO.memNo}">
-										<td>${memberVO.memName}</td>
-										<td>${memberVO.addr}</td>
-									</c:if>	
+								<c:forEach var="FoodOrderVO" items="${FOlist}">
+									<c:if test="${OrderDetailVO.orderno==FoodOrderVO.orderno}">
+										<c:forEach var="memberVO" items="${member}">
+											<c:if test="${FoodOrderVO.memno==memberVO.memNo}">
+												<td>${memberVO.memName}</td>
+												<td name="deliverAddr">${FoodOrderVO.deliverAddr}</td>
+												<input type="hidden" name="deliverAddr" value="${FoodOrderVO.deliverAddr}">
+											</c:if>	
+										</c:forEach>
+									</c:if>
 								</c:forEach>
+								<td>${OrderDetailVO.amount}</td>
+								<td>${OrderDetailVO.unitPrice}</td>
+								<td>${OrderDetailVO.amount * OrderDetailVO.unitPrice}</td>
 							</c:if>
 						</c:forEach>
-						<td>${OrderDetailVO.amount}</td>
-						<td>${OrderDetailVO.unitPrice}</td>
-						<td>${OrderDetailVO.amount * OrderDetailVO.unitPrice}</td>
 					</tr>	
 				  </c:forEach>	
 				</tbody>
 			</table>
 		</div>
+		<div class="text-right"><input type="submit" class="btn btn-info" value="送餐去" ></div>
+		</form>
 	</div>
 </div>   
-   <!--------------------------------------------/MAIN -------------------------------------------->       
 
+
+   <!--------------------------------------------/MAIN -------------------------------------------->       
+</div>
+  <!-- body-row END -->
   <!-- Modal -->
   <div class="modal fade" id="modalRequest" tabindex="-1" role="dialog" aria-labelledby="modalRequestLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -272,33 +279,34 @@ List<MemberVO> member = (List<MemberVO>)request.getAttribute("member");
 
   <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
   
-   <script>
-// Hide submenus
-   $('#body-row .collapse').collapse('hide'); 
-   // Collapse/Expand icon
-   $('#collapse-icon').addClass('fa-angle-double-left'); 
-   // Collapse click
-   $('[data-toggle=sidebar-colapse]').click(function() {
-       SidebarCollapse();
-   });
-   function SidebarCollapse () {
-       $('.menu-collapsed').toggleClass('d-none');
-       $('.sidebar-submenu').toggleClass('d-none');
-       $('.submenu-icon').toggleClass('d-none');
-       $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed');
-       
-       // Treating d-flex/d-none on separators with title
-       var SeparatorTitle = $('.sidebar-separator-title');
-       if ( SeparatorTitle.hasClass('d-flex') ) {
-           SeparatorTitle.removeClass('d-flex');
-       } else {
-           SeparatorTitle.addClass('d-flex');
-       }
-       
-       // Collapse/Expand icon
-       $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
-   }
-   </script>
+<link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/memberchef/css/jquery.datetimepicker.css" />
+<script src="<%=request.getContextPath()%>/front-end/memberchef/js/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/front-end/memberchef/js/jquery.datetimepicker.full.js"></script>
+  
+<script>
+$.datetimepicker.setLocale('zh'); // kr ko ja en
+$(function(){
+	 $('#start_date').datetimepicker({
+	  format:'Y-m-d',
+	  onShow:function(){
+	   this.setOptions({
+	    maxDate:$('#end_date').val()?$('#end_date').val():false
+	   })
+	  },
+	  timepicker:false
+	 });
+	 
+	 $('#end_date').datetimepicker({
+	  format:'Y-m-d',
+	  onShow:function(){
+	   this.setOptions({
+	    minDate:$('#start_date').val()?$('#start_date').val():false
+	   })
+	  },
+	  timepicker:false
+	 });
+});
+</script>
 	
   </body>
   <!-- 以上為可動部分 -->

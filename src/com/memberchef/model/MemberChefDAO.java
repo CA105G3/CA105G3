@@ -20,8 +20,7 @@ public class MemberChefDAO implements MemberChefDAO_interface{
 	}
 	
 	private static final String INSERT_STMT = 
-		"INSERT INTO memberchef VALUES ('CHEF'||lpad(to_char(memberchef_seq.NEXTVAL), 4, '0'),'M0002', ?, ?, ?, ?, ?, ?, ?, ?)";
-//		"INSERT INTO memberchef VALUES ('CHEF'||lpad(to_char(memberchef_seq.NEXTVAL), 4, '0'),'M'||LPAD(to_char(member_seq.CURRVAL), 4, '0'), ?, ?, ?, ?, ?, ?)";
+		"INSERT INTO memberchef VALUES ('CHEF'||lpad(to_char(memberchef_seq.NEXTVAL), 4, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
 		"SELECT chefno,memno,chefname,chefstorename,chefpic,chefdescrip,chefstatus,chefphone,chefaddr,chefrep from memberchef order by chefno";
 	private static final String GET_ONE_STMT = 
@@ -34,24 +33,33 @@ public class MemberChefDAO implements MemberChefDAO_interface{
 		"UPDATE memberchef set chefname=?, chefstorename=?, chefpic=?, chefdescrip=?, chefstatus=?, chefphone=?, chefaddr=?, chefrep=? where chefno = ?";
 	
 	@Override
-	public void insert(MemberChefVO memberChefVO) {
+	public String insert(MemberChefVO memberChefVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String pk = null;
 		
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_STMT);
+			pstmt = con.prepareStatement(INSERT_STMT, new String[]{"chefNo"});
 			
-			pstmt.setString(1, memberChefVO.getChefName());
-			pstmt.setString(2, memberChefVO.getChefStoreName());
-			pstmt.setBytes(3, memberChefVO.getChefPic());
-			pstmt.setString(4, memberChefVO.getChefDescrip());
-			pstmt.setString(5, memberChefVO.getChefStatus());
-			pstmt.setString(6, memberChefVO.getChefPhone());
-			pstmt.setString(7, memberChefVO.getChefAddr());
-			pstmt.setString(8, memberChefVO.getChefRep());
+			pstmt.setString(1, memberChefVO.getMemNo());
+			pstmt.setString(2, memberChefVO.getChefName());
+			pstmt.setString(3, memberChefVO.getChefStoreName());
+			pstmt.setBytes(4, memberChefVO.getChefPic());
+			pstmt.setString(5, memberChefVO.getChefDescrip());
+			pstmt.setString(6, memberChefVO.getChefStatus());
+			pstmt.setString(7, memberChefVO.getChefPhone());
+			pstmt.setString(8, memberChefVO.getChefAddr());
+			pstmt.setString(9, memberChefVO.getChefRep());
 
 			pstmt.executeUpdate();
+			rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+                pk = rs.getString(1);
+            }
+			
+			return pk ;
 			
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "	+ se.getMessage());

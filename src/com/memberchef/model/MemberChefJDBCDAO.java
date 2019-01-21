@@ -28,14 +28,16 @@ public class MemberChefJDBCDAO implements MemberChefDAO_interface{
 		"UPDATE memberchef set chefname=?, chefstorename=?, chefpic=?, chefdescrip=?, chefstatus=?, chefphone=?, chefaddr=?, chefrep=? where chefno = ?";
 	
 	@Override
-	public void insert(MemberChefVO memberChefVO) {
+	public String insert(MemberChefVO memberChefVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String pk = null;
 		
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(INSERT_STMT);
+			pstmt = con.prepareStatement(INSERT_STMT, new String[]{"chefNo"});
 			
 			pstmt.setString(1, memberChefVO.getChefName());
 			pstmt.setString(2, memberChefVO.getChefStoreName());
@@ -47,6 +49,12 @@ public class MemberChefJDBCDAO implements MemberChefDAO_interface{
 			pstmt.setString(8, memberChefVO.getChefRep());
 
 			pstmt.executeUpdate();
+			rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+                pk = rs.getString(1);
+            }
+			
+			return pk ;
 			
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "+ e.getMessage());

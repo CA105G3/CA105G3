@@ -55,5 +55,13 @@ public class MenuListService {
 	public List<MenuListVO> getAll() {
 		return dao.getAll();
 	}
+	
+	public List<MenuListVO> getAll(String today) {
+		return dao.getAll(today);
+	}
+
+	public List<MenuListVO> getAll(String startDate, String endDate) {
+		return dao.getAll(startDate, endDate);
+	}
 }
 

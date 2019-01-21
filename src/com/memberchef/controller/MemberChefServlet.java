@@ -234,6 +234,8 @@ public class MemberChefServlet extends HttpServlet {
 
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+				String memNo = (String) session.getAttribute("memno");
+				
 				String chefName = req.getParameter("chefName").trim();
 				if (chefName == null || chefName.trim().length() == 0) {
 					errorMsgs.put("chefName","請輸入廚師姓名");
@@ -292,10 +294,11 @@ public class MemberChefServlet extends HttpServlet {
 				
 				/***************************2.開始新增資料***************************************/
 				MemberChefService chefSvc = new MemberChefService();
-				MemberChefVO chefVO = chefSvc.addMemberChef(chefName, chefStoreName, chefPic, chefDescrip, "啓用", chefPhone, chefAddr, chefRep);
+				MemberChefVO chefVO = chefSvc.addMemberChef(memNo, chefName, chefStoreName, chefPic, chefDescrip, "啓用", chefPhone, chefAddr, chefRep);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				req.setAttribute("chefVO", chefVO); // 資料庫取出的chefVO物件,存入req
+//				req.setAttribute("chefVO", chefVO); // 資料庫取出的chefVO物件,存入req
+				session.setAttribute("chefVO", chefVO);
 				String url = "/front\u002dend/memberchef/memberchef.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				

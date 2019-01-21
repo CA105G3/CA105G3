@@ -4,27 +4,29 @@
 <%@ page import="java.util.*" %>
 <%@ page import="com.foodorder2.model.*"%>
 <%@ page import="com.member.model.*"%>
+<%@ page import="com.memberchef.model.*"%>
+  
 <%  
-//String chefNo = request.getParameter("chefNo");
-String chefNo = "CHEF0001";
-FoodOrderService FOsvc = new FoodOrderService();
-List<FoodOrderVO> FOlist = FOsvc.findByChefNo(chefNo);
-List<OrderDetailVO> ODlist = new ArrayList<OrderDetailVO>();
-for(FoodOrderVO FOVO: FOlist){
-	String orderno = FOVO.getOrderno();
-	Set<OrderDetailVO> ODset = FOsvc.getOrderDetailsByFoodOrder(orderno);
-	for(OrderDetailVO ODVO : ODset){
-		ODlist.add(ODVO);
+MemberVO memVO = (MemberVO)session.getAttribute("memVO");
+com.memberchef.model.MemberChefVO chefVO = (com.memberchef.model.MemberChefVO)session.getAttribute("chefVO");
+String chefAddr = chefVO.getChefAddr();
+String[] addrArray = request.getParameterValues("deliverAddr");
+
+Set<String> addrSet = new HashSet<String>();
+for(int i = 0; i < addrArray.length; i++) {
+	addrSet.add(addrArray[i]);
+}
+String deliverAddr = null;
+Iterator<String> addrObj = addrSet.iterator();
+int flag = 0;
+while(addrObj.hasNext()) {
+	if(flag == 0) {
+		deliverAddr = new StringBuilder().append(addrObj.next()).toString();
+		flag++;
+	} else {
+		deliverAddr = new StringBuilder(deliverAddr).append(",").append(addrObj.next()).toString();
 	}
 }
-
-MemberService memSvc = new MemberService();
-List<MemberVO> memList = memSvc.getAll();
-
-MenuService menuSvc = new MenuService();
-
-MenuListService menuListSvc = new MenuListService();
-List<MenuListVO> menuList = menuListSvc.getAll();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,30 +61,12 @@ List<MenuListVO> menuList = menuListSvc.getAll();
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"></link>
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.css" />
     <!-- 我跟你說這些link你可以全部存在一隻jsp，之後的網頁再去link後來的jsp，這樣畫面會比較乾淨 、script一樣-->
-
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&key=AIzaSyB1-4idDgxmtHfnCYNplStbRB_g0sBmbNI"></script>
 
   </head>
   <body>
     
-	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
-	      <a class="navbar-brand" href="<%=request.getContextPath()%>/template/index.html">Plus      <i class="fas fa-plus-square"></i></a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
-
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="<%=request.getContextPath()%>/template/index.html" class="nav-link">首頁</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/template/food.html" class="nav-link">送餐專區</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/template/doctors.html" class="nav-link">線上問診</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/index.jsp#menuTarget" class="nav-link">活動專區</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/template/contact.html" class="nav-link">聯繫我們</a></li>
-	          <li class="nav-item cta"><a href="<%=request.getContextPath()%>/template/contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest"><span>登入</span></a></li>
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
+	  <%@include file="nav.file" %>
     <!-- END nav -->
 
 	
@@ -123,22 +107,6 @@ List<MenuListVO> menuList = menuListSvc.getAll();
     </section>
 		
 	<!-- Bootstrap NavBar -->
-  
-      <!-- This menu is hidden in bigger devices with d-sm-none. 
-           The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
-      <li class="nav-item dropdown d-sm-block d-md-none">
-        <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Menu
-        </a>
-        <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
-            <a class="dropdown-item" href="#">Dashboard</a>
-            <a class="dropdown-item" href="#">Profile</a>
-            <a class="dropdown-item" href="#">Tasks</a>
-            <a class="dropdown-item" href="#">Etc ...</a>
-        </div>
-      </li><!-- Smaller devices menu END -->
-      
-
 
 <!-- Bootstrap row -->
 <div class="row" id="body-row">
@@ -153,25 +121,25 @@ List<MenuListVO> menuList = menuListSvc.getAll();
                 <small>基本選單</small>
             </li>
             <!-- Menu with submenu -->
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
+            <a href="<%=request.getContextPath()%>/front-end/memberchef/memberchef.jsp" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-user fa-fw mr-3"></span>
                     <span class="menu-collapsed">基本資料</span>
                 </div>
             </a>            
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
+           <a href="<%=request.getContextPath()%>/front-end/menu/menu.do?action=getOne_For_Display" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fas fa-calendar-alt fa-fw mr-3"></span>
                     <span class="menu-collapsed">基本菜單管理</span>
                 </div>
             </a>            
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
+            <a href="<%=request.getContextPath()%>/front-end/menulist/menulist.do?action=For_Display" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-calendar fa-fw mr-3"></span>
                     <span class="menu-collapsed">上架菜單管理</span>
                 </div>
             </a>            
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
+            <a href="<%=request.getContextPath()%>/front-end/memberchef/chefOrder.do?action=getNowOrder" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fas fa-list fa-fw mr-3"></span>
                     <span class="menu-collapsed">訂單管理</span>
@@ -179,84 +147,64 @@ List<MenuListVO> menuList = menuListSvc.getAll();
             </a>            
     </div><!-- sidebar-container END -->
 
+
    <!-------------------------------------------- MAIN -------------------------------------------->
-   
-   <table>
-	<tr>
-		<th>訂單編號</th>
-		<th>訂購者編號</th>
-		<th>供餐業著編號</th>
-		<th>訂單狀態</th>
-		<th>訂單時間</th>
-	</tr>
-	<c:forEach var="FoodOrderVO" items="${FOlist}">
-		<tr>
-			<td>${FoodOrderVO.orderno}</td>
-			<td>${FoodOrderVO.memno}</td>
-			<td>${FoodOrderVO.chefno}</td>
-			<td>${FoodOrderVO.orderStatus}</td>
-			<td>${FoodOrderVO.ordTime}</td>
-		</tr>
-	</c:forEach>
-	
 
-	
-		<%for(FoodOrderVO FOVO: FOlist){%>
-		<tr>
-			<td><%=FOVO.getOrderno()%></td>
-			<td><%=FOVO.getMemno()%></td>
-			<td><%=FOVO.getChefno()%></td>
-			<td><%=FOVO.getOrderStatus()%></td>
-			<td><%=FOVO.getOrdTime()%></td>
-		</tr>
-		<%}%>
-	
-		
-	</table>
-	
-	
-	<table>
-	<tr>
-		<th>訂單明細流水號</th>
-		<th>訂單編號</th>
-		<th>餐點編號</th>
-		<th>訂單明細狀態</th>
-	</tr>
-	<c:forEach var="ODVO" items="${ODlist}">
-			<tr>
-				<td>${ODVO.odno}</td>
-				<td>${ODVO.orderno}</td>
-				<td>${ODVO.menuListno}</td>
-				<td>${ODVO.odStatus}</td>
-			</tr>
-	</c:forEach>
-	<%for(OrderDetailVO ODVO: ODlist){%>
-		<tr>
-			<td><%=ODVO.getOrderno()%></td>
-			<td><%=ODVO.getOdno()%></td><% 
-				for(MenuListVO menuListVO: menuList){
-					if(ODVO.getMenuListno()==menuListVO.getMenuListNo()){
-						MenuVO menuVO =  menuSvc.getOneMenu(menuListVO.getMenuNo());
-						%><td><%=menuVO.getMainCourse()%></td>
-						<td><img src="<%=request.getContextPath()%>/front-end/menu/menuImg.do?menuNo=<%=menuVO.getMenuNo()%>"></td><%
-					}
-				}
-			%>
-			<td><%=ODVO.getMenuListno()%></td>
-			
-			
-			<td><%=ODVO.getOdStatus()%></td>
-		</tr>
-	<%}%>
-	</table>
-	
-   
-   
-   
-   
-   
+<div class="container" style="max-width: 1700px; margin-left: 10px; margin-right: 10px;">			
+	<FORM METHOD="post" style="padding-bottom: 10px;padding-top: 10px;" ACTION="<%=request.getContextPath()%>/front-end/memberchef/chefOrder.do" style="margin-bottom: 0px;">
+		<input style="position: relative; left: 100px;" type="hidden" name="action" value="getNowOrder">
+		<div class="text-left"><input type="submit" class="btn btn-primary" value="回到目前訂單" ></div>
+	</FORM>
+	    <div id="map" style="width: 1350px; height: 900px; float: left; margin-top: 10px;"></div> 
+    	<div id="panel" style="width: 300px; float: left; margin-left: 10px;"></div> 
+</div>
+
+<script type="text/javascript">
+	var chefAddr = '<%=chefAddr%>';
+   	var waypoints = '<%=deliverAddr%>';
+   	var arrPoint = waypoints.split(",");
+
+    var waypts = [];
+    for (var i = 0; i < arrPoint.length; i++) {
+            waypts.push({
+                    location: arrPoint[i],
+                    stopover: true
+            });
+    }
+
+	console.log(arrPoint);
+
+     var directionsService = new google.maps.DirectionsService();
+     var directionsDisplay = new google.maps.DirectionsRenderer();
+
+     var map = new google.maps.Map(document.getElementById('map'), {
+       zoom:12,
+       mapTypeId: google.maps.MapTypeId.ROADMAP
+     });
+    
+     directionsDisplay.setMap(map);
+     directionsDisplay.setPanel(document.getElementById('panel'));
+
+     var request = {
+       origin: chefAddr, 
+       destination: chefAddr,
+       waypoints: waypts,
+       optimizeWaypoints: false,
+       travelMode: 'DRIVING'
+     };
+
+     directionsService.route(request, function(response, status) {
+       if (status == google.maps.DirectionsStatus.OK) {
+         directionsDisplay.setDirections(response);
+       }
+     });
+</script>
+ 
+
+
    <!--------------------------------------------/MAIN -------------------------------------------->       
-
+</div>
+  <!-- body-row END -->
   <!-- Modal -->
   <div class="modal fade" id="modalRequest" tabindex="-1" role="dialog" aria-labelledby="modalRequestLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -264,25 +212,44 @@ List<MenuListVO> menuList = menuListSvc.getAll();
         <div class="modal-header">
           <h5 class="modal-title" id="modalRequestLabel">登入會員</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true" id="loghide">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form action="#">
+          <form action="<%=request.getContextPath() %>/front-end/member/member.do" method="post">
             <div class="form-group">
               <!-- <label for="appointment_name" class="text-black">Full Name</label> -->
-              <input type="text" class="form-control" id="appointment_name" placeholder="使用者名稱">
+              <input type="text" class="form-control" id="appointment_name" placeholder="帳號" NAME="account">
             </div>
             <div class="form-group">
               <!-- <label for="appointment_email" class="text-black">Email</label> -->
-              <input type="text" class="form-control" id="appointment_email" placeholder="密碼">
+              <input type="password" class="form-control" id="appointment_email" placeholder="密碼" NAME="password">
             </div>
-            
-            <div class="form-inline">
+             <div class="form-group">
+              <input type="hidden" name="action" value="authorization">
               <input type="submit" value="登入" class="btn btn-primary">
-              <a href="<%=request.getContextPath()%>/template/contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest2"><input type="button" value="註冊會員" class="btn btn-primary" ></a>
+              <input type="reset" value="清除" class="btn btn-primary">
+<!--               <a href="signup.jsp" data-toggle="modal" data-target="#modalRequest2" id="signup"><input type="button" value="註冊會員" class="btn btn-primary" onclick="signup()" ></a> -->
+<!--             	<a href="signup.jsp" data-toggle="modal" data-target="#modalRequest2" id="signup"><input type="button" value="註冊會員" class="btn btn-primary" onclick="signup()" id="signup2"></a> -->
             </div>
           </form>
+          
+          <c:if test="${not empty loginerrorMsgs}">
+			<font style="color:red">請修正以下錯誤:</font>
+			<ul>
+			<c:forEach var="message" items="${loginerrorMsgs}">
+			<li style="color:red">${message}</li>
+	        </c:forEach>
+			</ul>
+		  </c:if>
+		  <c:if test="${not empty accessfail}">
+			<font style="color:red">請修正以下錯誤:</font>
+			<ul>
+			<c:forEach var="message" items="${accessfail}">
+			<li style="color:red">${message}</li>
+	        </c:forEach>
+			</ul>
+		  </c:if>
         </div>
       </div>
     </div>
@@ -303,39 +270,15 @@ List<MenuListVO> menuList = menuListSvc.getAll();
   <script src="<%=request.getContextPath()%>/front-end/js/bootstrap-datepicker.js"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/jquery.timepicker.min.js"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/scrollax.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb2lDof7yMn-TTXwt2hwVm4y92t1AqvyU&sensor=false&libraries=places&libraries=geometry">
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb2lDof7yMn-TTXwt2hwVm4y92t1AqvyU&sensor=false&libraries=places&libraries=geometry"> -->
   </script>
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb2lDof7yMn-TTXwt2hwVm4y92t1AqvyU&callback=initMap&libraries=places&libraries=geometry" -->
 
   <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
   
-   <script>
-// Hide submenus
-   $('#body-row .collapse').collapse('hide'); 
-   // Collapse/Expand icon
-   $('#collapse-icon').addClass('fa-angle-double-left'); 
-   // Collapse click
-   $('[data-toggle=sidebar-colapse]').click(function() {
-       SidebarCollapse();
-   });
-   function SidebarCollapse () {
-       $('.menu-collapsed').toggleClass('d-none');
-       $('.sidebar-submenu').toggleClass('d-none');
-       $('.submenu-icon').toggleClass('d-none');
-       $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed');
-       
-       // Treating d-flex/d-none on separators with title
-       var SeparatorTitle = $('.sidebar-separator-title');
-       if ( SeparatorTitle.hasClass('d-flex') ) {
-           SeparatorTitle.removeClass('d-flex');
-       } else {
-           SeparatorTitle.addClass('d-flex');
-       }
-       
-       // Collapse/Expand icon
-       $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
-   }
-   </script>
+<link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/memberchef/css/jquery.datetimepicker.css" />
+<script src="<%=request.getContextPath()%>/front-end/memberchef/js/jquery.js"></script>
+
 	
   </body>
   <!-- 以上為可動部分 -->

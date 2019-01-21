@@ -274,4 +274,106 @@ public class MenuListDAO implements MenuListDAO_interface{
 		}
 		return list;
 	}
+
+	@Override
+	public List<MenuListVO> getAll(String today) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<MenuListVO> list = new ArrayList<MenuListVO>();
+		MenuListVO menulistVO = null;
+		String sql = null;
+		
+		try {
+			con = ds.getConnection();
+			sql = "select * from menulist where (menudate = to_date('" + today + "', 'YYYYMMDD'))";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				menulistVO = new MenuListVO();
+				menulistVO.setMenuListNo(rs.getString(1));
+				menulistVO.setMenuNo(rs.getString(2));
+				menulistVO.setMenuDate(rs.getDate(3));
+				menulistVO.setMenuTimeSlot(rs.getString(4));
+				list.add(menulistVO);
+			}
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "	+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<MenuListVO> getAll(String startDate, String endDate) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<MenuListVO> list = new ArrayList<MenuListVO>();
+		MenuListVO menulistVO = null;
+		String sql = null;
+		
+		try {
+			con = ds.getConnection();
+			if(startDate != "none" && endDate != "none") {
+				sql = "select * from menulist where (menudate >= to_date('" + startDate + "', 'YYYYMMDD') and menudate <= to_date('" + endDate + "', 'YYYYMMDD'))";
+			} else {
+				if(startDate == "none" && endDate != "none") {
+					sql = "select * from menulist where (menudate <= to_date('" + endDate + "', 'YYYYMMDD'))";
+				} else { 
+					if(startDate != "none" && endDate == "none") {
+						sql = "select * from menulist where (menudate >= to_date('" + startDate + "', 'YYYYMMDD'))";
+					} else {
+						sql = GET_ALL_STMT;
+					}
+				}
+			}
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				menulistVO = new MenuListVO();
+				menulistVO.setMenuListNo(rs.getString(1));
+				menulistVO.setMenuNo(rs.getString(2));
+				menulistVO.setMenuDate(rs.getDate(3));
+				menulistVO.setMenuTimeSlot(rs.getString(4));
+				list.add(menulistVO);
+			}
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "	+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
 }

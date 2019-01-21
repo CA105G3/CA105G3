@@ -2,9 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*" %>
+<%@ page import="com.member.model.*"%>
 <%  
 String memNo="M0001";
 pageContext.setAttribute("memNo", memNo);
+MemberVO memVO = (MemberVO)session.getAttribute("memVO");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,25 +46,7 @@ pageContext.setAttribute("memNo", memNo);
   </head>
   <body>
     
-	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
-	      <a class="navbar-brand" href="<%=request.getContextPath()%>/template/index.html">Plus      <i class="fas fa-plus-square"></i></a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
-
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="<%=request.getContextPath()%>/template/index.html" class="nav-link">首頁</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/template/food.html" class="nav-link">送餐專區</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/template/doctors.html" class="nav-link">線上問診</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/index.jsp#menuTarget" class="nav-link">活動專區</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/template/contact.html" class="nav-link">聯繫我們</a></li>
-	          <li class="nav-item cta"><a href="<%=request.getContextPath()%>/template/contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest"><span>登入</span></a></li>
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
+	  <%@include file="nav.file" %>
     <!-- END nav -->
 
 	
@@ -103,22 +87,6 @@ pageContext.setAttribute("memNo", memNo);
     </section>
 		
 	<!-- Bootstrap NavBar -->
-  
-      <!-- This menu is hidden in bigger devices with d-sm-none. 
-           The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
-      <li class="nav-item dropdown d-sm-block d-md-none">
-        <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Menu
-        </a>
-        <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
-            <a class="dropdown-item" href="#">Dashboard</a>
-            <a class="dropdown-item" href="#">Profile</a>
-            <a class="dropdown-item" href="#">Tasks</a>
-            <a class="dropdown-item" href="#">Etc ...</a>
-        </div>
-      </li><!-- Smaller devices menu END -->
-      
-
 
 <!-- Bootstrap row -->
 <div class="row" id="body-row">
@@ -139,7 +107,7 @@ pageContext.setAttribute("memNo", memNo);
                     <span class="menu-collapsed">基本資料</span>
                 </div>
             </a>            
-            <a href="<%=request.getContextPath()%>/front-end/menu/menu.jsp" class="bg-dark list-group-item list-group-item-action">
+           <a href="<%=request.getContextPath()%>/front-end/menu/menu.do?action=getOne_For_Display" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fas fa-calendar-alt fa-fw mr-3"></span>
                     <span class="menu-collapsed">基本菜單管理</span>
@@ -161,7 +129,8 @@ pageContext.setAttribute("memNo", memNo);
 
    <!-------------------------------------------- MAIN -------------------------------------------->
    <!--------------------------------------------/MAIN -------------------------------------------->       
-
+</div>
+  <!-- body-row END -->
   <!-- Modal -->
   <div class="modal fade" id="modalRequest" tabindex="-1" role="dialog" aria-labelledby="modalRequestLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -169,25 +138,44 @@ pageContext.setAttribute("memNo", memNo);
         <div class="modal-header">
           <h5 class="modal-title" id="modalRequestLabel">登入會員</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true" id="loghide">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form action="#">
+          <form action="<%=request.getContextPath() %>/front-end/member/member.do" method="post">
             <div class="form-group">
               <!-- <label for="appointment_name" class="text-black">Full Name</label> -->
-              <input type="text" class="form-control" id="appointment_name" placeholder="使用者名稱">
+              <input type="text" class="form-control" id="appointment_name" placeholder="帳號" NAME="account">
             </div>
             <div class="form-group">
               <!-- <label for="appointment_email" class="text-black">Email</label> -->
-              <input type="text" class="form-control" id="appointment_email" placeholder="密碼">
+              <input type="password" class="form-control" id="appointment_email" placeholder="密碼" NAME="password">
             </div>
-            
-            <div class="form-inline">
+             <div class="form-group">
+              <input type="hidden" name="action" value="authorization">
               <input type="submit" value="登入" class="btn btn-primary">
-              <a href="<%=request.getContextPath()%>/template/contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest2"><input type="button" value="註冊會員" class="btn btn-primary" ></a>
+              <input type="reset" value="清除" class="btn btn-primary">
+<!--               <a href="signup.jsp" data-toggle="modal" data-target="#modalRequest2" id="signup"><input type="button" value="註冊會員" class="btn btn-primary" onclick="signup()" ></a> -->
+<!--             	<a href="signup.jsp" data-toggle="modal" data-target="#modalRequest2" id="signup"><input type="button" value="註冊會員" class="btn btn-primary" onclick="signup()" id="signup2"></a> -->
             </div>
           </form>
+          
+          <c:if test="${not empty loginerrorMsgs}">
+			<font style="color:red">請修正以下錯誤:</font>
+			<ul>
+			<c:forEach var="message" items="${loginerrorMsgs}">
+			<li style="color:red">${message}</li>
+	        </c:forEach>
+			</ul>
+		  </c:if>
+		  <c:if test="${not empty accessfail}">
+			<font style="color:red">請修正以下錯誤:</font>
+			<ul>
+			<c:forEach var="message" items="${accessfail}">
+			<li style="color:red">${message}</li>
+	        </c:forEach>
+			</ul>
+		  </c:if>
         </div>
       </div>
     </div>

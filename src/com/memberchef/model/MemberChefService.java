@@ -10,11 +10,12 @@ public class MemberChefService {
 		dao = new MemberChefDAO();
 	}
 
-	public MemberChefVO addMemberChef(String chefName, String chefStoreName, byte[] chefPic, String chefDescrip, String chefStatus,
+	public MemberChefVO addMemberChef(String memNo, String chefName, String chefStoreName, byte[] chefPic, String chefDescrip, String chefStatus,
 			String chefPhone, String chefAddr, String chefRep) {
 		
 		MemberChefVO memberChefVO = new MemberChefVO();
 		
+		memberChefVO.setMemNo(memNo);
 		memberChefVO.setChefName(chefName);
 		memberChefVO.setChefStoreName(chefStoreName);
 		memberChefVO.setChefPic(chefPic);
@@ -23,7 +24,8 @@ public class MemberChefService {
 		memberChefVO.setChefPhone(chefPhone);
 		memberChefVO.setChefAddr(chefAddr);
 		memberChefVO.setChefRep(chefRep);
-		dao.insert(memberChefVO);
+		String chefNo = dao.insert(memberChefVO);
+		memberChefVO.setChefNo(chefNo);
 		
 		return memberChefVO;
 	}

@@ -5,20 +5,7 @@
 <%@ page import="com.memberchef.model.*"%>
 <%  
 MemberVO memVO = (MemberVO)session.getAttribute("memVO");
-java.sql.Date regDate = null;
-try {
-	    regDate = memVO.getRegDate();
- } catch (Exception e) {
-	   regDate = new java.sql.Date(System.currentTimeMillis());
- }
-java.sql.Timestamp stayTime = null;
-try{
-	  stayTime=memVO.getStayTime();
-}catch(Exception e){
-	  stayTime=new java.sql.Timestamp(System.currentTimeMillis());
-}
-
-	MemberChefVO chefVO = (MemberChefVO) request.getAttribute("chefVO");
+MemberChefVO chefVO = (MemberChefVO) request.getAttribute("chefVO");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,6 +50,16 @@ try{
 	        reader.readAsDataURL(input.files[0]);
 	    }
 	}
+	
+	function quickFillIn(){
+		$("#chefName").val("火焰大廚");
+		$("#chefAddr").val("桃園市中壢區中正公園");
+		$("#chefPhone").val("03123456");
+		$("#chefRep").val("超級大衛");
+		$("#chefStoreName").val("中二素食");
+		$("#chefDescrip").val("本餐廳是以法式料理風格去呈現素食餐點，完全打破對素食餐廳的既定印象！");
+	}
+	
 	</script>
 	<style>
 	.file input {
@@ -76,24 +73,7 @@ try{
   </head>
   <body>
     
-	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
-	      <a class="navbar-brand" href="<%=request.getContextPath() %>/front-end/index.jsp">Plus<i class="fas fa-plus-square"></i></a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span>Menu
-	      </button>
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="food.html" class="nav-link"><%= (memVO==null)? "訪客" :memVO.getMemName() %> 您好!</a></li>
-	          <li class="nav-item"><a href=<%=(memVO==null)? request.getContextPath()+"/front-end/index.jsp" : request.getContextPath()+"/front-end/member/member.do?action=getOne_For_Display&memno="+memVO.getMemNo() %> class="nav-link">個人設定</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/memberchef/listAllChef.jsp" class="nav-link">送餐專區</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/medicalOrder/ScanDoctor.jsp" class="nav-link">線上問診</a></li>
-	          <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/activity/joinactivity.jsp" class="nav-link">活動專區</a></li>
-	          <li class="nav-item cta"><a href="<%=request.getContextPath() %>/front-end/member/member.do?action=logout" class="nav-link" <%= (memVO==null)? "data-toggle='modal' data-target='#modalRequest'" :"" %>  ><span id="mylogin"><%= (memVO==null)? "登入/註冊" :"登出" %></span></a></li>
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
+	  <%@include file="nav.file" %>
     <!-- END nav -->
 
 	
@@ -135,9 +115,6 @@ try{
 		
 	<!-- Bootstrap NavBar -->
   
-      <!-- NavBar END -->
-
-
 <!-- Bootstrap row -->
 <div class="row" id="body-row">
     <!-- Sidebar -->
@@ -249,10 +226,15 @@ try{
            </div>
          </div>
          <div class="form-group row">
-           <div class="offset-4 col-8">
+           <div class="offset-4 col-6">
              	<input type="hidden" name="action" value="insert">
            	<button type="submit" class="btn btn-success">送出新增</button>
            	<button type="reset" class="btn btn-secondary">清空重填</button>
+           </div>
+           <div class="col-2">
+           	<button type="button" class="btn btn-default" aria-label="Left Align" onclick="quickFillIn()">
+			  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>小幫手
+			</button>
            </div>
          </div>
 		</div>
@@ -266,7 +248,8 @@ try{
    
    
    <!--------------------------------------------/MAIN -------------------------------------------->   
-
+</div>
+  <!-- body-row END -->
   <!-- Modal -->
   <div class="modal fade" id="modalRequest" tabindex="-1" role="dialog" aria-labelledby="modalRequestLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -274,25 +257,44 @@ try{
         <div class="modal-header">
           <h5 class="modal-title" id="modalRequestLabel">登入會員</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true" id="loghide">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form action="#">
+          <form action="<%=request.getContextPath() %>/front-end/member/member.do" method="post">
             <div class="form-group">
               <!-- <label for="appointment_name" class="text-black">Full Name</label> -->
-              <input type="text" class="form-control" id="appointment_name" placeholder="使用者名稱">
+              <input type="text" class="form-control" id="appointment_name" placeholder="帳號" NAME="account">
             </div>
             <div class="form-group">
               <!-- <label for="appointment_email" class="text-black">Email</label> -->
-              <input type="text" class="form-control" id="appointment_email" placeholder="密碼">
+              <input type="password" class="form-control" id="appointment_email" placeholder="密碼" NAME="password">
             </div>
-            
-            <div class="form-inline">
+             <div class="form-group">
+              <input type="hidden" name="action" value="authorization">
               <input type="submit" value="登入" class="btn btn-primary">
-              <a href="<%=request.getContextPath()%>/template/contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest2"><input type="button" value="註冊會員" class="btn btn-primary" ></a>
+              <input type="reset" value="清除" class="btn btn-primary">
+<!--               <a href="signup.jsp" data-toggle="modal" data-target="#modalRequest2" id="signup"><input type="button" value="註冊會員" class="btn btn-primary" onclick="signup()" ></a> -->
+<!--             	<a href="signup.jsp" data-toggle="modal" data-target="#modalRequest2" id="signup"><input type="button" value="註冊會員" class="btn btn-primary" onclick="signup()" id="signup2"></a> -->
             </div>
           </form>
+          
+          <c:if test="${not empty loginerrorMsgs}">
+			<font style="color:red">請修正以下錯誤:</font>
+			<ul>
+			<c:forEach var="message" items="${loginerrorMsgs}">
+			<li style="color:red">${message}</li>
+	        </c:forEach>
+			</ul>
+		  </c:if>
+		  <c:if test="${not empty accessfail}">
+			<font style="color:red">請修正以下錯誤:</font>
+			<ul>
+			<c:forEach var="message" items="${accessfail}">
+			<li style="color:red">${message}</li>
+	        </c:forEach>
+			</ul>
+		  </c:if>
         </div>
       </div>
     </div>

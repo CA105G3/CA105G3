@@ -9,4 +9,6 @@ public interface MenuListDAO_interface {
 	public MenuListVO findByPrimaryKey(String menuListNo);
 	public List<MenuListVO> findByMenuNo(String MenuNo);
 	public List<MenuListVO> getAll();
+	public List<MenuListVO> getAll(String today);
+	public List<MenuListVO> getAll(String startDate, String endDate);
 }

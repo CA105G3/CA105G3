@@ -1,7 +1,9 @@
 package com.memberchef.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -25,6 +27,7 @@ public class ChefOrderServler extends HttpServlet {
 		doPost(req, res);
 	}
 
+	@SuppressWarnings("unused")
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		HttpSession session = req.getSession();
@@ -33,12 +36,11 @@ public class ChefOrderServler extends HttpServlet {
 		
 		if ("getOrder".equals(action)) { 
 			
-
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 				
-//				String chefNo = req.getParameter("chefNo");
-				
+				String startDate = req.getParameter("startDate").isEmpty() ? "none" : req.getParameter("startDate").replace("-", "");
+				String endDate = req.getParameter("endDate").isEmpty() ? "none" : req.getParameter("endDate").replace("-", "");
 				
 				/***************************2.開始查詢資料***************************************/
 				FoodOrderService FOsvc = new FoodOrderService();
@@ -51,15 +53,13 @@ public class ChefOrderServler extends HttpServlet {
 						ODlist.add(ODVO);
 					}
 				}
-				MenuListService menuListSvc = new MenuListService();
-				List<MenuListVO> menuList = menuListSvc.getAll();
+				com.menulist.model.MenuListService menuListSvc = new com.menulist.model.MenuListService();
+				List<com.menulist.model.MenuListVO> menuList = menuListSvc.getAll(startDate, endDate);
 				MenuService MenuSvc = new MenuService();
 				List<MenuVO> menu = MenuSvc.getAll();
 				MemberService memSvc = new MemberService();
 				List<MemberVO> member = memSvc.getAll();
-				
 				/***************************3.查詢完成,準備轉交(Send the Success view)***********/
-//				req.setAttribute("chefNo", chefNo); 
 				req.setAttribute("FOlist", FOlist); 
 				req.setAttribute("ODlist", ODlist); 
 				req.setAttribute("menu", menu); 
@@ -67,8 +67,7 @@ public class ChefOrderServler extends HttpServlet {
 				req.setAttribute("member", member); 
 				String url = "/front\u002dend/memberchef/getOrder.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交memberchef.jsp
-				successView.forward(req, res);				
-				
+				successView.forward(req, res);					
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
 				RequestDispatcher failureView = req
@@ -78,6 +77,144 @@ public class ChefOrderServler extends HttpServlet {
 		}
         
 //				=============================================================================
+		
+		if ("getHistoryOrder".equals(action)) { 
+			
+			try {
+				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+				
+				String startDate = "none";
+				Date today = new Date();
+				SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+				String endDate = format.format(today);
+				
+				/***************************2.開始查詢資料***************************************/
+				FoodOrderService FOsvc = new FoodOrderService();
+				List<FoodOrderVO> FOlist = FOsvc.findByChefNo(chefNo);
+				List<OrderDetailVO> ODlist = new ArrayList<OrderDetailVO>();
+				for(FoodOrderVO FOVO: FOlist){
+					String orderno = FOVO.getOrderno();
+					Set<OrderDetailVO> ODset = FOsvc.getOrderDetailsByFoodOrder(orderno);
+					for(OrderDetailVO ODVO : ODset){
+						ODlist.add(ODVO);
+					}
+				}
+				com.menulist.model.MenuListService menuListSvc = new com.menulist.model.MenuListService();
+				List<com.menulist.model.MenuListVO> menuList = menuListSvc.getAll(startDate, endDate);
+				MenuService MenuSvc = new MenuService();
+				List<MenuVO> menu = MenuSvc.getAll();
+				MemberService memSvc = new MemberService();
+				List<MemberVO> member = memSvc.getAll();
+				/***************************3.查詢完成,準備轉交(Send the Success view)***********/
+				req.setAttribute("FOlist", FOlist); 
+				req.setAttribute("ODlist", ODlist); 
+				req.setAttribute("menu", menu); 
+				req.setAttribute("menuList", menuList); 
+				req.setAttribute("member", member); 
+				String url = "/front\u002dend/memberchef/getOrder.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交memberchef.jsp
+				successView.forward(req, res);					
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front\u002dend/memberchef/select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
+        
+//				=============================================================================
+		
+		if ("getNowOrder".equals(action)) { 
+			
+			try {
+				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+				
+				Date today = new Date();
+				SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+				String startDate = format.format(today);
+				String endDate = "none";
+				
+				/***************************2.開始查詢資料***************************************/
+				FoodOrderService FOsvc = new FoodOrderService();
+				List<FoodOrderVO> FOlist = FOsvc.findByChefNo(chefNo);
+				List<OrderDetailVO> ODlist = new ArrayList<OrderDetailVO>();
+				for(FoodOrderVO FOVO: FOlist){
+					String orderno = FOVO.getOrderno();
+					Set<OrderDetailVO> ODset = FOsvc.getOrderDetailsByFoodOrder(orderno);
+					for(OrderDetailVO ODVO : ODset){
+						ODlist.add(ODVO);
+					}
+				}
+				com.menulist.model.MenuListService menuListSvc = new com.menulist.model.MenuListService();
+				List<com.menulist.model.MenuListVO> menuList = menuListSvc.getAll(startDate, endDate);
+				MenuService MenuSvc = new MenuService();
+				List<MenuVO> menu = MenuSvc.getAll();
+				MemberService memSvc = new MemberService();
+				List<MemberVO> member = memSvc.getAll();
+				/***************************3.查詢完成,準備轉交(Send the Success view)***********/
+				req.setAttribute("FOlist", FOlist); 
+				req.setAttribute("ODlist", ODlist); 
+				req.setAttribute("menu", menu); 
+				req.setAttribute("menuList", menuList); 
+				req.setAttribute("member", member); 
+				String url = "/front\u002dend/memberchef/getOrder.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交memberchef.jsp
+				successView.forward(req, res);					
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front\u002dend/memberchef/select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
+        
+//				=============================================================================
+		
+		if ("getTodayOrder".equals(action)) { 
+			
+			try {
+				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+				
+				Date date = new Date();
+				SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+				String today = format.format(date);
+				
+				/***************************2.開始查詢資料***************************************/
+				FoodOrderService FOsvc = new FoodOrderService();
+				List<FoodOrderVO> FOlist = FOsvc.findByChefNo(chefNo);
+				List<OrderDetailVO> ODlist = new ArrayList<OrderDetailVO>();
+				for(FoodOrderVO FOVO: FOlist){
+					String orderno = FOVO.getOrderno();
+					Set<OrderDetailVO> ODset = FOsvc.getOrderDetailsByFoodOrder(orderno);
+					for(OrderDetailVO ODVO : ODset){
+						ODlist.add(ODVO);
+					}
+				}
+				com.menulist.model.MenuListService menuListSvc = new com.menulist.model.MenuListService();
+				List<com.menulist.model.MenuListVO> menuList = menuListSvc.getAll(today);
+				MenuService MenuSvc = new MenuService();
+				List<MenuVO> menu = MenuSvc.getAll();
+				MemberService memSvc = new MemberService();
+				List<MemberVO> member = memSvc.getAll();
+				/***************************3.查詢完成,準備轉交(Send the Success view)***********/
+				req.setAttribute("FOlist", FOlist); 
+				req.setAttribute("ODlist", ODlist); 
+				req.setAttribute("menu", menu); 
+				req.setAttribute("menuList", menuList); 
+				req.setAttribute("member", member); 
+				String url = "/front\u002dend/memberchef/getOrder.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交memberchef.jsp
+				successView.forward(req, res);					
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front\u002dend/memberchef/select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
+        
+//				=============================================================================
+		
 	}
 
 }
