@@ -21,11 +21,4 @@
 	    </div>
 	  </nav>
 	  
-	  <script>
-	  $(document).ready(function(){
-	  	if (<%=memVO %> == null) {
-	  		$(".myOrder").hide();
-	  	}
-	  });
-	  
-	  </script>
+	 

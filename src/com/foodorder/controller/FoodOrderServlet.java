@@ -6,7 +6,10 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import org.apache.jasper.tagplugins.jstl.core.Out;
+
 import com.foodorder.model.*;
+import com.google.gson.Gson;
 import com.member.model.MemberVO;
 import com.orderdetail.model.OrderDetailVO;
 
@@ -21,7 +24,11 @@ public class FoodOrderServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
+		
+		res.setContentType("text/html; charset=utf-8"); 
 		String action = req.getParameter("action");
+		
+		
 		
 		HttpSession session = req.getSession();
 		MemberVO memVO = (MemberVO)session.getAttribute("memVO");
@@ -92,14 +99,18 @@ public class FoodOrderServlet extends HttpServlet {
 				/*************************** 2.開始查詢資料 ****************************************/
 				FoodOrderService foodOrderSvc = new FoodOrderService();
 				Set<OrderDetailVO> set = foodOrderSvc.getOrderDetailsByFoodOrder(orderno);
+				
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+//				Gson gson = new Gson();
+//				String odVO = gson.toJson(set);
+//				System.out.print(odVO);
 				req.setAttribute("listOds_ByOrderno", set);    // 資料庫取出的set物件,存入request
 
 				String url = null;
 //				if ("find_od_by_orderno".equals(action))
 //					url = "/front-end/foodorder/listAllFoodOrdersByMemno-session.jsp";        // 成功轉交 dept/listEmps_ByDeptno.jsp
-					url = "/front-end/foodorder/listAllOdByOrderno-session.jsp";        // 成功轉交 dept/listEmps_ByDeptno.jsp
+					url = "/front-end/foodorder/listAllOdByOrderno-session2.jsp";        // 成功轉交 dept/listEmps_ByDeptno.jsp
 
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -450,6 +461,48 @@ public class FoodOrderServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		
+		
+		
+		if ("find_od_by_ordernoWithAjax".equals(action)) {
+
+//			List<String> errorMsgs = new LinkedList<String>();
+//			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String orderno = req.getParameter("orderno");
+				
+				/*************************** 2.開始查詢資料 ****************************************/
+				FoodOrderService foodOrderSvc = new FoodOrderService();
+				Set<OrderDetailVO> set = foodOrderSvc.getOrderDetailsByFoodOrder(orderno);
+				
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				Gson gson = new Gson();
+				String odVO = gson.toJson(set);
+				PrintWriter out = res.getWriter();
+				out.print(odVO);
+//				req.setAttribute("listOds_ByOrderno", set);    // 資料庫取出的set物件,存入request
+
+//				String url = null;
+//				if ("find_od_by_orderno".equals(action))
+//					url = "/front-end/foodorder/listAllFoodOrdersByMemno-session.jsp";        // 成功轉交 dept/listEmps_ByDeptno.jsp
+//					url = "/front-end/foodorder/listAllOdByOrderno-session2.jsp";        // 成功轉交 dept/listEmps_ByDeptno.jsp
+
+//				RequestDispatcher successView = req.getRequestDispatcher(url);
+//				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 ***********************************/
+			} catch (Exception e) {
+//				throw new ServletException(e);
+			}
+		}
+		
+		
+		
+		
 	}
 }
 

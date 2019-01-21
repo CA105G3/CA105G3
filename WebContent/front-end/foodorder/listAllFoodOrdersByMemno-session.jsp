@@ -28,6 +28,10 @@
 <meta charset="UTF-8">
 <title><%=memVO.getMemName() %>的餐飲訂單查詢</title>
 <style type="text/css">
+.button{
+	background-color: #e5ffff;
+	color: black;
+}
 table {
   border-collapse: collapse;
   width: 100%;
@@ -103,7 +107,7 @@ font {
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item "><a href="<%=request.getContextPath() %>/front-end/index.jsp" class="nav-link">回到首頁</a></li>
-                    <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/listAllChef.jsp" class="nav-link">送餐專區</a></li>
+                    <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/memberchef/listAllChef.jsp" class="nav-link">送餐專區</a></li>
                     <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/medicalOrder/ScanDoctor.jsp" class="nav-link">線上問診</a></li>
                     <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/activity/joinactivity.jsp" class="nav-link">活動專區</a></li>
                     <li class="nav-item cta"><a href="contact.html" class="nav-link" data-toggle="modal" data-target="#modalRequest"><span>登入</span></a></li>
@@ -124,7 +128,62 @@ font {
                 </div>
             </div>
         </div>
+        <div class="slider-item bread-item" style="background-image: url('<%=request.getContextPath()%>/front-end/searchPage/images/food3.jpeg');" data-stellar-background-ratio="0.5">
+            <div class="overlay"></div>
+            <div class="container" data-scrollax-parent="true">
+                <div class="row slider-text align-items-end">
+                    <div class="col-md-7 col-sm-12 ftco-animate mb-5">
+                        <h1><font id="font-type">送餐專區</font></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slider-item bread-item" style="background-image: url('<%=request.getContextPath()%>/front-end/searchPage/images/food9.jpg');" data-stellar-background-ratio="0.5">
+            <div class="overlay"></div>
+            <div class="container" data-scrollax-parent="true">
+                <div class="row slider-text align-items-end">
+                    <div class="col-md-7 col-sm-12 ftco-animate mb-5">
+                        <h1><font id="font-type">送餐專區</font></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="slider-item bread-item" style="background-image: url('<%=request.getContextPath()%>/front-end/searchPage/images/food6.jpg');" data-stellar-background-ratio="0.5">
+            <div class="overlay"></div>
+            <div class="container" data-scrollax-parent="true">
+                <div class="row slider-text align-items-end">
+                    <div class="col-md-7 col-sm-12 ftco-animate mb-5">
+                        <h1><font id="font-type">送餐專區</font></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
+    
+    
+    
+    
+    
+    <div class="container" style="margin-top:30px;display:none;" id="orderDetails">
+    	<table class="table">
+	  		<thead class="thead-dark">
+				<tr>
+					<th>訂單明細編號</th>
+					<th>餐點名稱</th>
+					<th>供餐時段</th>
+					<th>單價</th>
+					<th>數量</th>
+				</tr>
+			</thead>
+			<tbody id="orderDetailsTbody" class="odTable">
+			</tbody>
+		</table>
+    </div>
+    
+    
+    
+    
+    
 <div class="container">
 	<h3><font><%=memVO.getMemName() %>的訂餐紀錄</font></h3>
 	<c:if test="${not empty errorMsgs}">
@@ -150,7 +209,8 @@ font {
 			<tr>
 			 <td>
 				 <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/front-end/foodorder/foodorder.do" style="margin-bottom: 0px;">
-				    <input type="submit" value="${menuListVO.orderno}"> 
+<%-- 				    <input type="submit" value="${menuListVO.orderno}">  --%>
+					<input type="button" value="${menuListVO.orderno}" class="button ordernoClick">
 				    <input type="hidden" name="orderno" value="${menuListVO.orderno}">
 				    <input type="hidden" name="action" value="find_od_by_orderno">
 				 </FORM>
@@ -161,6 +221,7 @@ font {
 				 <td>${menuListVO.deliverAddr}</td>
 			</tr>
 			</tbody>
+			
 			</c:forEach>
 		</table>
 		<br>
@@ -173,33 +234,53 @@ font {
             <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
     <!-- Modal -->
     <div class="modal fade" id="modalRequest" tabindex="-1" role="dialog" aria-labelledby="modalRequestLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalRequestLabel">登入會員</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="#">
-                        <div class="form-group">
-                            <!-- <label for="appointment_name" class="text-black">Full Name</label> -->
-                            <input type="text" class="form-control" id="appointment_name" placeholder="使用者名稱">
-                        </div>
-                        <div class="form-group">
-                            <!-- <label for="appointment_email" class="text-black">Email</label> -->
-                            <input type="text" class="form-control" id="appointment_email" placeholder="密碼">
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="登入" class="btn btn-primary">
-                            <a href="blog.html"><input type="button" value="註冊會員" class="btn btn-primary" ></a>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalRequestLabel">登入會員</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" id="loghide">&times;</span>
+          </button>
         </div>
+        <div class="modal-body">
+          <form action="<%=request.getContextPath() %>/front-end/member/member.do" method="post">
+            <div class="form-group">
+              <!-- <label for="appointment_name" class="text-black">Full Name</label> -->
+              <input type="text" class="form-control" id="appointment_name" placeholder="帳號" NAME="account">
+            </div>
+            <div class="form-group">
+              <!-- <label for="appointment_email" class="text-black">Email</label> -->
+              <input type="password" class="form-control" id="appointment_email" placeholder="密碼" NAME="password">
+            </div>
+             <div class="form-group">
+              <input type="hidden" name="action" value="authorization">
+              <input type="submit" value="登入" class="btn btn-primary">
+              <input type="reset" value="清除" class="btn btn-primary">
+<!--               <a href="signup.jsp" data-toggle="modal" data-target="#modalRequest2" id="signup"><input type="button" value="註冊會員" class="btn btn-primary" onclick="signup()" ></a> -->
+            	<a href="signup.jsp" data-toggle="modal" data-target="#modalRequest2" id="signup"><input type="button" value="註冊會員" class="btn btn-primary" onclick="signup()" id="signup2"></a>
+            </div>
+          </form>
+          
+          <c:if test="${not empty loginerrorMsgs}">
+			<font style="color:red">請修正以下錯誤:</font>
+			<ul>
+			<c:forEach var="message" items="${loginerrorMsgs}">
+			<li style="color:red">${message}</li>
+	        </c:forEach>
+			</ul>
+		  </c:if>
+		  <c:if test="${not empty accessfail}">
+			<font style="color:red">請修正以下錯誤:</font>
+			<ul>
+			<c:forEach var="message" items="${accessfail}">
+			<li style="color:red">${message}</li>
+	        </c:forEach>
+			</ul>
+		  </c:if>
+        </div>
+      </div>
     </div>
+  </div>
     <script src="<%=request.getContextPath()%>/front-end/js/jquery.min.js"></script>
     <script src="<%=request.getContextPath()%>/front-end/js/jquery-migrate-3.0.1.min.js"></script>
     <script src="<%=request.getContextPath()%>/front-end/js/popper.min.js"></script>
@@ -218,6 +299,61 @@ font {
     <script src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script>
     <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
 </body>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.owl-carousel').owlCarousel({
+        loop:true,
+        interval:500,
+        margin:10,
+        nav:true,
+        autoplay: true,
+        autoplayTimeout: 2000,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:3
+            },
+            1000:{
+                items:5
+            }
+        }
+    })  
+  });  
+</script> 
+<script>
+	$(document).ready(function(){
+		$(".ordernoClick").click(function(){
+			var url = "<%=request.getContextPath()%>/front-end/foodorder/foodorder.do";
+			var orderno = $(this).next().val();
+			var action = $(this).next().next().val();
+			var dataSend = "";
+			dataSend = dataSend + "orderno=" + orderno + "&action=find_od_by_ordernoWithAjax";
+			$.ajax({
+		  		type: 'get',
+		  		url: url,
+		  		data: dataSend,
+		  		success: function(data){
+		  			console.log(data);
+		  			var detailList = JSON.parse(data);
+		  			var orderDetailsTbody = $("#orderDetailsTbody");
+		  			
+		  			orderDetailsTbody.empty();
+		  			for(var i = 0; i < detailList.length; i++){
+		  				console.log(detailList[i]);
+		  				orderDetailsTbody.append("<tr><td>" + detailList[i].odno + "</td><td>" + detailList[i].mainCourse + "</td><td>" + detailList[i].menuDate 
+		  								+ " " + detailList[i].menuTimeSlot + "餐" + "</td><td>" + detailList[i].unitPrice + "</td><td>" + detailList[i].amount + "</td></tr>");
+		  			}
+		  			
+					$("#orderDetails").show();
+		  			
+		  		}
+	  		})
+			
+		});
+	});
+</script> 
 
 <!-- 以上為可動部分 -->
 <footer class="ftco-footer ftco-bg-dark ftco-section">
