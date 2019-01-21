@@ -126,7 +126,7 @@ body {
 					</div>
 					    <div class="col-xs-12 col-sm-12">
 					      	<img src="<% request.getContextPath();%>img/nopic.jpg" id="output2" width=50% height=40%/>
-								<input type="file" name="recPic" onchange="loadFile2(event)" class="form-control" size="40"/>
+								<input type="file" name="recPic" onchange="loadFile2(event)" size="40"/>
 					    </div>
 				</div>					    
 				<div class="form-column">

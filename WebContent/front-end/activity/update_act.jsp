@@ -20,8 +20,8 @@
  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
  	
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.css" />
-	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.full.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.js"></script>
 <style>
    h3.title{
  	text-align:center;
@@ -104,7 +104,6 @@ body {
     						<label for="inputEmail4">活動狀態:</label>
       						<select name="actStatus" class="form-control">
 								<option value="募集中" ${('募集中'==activityVO.actStatus)? 'selected':'' } >募集中</option>
-								<option value="已結束" ${('已結束'==activityVO.actStatus)? 'selected':'' }>已結束</option>
 								<option value="已取消" ${('已取消'==activityVO.actStatus)? 'selected':'' }>已取消</option>
 							</select>
     					</div>
@@ -187,9 +186,6 @@ body {
 	   actTime = new java.sql.Date(System.currentTimeMillis());
    }
 %>
-<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.full.js"></script>
-
 <script>
         $.datetimepicker.setLocale('zh');
         $('#f_date1').datetimepicker({
@@ -262,8 +258,23 @@ body {
 
 	        
 	        var map = new google.maps.Map(document.getElementById('map'), { zoom: 14, center: thePlaceNeedToBeDynmic });
-	        var marker = new google.maps.Marker({ position: thePlaceNeedToBeDynmic, map: map });
-			
+	        var marker = new google.maps.Marker({ position: thePlaceNeedToBeDynmic, map: map ,animation: google.maps.Animation.DROP,
+                draggable:true});
+            google.maps.event.addListener(marker, 'dragend', function(marker){
+                var latLng = marker.latLng;
+                console.log(latLng);
+                currentLatitude = latLng.lat();
+                currentLongitude = latLng.lng();
+                $("#lat").val(currentLatitude);
+                $("#long").val(currentLongitude);
+                geocoder.geocode({
+                    'latLng': latLng
+                  }, function(results, status) {
+                      if (status === 'OK') {
+                    	  document.getElementById( 'address' ).value = (results[0].formatted_address);
+                          }
+                      });	
+             }); 
 	        var geocoder = new google.maps.Geocoder();
 	        document.getElementById('submit').addEventListener('click', function() {geocodeAddress(geocoder, map);
 	        });
@@ -285,8 +296,25 @@ body {
 	                document.getElementById( 'long' ).value = results[0].geometry.location.lng();
 	                var marker = new google.maps.Marker({
 	                    map: resultsMap,
-	                    position: results[0].geometry.location
+	                    position: results[0].geometry.location,
+	                    animation: google.maps.Animation.DROP,
+	                    draggable:true
 	                });
+	                google.maps.event.addListener(marker, 'dragend', function(marker){
+	                    var latLng = marker.latLng;
+	                    console.log(latLng);
+	                    currentLatitude = latLng.lat();
+	                    currentLongitude = latLng.lng();
+	                    $("#lat").val(currentLatitude);
+	                    $("#long").val(currentLongitude);
+	                    geocoder.geocode({
+	                        'latLng': latLng
+	                      }, function(results, status) {
+	                          if (status === 'OK') {
+	                        	  document.getElementById( 'address' ).value = (results[0].formatted_address);
+	                              }
+	                          });	
+	                 }); 
 	            } else {
 	                alert('Geocode was not successful for the following reason: ' + status);
 	            }

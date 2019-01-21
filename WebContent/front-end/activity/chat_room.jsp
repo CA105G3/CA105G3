@@ -12,10 +12,6 @@
 	pageContext.setAttribute("memberVO", memberVO);
 %>
 
-<% 
-	JoinActService joinactSvc = new JoinActService();
-	
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,7 +101,8 @@ body {
 			var name = jsonObj.userName;
 			var message = jsonObj.userName + ": " + jsonObj.message + "\r\n";
 			if(jsonObj.userName==='${memberVO.memName}'){
-				$('#messagesArea').append("<div style='display: flex; justify-content: flex-start'>"+message+"<div>");
+				$('#messagesArea').append("<div style='display: flex; justify-content: flex-start'>"+
+"<img id='headView' src='<%= request.getContextPath()%>/front-end/member/membergetpic.do?memno=${joinactpic.memNo}'/>"+message+"<div>");
 				messagesArea.value = messagesArea.value + message;
 				messagesArea.scrollTop = messagesArea.scrollHeight;
 			}else{

@@ -16,7 +16,7 @@
 
 <html>
 <head>
-<title>我的心得 - listOneImp.jsp</title>
+<title>我的心得</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
@@ -72,7 +72,7 @@
     background-attachment: fixed;background-position: center;background-size: cover;">
 		<span>&nbsp;</span><br>
 		<span>&nbsp;</span>
-			<h3 class="title"><span><b>所有募集中的活動</b></span></h3>
+			<h3 class="title"><span><b>我的心得</b></span></h3>
 			<h4><a href="<%=request.getContextPath()%>/front-end/activity/joinactivity.jsp"><batton class="btn btn-Success" style="margin-right:20px;">回首頁</batton></a></h4>
 	</header>
 
@@ -89,8 +89,7 @@
 		<th>修改</th>
 	</tr>
 	
-	<%@ include file="page1.file" %> 
-	<c:forEach var="list" items="${list}" begin="<%= pageIndex %>" end="<%=pageIndex+rowsPerPage-1%>">
+	<c:forEach var="list" items="${list}">
 	<tr>
 			<td>${list.impNo}</td>
 			<td>${list.impTime}</td>
@@ -137,6 +136,5 @@
 	</tr>
 	</c:forEach>
 </table>
-<%@ include file="page2.file" %>
 </body>
 </html>

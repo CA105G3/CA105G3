@@ -49,7 +49,7 @@ private static DataSource ds = null;
 		"UPDATE joinact SET actNo =? WHERE memNo = ?";
 	//查詢會員參加的活動
 	private static final String FIND_JOIN_ACT =
-		"select joinact.memno,joinact.actno,activity.actname,activity.actloc,activity.acttime,activity.actpic,activity.actdesc "
+		"select joinact.memno,joinact.actno,activity.actname,activity.actloc,activity.acttime,activity.actpic,activity.actdesc,activity.latitude,activity.longtitude "
 		+ "from joinact join activity on joinact.actno=activity.actno where joinact.memno=? and joinact.joinstatus=1 order by joinact.actno";
 	//查詢會員是否有參加過活動
 	private static final String FIND_REPEATACT = 
@@ -352,7 +352,7 @@ public Set<PersonActVO> getAll(String memNo) {
 			}
 			if(con != null) {
 				try {
-					pstmt.close();
+					con.close();
 				}catch(SQLException e) {
 					e.printStackTrace();
 				}
@@ -480,6 +480,9 @@ public List<PersonActVO> findoffact(String memNo) {
 			personActVO.setActTime(rs.getDate(5));
 			personActVO.setActPic(rs.getBytes(6));
 			personActVO.setActDesc(rs.getString(7));
+			personActVO.setLatiTude(rs.getString(8));
+			personActVO.setLongtiTude(rs.getString(9));
+			
 			list.add(personActVO);
 		}
 	} catch (SQLException se) {
@@ -501,7 +504,7 @@ public List<PersonActVO> findoffact(String memNo) {
 		}
 		if(con != null) {
 			try {
-				pstmt.close();
+				con.close();
 			}catch(SQLException e) {
 				e.printStackTrace();
 			}
@@ -544,6 +547,13 @@ public void insert2(JoinActVO joinActVO, Connection con) {
 				pstmt.close();
 			} catch (SQLException se) {
 				se.printStackTrace(System.err);
+			}
+			if(con != null) {
+				try {
+					con.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}

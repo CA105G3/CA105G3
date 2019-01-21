@@ -211,7 +211,6 @@ body {
 	                    currentLongitude = latLng.lng();
 	                    $("#lat").val(currentLatitude);
 	                    $("#long").val(currentLongitude);
-// 	                    geocodePosition(marker.getPosition());
 	                    geocoder.geocode({
 	                        'latLng': latLng
 	                      }, function(results, status) {

@@ -16,7 +16,7 @@ pageContext.setAttribute("personactSet", personactSet);
 <html>
 <head>
 
-<title>查詢所有參加活動-PresonAct.jsp</title>
+<title>我已參加的活動</title>
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
@@ -137,7 +137,7 @@ pageContext.setAttribute("personactSet", personactSet);
 <!--退出活動 -->
 				<td>	
 			  		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/joinact/joinact.do" style="margin-bottom: 0px;">
-				    	<input type="submit" value="退出活動" class="btn btn-info">
+				    	<input type="submit" value="退出活動" class="btn btn-Warning">
 				    	<input type="hidden" name="actNo"  value="${personActVO.actNo}">
 				    	<input type="hidden" name="memNo" value="${personActVO.memNo}">
 				    	<input type="hidden" name="action" value="delete">

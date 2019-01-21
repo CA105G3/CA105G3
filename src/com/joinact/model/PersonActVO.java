@@ -10,6 +10,8 @@ public class PersonActVO implements java.io.Serializable{
 	private Date actTime;
 	private byte[] actPic;
 	private String actDesc;
+	private String latiTude;
+	private String longtiTude; 
 	
 	public String getMemNo() {
 		return memNo;
@@ -52,6 +54,18 @@ public class PersonActVO implements java.io.Serializable{
 	}
 	public void setActDesc(String actDesc) {
 		this.actDesc = actDesc;
+	}
+	public String getLatiTude() {
+		return latiTude;
+	}
+	public void setLatiTude(String latiTude) {
+		this.latiTude = latiTude;
+	}
+	public String getLongtiTude() {
+		return longtiTude;
+	}
+	public void setLongtiTude(String longtiTude) {
+		this.longtiTude = longtiTude;
 	}
 	
 }
