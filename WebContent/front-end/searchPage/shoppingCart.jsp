@@ -4,6 +4,7 @@
 <%@ page import="com.menulist.model2.*" %>
 <%@ page import="com.member.model.*" %>
 
+
 <% 
   MemberVO memVO = (MemberVO)session.getAttribute("memVO");
 %>
@@ -15,6 +16,7 @@
 %>
 
 <html>
+<script src="<%=request.getContextPath()%>/front-end/js/address.js"></script>
 <style type="text/css">
 table {
   border-collapse: collapse;
@@ -206,7 +208,12 @@ font {
 			</tr><%}%>
 		</tbody>
 	</table> 
- 			<br><font color="black">送餐地址(可不填)：<input bordercolor="dark" class="form-control" type="text" name="deliverAddr"></font>
+ 			<br><font color="black">送餐地址(可不填)：
+ 			<input	type="text" id="zipcode" name="zipcode" style="width: 50px; height:25;" />
+ 			<select id="zone1"  name="zone1" style="width: 110px;"></select>
+			<select id="zone2"  name="zone2" style="width: 110px;"></select>
+<!--         	<input	type="text" name="address" value="中正路一段一號1樓" style="width: 200px;"><p> -->
+ 			<input bordercolor="dark" class="form-control" type="text" name="deliverAddr"></font>
             <input type="hidden" name="action"  value="CHECKOUT"><br>
             <font></font><input type="submit" value="付款結帳" class="btn btn-dark">
           </form>
@@ -290,6 +297,21 @@ font {
     <script src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script>
     <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
 </body>
+
+<script type="text/javascript">
+		$(function() {
+			init_address();
+			$("#zone1").val('請選擇'); //縣市
+			for ( var i in zip['請選擇']) {
+				o = document.createElement('option');
+				o.text = i;
+				o.value = i;
+				zone2.options.add(o);
+			}
+			$("#zone2").val('請選擇'); //鄉鎮市區
+			$("input[name='zipcode']").val(''); //郵遞區號
+		})
+	</script>
 
 <script type="text/javascript">
 $(document).ready(function(){

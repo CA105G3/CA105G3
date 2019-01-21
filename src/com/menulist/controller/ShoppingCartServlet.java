@@ -28,9 +28,10 @@ public class ShoppingCartServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html; charset=UTF-8");
+	    PrintWriter out = res.getWriter();
+	    
 		HttpSession session = req.getSession();
-		
-		
 		
 		@SuppressWarnings("unchecked")
 		List<MenuListVO> buylist = (Vector<MenuListVO>) session.getAttribute("shoppingcart");
@@ -139,7 +140,20 @@ public class ShoppingCartServlet extends HttpServlet {
 		if (action.equals("CHECKOUT")) {
 			String chefNo = req.getParameter("chefNo");
 			String orderStatus = req.getParameter("orderStatus");
+			
+		    String zone1 = req.getParameter("zone1");
+		    if (zone1 == "請選擇") {
+		    	zone1 = null;
+		    } 
+		    String zone2 = req.getParameter("zone2");
+		    if (zone2 == "請選擇") {
+		    	zone2 = null;
+		    } 
+		    String zipcode = req.getParameter("zipcode");
 			String deliverAddr = req.getParameter("deliverAddr");
+			
+			deliverAddr = " " + zipcode + zone1+" "+zone2+ " "+ deliverAddr;
+			
 			String[] amountArray = req.getParameterValues("amount");
 			double totalTemp = 0;
 			for (int i = 0; i < buylist.size(); i++) {
@@ -306,6 +320,7 @@ public class ShoppingCartServlet extends HttpServlet {
 
 		
 	}
+	
 
 	private MenuListVO getMenu(HttpServletRequest req) {
 		String chefRep = req.getParameter("chefRep");
