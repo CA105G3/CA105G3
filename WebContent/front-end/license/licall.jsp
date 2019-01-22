@@ -5,7 +5,7 @@
 <%@ page import="com.license.model.*"%>
 <% 
 	LicenseService licenseSvc = new LicenseService();
-	List<LicenseVO> list = licenseSvc.getAll();
+	List<QualifyVO> list = licenseSvc.getAll();
 	pageContext.setAttribute("list", list);
 %>
 

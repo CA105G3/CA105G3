@@ -114,7 +114,7 @@ h4 {
 	<div id="page-wrapper">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">PPT上傳</h1>
+				<h1 class="page-header">看診圖片上傳</h1>
 			</div>
 			<!-- /.col-lg-12 -->
 		</div>
@@ -146,7 +146,7 @@ h4 {
 						</c:forEach>
 					</table>
 					<h3>
-						新增PPT
+						新增圖片
 						<c:if test="${not empty errorMsgs}">
 							<c:forEach var="message" items="${errorMsgs}">
 								<font style="color: red">${message}</font>

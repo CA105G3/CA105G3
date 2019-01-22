@@ -183,7 +183,7 @@ th, td {
 	<div class="row d-flex justify-content-center">
 		<div class="col-lg-9 ">
 			<div class="panel panel-default">
-				<div class="panel-heading">醫療人員資上傳證照</div>
+				<div class="panel-heading">醫療人員上傳證照</div>
 
 				<!-- /.panel-heading -->
 				<div class="panel-body">
