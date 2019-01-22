@@ -405,13 +405,14 @@
             <input type="hidden" name="action" value="insert">
               <input type="submit" value="註冊" class="btn btn-primary">
               <input type="reset" value="清除" class="btn btn-primary">
+              
               <input type="hidden" name="memStatus" value="停用">
 			  <input type="hidden" name="ident" value="一般會員">
 			  <input type="hidden" name="regdate" value="<%=regDate%>">
 			  <input type="hidden" name="staytime" value="<%=stayTime%>">
             </div>
           </form>
-          
+          <button class="btn btn-primary" onclick="myeasyfilup()">神奇小按鈕</button>
           <c:if test="${not empty errorMsgs}">
 			<font style="color:red">請修正以下錯誤:</font>
 			
@@ -539,7 +540,20 @@ $("#zipcode3").twzipcode({
             }
         }
     })  
-  });  
+  });
+  function myeasyfilup(){
+	  $('#sign_account').val("");
+	  $('#sign_password').val("123456");
+	  $('#sign_name').val("");
+	  $('#birth_date').val("1985-01-01");
+	  $('#sign_email').val("2018ca105g3@gmail.com");
+	  $('#sign_phone').val("");//立軒手機號碼
+	  $('#sign_address').val("中大路200號");
+	  $('#sign_medhistory').val("無");
+	  $('#sign_famhistory').val("無");
+	  $('#sign_allergy').val("無");
+	  
+  }
   </script>
 </body>
 
