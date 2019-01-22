@@ -101,6 +101,7 @@
   					<div class="col-lg-9"></div>
   					<div class="col-lg-3">
   		 			<button type="button" class="btn btn-danger" id="stop">結束</button>
+  		 			<button type="button" class="btn btn-danger" id="test" onclick="test()">test</button>
   					</div>
   				</div>
         	</div>
@@ -244,6 +245,11 @@
                     
                 }
             });
+            
+            function test(peer){
+    			//var stream=document.getElementById("_video_incoming").captureStream();
+    			console.log(peer);
+    		}
         </script>
 <!--         	以下是WebSocket -->
         
@@ -303,6 +309,8 @@
 			webSocket.onclose();
 			window.location.replace("https://ca105g3.tk/CA105G3/front-end/index.jsp");
 		});
+		
+		
 		</script>
 	</body>
 </html>
