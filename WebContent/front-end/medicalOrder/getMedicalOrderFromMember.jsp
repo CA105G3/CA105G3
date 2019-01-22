@@ -136,7 +136,7 @@
 			      <td scope="col">${moVO.moText}</td>
 			      <td scope="col">
 	<c:if test="${moVO.moStatus == '等待問診'  || moVO.moStatus == '等待審核'}">			      
-			      	<button type="button" value="${moVO.moNo}" id="cancel" class="btn btn-warning">取消預約</button>
+			      	<button type="button" value="${moVO.moNo}" id="cancel" class="btn btn-warning cancel">取消預約</button>
 			      </td>
 	</c:if>
 </c:forEach>
@@ -152,7 +152,7 @@
 	<script>
 
 		
-		$(".btn").click(function(e){	
+		$(".cancel").click(function(e){	
 			Swal({
 				title: '是否取消預約問診',
 				text: "若取消問診，將無法進行預約看診",
