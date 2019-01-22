@@ -158,7 +158,15 @@ th, td {
 						<c:forEach var="mvo" items="${list}" begin="<%=pageIndex%>"
 							end="<%=pageIndex+rowsPerPage-1%>">
 							<tr>
-								<td><a href="">${mvo.moNo}</a></td>
+								<td>
+<%-- 									<a href="">${mvo.moNo}</a> --%>
+									<form method="post" 
+										action="<%=request.getContextPath()%>\front-end\webrtc\treament_doctorside.jsp">
+										<input type="hidden" name="moNO" value="${mvo.moNo}">
+										<input type="hidden" name="drno" value="${drno}">
+										<input type="submit" class="btn btn-primary" value="進入問診">
+									</form>
+								</td>
 								<td><c:forEach var="memVO" items="${memSvc.all}">
 										<c:if test="${memVO.memNo==mvo.memNo}">
 	                    	${memVO.memName}
