@@ -51,9 +51,6 @@ public class MemberExist implements Filter {
 			
 			response.sendRedirect(request.getContextPath()+"/front-end/index.jsp");
 //			RequestDispatcher failacess =request.getRequestDispatcher("/front-end/index.jsp");
-//			RequestDispatcher failacess = request.getServletContext().getRequestDispatcher("/front-end/member/index.jsp"); 
-//			RequestDispatcher failacess =request.getRequestDispatcher("/front-end/member/index.jsp");
-//			failacess.forward(request, response);
 //			failacess.forward(request, response);
 			return;
 		}else if(memVO.getMemStatus().equals("停用")) {

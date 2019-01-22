@@ -205,6 +205,8 @@
     <url-pattern>/doctor.do</url-pattern>
     <url-pattern>/front-end/medicalOrder/*</url-pattern>
     <url-pattern>/shoppingCart.do</url-pattern>
+    <url-pattern>/front-end/webrtc/*</url-pattern>
+    <url-pattern>/front-end/memberchef/memberchef.do</url-pattern>
   </filter-mapping>
   <servlet>
     <servlet-name>ImpressionServlet</servlet-name>

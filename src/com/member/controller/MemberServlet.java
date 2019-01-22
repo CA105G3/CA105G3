@@ -132,6 +132,8 @@ public class MemberServlet extends HttpServlet {
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			MemberService memSvc_checkid= new MemberService();
+			HttpSession session = req.getSession();
+			session.removeAttribute("accessfail");
 			try {
 				//ID:
 				String memid=req.getParameter("memid");
@@ -580,6 +582,7 @@ public class MemberServlet extends HttpServlet {
 		        String memno  = memVO.getMemNo();
 		        DoctorService ds = new DoctorService();
 		        ds.UpdateIsonline("線上", memno);
+		        session.removeAttribute("accessfail");
 		         try {                                                        
 		           String location = (String) session.getAttribute("location");
 		           if (location != null) {
@@ -608,6 +611,7 @@ public class MemberServlet extends HttpServlet {
 			MemberService memSvc = new MemberService();
 			MemberVO memVO=memSvc.VerifyMember(memno);
 			HttpSession session = req.getSession();
+			session.removeAttribute("accessfail");
 			session.setAttribute("memVO", memVO);
 			try {                                                        
 		        String location = (String) session.getAttribute("location");
