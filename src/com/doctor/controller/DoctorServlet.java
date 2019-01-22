@@ -338,8 +338,8 @@ public class DoctorServlet extends HttpServlet {
 				String drno = dvo.getDrno();
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 //				String url = "/front-end/doctor/listAllDoctor.jsp";
-//				String url ="/front-end/doctor/admin/pages/dr_admin.jsp";
-				String url = "/front-end/license/drAddlic.jsp";
+				String url ="/front-end/doctor/admin/pages/dr_admin.jsp";
+//				String url = "/front-end/license/drAddlic.jsp";
 				HttpSession session = req.getSession();
 				session.setAttribute("drno", drno);
 				RequestDispatcher successView = req.getRequestDispatcher(url);

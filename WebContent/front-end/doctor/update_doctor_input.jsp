@@ -165,17 +165,17 @@ h4 {
 									</td>
 								</tr>
 
-								<tr>
-									<td>看診權限:</td>
+<!-- 								<tr> -->
+<!-- 									<td>看診權限:</td> -->
 									<!-- 				<td><select size="1" name="status"> -->
 									<%-- 						<option value="生效中" ${(dvo.status=="生效中")? 'selected':'' }>生效中 --%>
 									<%-- 						<option value="失效" ${(dvo.status=="失效")? 'selected':'' }>失效 --%>
 									<%-- 						<option value="審核中" ${(dvo.status=="審核中")? 'selected':'' }>審核中 --%>
 									<!-- 				</select></td> -->
 
-									<td>${dvo.status}</td>
+<%-- 									<td>${dvo.status}</td> --%>
 
-								</tr>
+<!-- 								</tr> -->
 
 								<tr>
 									<td>科別:</td>

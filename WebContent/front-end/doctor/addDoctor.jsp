@@ -317,7 +317,7 @@ th, td {
 						<br> <input type="hidden" name="action" value="insert">
 						<input type="hidden" name="memno" value="<%=memno%>"> <input
 							type="hidden" name="isonline" value="線上"> <input
-							type="hidden" name="status" value="審核中"> <input
+							type="hidden" name="status" value="生效中"> <input
 							type="submit" class="btn btn-primary" value="送出新增">
 					</form>
 
