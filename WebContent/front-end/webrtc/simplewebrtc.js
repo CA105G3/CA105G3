@@ -12,7 +12,7 @@ function SimpleWebRTC(opts) {
             url: 'https://sandbox.simplewebrtc.com:443/',
             socketio: {/* 'force new connection':true*/},
             connection: null,
-            debug: false,
+            debug: true,
             localVideoEl: '',
             remoteVideosEl: '',
             enableDataChannels: true,
