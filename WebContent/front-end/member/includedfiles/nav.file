@@ -14,7 +14,6 @@
 	          <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/medicalOrder/ScanDoctor.jsp" class="nav-link">線上問診</a></li>
 	          <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/activity/joinactivity.jsp" class="nav-link">活動專區</a></li>
 	          <li class="nav-item"><a href="<%=request.getContextPath() %>/front-end/searchPage/shoppingCart.jsp" class="nav-link">購物餐車</a></li>
-	          <li class="nav-item myOrder"><a href="<%=request.getContextPath() %>/front-end/foodorder/listAllFoodOrdersByMemno.jsp" class="nav-link">訂餐紀錄</a></li>
 	          <li class="nav-item cta"><a href="<%=request.getContextPath() %>/front-end/member/member.do?action=logout" class="nav-link" <%= (memVO==null)? "data-toggle='modal' data-target='#modalRequest'" :"" %>  ><span id="mylogin"><%= (memVO==null)? "登入/註冊" :"登出" %></span></a></li>
 	        </ul>
 	      </div>

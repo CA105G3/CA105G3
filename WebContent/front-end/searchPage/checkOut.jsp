@@ -192,7 +192,12 @@ font {
 		</tbody>
 	</table>
 	<br><br>
-    <h4><font>送餐地址:</font><%=deliverAddr%></h4>
+    <h4><font>送餐地址:</font><%=deliverAddr%></h4> <br><br>
+     <table class="table1">
+      <tr><td>信用卡號碼：&nbsp;<input type="text" name="creditnumber" maxlength="16"></td></tr>
+      <tr><td>到期年月：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="creditnumber" maxlength="2" size="2"> &nbsp;&nbsp;<input type="text" name="creditnumber" maxlength="2" size="2"></td></tr>
+      <tr><td>卡背末三碼：&nbsp;<input type="text" name="creditnumber" maxlength="3" size="3"></td></tr>
+    </table>
 <!-- </form> -->
 	
 		<form name="new_order" action="<%=request.getContextPath()%>/shoppingCart.do" method="POST">
