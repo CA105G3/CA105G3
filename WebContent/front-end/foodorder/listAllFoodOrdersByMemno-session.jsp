@@ -197,7 +197,7 @@ font {
 				<th>訂單編號</th>
 				<th>餐飲業者</th>
 <!-- 				<th>訂餐日期</th> -->
-<!-- 				<th>送餐地址</th> -->
+				<th>送餐地址</th>
 			</tr>
 		</thead>
 		
@@ -213,7 +213,7 @@ font {
 			 </td>
 				 <td>${menuListVO.chefName}</td>
 <%-- 				 <td>${foodOrderVO.ordTime}</td> --%>
-<%-- 				 <td>${foodOrderVO.deliverAddr}</td> --%>
+				 <td>${menuListVO.deliverAddr}</td>
 			</tr>
 			</tbody>
 			</c:forEach>

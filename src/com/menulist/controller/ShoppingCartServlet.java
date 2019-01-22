@@ -152,7 +152,7 @@ public class ShoppingCartServlet extends HttpServlet {
 		    String zipcode = req.getParameter("zipcode");
 			String deliverAddr = req.getParameter("deliverAddr");
 			
-			deliverAddr = " " + zipcode + zone1+" "+zone2+ " "+ deliverAddr;
+			deliverAddr = " " + zipcode + zone1+ " " +zone2+ " "+ deliverAddr;
 			
 			String[] amountArray = req.getParameterValues("amount");
 			double totalTemp = 0;

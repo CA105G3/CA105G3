@@ -208,13 +208,17 @@ font {
 			</tr><%}%>
 		</tbody>
 	</table> 
- 			<br><font color="black">送餐地址(可不填)：
+		是否送餐 <input type="radio" name="whetherDeliver" id="noDeliver" checked="checked" onclick="hideAddr()">否
+		       <input type="radio" name="whetherDeliver" id="yesDeliver" onclick="showAddr()"> 是
+ 		<div id="address" style="display:none">
+ 			<br><font color="black">送餐地址：
  			<input	type="text" id="zipcode" name="zipcode" style="width: 50px; height:25;" />
  			<select id="zone1"  name="zone1" style="width: 110px;"></select>
 			<select id="zone2"  name="zone2" style="width: 110px;"></select>
 <!--         	<input	type="text" name="address" value="中正路一段一號1樓" style="width: 200px;"><p> -->
  			<input bordercolor="dark" class="form-control" type="text" name="deliverAddr"></font>
-            <input type="hidden" name="action"  value="CHECKOUT"><br>
+         </div>
+            <input type="hidden" name="action"  value="CHECKOUT"><br><br>
             <font></font><input type="submit" value="付款結帳" class="btn btn-dark">
           </form>
     </p>
@@ -297,6 +301,19 @@ font {
     <script src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script>
     <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
 </body>
+<script>
+	function showAddr(){
+		document.getElementById("address").style.display='';
+//     	document.getElementById("transferInfo").style.display='none';
+	}
+	
+	function hideAddr(){
+		document.getElementById("address").style.display='none';
+	}
+
+
+
+</script>
 
 <script type="text/javascript">
 		$(function() {
