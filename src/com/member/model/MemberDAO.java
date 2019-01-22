@@ -114,7 +114,7 @@ public class MemberDAO implements MemberDAO_interface{
 			String subject="線上醫療會員註冊驗證信件";
 			String messageText="親愛的會員 "+memberVO.getMemName()+"您好"+"\n"
 			+"感謝您註冊本網站，以下是您的驗證網址，請點擊通過驗證，謝謝!"+"\n"
-			+"https://ca105g3.tk/CA105G3/front-end/member/member.do?action=verify&memno="+next_memno;
+			+"http://10.120.26.10:8081/CA105G3/front-end/member/member.do?action=verify&memno="+next_memno;
 			sendmail.sendMail(memberVO.getEmail(), subject, messageText);
 		}catch(SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -425,12 +425,11 @@ public class MemberDAO implements MemberDAO_interface{
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_FOR_BASIC_RECORD);
-
 			pstmt.setString(1, memberVO.getBloodType());
 			pstmt.setString(2, memberVO.getSmoking());
-			pstmt.setString(3, memberVO.getMedHistory());
-			pstmt.setString(4, memberVO.getFamHistory());
-			pstmt.setString(5, memberVO.getAllergy());
+			pstmt.setString(3, memberVO.getAllergy());
+			pstmt.setString(4, memberVO.getMedHistory());
+			pstmt.setString(5, memberVO.getFamHistory());
 			pstmt.setString(6, memberVO.getMemId());
 
 			pstmt.executeUpdate();	

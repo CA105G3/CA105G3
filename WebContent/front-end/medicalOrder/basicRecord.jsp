@@ -155,12 +155,7 @@
 
 					<div class="form-group row">
 						<div class="col-sm-10 text-center">
-							<input type="hidden" name="memId" value="${memberVO.memId}">
-							<input type="hidden" name="bloodType" value="bloodType">
-							<input type="hidden" name="smoking" value="smoking">
-							<input type="hidden" name="allergy" value="allergy">
-							<input type="hidden" name="medHistory" value="medHistory">
-							<input type="hidden" name="famHistory" value="famHistory">							
+							<input type="hidden" name="memId" value="${memVO.memId}">						
 							<input type="submit" class="btn bg-primary text-white" value="提交">
 							<input type="hidden" name="action" value="updateBasicRecord">
 						</div>
