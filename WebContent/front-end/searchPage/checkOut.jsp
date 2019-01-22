@@ -190,9 +190,15 @@ font {
 		    </td>
 		</tr>
 		</tbody>
-	</table>
+	</table><br><br>
+	<table class="table1">
+	      <tr><td>信用卡號碼：&nbsp;<input type="text" class="creditnumber" name="c1" maxlength="4" size="4">&nbsp;-&nbsp;<input type="text" class="creditnumber" maxlength="4" size="4">&nbsp;-&nbsp;<input type="text" class="creditnumber" maxlength="4" size="4">&nbsp;-&nbsp;<input type="text" class="creditnumber" maxlength="4" size="4"></td></tr>
+	      <tr><td>到期年月：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="exDate" class="creditnumber" maxlength="2" size="2"> &nbsp;/&nbsp;<input type="text" class="creditnumber" maxlength="2" size="2"></td></tr>
+	      <tr><td>卡背末三碼：&nbsp;<input type="text" name="security" maxlength="3" size="3"></td></tr>
+ 	</table>
 	<br><br>
-    <h4><font>送餐地址:</font><%=deliverAddr%></h4>
+    <h4><font>送餐地址:</font><%=deliverAddr%></h4> <br><br>
+    
 <!-- </form> -->
 	
 		<form name="new_order" action="<%=request.getContextPath()%>/shoppingCart.do" method="POST">
@@ -241,7 +247,6 @@ font {
             	<a href="signup.jsp" data-toggle="modal" data-target="#modalRequest2" id="signup"><input type="button" value="註冊會員" class="btn btn-primary" onclick="signup()" id="signup2"></a>
             </div>
           </form>
-          
           <c:if test="${not empty loginerrorMsgs}">
 			<font style="color:red">請修正以下錯誤:</font>
 			<ul>
@@ -280,6 +285,16 @@ font {
     <script src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script>
     <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
 </body>
+
+<script>
+$(function() {
+    $(".creditnumber").keyup(function () {
+        if (this.value.length == this.maxLength) {
+          $(this).next('.creditnumber').focus();
+        }
+    });
+});
+</script>
 
 <script>
 $(document).ready(function(){

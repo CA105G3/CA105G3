@@ -220,6 +220,7 @@ The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep
 						<b>選擇活動地點:</b>
 						<div class="row">
 							<select name="actLoc" class="form-control">
+								<option value=""></option>
 								<option value="基隆市">基隆市</option>
 								<option value="台北市">台北市</option>
 								<option value="新北市">新北市</option>

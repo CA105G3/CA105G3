@@ -45,6 +45,10 @@ public class ChefOrderServler extends HttpServlet {
 				/***************************2.開始查詢資料***************************************/
 				FoodOrderService FOsvc = new FoodOrderService();
 				List<FoodOrderVO> FOlist = FOsvc.findByChefNo(chefNo);
+				for(FoodOrderVO a: FOlist) {
+					System.out.println(a.getOrderno());
+				}
+				System.out.println("---------");
 				List<OrderDetailVO> ODlist = new ArrayList<OrderDetailVO>();
 				for(FoodOrderVO FOVO: FOlist){
 					String orderno = FOVO.getOrderno();
@@ -53,6 +57,10 @@ public class ChefOrderServler extends HttpServlet {
 						ODlist.add(ODVO);
 					}
 				}
+				for(OrderDetailVO a: ODlist) {
+					System.out.println(a.getOdno());
+				}
+				
 				com.menulist.model.MenuListService menuListSvc = new com.menulist.model.MenuListService();
 				List<com.menulist.model.MenuListVO> menuList = menuListSvc.getAll(startDate, endDate);
 				MenuService MenuSvc = new MenuService();
@@ -147,8 +155,8 @@ public class ChefOrderServler extends HttpServlet {
 				}
 				com.menulist.model.MenuListService menuListSvc = new com.menulist.model.MenuListService();
 				List<com.menulist.model.MenuListVO> menuList = menuListSvc.getAll(startDate, endDate);
-				MenuService MenuSvc = new MenuService();
-				List<MenuVO> menu = MenuSvc.getAll();
+				com.menu.model.MenuService MenuSvc = new com.menu.model.MenuService();
+				List<com.menu.model.MenuVO> menu = MenuSvc.getAll();
 				MemberService memSvc = new MemberService();
 				List<MemberVO> member = memSvc.getAll();
 				/***************************3.查詢完成,準備轉交(Send the Success view)***********/
@@ -165,6 +173,7 @@ public class ChefOrderServler extends HttpServlet {
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/front\u002dend/memberchef/select_page.jsp");
 				failureView.forward(req, res);
+				System.out.println(e);
 			}
 		}
         
