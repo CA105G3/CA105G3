@@ -301,11 +301,13 @@ public class MemberServlet extends HttpServlet {
 				/***************************2.開始新增資料***************************************/
 				MemberService memSvc = new MemberService();
 				memVO = memSvc.addMember(memid, memname, mempsw, email, gender, birth, addr, allergy, bloodtype, phone, famhistory, ident, medhistory, memStatus, smoking, locno, regdate, stayTime);
+				memVO=memSvc.getOneMemberByAccount(memid,stayTime);
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				
+				session.setAttribute("memVO", memVO);
 				String url = "/front-end/index.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-				successView.forward(req, res);				
+				//RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+				//successView.forward(req, res);
+				res.sendRedirect(req.getContextPath()+"/front-end/index.jsp");
 				
 				/***************************其他可能的錯誤處理**********************************/
 			}catch(Exception e) {
