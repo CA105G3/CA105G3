@@ -301,7 +301,7 @@
 			var jsonObj = {"userName" : userName, "message" : "stop","roomno":roomno};
 	        webSocket.send(JSON.stringify(jsonObj));
 			webSocket.onclose();
-			window.location.replace("http://localhost:8081/CA105G3/front-end/index.jsp");
+			window.location.replace("https://ca105g3.tk/CA105G3/front-end/index.jsp");
 		});
 		</script>
 	</body>

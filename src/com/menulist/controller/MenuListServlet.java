@@ -51,7 +51,7 @@ public class MenuListServlet extends HttpServlet {
 				
 				MenuListService menuListSvc = new MenuListService();
 				List<MenuListVO> menuList = new ArrayList<MenuListVO>();
-				
+				List<MenuListVO> tempList = new ArrayList<MenuListVO>();
 				for(MenuVO amenuVO : menu){
 //					System.out.print(amenuVO.getMenuNo() + " , ");
 //					System.out.print(amenuVO.getChefNo() + " , ");
@@ -62,26 +62,25 @@ public class MenuListServlet extends HttpServlet {
 					String menuNo = amenuVO.getMenuNo();
 					List<MenuListVO> list = menuListSvc.getOneKindMenuList(menuNo);
 					for(MenuListVO amenuListVO : list){
-//						System.out.print(amenuListVO.getMenuListNo());
-//						System.out.print(amenuListVO.getMenuNo());
-//						System.out.print(amenuListVO.getMenuTimeSlot());
-//						System.out.println(amenuListVO.getMenuDate());
-//						System.out.println("--------------------------------");
-						if(amenuListVO.getMenuTimeSlot().equals("早")) {
-							menuList.add(amenuListVO);
-						}
-					}
-					for(MenuListVO amenuListVO : list){
-						if(amenuListVO.getMenuTimeSlot().equals("午")) {
-							menuList.add(amenuListVO);
-						}
-					}
-					for(MenuListVO amenuListVO : list){
-						if(amenuListVO.getMenuTimeSlot().equals("晚")) {
-							menuList.add(amenuListVO);
-						}
+						tempList.add(amenuListVO);
 					}
 				};
+				
+				for(MenuListVO amenuListVO : tempList){
+					if(amenuListVO.getMenuTimeSlot().equals("早")) {
+						menuList.add(amenuListVO);
+					}
+				}
+				for(MenuListVO amenuListVO : tempList){
+					if(amenuListVO.getMenuTimeSlot().equals("午")) {
+						menuList.add(amenuListVO);
+					}
+				}
+				for(MenuListVO amenuListVO : tempList){
+					if(amenuListVO.getMenuTimeSlot().equals("晚")) {
+						menuList.add(amenuListVO);
+					}
+				}
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)***********/
 				req.setAttribute("menu", menu);
@@ -119,7 +118,7 @@ public class MenuListServlet extends HttpServlet {
 				
 				MenuListService menuListSvc = new MenuListService();
 				List<MenuListVO> menuList = new ArrayList<MenuListVO>();
-				
+				List<MenuListVO> tempList = new ArrayList<MenuListVO>();
 				for(MenuVO amenuVO : menu){
 //					System.out.print(amenuVO.getMenuNo() + " , ");
 //					System.out.print(amenuVO.getChefNo() + " , ");
@@ -130,26 +129,25 @@ public class MenuListServlet extends HttpServlet {
 					String menuNo = amenuVO.getMenuNo();
 					List<MenuListVO> list = menuListSvc.getOneKindMenuList(menuNo);
 					for(MenuListVO amenuListVO : list){
-//						System.out.print(amenuListVO.getMenuListNo());
-//						System.out.print(amenuListVO.getMenuNo());
-//						System.out.print(amenuListVO.getMenuTimeSlot());
-//						System.out.println(amenuListVO.getMenuDate());
-//						System.out.println("--------------------------------");
-						if(amenuListVO.getMenuTimeSlot().equals("早")) {
-							menuList.add(amenuListVO);
-						}
-					}
-					for(MenuListVO amenuListVO : list){
-						if(amenuListVO.getMenuTimeSlot().equals("午")) {
-							menuList.add(amenuListVO);
-						}
-					}
-					for(MenuListVO amenuListVO : list){
-						if(amenuListVO.getMenuTimeSlot().equals("晚")) {
-							menuList.add(amenuListVO);
-						}
+						tempList.add(amenuListVO);
 					}
 				};
+				
+				for(MenuListVO amenuListVO : tempList){
+					if(amenuListVO.getMenuTimeSlot().equals("早")) {
+						menuList.add(amenuListVO);
+					}
+				}
+				for(MenuListVO amenuListVO : tempList){
+					if(amenuListVO.getMenuTimeSlot().equals("午")) {
+						menuList.add(amenuListVO);
+					}
+				}
+				for(MenuListVO amenuListVO : tempList){
+					if(amenuListVO.getMenuTimeSlot().equals("晚")) {
+						menuList.add(amenuListVO);
+					}
+				}
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)***********/
 				req.setAttribute("menu", menu);
@@ -187,26 +185,36 @@ public class MenuListServlet extends HttpServlet {
 				
 				MenuListService menuListSvc = new MenuListService();
 				List<MenuListVO> menuList = new ArrayList<MenuListVO>();
-				
+				List<MenuListVO> tempList = new ArrayList<MenuListVO>();
 				for(MenuVO amenuVO : menu){
+//					System.out.print(amenuVO.getMenuNo() + " , ");
+//					System.out.print(amenuVO.getChefNo() + " , ");
+//					System.out.print(amenuVO.getUnitPrice() + " , ");
+//					System.out.print(amenuVO.getMainCourse() + " , ");
+//					System.out.println(amenuVO.getDeliverable());
+//					System.out.println("--------------------------------");
 					String menuNo = amenuVO.getMenuNo();
 					List<MenuListVO> list = menuListSvc.getOneKindMenuList(menuNo);
 					for(MenuListVO amenuListVO : list){
-						if(amenuListVO.getMenuTimeSlot().equals("早")) {
-							menuList.add(amenuListVO);
-						}
-					}
-					for(MenuListVO amenuListVO : list){
-						if(amenuListVO.getMenuTimeSlot().equals("午")) {
-							menuList.add(amenuListVO);
-						}
-					}
-					for(MenuListVO amenuListVO : list){
-						if(amenuListVO.getMenuTimeSlot().equals("晚")) {
-							menuList.add(amenuListVO);
-						}
+						tempList.add(amenuListVO);
 					}
 				};
+				
+				for(MenuListVO amenuListVO : tempList){
+					if(amenuListVO.getMenuTimeSlot().equals("早")) {
+						menuList.add(amenuListVO);
+					}
+				}
+				for(MenuListVO amenuListVO : tempList){
+					if(amenuListVO.getMenuTimeSlot().equals("午")) {
+						menuList.add(amenuListVO);
+					}
+				}
+				for(MenuListVO amenuListVO : tempList){
+					if(amenuListVO.getMenuTimeSlot().equals("晚")) {
+						menuList.add(amenuListVO);
+					}
+				}
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)***********/
 				req.setAttribute("menu", menu);

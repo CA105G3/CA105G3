@@ -61,7 +61,7 @@ while(addrObj.hasNext()) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"></link>
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/activity/datetimepicker/jquery.datetimepicker.css" />
     <!-- 我跟你說這些link你可以全部存在一隻jsp，之後的網頁再去link後來的jsp，這樣畫面會比較乾淨 、script一樣-->
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&key=AIzaSyB1-4idDgxmtHfnCYNplStbRB_g0sBmbNI"></script>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&key=AIzaSyB1-4idDgxmtHfnCYNplStbRB_g0sBmbNI"></script>
 
   </head>
   <body>

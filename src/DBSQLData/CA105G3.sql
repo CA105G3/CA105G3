@@ -329,8 +329,8 @@ INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0021','M0013',1);
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0021','M0019',1);
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0021','M0014',1);
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0022','M0015',1);
-INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0022','M0015',1);
-INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0022','M0015',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0022','M0007',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0022','M0001',1);
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0023','M0018',1);
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0023','M0019',1);
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0023','M0008',1);
@@ -363,11 +363,19 @@ NOCACHE;
 
 INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'冠軍!','ACT0001','M0001','參加過這麼多次槌球比賽，還沒有像這次這麼順利，人生第一次的冠軍獎盃入手了!這都要感謝我的老伴不離不棄，每天陪我練習，愛妳歐。',NULL,NULL,'文字心得');
 INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'槌球初體驗','ACT0001','M0018','槌球真是很棒，人一開心的話就輕鬆了嘛，又可以結交一些朋友啊，對不對，大家在一起玩蠻開心的，參加這個運動太棒了!',NULL,NULL,'文字心得');
-INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'外丹功十二式的關鍵功效','ACT0002','M0010','今天花了我好幾顆金莓果才搞定班基拉斯，看來我的曲E還要再練練。',NULL,NULL,'文字心得');
-INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'','ACT0002','M0017','隔壁老王實在太弱了，根本比不贏我中和鵬魚雁，下次練練再來吧!',NULL,NULL,'文字心得');
-INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'','ACT0002','M0019','外丹功重在練心，重中之重，凡人不會理解的。',NULL,NULL,'文字心得');
-INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'高雄賺大錢','ACT0004','M0008','今天與隔壁李太太看了愛河的夜景，讓我又燃起了年輕時候戀愛的感覺啊!',NULL,NULL,'文字心得');
-INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'抖手救世界','ACT0003','M0002','外丹功總共有十二式，彈抖運動是其主流。彈抖動作配合節奏的呼吸，可使人體保持肌肉鬆弛，呼吸平順，身體的供氧量充足，經過約數十分鐘的彈抖動作之後，整個人便覺身輕氣爽。',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'外丹功十二式關鍵功效','ACT0002','M0010','外丹功可說是臺灣本土所發展出來的一種養生運動，是由一系列全身抖動，和諧地融合各種動作的招式所組成。它有氣功的內涵，也就是藉由抖動及振盪，自然地把人體先天之氣引發出來，再經由抖動及振盪讓先天之氣充貫全身。',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'大家來練外丹功','ACT0002','M0012','坐姿外丹功的抖腳好處多多，長期多練，兩腿的肌肉Q彈、潤白、細嫰，光滑、帶電知覺感男女皆同。靜脈回流順暢就不會靜脈曲張，肝脾腎氣足，臟腑健康就少有三高!',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'外丹功減肥','ACT0002','M0005','人老珠黃，或步入中年變胖，大皆臟腑功能衰退之象。外丹功保健臟腑功法，舉例一二：預備式手腳先天氣來回，活絡十二經脈，保元培本之功。面東龜息吐納功，綿綿悠長，吐故納新，調理臟腑效果好。',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'首選店家','ACT0003','M0002','服務很棒，我心裡最棒的服務不是 barista、店員把你當成家人般地親切，而是把客人看待為自己的朋友，當然也不是那種姐妹、換帖的好朋友，距離很剛好，就是會想要分享好東西、開心的事情、交換一些建議，最好不說話也不尷尬的。但是最重要最重要的就是一個笑容。',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'煮咖啡初體驗','ACT0003','M0019','由於對於新鮮的堅持，所以必須在沖煮前才研磨咖啡豆，因此磨豆機就成了必要的工具，再此先提出一個很重要的觀念：好的磨豆機比好的咖啡機更重要！在追求好咖啡的道路上，一台夠水準的磨豆機是絕對必要的配備。',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'咖啡品杯','ACT0003','M0011','品嚐好咖啡不但是要用舌頭的味覺去感受，還要享受咖啡留在口裡的芳醇，除此之外，所以在好好享受咖啡的同時，靜下心來品嚐好咖啡是一件非常微妙的事情，所以當你靜下心來品嘗好咖啡也是品嚐優質生活的一部份!!',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'做公益人人有責','ACT0004','M0007','通過參加公益活動，我結識了很多普普通通的人，我們是夥伴，我們是戰友。如果把公益事業比作一條路的話，那某些公益大腕就是引領大家前進的路標；而像我這樣的，就是那鋪路石。',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'回饋社會','ACT0004','M0017','此次的勸募經驗, 給了我們一個機會奉獻一己之力, 我相信,我們是極為幸運的。有豐富的人生經驗,生活完滿且衣食無虞, 在募款活動中, 每幕到一筆金額, 便有一股暖流從心中油然而生,並讓我更貼近了社會弱勢的一群,從為他們發聲,幫助他們尋覓更好的生活環境',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'參與公益心得','ACT0004','M0019','我認為慈善就在我們身邊，隨手公益，大家都能參與進來。 比如肯德基的 「捐一元」項目，對於大眾來說只是隨手捐了一元，但小愛心匯聚成大暖流，9年來，「捐一元」累計從1億人次的消費者中募集了1.5億元，為18.6萬人次的貧困山區小學生提供了近3000萬份「牛奶+雞蛋」的營養餐。',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'為什麼要做公益','ACT0004','M0001','「公益」，不是看你捐了多少錢，「公益」是你喚醒了多少人的愛心。「公益」的核心思想就是喚醒良知，喚醒善良。給乾渴的花朵倒一口水。給流浪的貓狗一些剩飯剩菜。給風雪中的麻雀撒一點麵包渣。給困惑的人一個微笑。給迷茫的人一個方向。這些雖是「舉手之勞」卻能溫暖人心。',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'綠色隧道漫遊','ACT0005','M0001','新屋綠色走廊　感受大自然風光，桃園綠色走廊為北台灣最具規模自行車遊憩區，全長５公里，由綠蔭大道及濱海道路所組成，設有木棧平台、觀海亭、漂流木公園等設施，民眾只要騎上自行車馳騁其中，綠林或藍海間都能享受自然洗禮。',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'快樂出遊','ACT0005','M0007','明明知道天氣熱到爆炸，但喜歡騎腳踏車，所以，我們還是捨熱去永安綠色隧道騎腳踏車，看看天熱汗流多多後，我能不能瘦個幾公斤．．．哈哈！',NULL,NULL,'文字心得');
+INSERT INTO impression VALUES ('I'||lpad(to_char(impression_seq.NEXTVAL), 4, '0'),TO_DATE(sysdate),'漁港吃一波','ACT0005','M0017','永安漁港近年規劃建設變化真的很大，尤其觀海橋的落成，晚上五點都會開啟七彩LED燈，延長興建原有防波提，挖深航道，讓人更好在這停放車輛。',NULL,NULL,'文字心得');
 
 -----------------------------------------------
 -- create reportact OK

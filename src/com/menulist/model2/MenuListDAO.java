@@ -40,7 +40,7 @@ public class MenuListDAO implements MenuListDAO_interface{
 
 	
 	   private static final String GET_BY_MEMNO_STMT = 
-			"SELECT DISTINCT FOODORDER.ORDERNO, MEMBERCHEF.CHEFNAME FROM FOODORDER" + 
+			"SELECT DISTINCT FOODORDER.ORDERNO, MEMBERCHEF.CHEFNAME, FOODORDER.DELIVERADDR FROM FOODORDER" + 
 					" LEFT JOIN ORDERDETAIL ON FOODORDER.ORDERNO=ORDERDETAIL.ORDERNO LEFT JOIN MENULIST ON ORDERDETAIL.MENULISTNO=MENULIST.MENULISTNO" + 
 					" LEFT JOIN MENU ON MENULIST.MENUNO=MENU.MENUNO LEFT JOIN MEMBERCHEF ON MENU.CHEFNO=MEMBERCHEF.CHEFNO WHERE FOODORDER.MEMNO=?";
 		
@@ -182,7 +182,7 @@ public class MenuListDAO implements MenuListDAO_interface{
 				menulistVO = new MenuListVO();			
 				menulistVO.setOrderno(rs.getString("orderno"));
 //				menulistVO.setOdno(rs.getString("odno"));
-//				menulistVO.setDeliverAddr(rs.getString("deliverAddr"));
+				menulistVO.setDeliverAddr(rs.getString("deliverAddr"));
 				menulistVO.setChefName(rs.getString("chefName"));
 //				menulistVO.setChefRep(rs.getString("chefRep"));
 //				menulistVO.setMainCourse(rs.getString("mainCourse"));
