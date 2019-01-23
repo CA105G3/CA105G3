@@ -175,9 +175,12 @@ font {
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<tbody>	
-		<tr>
+		<%
+		Date today = new java.sql.Date(System.currentTimeMillis());;
+		%>
+		
+		<tr class="tr" id="tr">
 		<form name="menuForm" action="<%=request.getContextPath() %>/shoppingCart.do" method="POST">
-<%-- 			<td width="90"><div align="center">${menuListVO.chefRep}</div></td> --%>
 			<td scope="row"><div align="center">${menuListVO.mainCourse}</div></td>
 			<td><div>${menuListVO.menuDate} ${menuListVO.menuTimeSlot}餐</div></td>
 			<td><div><img style="max-width: 190px; max-height: 250px;" src="<%=request.getContextPath()%>/front-end/foodOrder2/foodorderImg2.do?menuno=${menuListVO.menuNo}"/></div></td>
@@ -195,8 +198,9 @@ font {
 		     <input type="hidden" name="action" value="ADD">
 		</tr>
 		</tbody> 
-		 </form>
- 	</c:forEach>
+		</form>
+
+</c:forEach>
 </table>
 	
 

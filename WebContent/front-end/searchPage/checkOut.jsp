@@ -192,9 +192,9 @@ font {
 		</tbody>
 	</table><br><br>
 	<table class="table1">
-	      <tr><td>信用卡號碼：&nbsp;<input type="text" class="creditnumber" name="c1" maxlength="4" size="4">&nbsp;-&nbsp;<input type="text" class="creditnumber" maxlength="4" size="4">&nbsp;-&nbsp;<input type="text" class="creditnumber" maxlength="4" size="4">&nbsp;-&nbsp;<input type="text" class="creditnumber" maxlength="4" size="4"></td></tr>
-	      <tr><td>到期年月：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="exDate" class="creditnumber" maxlength="2" size="2"> &nbsp;/&nbsp;<input type="text" class="creditnumber" maxlength="2" size="2"></td></tr>
-	      <tr><td>卡背末三碼：&nbsp;<input type="text" name="security" maxlength="3" size="3"></td></tr>
+	      <tr><td><font>信用卡號碼：&nbsp;<input type="text" class="creditnumber" name="c1" maxlength="4" size="4">&nbsp;-&nbsp;<input type="text" class="creditnumber" maxlength="4" size="4">&nbsp;-&nbsp;<input type="text" class="creditnumber" maxlength="4" size="4">&nbsp;-&nbsp;<input type="text" class="creditnumber" maxlength="4" size="4"></font></td></tr>
+	      <tr><td><font>到期年月：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="exDate" class="creditnumber" maxlength="2" size="2"> &nbsp;/&nbsp;<input type="text" class="creditnumber" maxlength="2" size="2"></font></td></tr>
+	      <tr><td><font>卡背末三碼：&nbsp;<input type="text" name="security" maxlength="3" size="3"></font></td></tr>
  	</table>
 	<br><br>
     <h4><font>送餐地址:</font><%=deliverAddr%></h4> <br><br>

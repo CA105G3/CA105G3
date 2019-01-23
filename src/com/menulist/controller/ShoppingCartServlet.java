@@ -18,6 +18,7 @@ import com.memberchef.model.MemberChefVO;
 import com.menulist.model2.MenuListService;
 import com.menulist.model2.MenuListVO;
 import com.orderdetail.model.OrderDetailVO;
+import com.sun.glass.ui.delegate.MenuDelegate;
 
 public class ShoppingCartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -71,8 +72,26 @@ public class ShoppingCartServlet extends HttpServlet {
 				}
 
 				/*************************** 2.開始查詢資料 *****************************************/
+				
+				Date today = new Date(System.currentTimeMillis());
+				/*for (int i = 0; i < menuListVOList.size(); i++) {
+					MenuListVO menuListVO = menuListVOList.get(i);
+					Date menuDate = menuListVO.getMenuDate();
+					if (menuDate.before(today)) {
+						menuDate = today;
+					}
+				}*/
+				
 				MenuListService menuListSvc = new MenuListService();
 				List<MenuListVO> menuListVOList = (List<MenuListVO>) menuListSvc.findByChefName(chefName);
+				
+				List<MenuListVO> menuListVOList2=new ArrayList<MenuListVO>();
+				
+				menuListVOList.stream().filter(menulistvo->menulistvo.getMenuDate().after(today)).forEach(menulistvo->menuListVOList2.add(menulistvo));
+				
+				
+				
+				
 	System.out.println("menuListVOList.size()="+menuListVOList.size()); 
 	System.out.println(chefName); 
 				if (menuListVOList == null) {
@@ -86,7 +105,7 @@ public class ShoppingCartServlet extends HttpServlet {
 				}
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("menuListVOList", menuListVOList); // 資料庫取出的foodOrderVO物件,存入req
+				req.setAttribute("menuListVOList", menuListVOList2); // 資料庫取出的foodOrderVO物件,存入req
 				req.setAttribute("chefName", chefName); // 資料庫取出的foodOrderVO物件,存入req
 				
 				String url = "/front-end/searchPage/listAllMenuByChef.jsp";
@@ -188,10 +207,7 @@ public class ShoppingCartServlet extends HttpServlet {
 				req.setAttribute("errorMsgs", errorMsgs);
 	System.out.println("action : "+ action);
 				try {
-//					String memno = req.getParameter("memno");
-//					if(memno == null || memno.trim().length() == 0) {
-//						errorMsgs.add("會員編號不可空白");
-//					}
+					
 					String deliverAddr = req.getParameter("deliverAddr");
 					String total = req.getParameter("total");
 	System.out.println("-----" + total);

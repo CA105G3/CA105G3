@@ -189,6 +189,7 @@ font {
 			 int unitPrice = order.getUnitPrice();
 			 int amount = order.getAmount();
 			 String menuListNo = order.getMenuListNo();
+			 
 	%>
 		<tbody>
 		<tr>
@@ -227,7 +228,7 @@ font {
 <!--     	<p style="text-align:center;"> -->
     		<center><h2><font>目前您的購物車是空的!</font><img src="<%=request.getContextPath()%>/front-end/searchPage/images/shock.png" width="35" height="35"></h2>
     		<br><h5><font>請按下圖回到訂餐頁面</font></h5><br>
-    		<a href='<%=request.getContextPath()%>/front-end/searchPage/listAllMenuByChef.jsp'>
+    		<a href='<%=request.getContextPath()%>/front-end/memberchef/listAllChef.jsp'>
     		<img src="<%=request.getContextPath()%>/front-end/searchPage/images/emptycart.jpg"></a></center>
 <!--     	</div> -->
     <%} %>
@@ -301,6 +302,7 @@ font {
     <script src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script>
     <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
 </body>
+
 <script>
 	function showAddr(){
 		document.getElementById("address").style.display='';
