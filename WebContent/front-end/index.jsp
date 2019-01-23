@@ -544,10 +544,10 @@ $("#zipcode3").twzipcode({
   function myeasyfilup(){
 	  $('#sign_account').val("");
 	  $('#sign_password').val("123456");
-	  $('#sign_name').val("");
+	  $('#sign_name').val("王小斑");
 	  $('#birth_date').val("1985-01-01");
 	  $('#sign_email').val("2018ca105g3@gmail.com");
-	  $('#sign_phone').val("");//立軒手機號碼
+	  $('#sign_phone').val("0988797475");//立軒手機號碼
 	  $('#sign_address').val("中大路200號");
 	  $('#sign_medhistory').val("無");
 	  $('#sign_famhistory').val("無");
