@@ -21,7 +21,7 @@ import javax.servlet.http.Part;
 import com.impression.model.ImpressionService;
 import com.impression.model.ImpressionVO;
 
-@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 1024, maxRequestSize = 1024 * 1 * 1024 * 1024)
 public class ImpressionServlet extends HttpServlet{
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -255,6 +255,7 @@ public class ImpressionServlet extends HttpServlet{
 						InputStream in2 = part.getInputStream();
 						recvideo = toByteArray(in2);
 						System.out.println("321");
+						System.out.println(recvideo.length);
 //					}
 
 				byte[] recpic = null;

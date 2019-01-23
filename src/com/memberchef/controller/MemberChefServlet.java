@@ -299,6 +299,7 @@ public class MemberChefServlet extends HttpServlet {
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 //				req.setAttribute("chefVO", chefVO); // 資料庫取出的chefVO物件,存入req
 				session.setAttribute("chefVO", chefVO);
+				session.setAttribute("chefNo", chefVO.getChefNo());
 				String url = "/front\u002dend/memberchef/memberchef.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
