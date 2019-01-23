@@ -438,10 +438,10 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO memberchef VALUES ('CHEF'||lpad(to_char(memberchef_seq.NEXTVAL), 4, '0'),'M0011','孫小美','愛的廚房',NULL,'人家最擅長的就是愛的料理','啓用','03987456','中央大學內','阿土伯');
-INSERT INTO memberchef VALUES ('CHEF'||lpad(to_char(memberchef_seq.NEXTVAL), 4, '0'),'M0012','超級鯉魚王','生猛海鮮',NULL,'全宇宙最生猛的海鮮','啓用',756629600,'西太平洋馬里亞那海溝','波賽頓');
-INSERT INTO memberchef VALUES ('CHEF'||lpad(to_char(memberchef_seq.NEXTVAL), 4, '0'),'M0013','小噹家','洋泉大酒家',NULL,'廣東省廣州市最具知名的第一餐館，中壢分館是邁向征服全世界的海外首間分館','啓用',11469883,'四川省成都菊上樓','及第師傅');
-INSERT INTO memberchef VALUES ('CHEF'||lpad(to_char(memberchef_seq.NEXTVAL), 4, '0'),'M0014','老皮','真心鎮',NULL,'今年10歲，卻擁有21年料理經歷的男人','啓用',55469883,'真心鎮','小小智');
+INSERT INTO memberchef VALUES ('CHEF'||lpad(to_char(memberchef_seq.NEXTVAL), 4, '0'),'M0021','孫小美','愛的廚房',NULL,'人家最擅長的就是愛的料理','啓用','03987456','中央大學內','阿土伯');
+INSERT INTO memberchef VALUES ('CHEF'||lpad(to_char(memberchef_seq.NEXTVAL), 4, '0'),'M0022','超級鯉魚王','生猛海鮮',NULL,'全宇宙最生猛的海鮮','啓用',756629600,'西太平洋馬里亞那海溝','波賽頓');
+INSERT INTO memberchef VALUES ('CHEF'||lpad(to_char(memberchef_seq.NEXTVAL), 4, '0'),'M0023','小噹家','洋泉大酒家',NULL,'廣東省廣州市最具知名的第一餐館，中壢分館是邁向征服全世界的海外首間分館','啓用',11469883,'四川省成都','及第師傅');
+INSERT INTO memberchef VALUES ('CHEF'||lpad(to_char(memberchef_seq.NEXTVAL), 4, '0'),'M0024','老皮','真心料理',NULL,'今年10歲，卻擁有21年料理經歷的男人','啓用',55469883,'真心鎮','小小智');
 
 -----------------------------------------------
 -- create menu OK
@@ -466,18 +466,18 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','60','滿漢全席',NULL,'可送餐',NULL);
-INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','600','滿漢全席',NULL,'可送餐',NULL);
-INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','20','燒肉飯桶',NULL,'可送餐',NULL);
-INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','30','宅男咖哩',NULL,'可送餐',NULL);
-INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','50','珍珠爆乳茶',NULL,'可送餐',NULL);
-INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','60','飛天紅豆湯',NULL,'可送餐',NULL);
-INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','99','火焰炸雞',NULL,'可送餐',NULL);
-INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','138','阿嬤漢堡',NULL,'可送餐',NULL);
-INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','199','尼古丁比薩',NULL,'可送餐',NULL);
-INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','66','昇天河豚鍋',NULL,'可送餐',NULL);
-INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','45','氫酸鉀咖啡',NULL,'可送餐',NULL);
-INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','87','超級三寶飯',NULL,'可送餐',NULL);
+INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0003,'60','滿漢全席',NULL,'可送餐','一生一定要吃一次');
+INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','600','滿漢全席',NULL,'可送餐','一生一定要吃一次');
+INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','20','燒肉飯桶',NULL,'可送餐','保證沒有豬瘟的燒肉');
+INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','30','宅男咖哩',NULL,'可送餐','不是宅男也會愛上的咖哩');
+INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','50','珍珠爆乳茶',NULL,'可送餐','塑身效果十足');
+INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','60','飛天紅豆湯',NULL,'可送餐','好喝到飛天');
+INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','99','火焰炸雞',NULL,'可送餐','吃了會噴火der');
+INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','138','阿嬤漢堡',NULL,'可送餐','連我阿嬤都愛吃');
+INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','199','尼古丁比薩',NULL,'可送餐','絕對會上癮，快來試一試');
+INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','66','昇天河豚鍋',NULL,'可送餐','新品種無毒河豬鍋');
+INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','45','氫酸鉀咖啡',NULL,'可送餐','助眠效果一流！');
+INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','87','超級三寶飯',NULL,'可送餐','不是那個三寶的三寶飯');
 
 -----------------------------------------------
 -- create menulist OK
@@ -499,38 +499,14 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190220','YYYYMMDD'),'早');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190225','YYYYMMDD'),'早');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190105','YYYYMMDD'),'午');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190105','YYYYMMDD'),'晚');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190105','YYYYMMDD'),'早');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190109','YYYYMMDD'),'晚');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190122','YYYYMMDD'),'早');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190122','YYYYMMDD'),'午');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190106','YYYYMMDD'),'早');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190106','YYYYMMDD'),'午');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190107','YYYYMMDD'),'晚');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190108','YYYYMMDD'),'早');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190109','YYYYMMDD'),'午');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190110','YYYYMMDD'),'晚');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190111','YYYYMMDD'),'早');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190112','YYYYMMDD'),'午');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190113','YYYYMMDD'),'晚');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190114','YYYYMMDD'),'晚');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190114','YYYYMMDD'),'午');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190114','YYYYMMDD'),'早');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190119','YYYYMMDD'),'晚');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190119','YYYYMMDD'),'早');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190119','YYYYMMDD'),'午');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190130','YYYYMMDD'),'晚');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190113','YYYYMMDD'),'早');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190131','YYYYMMDD'),'早');
-INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190117','YYYYMMDD'),'午');
+INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190123','YYYYMMDD'),'午');
+INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190124','YYYYMMDD'),'午');
+INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190220','YYYYMMDD'),'晚');
+INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menulist_seq.NEXTVAL), 4, '0'),to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.CURRVAL), 4, '0'),TO_DATE('20190221','YYYYMMDD'),'晚');
 
 -----------------------------------------------
 -- create foodorder OK
------------------------------------------------
-CREATE TABLE foodorder(
+-----------------------------------------------CREATE TABLE foodorder(
     orderno     VARCHAR2(13 BYTE) NOT NULL ,
     memno       VARCHAR2(5 BYTE) NOT NULL ,
     deliveraddr VARCHAR2(60 BYTE) ,
@@ -550,7 +526,7 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO foodorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(foodorder_seq.NEXTVAL), 4, '0'),'M0001','中央大學','CHEF0001','接受',current_timestamp);
+INSERT INTO foodorder VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(foodorder_seq.NEXTVAL), 4, '0'),'M0001','威尼斯影城','CHEF0001','接受',current_timestamp);
 
 -----------------------------------------------
 -- create orderdetail OK
