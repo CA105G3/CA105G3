@@ -287,8 +287,8 @@ INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0013','M0011',1);
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0013','M0015',1);
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0013','M0016',1);
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0013','M0018',1);
-INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0013','M0015',1);
-INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0013','M0015',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0013','M0007',1);
+INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0013','M0008',1);
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0014','M0004',1);
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0014','M0001',1);
 INSERT INTO joinact(actno,memno,joinstatus)VALUES('ACT0014','M0014',1);
@@ -466,7 +466,7 @@ NOMAXVALUE
 NOCYCLE
 NOCACHE;
 
-INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0003,'60','滿漢全席',NULL,'可送餐','一生一定要吃一次');
+INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0003','60','滿漢全席',NULL,'可送餐','一生一定要吃一次');
 INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','600','滿漢全席',NULL,'可送餐','一生一定要吃一次');
 INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','20','燒肉飯桶',NULL,'可送餐','保證沒有豬瘟的燒肉');
 INSERT INTO menu VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_char(menu_seq.NEXTVAL), 4, '0'),'CHEF0001','30','宅男咖哩',NULL,'可送餐','不是宅男也會愛上的咖哩');
@@ -506,7 +506,8 @@ INSERT INTO menulist VALUES (to_char(current_date, 'YYYYMMDD')||'-'||lpad(to_cha
 
 -----------------------------------------------
 -- create foodorder OK
------------------------------------------------CREATE TABLE foodorder(
+-----------------------------------------------
+CREATE TABLE foodorder(
     orderno     VARCHAR2(13 BYTE) NOT NULL ,
     memno       VARCHAR2(5 BYTE) NOT NULL ,
     deliveraddr VARCHAR2(60 BYTE) ,
