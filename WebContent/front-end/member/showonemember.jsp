@@ -129,13 +129,13 @@
 				<th><p>會員狀態</p></th><td><%=memVO.getMemStatus()%></td>
 			</tr>
 			<tr>
-				<th><p>過往病史</p></th><td><%=memVO.getMedHistory()%></td>
+				<th><p>過往病史</p></th><td><%=(memVO.getMedHistory()==null)?"無":memVO.getMedHistory()%></td>
 			</tr>
 			<tr>
-				<th><p>家族病史</p></th><td><%=memVO.getFamHistory()%></td>
+				<th><p>家族病史</p></th><td><%=(memVO.getFamHistory()==null)?"無":memVO.getFamHistory()%></td>
 			</tr>
 			<tr>
-				<th><p>過敏記錄</p></th><td><%=memVO.getAllergy()%></td>
+				<th><p>過敏記錄</p></th><td><%=(memVO.getAllergy()==null)?"無":memVO.getAllergy()%></td>
 			</tr>
 			<tr>
 				<th><p>是否抽菸</p></th><td><%=memVO.getSmoking()%></td>

@@ -98,7 +98,7 @@
 					</tr>
 					<tr>
 						<th><p>上傳照片</p></th>
-						<td><input type="file" class="custom-file-input" name="memPic" onchange="loadFile(event)"/></td>
+						<td><input type="file" class="form-control" name="memPic" onchange="loadFile(event)"/></td>
 					</tr>
 					<tr>
 						<td><p>會員編號:</p></td>
@@ -156,21 +156,21 @@
 					</tr>
 					<tr>
 						<td><p>過往病史:</p></td>
-						<td><input name="medhistory" type="text" value="<%=memVO.getMedHistory()%>"></td>
+						<td><input name="medhistory" type="text" value="<%=(memVO.getMedHistory()==null)?"無":memVO.getMedHistory()%>"></td>
 					</tr>
 					<tr>
 						<td><p>家族病史:</p></td>
-						<td><input name="famhistory" type="text" value="<%=memVO.getFamHistory()%>"></td>
+						<td><input name="famhistory" type="text" value="<%=(memVO.getFamHistory()==null)?"無":memVO.getFamHistory()%>"></td>
 					</tr> 
 					<tr>
 						<td><p>過敏記錄:</p></td>
-						<td><input name="allergy" type="text" value="<%=memVO.getAllergy()%>"></td>
+						<td><input name="allergy" type="text" value="<%=(memVO.getAllergy()==null)?"無":memVO.getAllergy()%>"></td>
 					</tr>
 					<tr>
 						<td><p>是否抽菸:</p></td>
 						<td><select name="smoking">
-							<option value="有" ${(memVO.gender=='有')?'selected':''}>有</option>
-							<option value="沒有" ${(memVO.gender=='沒有')?'selected':''}>沒有</option>
+							<option value="有" ${(memVO.smoking=='有')?'selected':''}>有</option>
+							<option value="沒有" ${(memVO.smoking=='沒有')?'selected':''}>沒有</option>
 							</select>
 						</td>
 					</tr>
