@@ -256,9 +256,11 @@ public class DravailableServlet extends HttpServlet {
 				Calendar currentCal = Calendar.getInstance();
 				int hour = currentCal.get(Calendar.HOUR_OF_DAY);
 				int date = currentCal.get(Calendar.DAY_OF_MONTH)-1;
+				String currentMonth = req.getParameter("currentMonth");
 				System.out.println(date);
 				System.out.println(hour);//早上九點是09
-				if(index / 3 == date && hour >= clock ) {
+				System.out.println(currentMonth);
+				if(index / 3 == date && hour >= clock && "yes".equals(currentMonth) ) {
 					System.out.println("今天已過此時段");
 					obj.put("notToday", true);
 					out.print(obj);

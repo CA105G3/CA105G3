@@ -22,7 +22,7 @@ import java.sql.SQLException;
 
 public class BLOB_Oracle {
 	
-	private static final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
+	private static final String URL = "jdbc:oracle:thin:@34.80.183.176:1521:XE";
 	private static final String USER = "CA105G3";
 	private static final String PASSWORD = "123456";
 	private static final String picDirPath = "WebContent/Imgs";

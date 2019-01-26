@@ -147,7 +147,7 @@
   border-radius: 4px;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
           box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-/*    width: fit-content; */
+   width: fit-content;
 }
 </style>
 
@@ -415,6 +415,7 @@
 							vx : element.children[4].value,
 							index : element.children[5].value,
 							clock : element.children[6].value,
+							currentMonth : "yes",
 						};
 					$.ajax({
 						url : '<%=request.getContextPath()%>/doctoravailable/dravailable.do' ,
